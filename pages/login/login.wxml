@@ -1,4 +1,48 @@
-<!--pages/login/login.wxml-->
-<view>pages/login/login.wxml 3232 <orderItem></orderItem>
-  <button bindtap="toIndex">去首页</button>
+<view class="login_container">
+    <view class="user_logo">
+        <view class="user_avatar">
+            <image class="userinfo-logIcon" src="{{logIcon}}"></image>
+        </view>
+    </view>
+    <view class="form-wrapper">
+        <!-- 表单头部tab -->
+        <view class="tabs">
+        <van-tabs active="{{ active }}" bind:change="onChange" color="#03c173">
+              <van-tab title="快捷登录">
+       <form bindsubmit="formSubmit" class="form">
+           <view class="form_inp">
+            <view class="input-area">
+ <view class="input-log">
+     <van-cell-group>
+         <van-field value="{{ phone }}" label="手机号" placeholder="请输入手机号" error-message="手机号格式错误" border />
+     </van-cell-group>
+     <van-cell-group>
+         <van-field value="{{ sms }}" center clearable label="短信验证码" placeholder="请输入验证码" border use-button-slot>
+             <van-button slot="button" size="small" type="primary">
+              发送验证码 </van-button>
+          </van-field>
+           </van-cell-group>
+             </view>
+         </view>
+         <view class="btn-area">
+        <van-button type="primary" size="large" class="btn-area">登录</van-button>
+                        </view>
+                    </view>
+                </form>
+               <view class='tips'>未注册手机验证后自动注册</view> 
+            <view class="logo_btn">    ------------ 第三方登录 ------------
+                <button open-type="getUserInfo"  bindgetuserinfo="handleGetUserInfo">2</button>
+                 </view>
+            <view class="protocol">
+             <van-checkbox  shape="square" value="{{ checked }}" checked-color="#07c160"   bind:change="onChangebtn">
+                   我同意    
+               </van-checkbox>
+               <navigator> 用户使用协议</navigator>
+            </view>
+            </van-tab>
+            <van-tab title="密码登录">内容 2</van-tab>
+        </van-tabs>
+          </view>    
+    </view>
+  
 </view>

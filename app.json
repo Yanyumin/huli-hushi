@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/login/login",
+
+    "pages/index/index",
     "pages/logs/logs"
   ],
   "tabBar": {
@@ -43,6 +44,11 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
-    "van-button": "vant-weapp/button"
+    "van-button": "vant-weapp/button",
+    "van-field": "vant-weapp/field",
+     "van-tab": "vant-weapp/tab",
+     "van-tabs": "vant-weapp/tabs",
+     "van-checkbox": "vant-weapp/checkbox",
+     "van-checkbox-group": "vant-weapp/checkbox-group"
   }
 }
