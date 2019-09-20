@@ -1,1 +1,49 @@
 /* components/serviceItem/serviceItem.wxss */
+.thisProject {
+  padding: 30rpx 0;
+  font-size: 30rpx;
+  display: flex;
+  border-bottom: 1px solid #e5e5e5;
+}
+.imgBox {
+  width: 150rpx;
+  height: 150rpx;
+}
+.imgBox image {
+  width: 100%;
+  height: 100%;
+}
+.projectInfo {
+  margin-left: 30rpx;
+  flex: 1;
+}
+.projectInfo .projectName {
+  font-weight: 600;
+}
+.projectInfo .projectDesc {
+  color: #666;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.projectInfo .timeAndPrice {
+  color: #666;
+  font-size: 28rpx;
+  line-height: 60rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.iconfont {
+  width: 34rpx;
+  height: 34rpx;
+  vertical-align: -5rpx;
+}
+.time{
+  line-height: 60rpx;
+}
+.price {
+  font-size: 36rpx;
+  color: orange
+}

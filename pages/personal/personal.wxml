@@ -1,0 +1,6 @@
+<!--pages/personal/personal.wxml-->
+<view class="container">
+  <view class="headerBox">
+    <image src="../../img/userNo.png" />
+  </view>
+</view>

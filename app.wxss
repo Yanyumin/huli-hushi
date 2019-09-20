@@ -5,6 +5,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
+  padding: 0 20rpx;
   box-sizing: border-box;
 } 
+
+.clear:after{
+  content:"";
+  display:block;
+  clear:both;
+}
+.clear{
+  zoom:1
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}

@@ -1,2 +1,19 @@
 <!--components/serviceItem/serviceItem.wxml-->
-<text>components/serviceItem/serviceItem.wxml</text>
+<view class='serviceItemContainer'> 
+  <view class='thisProject haveBorderBottom' wx:for-items="{{datas}}" wx:key="index" data-index="{{item.id}}" bindtap="clickService">
+    <view class='imgBox'>
+      <image src="{{item.proLogo}}" />
+    </view>
+    <view class="projectInfo">
+      <view class='projectName'>{{item.proName}}</view>
+      <view class='projectDesc'>{{item.proDesc}}</view>
+      <view class="timeAndPrice">
+        <view class="time">
+          <image class="iconfont" src="../../img/time-color.png" />
+          {{item.time}}分钟
+        </view>
+        <text class="price">￥{{item.price}}</text>
+      </view>
+    </view>
+  </view>
+</view>

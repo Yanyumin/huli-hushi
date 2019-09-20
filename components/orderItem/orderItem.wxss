@@ -1,1 +1,84 @@
 /* components/orderItem/orderItem.wxss */
+.orderItem {
+  background: #fff;
+  border-bottom: 1px dashed #f2f2f2;
+}
+.orderNum {
+  font-size: 30rpx;
+  padding: 0 24rpx;
+  line-height: 68rpx;
+  display: flex;
+  justify-content: space-between
+}
+.orderNum .iconfont {
+  width: 34rpx;
+  height: 34rpx;
+  vertical-align: middle;
+}
+.orderNum .status {
+  color: #03bf72;
+}
+.orderInfo {
+  display: flex;
+  font-size: 30rpx;
+  padding: 10rpx 24rpx;
+}
+.orderInfo .imgBox {
+  height: 144rpx;
+  width: 144rpx;
+}
+.orderInfo .imgBox image {
+  height: 100%;
+  width: 100%;
+}
+.info {
+  flex: 1;
+  margin-left: 28rpx;
+}
+.info .name {
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between
+}
+.info .name .price {
+  color: orange;
+  font-size: 34rpx;
+}
+.info .time {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 28px;
+  margin-bottom: 34rpx;
+}
+.info .amountPrice {
+  color: #666;
+}
+.info .amountPrice .price {
+  color: orange;
+  font-size: 38rpx
+}
+.orderHandle {
+  text-align: right;
+  padding: 28rpx;
+  line-height: 0;
+  position: relative;
+  height: 44rpx;
+}
+.acceptBtn {
+  right: 244rpx !important;
+}
+.cancelBtn {
+  background: #666 !important;
+}
+.orderHandle button{
+  position: absolute;
+  top: -12rpx;
+  right: 28rpx;
+  background: #03bf72;
+  line-height: 60rpx;
+  border-radius: 34rpx;
+  width: 164rpx;
+  color: #fff;
+  font-size: 30rpx;
+  border: 0;
+}

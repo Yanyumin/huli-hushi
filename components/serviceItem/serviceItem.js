@@ -4,7 +4,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    datas: {
+      type: Array,
+      value: []
+    }
   },
 
   /**
@@ -18,6 +21,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    clickService (e) {
+      this.triggerEvent('clickService', { value: e.currentTarget.dataset['index'] });
+    }
   }
 })
