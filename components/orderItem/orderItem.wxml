@@ -1,0 +1,26 @@
+<!--components/orderItem/orderItem.wxml-->
+<view class="orderContainer">
+  <view class="orderItem">
+    <view class="orderInfo">
+      <view class="orderNum">
+        订单编号：v12345613
+      </view>
+      <view class="orderStatus">
+        待确认
+      </view>
+    </view>
+    <view class='orderDesc'>
+      <view class="imgBox">
+        <image src="../../img/cvr.png"></image>
+      </view>
+      <view class="desc">
+        <view class="name">偏瘫康复</view>
+        <view class="time">2019-09-12 12:00</view>
+        <view class="name">
+          <text class="amount">数量：1份</text>
+          <text class="price">￥328.00</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
