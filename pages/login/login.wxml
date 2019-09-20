@@ -1,4 +1,4 @@
 <!--pages/login/login.wxml-->
-<view>pages/login/login.wxml <orderItem></orderItem>
+<view>pages/login/login.wxml 3232 <orderItem></orderItem>
   <button bindtap="toIndex">去首页</button>
 </view>
