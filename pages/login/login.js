@@ -2,20 +2,24 @@ var util = require("../../utils/util.js");
 var myMessage = "";
 Page({
     data: {
-          checked: true,
-           active:0,
-        loginBtnTxt: "登录",
-        myMessage: "",
-        loginBtnBgBgColor: "#0099FF",
-        btnLoading: false,
-        disabled: false,
-        inputUserName: '',
-        inputPassword: '',
-        avatarUrl: "../../img/users.png",
+        errMsg:false,
+        user_pro:"<<用户使用协议>>",
+         checked: true,
+        active:1,
         logIcon: "../../img/tab-personal-gray.png",
         // pwdIcon: "../../static/tabs/my-o.png",
-        curNav: 1,
-        curIndex: 0
+    },
+    handlePhone(e){
+   console.log(e.detail.value);
+  let val = e.detail.value
+  let phone = /^1(3|4|5|7|8)\d{9}$/
+ if (phone.test(val)) {
+     return true
+ }else{
+this.setData({
+    errMsg:true
+})
+ }
     },
     onChangebtn(event) {
         this.setData({
@@ -42,14 +46,8 @@ Page({
         // 页面初始化 options为页面跳转所带来的参数
         wx.clearStorageSync(); //清除缓存
     },
-     toIndex() {
-         wx.switchTab({
-                 url: '../index/index',
-             }
-
-         )
-     },
-    formSubmit: function (e) { //form提交内容 对登录信息做判断
+  
+    formSubmit(e) { //form提交内容 对登录信息做判断
         var param = e.detail.value;
         this.mysubmit(param);
         console.log("登录页提交", param)

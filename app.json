@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/login/login",
-
     "pages/index/index",
     "pages/logs/logs",
-    "pages/personal/personal"
+    "pages/personal/personal",
+    "pages/register/register"
   ],
   "tabBar": {
     "color": "#a9b7b7",
@@ -47,9 +47,11 @@
   "usingComponents": {
     "van-button": "vant-weapp/button",
     "van-field": "vant-weapp/field",
-     "van-tab": "vant-weapp/tab",
-     "van-tabs": "vant-weapp/tabs",
-     "van-checkbox": "vant-weapp/checkbox",
-     "van-checkbox-group": "vant-weapp/checkbox-group"
+    "van-tab": "vant-weapp/tab",
+    "van-tabs": "vant-weapp/tabs",
+    "van-checkbox": "vant-weapp/checkbox",
+    "van-checkbox-group": "vant-weapp/checkbox-group",
+    "van-icon": "vant-weapp/icon",
+    "van-toast": "vant-weapp/toast"
   }
 }

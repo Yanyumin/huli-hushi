@@ -1,0 +1,19 @@
+.register-container .from-container{
+    padding: 0 10rpx 50rpx 10rpx;
+}
+.register-container .btn{
+    width: 500rpx;
+    margin:0 auto;
+    margin-bottom: 50rpx;
+}
+ .protocol {
+    display: flex;
+    padding: 50rpx;
+    margin-left: 15%;
+}
+
+ .protocol .user_pro {
+    color: #3f4542;
+    font-size: 25rpx;
+    margin-left: 10%
+}
