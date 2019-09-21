@@ -1,52 +1,114 @@
-var util = require("../../utils/util.js");
-var myMessage = "";
+import Toast from 'vant-weapp/toast/toast';
+
 Page({
     data: {
-        errMsg:false,
-        user_pro:"<<用户使用协议>>",
-         checked: true,
-        active:1,
+        phone_name: '',
+        password: '',
+        sms: '',
+        phone: '',
+        user_pro: "<<用户使用协议>>",
+        checked: false,
+        checked_password: false,
+        active: 1,
         logIcon: "../../img/tab-personal-gray.png",
-        // pwdIcon: "../../static/tabs/my-o.png",
     },
-    handlePhone(e){
-   console.log(e.detail.value);
-  let val = e.detail.value
-  let phone = /^1(3|4|5|7|8)\d{9}$/
- if (phone.test(val)) {
-     return true
- }else{
-this.setData({
-    errMsg:true
-})
- }
+    onChangeLogin() {
+        if (!this.data.phone_name) {
+            Toast.fail('请输入用户名/手机号');
+        } else if (!this.data.password) {
+            Toast.fail('请输入密码');
+        } else if (!this.data.checked) {
+            Toast.fail('请勾选同意下方使用协议');
+        } else if (this.data.phone_name == "admin" && this.data.password == "123") {
+
+            // 这里修改成跳转的页面
+            wx.showToast({
+                title: '登录成功',
+                icon: 'success',
+                duration: 2000,
+                success: function () {
+                    wx.switchTab({
+                        url: '../index/index'
+                    })
+                }
+            })
+        } else {
+
+            wx.showToast({
+
+                title: '登录失败',
+
+                icon: 'none',
+
+                duration: 2000
+
+            })
+        }
+        return true;
+
     },
-    onChangebtn(event) {
+    handleLogin() {
+        console.log("登录");
+        let phoneRes = /^1(3|4|5|7|8)\d{9}$/
+        if (this.data.phone == '' || this.data.phone == undefined) {
+            Toast.fail('请输入手机号');
+        } else if (!phoneRes.test(this.data.phone)) {
+            Toast.fail('手机号码格式不正确');
+        } else if (this.data.sms == '' || this.data.sms == undefined) {
+            Toast.fail('请输入验证码');
+        } else if (!this.data.checked) {
+            Toast.fail('请勾选同意下方使用协议');
+        }
+        return true;
+    },
+    onChangePhone(e) {
+        this.setData({
+            phone_name: e.detail,
+        })
+    },
+    handlePassword(e) {
+        this.setData({
+            password: e.detail,
+        })
+    },
+    handleSms(e) {
+        this.setData({
+            password: e.detail,
+        })
+    },
+    handlePhone(e) {
+        console.log(e.detail);
+        this.setData({
+            phone: e.detail,
+        })
+
+    },
+    handlebtn(event) {
         this.setData({
             checked: event.detail
         });
     },
-      handleGetUserInfo(e) {
-          console.log(e.detail.userInfo);
-          
-          wx.setStorageSync("userinfo", e.detail.userInfo);
-          // 1 跳转回上一页
+    handleGetUserInfo(e) {
+        console.log(e.detail.userInfo);
+
+        wx.setStorageSync("userinfo", e.detail.userInfo);
+        // 1 跳转回上一页
         //   wx.navigateBack({
         //       delta: 1
         //   });
 
-      },
-  onChange(event) {
-      wx.showToast({
-          title: `切换到标签 ${event.detail.index + 1}`,
-          icon: 'none'
-      });
-  },
+    },
+    onChangeTab(event) {
+        wx.showToast({
+            title: `切换到标签 ${event.detail.index + 1}`,
+            icon: 'none'
+        });
+    },
     onLoad: function (options) {
         // 页面初始化 options为页面跳转所带来的参数
         wx.clearStorageSync(); //清除缓存
     },
-  
+
     formSubmit(e) { //form提交内容 对登录信息做判断
         var param = e.detail.value;
         this.mysubmit(param);

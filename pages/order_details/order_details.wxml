@@ -1,0 +1,41 @@
+        <view class="first_tab">
+<Tabs bindtitleChange="handleTitleChange" tabs="{{tabs}}">
+    <block wx:if="{{tabs[0].isActive}}">
+                      <view class="order_details">
+               <van-row class="service">
+                   <van-col span="12" class="ser_icon">
+                       <van-icon name="notes-o" />
+                       服务项目
+                   </van-col>
+                   <van-col class="number" span="12">span2122122128</van-col>
+               </van-row>
+               <!-- 服务项目开始 -->
+               <view class="cart_main_list">
+                   <view class="cart_item">
+                       <!-- 图片 -->
+                       <view class="cart_img_wrap">
+                           <image mode="widthFix" src="{{cart.goods_logo}}"></image>
+                       </view>
+                       <!-- 商品信息 -->
+                       <view class="cart_info_wrap">
+                           <!-- 名称 -->
+                           <view class="goods_name">{{cart.goods_name}}</view>
+                           <view class="goods_info">{{cart.goods_info}}</view>
+                           <view class="goods_time_wrap">
+                               <view class="goods_time">
+                                   <van-icon name="clock-o" />
+                                   {{cart.goods_time}}
+                               </view>
+                               <view class="goods_pirce">¥ {{cart.goods_price}}</view>
+                           </view>
+                       </view>
+                   </view>
+               </view>
+               <!-- 服务项目结束 -->
+           </view>
+    </block>
+    <block wx:elif="{{tabs[1].isActive}}">1-正在开发中。。。。</block>
+    <block wx:elif="{{tabs[2].isActive}}">2-正在开发中。。。。</block>
+</Tabs>
+</view>
+

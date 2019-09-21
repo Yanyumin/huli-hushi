@@ -1,10 +1,13 @@
 {
   "pages": [
+    "pages/order_details/order_details",
+
     "pages/login/login",
     "pages/index/index",
     "pages/logs/logs",
     "pages/personal/personal",
-    "pages/register/register"
+    "pages/register/register",
+    "pages/order/order"
   ],
   "tabBar": {
     "color": "#a9b7b7",
@@ -18,7 +21,7 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/order/order",
         "iconPath": "img/tab-ding-gray.png",
         "selectedIconPath": "img/tab-dingdan.png",
         "text": "我的订单"
@@ -52,6 +55,9 @@
     "van-checkbox": "vant-weapp/checkbox",
     "van-checkbox-group": "vant-weapp/checkbox-group",
     "van-icon": "vant-weapp/icon",
-    "van-toast": "vant-weapp/toast"
+    "van-toast": "vant-weapp/toast",
+     "van-row": "vant-weapp/row",
+     "van-col": "vant-weapp/col",
+      "van-card": "vant-weapp/card"
   }
 }
