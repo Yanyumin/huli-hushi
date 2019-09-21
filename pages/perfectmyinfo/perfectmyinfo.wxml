@@ -1,0 +1,102 @@
+<!--pages/perfectmyinfo/perfectmyinfo.wxml-->
+<view class="pageContainer">
+  <view class="headerBox cell">
+    <text>头像</text>
+    <view class="logoBox inputBox">
+      <image src="../../img/userNo.png" />
+      <van-icon name="arrow" />
+    </view>
+  </view>
+  <view class="cell">
+    <text>工作单位</text>
+    <view class="inputBox">
+       <van-field
+        value="{{ workUnit }}"
+        placeholder="请输入医院名称"
+        border="{{ false }}"
+        bind:change="workUnitOnChange"
+      />
+    </view>
+  </view>
+  <view class="cell">
+    <text>科室</text>
+    <view class="inputBox havePadding">
+      <picker bindchange="departBindChange" value="{{index}}" range="{{columns}}">
+        <view class="picker">{{depart}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="cell">
+    <text>姓名</text>
+    <view class="inputBox">
+       <van-field
+        value="{{ userName }}"
+        placeholder="请输入姓名"
+        border="{{ false }}"
+        bind:change="userNameChange"
+      />
+    </view>
+  </view>
+  <view class="cell">
+    <text>性别</text>
+    <view class="inputBox havePadding">
+      <picker bindchange="sexBindChange" value="{{index}}" range="{{sexClumn}}">
+        <view class="picker">{{sex}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="cell">
+    <text>出生日期</text>
+    <view class="inputBox havePadding">
+      <picker mode="date" value="{{birthday}}" start="1970-01-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{birthday}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="cell">
+    <text>身份证号</text>
+    <view class="inputBox">
+       <van-field
+        value="{{ cardNo }}"
+        placeholder="请输入身份证号"
+        border="{{ false }}"
+        bind:change="cardNoChange"
+        />
+    </view>
+  </view>
+  <view class="cell">
+    <text>手机号码</text>
+    <view class="inputBox">
+       <van-field
+        value="{{ phone }}"
+        placeholder="请输入手机号"
+        border="{{ false }}"
+        bind:change="phoneChange"
+      />
+    </view>
+  </view>
+  <view class="cell">
+    <text>联系地址</text>
+    <view class="inputBox">
+       <van-field
+        value="{{ address }}"
+        placeholder="请输入联系地址"
+        border="{{ false }}"
+        bind:change="addressChange"
+        />
+    </view>
+  </view>
+  <view class="cell">
+    <text>职称</text>
+    <view class="inputBox havePadding">
+      <picker bindchange="titleBindChange" value="{{title}}" range="{{titleClumns}}">
+        <view class="picker">{{title}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="handleBox">
+    <van-button round type="primary">保存</van-button>
+  </view>
+</view>

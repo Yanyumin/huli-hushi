@@ -1,0 +1,39 @@
+/* pages/perfectmyinfo/perfectmyinfo.wxss */
+.cell {
+  display: flex;
+  font-size: 28rpx;
+  border-bottom: 1px solid #e2e2e2;
+  line-height: 88rpx;
+  padding-left: 30rpx;
+}
+.headerBox {
+  height: 100rpx;
+  line-height: 100rpx;
+  justify-content: space-between;
+} 
+.cell text {
+  width: 130rpx;
+}
+.cell .inputBox {
+  flex: 1;
+}
+.logoBox {
+  text-align: right;
+  color: #666;
+}
+.logoBox image {
+  height: 60rpx;
+  width: 60rpx;
+  margin-right: 20rpx;
+  vertical-align: middle;
+}
+.havePadding {
+  padding: 0 30rpx;
+}
+.handleBox {
+  text-align: center;
+  margin-top: 40rpx;
+}
+.handleBox .van-button {
+  width: 80%;
+}
