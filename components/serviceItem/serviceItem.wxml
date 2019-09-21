@@ -9,7 +9,7 @@
       <view class='projectDesc'>{{item.proDesc}}</view>
       <view class="timeAndPrice">
         <view class="time">
-          <image class="iconfont" src="../../img/time-color.png" />
+         <van-icon name="clock-o" />
           {{item.time}}分钟
         </view>
         <text class="price">￥{{item.price}}</text>

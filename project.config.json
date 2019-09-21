@@ -64,6 +64,20 @@
 					"id": -1,
 					"name": "pages/order/order",
 					"pathName": "pages/order/order",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/expense/expense",
+					"pathName": "pages/expense/expense",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "耗材费",
+					"pathName": "pages/consumable/consumable",
 					"scene": null
 				}
 			]

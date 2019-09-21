@@ -1,0 +1,48 @@
+.consumable_content {
+    color: #717070;
+    font-size: 30rpx;
+}
+
+.consumable_content .consumable_title {
+    text-align: center;
+    padding: 20rpx 0;
+    background-color: #faf6f6;
+    display: flex;
+    line-height: 48rpx;
+}
+.consumable_content .consumable_title text {
+    flex: 1;
+}
+.consumable_list .info_content {
+    display: flex;
+    border-bottom: 1px solid #e5e5e5;
+    line-height: 80rpx;
+    /* padding: 20rpx 0; */
+
+}
+.consumable_list .info_content view {
+ flex: 1;
+}
+.consumable_list .info_content .consumable_name {
+    border-right: 1px solid #e5e5e5;
+    text-align: center;
+}
+
+.consumable_list .info_content .consumable_price {
+    text-align-last: center;
+    text-align: center;
+    position: relative;
+}
+
+.consumable_list .info_content .consumable_price .consumable_icon {
+    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10rpx;
+}
+
+.consumable_list .total {
+    color: orange;
+    font-size: 38rpx;
+}

@@ -1,0 +1,35 @@
+<view class="consumable_content">
+    <view class="consumable_title">
+        <text>费用名</text>
+        <text>数量</text>
+        <text>价格</text>
+    </view>
+    <view class="consumable_list">
+        <view class="info_content">
+            <view class="consumable_name">棉布</view>
+            <view class="consumable_name">
+                <van-stepper value="{{ 1 }}" bind:change="onChange" />
+            </view>
+            <view class="consumable_price">{{cloth}}</view>
+        </view>
+        <view class="info_content">
+            <view class="consumable_name">止 血 药</view>
+            <view class="consumable_num  consumable_name">
+                <van-stepper value="{{ 1 }}" bind:change="onChange" />
+            </view>
+            <view class="consumable_price">{{blood}}</view>
+        </view>
+        <view class="info_content">
+            <view class="consumable_name">麻醉药</view>
+            <view class="consumable_num  consumable_name">
+                <van-stepper value="{{ 1 }}" bind:change="onChange" />
+            </view>
+            <view class="consumable_price">{{narcosis}}</view>
+        </view>
+        <view class="info_content  total">
+            <view class="consumable_name"></view>
+            <view class="consumable_name   total">总计</view>
+            <view class="consumable_price">{{totalPrice}}</view>
+        </view>
+    </view>
+</view>

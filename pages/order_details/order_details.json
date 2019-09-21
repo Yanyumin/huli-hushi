@@ -1,5 +1,8 @@
 {
   "usingComponents": {
-      "Tabs": "../../components/Tabs/Tabs"
-  }
+      "Tabs": "../../components/Tabs/Tabs",
+      "serviceItem": "../../components/serviceItem/serviceItem"
+  },
+    "navigationBarTitleText": "订单详情"
+
 }

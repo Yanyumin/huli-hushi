@@ -1,0 +1,30 @@
+<view class="expense_content">
+    <view class="expense_title">
+        <text>费用名</text>
+        <text>价格</text>
+    </view>
+    <view class="expense_info">
+        <view class="info_content">
+            <view class="expense_info_name">上门 费</view>
+            <view class="expense_info_price">{{door}}</view>
+        </view>
+        <view class="info_content">
+            <view class="expense_info_name">服务费</view>
+            <view class="expense_info_price">{{serve}}</view>
+        </view>
+        <view class="info_content">
+            <view class="expense_info_name">保险费</view>
+            <view class="expense_info_price">{{insurance}}</view>
+        </view>
+        <view class="info_content" bindtap="onConsumable">
+            <view class="expense_info_name">耗材费</view>
+            <view class="expense_info_price">{{consumable}}
+            <van-icon name="arrow" class="expense_icon"/>
+            </view>
+        </view>
+        <view class="info_content  total">
+            <view class="expense_info_name   total">总计</view>
+            <view class="expense_info_price">{{totalPrice}}</view>
+        </view>
+    </view>
+</view>

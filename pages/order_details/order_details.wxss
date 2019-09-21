@@ -2,7 +2,7 @@
     padding: 10rpx;
 }
 .order_details .service{
-    font-size: 26rpx;
+    font-size: 28rpx;
    vertical-align:middle;
   
 }
@@ -12,56 +12,164 @@
 .order_details .number{
     text-align: right;
 }
- .cart_main_list .cart_item {
-    display: flex;
-    border-top: 1rpx solid #ccc;
-    border-bottom: 1rpx solid #ccc;
-   margin-top: 20rpx;
-}
 
- .cart_main_list .cart_item .cart_img_wrap {
-    flex: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
- .cart_main_list .cart_item .cart_img_wrap image {
-    width: 50%;
-}
-
- .cart_main_list .cart_item .cart_info_wrap {
-    flex: 4;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
- .cart_main_list .cart_item .cart_info_wrap .goods_info{
-    font-size: 25rpx;
-    color: #6d6b6b;
-    padding: 30rpx 0;
- }
-
- .cart_main_list .cart_item .cart_info_wrap .goods_name {
-  font-weight: 500
-}
-
- .cart_main_list .cart_item .cart_info_wrap .goods_time_wrap {
+.order_details .info_list{
     display: flex;
     justify-content: space-between;
-    vertical-align: middle;
-    align-content: space-between;
+    border-bottom: 1px solid #e5e5e5;
+    line-height: 50rpx;
+    padding: 20rpx 14rpx;
+}
+.order_details .info_list .info_title{
+    flex:4;
+}
+.order_details .info_list .info_name{
+    flex: 8;
+    font-size: 30rpx;
+    color: #606060;
+    justify-content: space-between;
+}
+.order_details .info_list .arrows{
+    text-align: right;
+}
+.order_details .info_list .paid{
+    text-align: right;
+    font-size: 26rpx;
+}
+.order_details .info_list .paid .paid_price{
+    color: orange;
+    font-size: 38rpx;
+}
+.first_tab .btn{
+    width: 400rpx;
+    margin: 20rpx auto;
+    background-color: #03c173
 }
 
- .cart_main_list .cart_item .cart_info_wrap .goods_time_wrap .goods_time {
-    font-size: 28rpx;
-    color: #6d6b6b
+.first_tab .prompt{
+    margin: 20rpx 0;
+    padding: 30rpx;
+   background-color: #ffffff;
+   -moz-box-shadow:0 0 10px #cccccc;
+   -webkit-box-shadow:0 0 10px #cccccc;
+   box-shadow:0 0 10px #cccccc;
 }
- .cart_main_list .cart_item .cart_info_wrap .goods_time_wrap .goods_pirce {
-     font-size: 38rpx;
-     color: orange;
- }
+.first_tab .goout_content .prompt .prompt_title{
+    font-size: 40rpx;
+}
+.first_tab .goout_content .prompt .prompt_list {
+    font-size: 36rpx;
+    padding: 20rpx 0;
+}
+.first_tab .goout_content .prompt .prompt_list view{
+    padding: 0 0 20rpx 0;
+}
+.first_tab .goout_content .card{
+color: #848181;
+display: flex;
+}
+.first_tab .goout_content .card .card_info {
+    flex: 2;
+}
+.first_tab .goout_content .card .sign {
+    flex: 1;
+}
+.first_tab .goout_content .card .card_time {
+padding: 20rpx 0;
+}
+.first_tab .goout_content .card .card_time .itme_bin{
+    background-color: #03c173;
+    color: #ffffff;
+    padding: 6rpx;
+    margin-left: 30rpx;
+}
+.first_tab .goout_content .card .card_address {
+padding-bottom: 20rpx;
 
+}
+.first_tab .goout_content .card .card_img{
+width: 400rpx;
+padding-bottom: 20rpx;
+display: flex;
+/* align-content: center; */
+align-items: center;
+}
+.first_tab .goout_content .card .card_icon{
+    padding-right: 16rpx;
+}
+.first_tab .goout_content .card .card_img image{
+width: 220rpx;
+height: 220rpx;
+}
+.goout_content .card .sign .qiandao{
+/* width: 100rpx;
+height: 80rpx; */
+margin:  20rpx auto;
+}
+.goout_content .card .sign .qiandao image {
+    width: 180rpx;
+   height: 180rpx;
+}
+.first_tab .photos{
+    display: flex;
+    justify-content: space-between;
+}
+.first_tab .photos .photos_position {
+ flex: 1;
+width: 400prx;
+}
+.first_tab .photos .photos_position image {
+    width: 220rpx;
+    height: 220rpx;
+}
+.first_tab .photos .photos_btn {
+width: 400prx;
+}
 
+.first_tab .photos .photos_btn image {
+     width: 120rpx;
+     height: 120rpx;
+}
+.first_tab .prompt .realNames{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e5e5;
+    padding:0 10rpx 12rpx 10rpx;
+}
+.first_tab .prompt .realNames .shim {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+.first_tab .prompt .realNames .weiren{
+   background-color: rgb(245, 72, 20);
+   color: #ffffff;
+   padding: 8rpx;
+}
+.first_tab .prompt .info_input{
+    font-size: 38rpx;
+}
+.goout_content .arrive_btn{
+    padding-top: 50rpx;
+    display: flex;
+    justify-content: space-around
+}
+.goout_content .arrive_btn {
+    padding: 50rpx;
+    display: flex;
+    justify-content: space-around
+}
+.goout_content .arrive_btn button{
+    background-color: #03c173;
+}
+ .prompt .assess_list{
+    display: flex;
+    justify-content: space-between
+}
 
+ .prompt .assess_list .assess_title {
+   flex: 4
+}
 
+ .prompt .assess_list .assess_checked {
+  flex: 8
+}

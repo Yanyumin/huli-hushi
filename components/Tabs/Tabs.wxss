@@ -16,30 +16,31 @@
     
 }
 .tabs .title_item .round{
- 
+      margin: 0 30rpx;
       width: 50rpx;
       height:50rpx;
-      color:#fff;
-      /* line-height: 1.7em; */
-      border: 1rpx solid #a51818;
+      border: 2rpx solid #a5a3a3;
       border-radius: 50%;
       background:#fff;
 }
 .tabs .title_item .line {
     position: absolute;
     top: 30%;
-    left: 50%;
+    left: 70%;
      display: block;
-    width: 80rpx;
+    width: 88rpx;
     height: 2rpx;
-    background-color: #a51818;
+    background-color: #6f6e6e;
+}
+.tabs .title_item:nth-last-child(1) text {
+       display: none;
 }
 .tabs .title_item .title_name{
     font-size: 25rpx;
 }
 
-.tabs .active {
-    color: orange;
+.tabs .title_item .active {
+ background: seagreen;
     /* border-bottom: 5rpx solid red; */
 }
 

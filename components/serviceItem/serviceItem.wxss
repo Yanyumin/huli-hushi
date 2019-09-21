@@ -1,9 +1,11 @@
 /* components/serviceItem/serviceItem.wxss */
 .thisProject {
+ margin-top: 15rpx;
   padding: 30rpx 0;
   font-size: 30rpx;
   display: flex;
   border-bottom: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
 }
 .imgBox {
   width: 150rpx;

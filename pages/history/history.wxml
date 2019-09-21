@@ -1,0 +1,3 @@
+<view>
+        <image class="userinfo-logIcon" src="../../img/wechat.png"></image>
+</view>

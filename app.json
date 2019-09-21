@@ -1,17 +1,16 @@
 {
   "pages": [
     "pages/order_details/order_details",
-
     "pages/login/login",
     "pages/index/index",
     "pages/logs/logs",
     "pages/personal/personal",
     "pages/register/register",
-<<<<<<< HEAD
-    "pages/order/order"
-=======
-	"pages/perfectmyinfo/perfectmyinfo"
->>>>>>> b868d59a2ada596f35dd21b74183717475b1399c
+    "pages/order/order",
+    "pages/perfectmyinfo/perfectmyinfo",
+    "pages/history/history",
+    "pages/expense/expense",
+    "pages/consumable/consumable"
   ],
   "tabBar": {
     "color": "#a9b7b7",
@@ -60,14 +59,11 @@
     "van-checkbox-group": "vant-weapp/checkbox-group",
     "van-icon": "vant-weapp/icon",
     "van-toast": "vant-weapp/toast",
-<<<<<<< HEAD
-     "van-row": "vant-weapp/row",
-     "van-col": "vant-weapp/col",
-      "van-card": "vant-weapp/card"
-=======
-	"van-cell": "vant-weapp/cell",
-    "van-icon": "vant-weapp/icon",
-    "van-picker": "vant-weapp/picker"
->>>>>>> b868d59a2ada596f35dd21b74183717475b1399c
+    "van-row": "vant-weapp/row",
+    "van-col": "vant-weapp/col",
+    "van-card": "vant-weapp/card",
+    "van-cell": "vant-weapp/cell",
+    "van-picker": "vant-weapp/picker",
+    "van-stepper": "vant-weapp/stepper"
   }
 }

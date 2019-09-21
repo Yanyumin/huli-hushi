@@ -1,0 +1,50 @@
+.expense_content{
+    color:#717070;
+    font-size: 30rpx;
+}
+.expense_content .expense_title{
+    text-align: center;
+    padding: 20rpx 0;
+    background-color: #faf6f6;
+    display: flex;
+    line-height: 48rpx;
+}
+.expense_content .expense_title text {
+   
+    flex: 1;
+}
+.expense_content .expense_info{
+    /* display: flex; */
+    
+}
+.expense_content .expense_info .info_content {
+  display: flex;
+    border-bottom: 1px solid #e5e5e5;
+    line-height: 70rpx;
+    /* padding: 20rpx 0; */
+}
+ .expense_content .info_content .expense_info_name{
+    border-right: 1px solid #e5e5e5;
+    flex: 1;
+    text-align: center;
+}
+.expense_content .info_content .expense_info_price {
+    flex: 1;
+    text-align-last: center;
+    text-align: center;
+    position: relative;
+}
+
+.expense_content .info_content .expense_info_price .expense_icon {
+    text-align: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10rpx;
+}
+.expense_content .total {
+   color: orange;
+   font-size: 38rpx;
+}
+
+
