@@ -4,7 +4,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/personal/personal",
-    "pages/register/register"
+    "pages/register/register",
+	"pages/perfectmyinfo/perfectmyinfo"
   ],
   "tabBar": {
     "color": "#a9b7b7",
@@ -52,6 +53,9 @@
     "van-checkbox": "vant-weapp/checkbox",
     "van-checkbox-group": "vant-weapp/checkbox-group",
     "van-icon": "vant-weapp/icon",
-    "van-toast": "vant-weapp/toast"
+    "van-toast": "vant-weapp/toast",
+	"van-cell": "vant-weapp/cell",
+    "van-icon": "vant-weapp/icon",
+    "van-picker": "vant-weapp/picker"
   }
 }

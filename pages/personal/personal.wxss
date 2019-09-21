@@ -1,1 +1,48 @@
 /* pages/personal/personal.wxss */
+.headerBox {
+  height: 260rpx;
+  text-align: center;
+  font-size: 28rpx;
+  background: #03c173;
+  padding-top: 120rpx;
+  color: #fff;
+}
+.headerBox image {
+  height: 100rpx;
+  width: 100rpx;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+  background: #ffffff;
+  padding: 4rpx;
+}
+.contentBox {
+  padding: 0 20rpx;
+}
+.iconBox {
+  width: 70rpx;
+  height: 70rpx;
+  padding: 4rpx;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 70rpx;
+  margin-right: 30rpx;
+  color: #fff;
+  display: inline-block;
+}
+.erweima {
+  background: #64deac;
+}
+.Patient {
+  background: #e5e5;
+}
+.schedule {
+  background: skyblue;
+}
+.iconBox image {
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+}
+.van-cell-text {
+  display: inline-block;
+}
