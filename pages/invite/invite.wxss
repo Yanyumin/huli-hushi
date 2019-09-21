@@ -1,0 +1,19 @@
+/* pages/invite/invite.wxss */
+.van-search {
+  padding: 20rpx 0;
+}
+.cell {
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  padding: 20rpx 30rpx;
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+}
+.cell image {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  vertical-align: middle;
+}

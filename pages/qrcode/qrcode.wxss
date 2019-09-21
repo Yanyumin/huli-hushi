@@ -1,0 +1,8 @@
+/* pages/qrcode/qrcode.wxss */
+.codeContainer {
+  padding: 100rpx 40rpx;
+  margin: auto;
+}
+image {
+  width: 100%;
+}

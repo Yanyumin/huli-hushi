@@ -1,0 +1,16 @@
+<!--pages/invite/invite.wxml-->
+<view class="pageContainer">
+  <van-search
+    value="{{ value }}"
+    placeholder="请输入搜索关键词"
+    bind:search="onSearch"
+    bind:cancel="onCancel"
+  />
+  <view class="contentBox">
+    <view class="cell">
+      <image src="../../img/userNo.png" />
+      <text>张三</text>
+      <van-icon name="arrow" />
+    </view>
+  </view>
+</view>

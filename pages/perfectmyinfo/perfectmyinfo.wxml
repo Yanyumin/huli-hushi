@@ -97,6 +97,6 @@
     </view>
   </view>
   <view class="handleBox">
-    <van-button round type="primary">保存</van-button>
+    <van-button round type="primary" bindtap="submitThis">保存</van-button>
   </view>
 </view>

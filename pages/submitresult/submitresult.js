@@ -1,4 +1,4 @@
-// pages/personal/personal.js
+// pages/submitresult/submitresult.js
 Page({
 
   /**
@@ -7,11 +7,7 @@ Page({
   data: {
 
   },
-  toPersonalInfo () {
-    wx.navigateTo({
-      url: '../perfectmyinfo/perfectmyinfo',
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

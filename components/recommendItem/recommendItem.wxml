@@ -1,2 +1,12 @@
 <!--components/recommendItem/recommendItem.wxml-->
-<text>components/recommendItem/recommendItem.wxml</text>
+<view class='serviceItemContainer'> 
+  <view class='thisProject haveBorderBottom' wx:for-items="{{datas}}" wx:key="index" data-index="{{item.id}}" bindtap="clickService">
+    <view class='imgBox'>
+      <image src="{{item.proLogo}}" />
+    </view>
+    <view class="projectInfo">
+      <view class='projectName'>{{item.proName}}</view>
+      <view class='projectDesc'>{{item.proDesc}}</view>
+    </view>
+  </view>
+</view>

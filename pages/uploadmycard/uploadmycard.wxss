@@ -1,0 +1,59 @@
+/* pages/uploadmycard/uploadmycard.wxss */
+.topic {
+  background: #e2e2e2;
+  line-height: 36rpx;
+  font-size: 28rpx;
+  padding: 20rpx;
+}
+.uploadTopic {
+  font-size: 24rpx;
+  line-height: 36rpx;
+  margin-top: 10rpx;
+  color: #666;
+}
+.contentBox {
+  padding: 0 20rpx;
+}
+.ui_uploader_item {
+  position: relative;
+  width: 90%;
+  min-height: 400rpx;
+  border: 1px dashed #e2e2e2;
+  padding: 10rpx;
+  box-sizing: border-box;
+  margin: 20rpx auto;
+}
+.ui_uploader_item .van-icon-clear {
+  color: red;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  font-size: 60rpx;
+}
+.ui_uploader {
+  width: 90%;
+  height: 400rpx;
+  border: 1px dashed #e2e2e2;
+  padding: 130rpx 10rpx;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 20rpx auto;
+  color: #666;
+}
+.ui_uploader .van-icon-plus {
+  font-size: 70rpx;
+}
+.ui_uploader view.uploadTip {
+  font-size: 26rpx;
+}
+.handleBox {
+  text-align: center;
+  margin-top: 40rpx;
+}
+.handleBox .van-button {
+  width: 80%;
+}
+.nextTip {
+  margin-bottom: 40rpx;
+}

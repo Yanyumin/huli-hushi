@@ -10,7 +10,13 @@
     "pages/perfectmyinfo/perfectmyinfo",
     "pages/history/history",
     "pages/expense/expense",
-    "pages/consumable/consumable"
+    "pages/consumable/consumable",
+    "pages/submitresult/submitresult",
+    "pages/uploadmycard/uploadmycard",
+    "pages/qrcode/qrcode",
+    "pages/invite/invite",
+    "pages/patientInfo/patientinfo",
+    "pages/myinfo/myinfo"
   ],
   "tabBar": {
     "color": "#a9b7b7",
@@ -30,7 +36,7 @@
         "text": "我的订单"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/personal/personal",
         "iconPath": "img/tab-personal-gray.png",
         "selectedIconPath": "img/tab-personal.png",
         "text": "个人中心"
@@ -64,6 +70,7 @@
     "van-card": "vant-weapp/card",
     "van-cell": "vant-weapp/cell",
     "van-picker": "vant-weapp/picker",
-    "van-stepper": "vant-weapp/stepper"
+    "van-stepper": "vant-weapp/stepper",
+    "van-search": "vant-weapp/search"
   }
 }

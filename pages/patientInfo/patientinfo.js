@@ -1,99 +1,85 @@
-// pages/perfectmyinfo/perfectmyinfo.js
-import Toast from 'vant-weapp/toast/toast';
+// pages/patientInfo/patientinfo.js
+import { formatDate } from '../../utils/util.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    value: '',
     columns: ['外科', '骨科', '神经科'],
-    sexClumn: ['男', '女'],
-    titleClumns: ['护士', '护士长', '主任'],
-    index: 0,
-    workUnit: '',
     depart: '外科',
-    userName: '',
-    sex: '男',
-    birthday: '1999-01-01',
-    cardNo: '',
-    phone: '',
-    address: '',
-    title: '护士'
+    workUnit: '',
+    patientNo: '',
+    beHosp: '2019-01-01',
+    outHosp: '2019-01-01',
+    describe: '',
+    nowDate: '',
+    character: 1,
+    characterDescribe: '',
+    recommendList: [{
+      proLogo: '../../img/cvr.png',
+      proName: '打针',
+      proDesc: '打针打针打针',
+      id: '123'
+    }]
   },
-  onChange(event) {
-    // event.detail 为当前输入的值
-    console.log(event.detail);
-  },
+
   workUnitOnChange (e) {
     this.setData({
       workUnit: e.detail
     })
   },
-  userNameChange (e) {
+  patientNoChange (e) {
     this.setData({
-      userName: e.detail
+      patientNo: e.detail
     })
   },
   departBindChange(e) {
     this.setData({
-      depart: this.data.columns[e.detail.value],
-      index: e.detail.value
+      depart: this.data.columns[e.detail.value]
     })
   },
-  sexBindChange (e) {
+  bindbeHospChange: function (e) {
     this.setData({
-      sex: this.data.sexClumn[e.detail.value]
+      beHosp: e.detail.value
     })
-    Toast(`当前值：`);
   },
-  bindDateChange: function (e) {
+  bindoutHospChange: function (e) {
     this.setData({
-      birthday: e.detail.value
+      outHosp: e.detail.value
     })
   },
-  cardNoChange (e) {
+  describeChange (e) {
     this.setData({
-      cardNo: e.detail
+      describe: e.detail
     })
   },
-  phoneChange (e) {
+  characterTap (e) {
+    let type = e.currentTarget.dataset.type
     this.setData({
-      phone: e.detail
+      character: type
     })
   },
-  addressChange (e) {
+  characterDescribeChange (e) {
     this.setData({
-      address: e.detail
-    })
-  },
-  addressChange (e) {
-    this.setData({
-      address: e.detail
-    })
-  },
-  titleBindChange (e) {
-    this.setData({
-      title: this.data.sexClumn[e.detail.value]
-    })
-  },
-  submitThis () {
-    wx.navigateTo({
-      url: '../uploadmycard/uploadmycard',
+      characterDescribe: e.detail
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      nowDate: formatDate()
+    })
+    console.log(formatDate())
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**

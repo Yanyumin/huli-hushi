@@ -1,0 +1,82 @@
+<!--pages/perfectmyinfo/perfectmyinfo.wxml-->
+<view class="pageContainer">
+  <view class="headerBox cell">
+    <text>头像</text>
+    <view class="logoBox inputBox">
+      <image src="../../img/userNo.png" />
+      <van-icon name="arrow" />
+    </view>
+  </view>
+  <view class="cell">
+    <text>工作单位</text>
+    <view class="inputBox">
+      中医院
+    </view>
+  </view>
+  <view class="cell">
+    <text>科室</text>
+    <view class="inputBox">
+      妇科
+    </view>
+  </view>
+  <view class="cell">
+    <text>姓名</text>
+    <view class="inputBox">
+       小李
+    </view>
+  </view>
+  <view class="cell">
+    <text>性别</text>
+    <view class="inputBox">
+      女
+    </view>
+  </view>
+  <view class="cell">
+    <text>出生日期</text>
+    <view class="inputBox">
+      1996-02-26
+    </view>
+  </view>
+  <view class="cell">
+    <text>身份证号</text>
+    <view class="inputBox">
+       41235645621231545
+    </view>
+  </view>
+  <view class="cell">
+    <text>手机号码</text>
+    <view class="inputBox">
+       133548545
+    </view>
+  </view>
+  <view class="cell">
+    <text>联系地址</text>
+    <view class="inputBox">
+       天府大厦
+    </view>
+  </view>
+  <view class="cell">
+    <text>职称</text>
+    <view class="inputBox">
+      护士
+    </view>
+  </view>
+  <view class="cell">
+    <text>身份证</text>
+  </view>
+  <view class="cell">
+    <view class="inputBox">
+      <image src="../../img/cvr.png" />
+      <image src="../../img/cvr.png" />
+    </view>
+  </view>
+  <view class="cell">
+    <text>证件</text>
+  </view>
+  <view class="cell">
+    <view class="inputBox">
+      <image src="../../img/cvr.png" />
+      <image src="../../img/cvr.png" />
+    </view>
+  </view>
+</view>

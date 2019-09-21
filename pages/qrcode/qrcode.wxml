@@ -1,0 +1,4 @@
+<!--pages/qrcode/qrcode.wxml-->
+<view class="codeContainer">
+  <image src="../../img/wechat.png" />
+</view>
