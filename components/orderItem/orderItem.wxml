@@ -1,50 +1,47 @@
-<!--components/orderItem/orderItem.wxml-->
+<!-- components/orderItem/orderItem.wxml -->
 <view class="orderContainer">
-  <view class="orderItem" wx:for-items="{{datas}}" wx:key="index" data-index="{{item.status}}" bindtap="clickOrder">
-    <view class="orderNum">
-      <view class="num">
-        <image class='iconfont' src="../../img/dingdan.png" />
-        订单编号：{{item.orderNum}}
-      </view>
-      <view class="status" wx:if="{{item.status == 1}}">
-        待服务
-      </view>
-      <view class="status" wx:if="{{item.status == 2}}">
-        待确认
-      </view>
-      <view class="status" wx:if="{{item.status == 3}}">
-        待评价
-      </view>
-      <view class="status" wx:if="{{item.status == 4}}">
-        完成
-      </view>
-    </view>
-    <view class='orderInfo'>
-      <view class="imgBox">
-        <image src="{{item.proImg}}"></image>
-      </view>
-      <view class="info">
-        <view class="name">
-          <text class="amount">{{item.proName}}</text>
-          <text class="price">￥{{item.Price}}</text>
+    <view class="orderItem" wx:for-items="{{datas}}" wx:key="index" data-index="{{item.status}}" bindtap="clickOrder">
+        <view class="orderNum">
+            <view class="num">
+                <image class='iconfont' src="../../img/dingdan.png" />
+                订单编号：{{item.orderNum}}
+            </view>
+            <view class="status" wx:if="{{item.status == 1}}">待确认</view>
+            <view class="status" wx:if="{{item.status == 2}}">待服务</view>
+            <view class="status" wx:if="{{item.status == 3}}">服务中</view>
+            <view class="status" wx:if="{{item.status == 4}}">待评价</view>
+            <view class="status" wx:if="{{item.status == 5}}">完成</view>
         </view>
-        <view class="time">{{item.time}}</view>
-        <view class="amountPrice">
-          <text class="amount">数量：{{item.amount}}份</text>
+        <view class='orderInfo'>
+            <view class="imgBox">
+                <image src="{{item.proImg}}"></image>
+            </view>
+            <view class="info">
+                <view class="name">
+                    <text class="amount">{{item.proName}}</text>
+                    <text class="price">￥{{item.Price}}</text>
+                </view>
+                <view class="time">{{item.time}}</view>
+                <view class="amountPrice">
+                    <text class="amount">数量：{{item.amount}}份</text>
+                </view>
+            </view>
         </view>
-      </view>
+        <view class="orderHandle" wx:if="{{item.status != 5}}">
+            <button wx:if="{{item.status == 2}}" data-index="{{item.status}}" bindtap="startService">
+                开始服务
+            </button>
+            <block wx:if="{{item.status == 1}}">
+                <button class="acceptBtn" data-index="{{item.status}}" bindtap="acceptService">
+                    接受
+                </button>
+                <button class="cancelBtn" data-index="{{item.status}}" bindtap="cancelService">
+                    退回
+                </button>
+            </block>
+            <button wx:if="{{item.status == 4}}" data-index="{{item.status}}" bindtap="toAppraise">
+                评价
+            </button>
+        </view>
     </view>
-      <view class="orderHandle" wx:if="{{item.status != 4}}">
-        <button wx:if="{{item.status == 1}}" data-index="{{item.status}}" bindtap="startService">开始服务</button>
-        <block wx:if="{{item.status == 2}}"> 
-          <button class="acceptBtn" data-index="{{item.status}}" bindtap="acceptService">
-            接受
-          </button>
-          <button class="cancelBtn" data-index="{{item.status}}" bindtap="cancelService">
-            退回
-          </button>
-        </block>
-        <button wx:if="{{item.status == 3}}" data-index="{{item.status}}" bindtap="toAppraise">评价</button>
-      </view>
-  </view>
 </view>

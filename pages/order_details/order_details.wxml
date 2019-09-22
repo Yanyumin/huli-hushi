@@ -83,7 +83,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image src="../../img/wechat.png"></image>
+                            <image  mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -91,7 +91,7 @@
                             <view class="itme_bin">
                                 <text>已打卡</text>
                             </view>
-                            <image src="../../img/qiandao.png"></image>
+                            <image  mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -114,7 +114,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image src="../../img/wechat.png"></image>
+                            <image  mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -122,7 +122,7 @@
                             <view class="itme_bin">
                                 <text>已打卡</text>
                             </view>
-                            <image src="../../img/qiandao.png"></image>
+                            <image  mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -139,10 +139,10 @@
                     </view>
                     <view class="photos">
                         <view class="photos_position">
-                            <image src="../../img/wechat.png"></image>
+                            <image mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                         <view class="photos_btn">
-                            <image src="../../img/photos.jpg"></image>
+                            <image mode="widthFix" src="../../img/photos.jpg"></image>
                         </view>
                     </view>
                 </view>
@@ -202,7 +202,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image src="../../img/wechat.png"></image>
+                            <image  mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -210,7 +210,7 @@
                             <view class="itme_bin">
                                 <text>已完成</text>
                             </view>
-                            <image src="../../img/qiandao.png"></image>
+                            <image  mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -239,7 +239,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image src="../../img/wechat.png"></image>
+                            <image  mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -247,7 +247,7 @@
                             <view class="itme_bin">
                                 <text>未完成</text>
                             </view>
-                            <image src="../../img/qiandao.png"></image>
+                            <image  mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -270,7 +270,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image src="../../img/wechat.png"></image>
+                            <image  mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -278,7 +278,7 @@
                             <view class="itme_bin">
                                 <text>未签到</text>
                             </view>
-                            <image src="../../img/qiandao.png"></image>
+                            <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -292,7 +292,7 @@
                         <van-field input-class="evaluate_inp" size="large" value="{{ value }}" placeholder="您对本次的服务是否满意呢, 请填写您宝贵的意见" border="{{ false }}" bind:change="onChange" />
                     </van-cell-group>
                 </view>
-                <button type="primary" bindtap="onPrepare" class="btn">完成</button>
+                <button type="primary" bindtap="onPrepare" class="btn">提交</button>
             </view>
         </block>
     </Tabs>

@@ -1,0 +1,70 @@
+<!--pages/perfectmyinfo/perfectmyinfo.wxml-->
+<view class="pageContainer">
+  <view class="cell">
+    <text class="title">基本病情</text>
+    <view class="inputBox">
+    </view>
+  </view>
+  <view class="cell">
+    <text>住院医院</text>
+    <view class="inputBox">
+      {{ workUnit }}
+    </view>
+  </view>
+  <view class="cell">
+    <text>住院科室</text>
+    <view class="inputBox havePadding">
+     
+        <view class="picker">{{depart}}</view>
+    </view>
+  </view>
+  <view class="cell">
+    <text>病案号</text>
+    <view class="inputBox">
+      {{ patientNo }}
+    </view>
+  </view>
+  <view class="cell">
+    <text>入院日期</text>
+    <view class="inputBox havePadding">
+     
+          {{beHosp}}
+    </view>
+  </view>
+  <view class="cell">
+    <text>出院日期</text>
+    <view class="inputBox havePadding">
+        <view class="picker">
+          {{outHosp}}
+        </view>
+    </view>
+  </view>
+  <view class="cell">
+    <text>病情描述</text>
+    <view class="inputBox">
+     {{describe}}
+    </view>
+  </view>
+  <view class="cell">
+    <text class="title">性格评价</text>
+    <view class="inputBox">
+    </view>
+  </view>
+  <view class="cell">
+    <view class="inputBox characterBox">
+      <text data-type='1'wx:if="{{character == 1 }}"  class="character active">易相处</text>
+      <text data-type='2'  wx:if="{{character == 2 }}" class="character active ">不好相处</text>
+      <text data-type='3' wx:if="{{character == 3 }}"  class="character active ">极难相处</text>
+    </view>
+  </view>
+  <view class="cell">
+    <text>性格描述</text>
+    <view class="inputBox">
+     {{characterDescribe}}
+    </view>
+  </view>
+  <view class="cell recommendBox">
+    <text class="recommend title">护士推荐服务</text>
+  </view>
+  <recommendItem datas="{{recommendList}}"></recommendItem>
+</view>

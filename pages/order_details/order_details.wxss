@@ -1,3 +1,6 @@
+/* image{
+    width: 50%;
+} */
 .order_details{
     padding: 10rpx;
 }
@@ -41,7 +44,8 @@
     font-size: 38rpx;
 }
 .first_tab .btn{
-     margin-top: 50rpx;
+     border-radius: 34rpx;
+     margin: 50rpx auto;
     width: 400rpx;
     background-color: #03c173;
     
@@ -104,16 +108,14 @@ align-items: center;
     padding-right: 16rpx;
 }
 .first_tab .goout_content .card .card_img image{
-width: 220rpx;
-height: 220rpx;
+  width: 40%;
 }
 .goout_content .card .card_right .qiandao{
 
 margin:  20rpx auto;
 }
 .goout_content .card .card_right .qiandao image {
-    width: 180rpx;
-   height: 180rpx;
+    width: 50%;
 }
 .first_tab .photos{
     display: flex;
@@ -124,8 +126,7 @@ margin:  20rpx auto;
 width: 400prx;
 }
 .first_tab .photos .photos_position image {
-    width: 220rpx;
-    height: 220rpx;
+    width:30%;
 }
 .first_tab .photos .photos_btn {
 width: 400prx;
@@ -165,6 +166,9 @@ width: 400prx;
 }
 .goout_content .arrive_btn button{
     background-color: #03c173;
+    border-radius: 34rpx;
+    width: 320rpx;
+    margin:0  40rpx;
 }
  .prompt .assess_list{
     display: flex;

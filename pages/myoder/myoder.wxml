@@ -1,0 +1,20 @@
+<van-tabs active="{{ active }}" bind:change="onChange">
+    <van-tab title="全部">
+        <orderItem bindchange="clickOrder" datas="{{oderList}}"></orderItem>
+    </van-tab>
+    <van-tab title="待确认">
+        <orderItem bindacceptService="acceptService"  bindcancelService="cancelService" datas="{{oderList1}}"></orderItem>
+    </van-tab>
+    <van-tab title="待服务">
+        <orderItem bindstartService="startService"  datas="{{oderList2}}"></orderItem>
+    </van-tab>
+    <van-tab title="服务中">
+        <orderItem datas="{{oderList3}}"></orderItem>
+    </van-tab>
+    <van-tab title="待评价">
+        <orderItem bindtoAppraise="toAppraise" datas="{{oderList4}}"></orderItem>
+    </van-tab>
+    <van-tab title="已完成">
+        <orderItem datas="{{oderList5}}"></orderItem>
+    </van-tab>
+</van-tabs>

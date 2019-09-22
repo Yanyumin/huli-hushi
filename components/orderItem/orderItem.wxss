@@ -77,7 +77,7 @@
   background: #03bf72;
   line-height: 60rpx;
   border-radius: 34rpx;
-  width: 164rpx;
+  width: 200rpx;
   color: #fff;
   font-size: 30rpx;
   border: 0;

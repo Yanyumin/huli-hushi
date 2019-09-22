@@ -1,0 +1,7 @@
+
+  {
+    "usingComponents": {
+      "orderItem": "../../components/orderItem/orderItem"
+    },
+    "navigationBarTitleText": "我的订单"
+}

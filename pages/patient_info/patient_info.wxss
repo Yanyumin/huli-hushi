@@ -1,0 +1,62 @@
+/* pages/patientInfo/patientinfo.wxss */
+.cell {
+  display: flex;
+  font-size: 28rpx;
+  border-bottom: 1px solid #e2e2e2;
+  line-height: 88rpx;
+  padding-left: 30rpx;
+}
+.headerBox {
+  height: 100rpx;
+  line-height: 100rpx;
+  justify-content: space-between;
+} 
+.title {
+  font-weight: 600;
+}
+.cell text {
+  width: 130rpx;
+}
+.cell .inputBox {
+  flex: 1;
+}
+.logoBox {
+  text-align: right;
+  color: #666;
+}
+.logoBox image {
+  height: 60rpx;
+  width: 60rpx;
+  margin-right: 20rpx;
+  vertical-align: middle;
+}
+.havePadding {
+  padding: 0 30rpx;
+}
+
+
+.characterBox {
+  justify-content: space-between;
+  display: flex;
+  padding: 20rpx 40rpx;
+}
+.character {
+  display: inline-block;
+  width: 50% !important;
+  color: #fff;
+  line-height: 64rpx;
+  text-align: center;
+  border-radius: 64rpx;
+  background: #949393;
+  margin: 0 8rpx;
+
+}
+.active {
+  background: #03bf72;
+}
+.recommendBox {
+  justify-content: space-between;
+}
+.recommend {
+  width: 180rpx !important;
+}

@@ -1,0 +1,25 @@
+<view class="card  prompt">
+    <view class="card_left">
+        <view class="card_time">
+            <van-icon name="underway-o" class="card_icon" />
+            出门打卡
+            <text>8:00</text>
+        </view>
+        <view class="card_address">
+            <van-icon name="location-o" class="card_icon" />
+            广东省妇幼医院d栋
+        </view>
+        <view class="card_img">
+            <van-icon name="location-o" class="card_icon" />
+            <image src="../../img/wechat.png"></image>
+        </view>
+    </view>
+    <view class="card_right">
+        <view class="qiandao">
+            <view class="itme_bin">
+                <text>已打卡</text>
+            </view>
+            <image src="../../img/qiandao.png"></image>
+        </view>
+    </view>
+</view>

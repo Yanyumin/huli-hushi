@@ -1,0 +1,70 @@
+ .prompt {
+     margin: 20rpx 0;
+     padding: 30rpx;
+     background-color: #ffffff;
+     -moz-box-shadow: 0 0 10px #cccccc;
+     -webkit-box-shadow: 0 0 10px #cccccc;
+     box-shadow: 0 0 10px #cccccc;
+ }
+
+ .card {
+     color: #848181;
+     display: flex;
+     justify-content: space-between;
+     /* align-items: center; */
+ }
+
+ .card .card_left {
+     flex: 2;
+ }
+
+ .card .card_right {
+     flex: 1;
+     text-align: right;
+ }
+
+ .card .card_time {
+     padding: 20rpx 0;
+ }
+
+ .card .card_right .itme_bin {
+     color: #ffffff;
+     margin-bottom: 30rpx;
+ }
+
+ .card .card_right .itme_bin text {
+     background-color: #03c173;
+     padding: 6rpx;
+
+ }
+
+ .card .card_address {
+     padding-bottom: 20rpx;
+
+ }
+
+ .card .card_img {
+     width: 400rpx;
+     padding-bottom: 20rpx;
+     display: flex;
+     align-items: center;
+ }
+
+ .card .card_icon {
+     padding-right: 16rpx;
+ }
+
+ .card .card_img image {
+     width: 220rpx;
+     height: 220rpx;
+ }
+
+ .card .card_right .qiandao {
+
+     margin: 20rpx auto;
+ }
+
+ .card .card_right .qiandao image {
+     width: 180rpx;
+     height: 180rpx;
+ }

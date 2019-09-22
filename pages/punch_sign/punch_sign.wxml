@@ -1,0 +1,93 @@
+<view class="card  prompt">
+    <view class="card_left">
+        <view class="card_time">
+            <van-icon name="underway-o" class="card_icon" />
+            出门打卡
+            <text>8:00</text>
+        </view>
+        <view class="card_address">
+            <van-icon name="location-o" class="card_icon" />
+            广东省妇幼医院d栋
+        </view>
+    </view>
+    <view class="card_right">
+        <view class="qiandao">
+            <view class="itme_bin">
+                              <text wx:if="{{iscard}}">已打卡</text>
+               <text wx:if="{{!iscard}}" class="nocard">未打卡</text>
+            </view>
+            <image  mode="widthFix" src="../../img/wechat.png"></image>
+            <!-- <image src="../../img/qiandao.png"></image> -->
+        </view>
+    </view>
+</view>
+<view class="card  prompt">
+    <view class="card_left">
+        <view class="card_time">
+            <van-icon name="underway-o" class="card_icon" />
+            目的地打卡
+            <text>8:00</text>
+        </view>
+        <view class="card_address">
+            <van-icon name="location-o" class="card_icon" />
+            {{address}}
+        </view>
+    </view>
+    <view class="card_right">
+        <view class="qiandao">
+            <view class="itme_bin">
+                              <text wx:if="{{iscard}}">已打卡</text>
+               <text wx:if="{{!iscard}}" class="nocard">未打卡</text>
+            </view>
+            <image  mode="widthFix" src="{{img}}"></image>
+          
+        </view>
+    </view>
+</view>
+<view class="card  prompt">
+    <view class="card_left">
+        <view class="card_time">
+            <van-icon name="underway-o" class="card_icon" />
+            护理完打卡
+            <text>8:00</text>
+        </view>
+        <view class="card_address">
+            <van-icon name="location-o" class="card_icon" />
+            广东省妇幼医院d栋
+        </view>
+    </view>
+    <view class="card_right">
+        <view class="qiandao">
+            <view class="itme_bin">
+                <text wx:if="{{iscard}}">已打卡</text>
+                <text   wx:if="{{!iscard}}" class="nocard">未打卡</text>
+            </view>
+            <image  mode="widthFix" src="../../img/wechat.png"></image>
+        </view>
+    </view>
+</view>
+<view class="card  prompt">
+    <view class="card_left">
+        <view class="card_time">
+            <van-icon name="underway-o" class="card_icon" />
+            安全到点打卡
+            <text>8:00</text>
+        </view>
+        <view class="card_address">
+            <van-icon name="location-o" class="card_icon" />
+            广东省妇幼医院d栋
+        </view>
+    </view>
+    <view class="card_right">
+        <view class="qiandao">
+            <view class="itme_bin">
+                            <text wx:if="{{iscard}}">已打卡</text>
+              <text wx:if="{{!iscard}}" class="nocard">未打卡</text>
+            </view>
+            <image  mode="widthFix" src="../../img/wechat.png"></image>
+        </view>
+    </view>
+</view>
+<view class="photos">
+          <image   mode="widthFix" src="../../img/photos.jpg"></image>
+</view>

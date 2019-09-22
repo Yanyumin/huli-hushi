@@ -1,13 +1,30 @@
-// pages/order/order.js
+// pages/patient_info/patient_info.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    columns: ['外科', '骨科', '神经科'],
+    depart: '外科',
+    workUnit: '南方医院',
+    patientNo: '1120',
+    beHosp: '2019-01-01',
+    outHosp: '2019-01-01',
+    describe: '烦躁,失眠',
+    nowDate: '',
+    character: 1,
+    characterDescribe: '  平易近人,非常好相处',
+    recommendList: [{
+      proLogo: '../../img/cvr.png',
+      proName: '打针',
+      proDesc: '打针打针打针',
+      id: '123'
+    }]
   },
-
+  
+ 
+ 
   /**
    * 生命周期函数--监听页面加载
    */

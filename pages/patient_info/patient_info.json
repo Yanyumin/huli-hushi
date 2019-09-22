@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "recommendItem": "../../components/recommendItem/recommendItem"
+  }
+}
