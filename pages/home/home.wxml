@@ -1,0 +1,22 @@
+<!--pages/home/home.wxml-->
+<view class="homeContainer">
+  <swiper indicator-dots="{{indicatorDots}}"
+    autoplay="true" interval="5000" duration="1000" indicatorDots="true">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" width="355" height="150"/>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="contentBox">
+    <view class="eventBox">
+      <view class="eventList">
+        接单列表(10)
+      </view>
+      <view class="todayService">
+        今日服务(2)
+      </view>
+    </view>
+    <orderItem datas="{{orderData}}"></orderItem>
+  </view>
+</view>

@@ -7,6 +7,11 @@ Page({
   data: {
 
   },
+  patientInfo () {
+    wx.navigateTo({
+      url: '../patientInfo/patientinfo',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

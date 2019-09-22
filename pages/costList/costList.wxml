@@ -1,0 +1,53 @@
+<!--viewages/costList/costList.wxml-->
+
+    <view class="contentBox">
+      <view class="contentHead">
+        <view class="item">
+          <text class='text'>名称</text>
+          <text class='text'>数量</text>
+          <text class='text'>价格</text>
+        </view>
+      </view>
+      <view class="typeContent">
+        <view class="item">
+          <text class='text firstView'>上门费</text>
+          <view class='text firstView'>
+            <van-stepper value="{{ costValue1 }}" bind:plus="addChange" bind:minus="cutChange"  bind:change="onChange" />
+          </view>
+          <text class='text'>{{cost1}}</text>
+        </view>
+        <view class="item">
+          <text class='text firstView'>上门费</text>
+          <view class='text firstView'><van-stepper value="{{ 1 }}" bind:change="onChange" /></view>
+          <text class='text'>20.00</text>
+        </view>
+        <view class="item">
+          <text class='text firstView'>上门费</text>
+          <view class='text firstView'><van-stepper value="{{ 1 }}" bind:change="onChange" /></view>
+          <text class='text'>20.00</text>
+        </view>
+        <view class="item">
+          <text class='text firstView'>上门费</text>
+          <view class='text firstView'><van-stepper value="{{ 1 }}" bind:change="onChange" /></view>
+          <text class='text'>20.00</text>
+        </view>
+        <view class="item">
+          <text class='text firstView'>上门费</text>
+          <view class='text firstView'><van-stepper value="{{ 1 }}" bind:change="onChange" /></view>
+          <text class='text'>20.00</text>
+        </view>
+        <view class="item">
+          <text class='text firstView'>上门费</text>
+          <view class='text firstView'><van-stepper value="{{ 1 }}" bind:change="onChange" /></view>
+          <text class='text'>20.00</text>
+        </view>
+        <view class="item">
+          <text class='text firstView'></text>
+          <view class='text firstView'>待支付</view>
+          <text class='text'>100元</text>
+        </view>
+      </view>
+      <view class="handleBox">
+        <van-button round type="primary">生成支付订单</van-button>
+      </view>
+    </view>

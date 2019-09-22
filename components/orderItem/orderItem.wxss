@@ -1,14 +1,14 @@
 /* components/orderItem/orderItem.wxss */
 .orderItem {
   background: #fff;
-  border-bottom: 1px dashed #f2f2f2;
 }
 .orderNum {
   font-size: 30rpx;
   padding: 0 24rpx;
   line-height: 68rpx;
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  border-bottom: 1px solid #ededed;
 }
 .orderNum .iconfont {
   width: 34rpx;
@@ -22,6 +22,8 @@
   display: flex;
   font-size: 30rpx;
   padding: 10rpx 24rpx;
+  background: #f8f8f8;
+  border-bottom: 1px solid #ededed;
 }
 .orderInfo .imgBox {
   height: 144rpx;
@@ -59,10 +61,11 @@
 }
 .orderHandle {
   text-align: right;
-  padding: 28rpx;
+  padding: 20rpx;
   line-height: 0;
   position: relative;
   height: 44rpx;
+  border-bottom: 1px dashed #ededed;
 }
 .acceptBtn {
   right: 244rpx !important;
@@ -72,7 +75,7 @@
 }
 .orderHandle button{
   position: absolute;
-  top: -12rpx;
+  top: 12rpx;
   right: 28rpx;
   background: #03bf72;
   line-height: 60rpx;

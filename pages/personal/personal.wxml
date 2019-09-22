@@ -7,7 +7,7 @@
     </view>
   </view>
   <view class="contentBox">
-    <van-cell value=''>
+    <van-cell value='' bindtap="toQrcode">
       <view slot="title">
         <view class="iconBox erweima">
           <image src="../../img/erweima.png" />
@@ -15,7 +15,7 @@
         <view class="van-cell-text">我的二维码</view>
       </view>
     </van-cell>
-    <van-cell value=''>
+    <van-cell value='' bindtap="toPatientList">
       <view slot="title">
         <view class="iconBox Patient">
           <image src="../../img/users.png" />

@@ -18,7 +18,9 @@
     "pages/qrcode/qrcode",
     "pages/invite/invite",
     "pages/patientInfo/patientinfo",
-    "pages/myinfo/myinfo"
+    "pages/myinfo/myinfo",
+    "pages/home/home",
+    "pages/costList/costList"
   ],
   "tabBar": {
     "color": "#a9b7b7",

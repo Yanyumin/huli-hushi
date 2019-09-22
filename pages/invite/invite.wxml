@@ -7,7 +7,7 @@
     bind:cancel="onCancel"
   />
   <view class="contentBox">
-    <view class="cell">
+    <view class="cell" bindtap='patientInfo'>
       <image src="../../img/userNo.png" />
       <text>张三</text>
       <van-icon name="arrow" />

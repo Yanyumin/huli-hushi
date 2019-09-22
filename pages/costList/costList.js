@@ -1,25 +1,31 @@
-// pages/personal/personal.js
+// pages/costList/costList.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    saveCost1: 10,
+    cost1: 10,
+    costValue1: 1
   },
-  toPersonalInfo () {
-    wx.navigateTo({
-      url: '../perfectmyinfo/perfectmyinfo',
+  onChange(event) {
+    this.setData({
+      costValue1: event.detail,
     })
   },
-  toQrcode () {
-    wx.navigateTo({
-      url: '../qrcode/qrcode',
+  addChange() {
+    let saveCost1 = this.data.saveCost1
+    let cost = this.data.cost1 + saveCost1
+    this.setData({
+      cost1: cost,
     })
   },
-  toPatientList () {
-    wx.navigateTo({
-      url: '../invite/invite',
+  cutChange() {
+    let saveCost1 = this.data.saveCost1
+    let cost = this.data.cost1 - saveCost1
+    this.setData({
+      cost1: cost,
     })
   },
   /**

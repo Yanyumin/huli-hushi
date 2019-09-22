@@ -1,0 +1,21 @@
+/* pages/home/home.wxss */
+.eventBox {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+}
+.eventBox view {
+  width: 49%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border: 1px solid #c9c9c9;
+  border-radius: 10rpx;
+  color: #fff;
+}
+.eventBox .eventList {
+  background: skyblue;
+}
+.eventBox .todayService {
+  background: #03c173;
+}

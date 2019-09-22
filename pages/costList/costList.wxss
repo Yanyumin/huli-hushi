@@ -1,0 +1,47 @@
+/* pages/costList/costList.wxss */
+.proDetail {
+  padding-top: 90rpx;
+}
+.contentHead {
+  background: #f2f2f2;
+}
+.contentHead .item {
+  width: 100%;
+  text-align: center;
+  font-size: 28rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.contentHead .item text {
+  width: 33.3%;
+  line-height: 72rpx;
+  display: inline-block;
+}
+.typeContent .item {
+  width: 100%;
+  text-align: center;
+  font-size: 28rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-bottom: 1px solid #f2f2f2;
+}
+.typeContent .item text {
+  width: 32%;
+  line-height: 72rpx;
+}
+.typeContent .item view.firstView {
+  width: 32%;
+  line-height: 72rpx;
+}
+.typeContent .item .firstView{
+  border-right: 1px solid #f2f2f2;
+}
+.handleBox {
+  margin: 50rpx 0;
+  text-align: center;
+}
+.van-button {
+  width: 80%;
+}

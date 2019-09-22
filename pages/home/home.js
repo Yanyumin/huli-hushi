@@ -1,27 +1,34 @@
-// pages/personal/personal.js
+// pages/home/home.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    imgUrls: [
+      '../../img/cvr.png',
+      '../../img/dingdan.png',
+      '../../img/photos.jpg',
+    ],
+    orderData: [{
+      orderNum: '1234568',
+      status: '2',
+      proImg: '../../img/cvr.png',
+      proName: '打针',
+      Price: '198',
+      time: '2019-9-26 14:00',
+      amount: 1
+    },{
+      orderNum: '1234568',
+      status: '4',
+      proImg: '../../img/cvr.png',
+      proName: '打针',
+      Price: '198',
+      time: '2019-9-26 14:00',
+      amount: 1
+    }]
+  },
 
-  },
-  toPersonalInfo () {
-    wx.navigateTo({
-      url: '../perfectmyinfo/perfectmyinfo',
-    })
-  },
-  toQrcode () {
-    wx.navigateTo({
-      url: '../qrcode/qrcode',
-    })
-  },
-  toPatientList () {
-    wx.navigateTo({
-      url: '../invite/invite',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
