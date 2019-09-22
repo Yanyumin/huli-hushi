@@ -1,1 +1,30 @@
-/* components/recommendItem/recommendItem.wxss */
+/* components/serviceItem/serviceItem.wxss */
+.thisProject {
+  padding: 15rpx 0;
+  font-size: 30rpx;
+  display: flex;
+  border-bottom: 1px solid #e5e5e5;
+}
+.imgBox {
+  width: 150rpx;
+  height: 150rpx;
+}
+.imgBox image {
+  width: 100%;
+  height: 100%;
+}
+.projectInfo {
+  margin-left: 30rpx;
+  flex: 1;
+}
+.projectInfo .projectName {
+  font-weight: 600;
+  line-height: 80rpx;
+}
+.projectInfo .projectDesc {
+  color: #666;
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

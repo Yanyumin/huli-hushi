@@ -1,0 +1,77 @@
+<!--pages/uploadmycard/uploadmycard.wxml-->
+<view class="uploadContainer">
+  <view class="topic">
+    身份证
+  </view>
+  <view class="contentBox">
+    <view class="uploadTopic">
+      <view>
+        1、请分别上传您本人身份证正面和反面清晰照片
+      </view>
+      <view>
+        2、照片支持jpg/png/jpeg格式，最大不超过4M
+      </view>
+    </view>
+    <view class='ui_uploader_cell'>
+      <!-- 根据已选择的图片临时路径数组展示图片-->
+      <view class='ui_uploader_item' wx:for="{{uploaderList}}" wx:key="{{index}}">
+        <!-- 删除-->
+        <van-icon name="clear"  bindtap='clearImg' data-index="{{index}}" type="clear"/>
+        <!-- 图片-->
+        <image bindtap='showImg' data-index="{{index}}" src='{{item}}'></image>
+      </view>
+      <!-- 上传按钮+框 -->
+      <view class='ui_uploader' bindtap='upload' wx:if="{{showUpload}}">
+        <van-icon name="plus" />
+        <view class='uploadTip'>上传身份证正面</view>
+      </view>
+    </view>
+    <view class='ui_uploader_cell'>
+      <!-- 根据已选择的图片临时路径数组展示图片-->
+      <view class='ui_uploader_item' wx:for="{{uploaderList1}}" wx:key="{{index}}">
+        <!-- 删除-->
+        <van-icon name="clear"  bindtap='clearImg1' data-index="{{index}}" type="clear"/>
+        <!-- 图片-->
+        <image bindtap='showImg1' data-index="{{index}}" src='{{item}}'></image>
+      </view>
+      <!-- 上传按钮+框 -->
+      <view class='ui_uploader' bindtap='upload1' wx:if="{{showUpload1}}">
+        <van-icon name="plus" />
+        <view class='uploadTip'>上传身份证反面</view>
+      </view>
+    </view>
+  </view>
+  <view class="topic">
+    证书
+  </view>
+  <view class="contentBox">
+    <view class="uploadTopic">
+      <view>
+        1、请上传您证书的正面清晰图片
+      </view>
+      <view>
+        2、照片支持jpg/png/jpeg格式，最大不超过4M
+      </view>
+    </view>
+    <view class='ui_uploader_cell'>
+      <!-- 根据已选择的图片临时路径数组展示图片-->
+      <view class='ui_uploader_item' wx:for="{{certificateList}}" wx:key="{{index}}">
+        <!-- 删除-->
+        <van-icon name="clear"  bindtap='certificateClearImg' data-index="{{index}}" type="clear"/>
+        <!-- 图片-->
+        <image bindtap='certificateShowImg' data-index="{{index}}" src='{{item}}'></image>
+      </view>
+      <!-- 上传按钮+框 -->
+      <view class='ui_uploader' bindtap='certificateUpload' wx:if="{{certificateShowUpload}}">
+        <van-icon name="plus" />
+        <view class='uploadTip'>上传证书正面</view>
+      </view>
+    </view>
+  </view>
+  <view class="handleBox">
+    <van-button round color="#ffa500" bindtap="certificateAdd">+增加一张</van-button>
+  </view>
+  <view class="handleBox nextTip">
+    <van-button round type="primary" bindtap="certificateAdd" bindtap="submitThis">提交审核</van-button>
+  </view>
+</view>

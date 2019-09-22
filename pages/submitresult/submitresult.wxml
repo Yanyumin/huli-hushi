@@ -1,0 +1,13 @@
+<!--pages/submitresult/submitresult.wxml-->
+<view class='resultContainer'>
+  <view class="result">
+    <van-icon name="checked" />
+    <view>提交成功</view>
+  </view>
+  <view class="tipContent">
+    <view>
+      我们将在三个工作日内审核您的信息，并将审核结果以电话的形式告知您，如有疑问请联系客服电话。
+    </view>
+    <text>020-9898898</text>
+  </view>
+</view>

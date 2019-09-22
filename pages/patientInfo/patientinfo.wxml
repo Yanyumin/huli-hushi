@@ -1,0 +1,108 @@
+<!--pages/perfectmyinfo/perfectmyinfo.wxml-->
+<view class="pageContainer">
+  <view class="cell">
+    <text class="title">基本病情</text>
+    <view class="inputBox">
+    </view>
+  </view>
+  <view class="cell">
+    <text>住院医院</text>
+    <view class="inputBox">
+       <van-field
+        value="{{ workUnit }}"
+        placeholder="请输入医院名称"
+        border="{{ false }}"
+        bind:change="workUnitOnChange"
+      />
+    </view>
+  </view>
+  <view class="cell">
+    <text>住院科室</text>
+    <view class="inputBox havePadding">
+      <picker bindchange="departBindChange" value="{{index}}" range="{{columns}}">
+        <view class="picker">{{depart}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="cell">
+    <text>病案号</text>
+    <view class="inputBox">
+       <van-field
+        value="{{ patientNo }}"
+        placeholder="请输入病案号"
+        border="{{ false }}"
+        bind:change="patientNoChange"
+      />
+    </view>
+  </view>
+  <view class="cell">
+    <text>入院日期</text>
+    <view class="inputBox havePadding">
+      <picker mode="date" value="{{beHosp}}" start="1970-01-01" end="{{nowDate}}" bindchange="bindbeHospChange">
+        <view class="picker">
+          {{beHosp}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="cell">
+    <text>出院日期</text>
+    <view class="inputBox havePadding">
+      <picker mode="date" value="{{outHosp}}" start="1970-01-01" end="{{nowDate}}" bindchange="bindoutHospChange">
+        <view class="picker">
+          {{outHosp}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="cell">
+    <text>病情描述</text>
+    <view class="inputBox">
+      <van-field
+        value="{{ describe }}"
+        label=""
+        type="textarea"
+        placeholder="请输入病情描述"
+        autosize
+        border="{{ false }}"
+        bind:change="describeChange"
+      />
+    </view>
+  </view>
+  <view class="cell">
+    <text class="title">性格评价</text>
+    <view class="inputBox">
+    </view>
+  </view>
+  <view class="cell">
+    <view class="inputBox characterBox">
+      <text data-type='1' bindtap="characterTap" class="{{character == 1 ? 'character active' : 'character'}}">易相处</text>
+      <text data-type='2' bindtap="characterTap" class="{{character == 2 ? 'character active' : 'character'}}">不好相处</text>
+      <text data-type='3' bindtap="characterTap" class="{{character == 3 ? 'character active' : 'character'}}">极难相处</text>
+    </view>
+  </view>
+  <view class="cell">
+    <text>性格描述</text>
+    <view class="inputBox">
+      <van-field
+        value="{{ characterDescribe }}"
+        label=""
+        type="textarea"
+        placeholder="请输入性格描述"
+        autosize
+        border="{{ false }}"
+        bind:change="characterDescribeChange"
+      />
+    </view>
+  </view>
+  <view class="cell recommendBox">
+    <text class="recommend title">服务项目推荐</text>
+    <view class="">
+      <van-button type="primary" size="small">添加</van-button>
+    </view>
+  </view>
+  <recommendItem datas="{{recommendList}}"></recommendItem>
+  <view class="handleBox">
+    <van-button round type="primary" bindtap="submitThis">保存</van-button>
+  </view>
+</view>

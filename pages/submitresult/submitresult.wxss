@@ -1,0 +1,22 @@
+/* pages/submitresult/submitresult.wxss */
+.result {
+  height: 300rpx;
+  text-align: center;
+  font-size: 28rpx;
+  background: #03c173;
+  color: #fff;
+  padding-top: 70rpx;
+  box-sizing: border-box;
+}
+.result .van-icon {
+  color: #fff;
+  font-size: 76rpx;
+}
+.tipContent {
+  padding: 20rpx;
+  font-size: 28rpx;
+}
+.tipContent text {
+  margin-top: 20rpx;
+  font-size: 36rpx;
+}

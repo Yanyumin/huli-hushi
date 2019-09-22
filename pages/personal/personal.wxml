@@ -1,7 +1,7 @@
 <!--pages/personal/personal.wxml-->
 <view class="personalContainer">
   <view class="headerBox">
-    <image src="../../img/userNo.png" />
+    <image src="../../img/userNo.png" bindtap="toPersonalInfo" />
     <view class="userName">
       护士
     </view>
