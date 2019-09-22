@@ -70,7 +70,7 @@
                     </view>
                 </view>
                 <view class="card  prompt">
-                    <view class="card_info">
+                    <view class="card_left">
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             出门打卡
@@ -86,8 +86,11 @@
                             <image src="../../img/wechat.png"></image>
                         </view>
                     </view>
-                    <view class="sign">
+                    <view class="card_right">
                         <view class="qiandao">
+                            <view class="itme_bin">
+                                <text>已打卡</text>
+                            </view>
                             <image src="../../img/qiandao.png"></image>
                         </view>
                     </view>
@@ -99,12 +102,11 @@
         <block wx:elif="{{tabs[2].isShow}}">
             <view class="arrive_content  goout_content">
                 <view class="card  prompt">
-                    <view class="card_info">
+                    <view class="card_left">
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
-                            出门打卡
+                            到达打卡
                             <text>8:00</text>
-                            <text class="itme_bin">已打卡</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
@@ -115,8 +117,11 @@
                             <image src="../../img/wechat.png"></image>
                         </view>
                     </view>
-                    <view class="sign">
+                    <view class="card_right">
                         <view class="qiandao">
+                            <view class="itme_bin">
+                                <text>已打卡</text>
+                            </view>
                             <image src="../../img/qiandao.png"></image>
                         </view>
                     </view>
@@ -153,23 +158,142 @@
                 <view class="assess_list" wx:for="{{items}}" wx:key="{{value}}">
                     <view class="assess_title">{{item.title}}</view>
                     <view class="assess_checked">
-                        <checkbox-group bindchange="checkboxChange">
-                            <label class="checkbox">
-                                <checkbox value="{{item.name}}" checked="{{item.checked}}" />
-                                {{item.value}}
+                        <radio-group class='radio-group' name='answer' bindchange='radioChange'>
+                            <label class='radio'>
+                                <radio value="A" color='#03c173' />
+                                {{item.option.a}}
                             </label>
-                                                         <label class="checkbox">
-                                 <checkbox value="{{item.name}}" checked="{{item.checked}}" wx:if="{{item.value1}}"/>
-                                 {{item.value1}}
-                             </label>
-                        </checkbox-group>
+                            <label class='radio'>
+                                <radio value="B" color='#03c173' />
+                                {{item.option.b}}
+                            </label>
+                            <label class='radio'>
+                                <radio value="C" color='#03c173' wx:if="{{item.option.c}}" />
+                                {{item.option.c}}
+                            </label>
+                            <label class='radio'>
+                                <radio value="D" color='#03c173' wx:if="{{item.option.d}}" />
+                                {{item.option.d}}
+                            </label>
+                            <label class='radio'>
+                                <radio value="E" color='#03c173' wx:if="{{item.option.e}}" />
+                                {{item.option.e}}
+                            </label>
+                        </radio-group>
                     </view>
                 </view>
+                <view class="hint">注: 按护理等级收费,默认护理等级为一级,护理等级为一级以上则需要额外收取费用</view>
+                <button type="primary" bindtap="onNurse" class="btn">开始护理</button>
             </view>
         </block>
         <!-- 护理 -->
-        <block wx:elif="{{tabs[4].isShow}}">护理-正在开发中。。。。</block>
+        <block wx:elif="{{tabs[4].isShow}}">
+            <view class="goout_content">
+                <view class="card  prompt">
+                    <view class="card_left">
+                        <view class="card_time">
+                            <van-icon name="underway-o" class="card_icon" />
+                            护理前拍照
+                            <text>8:00</text>
+                        </view>
+                        <view class="card_address">
+                            <van-icon name="location-o" class="card_icon" />
+                            广东省妇幼医院d栋
+                        </view>
+                        <view class="card_img">
+                            <van-icon name="location-o" class="card_icon" />
+                            <image src="../../img/wechat.png"></image>
+                        </view>
+                    </view>
+                    <view class="card_right">
+                        <view class="qiandao">
+                            <view class="itme_bin">
+                                <text>已完成</text>
+                            </view>
+                            <image src="../../img/qiandao.png"></image>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="record">护理记录</view>
+            <view class="comment">
+                <van-cell-group>
+                    <van-field input-class="comment_inp" value="{{ value }}" placeholder="病情观察及护理措施" border="{{ false }}" bind:change="onChange" />
+                </van-cell-group>
+            </view>
+            <view class="comment">
+                <van-cell-group>
+                    <van-field input-class="comment_inp" value="{{ value }}" placeholder="护理效果评价" border="{{ false }}" bind:change="onChange" />
+                </van-cell-group>
+            </view>
+            <view class="goout_content">
+                <view class="card  prompt">
+                    <view class="card_left">
+                        <view class="card_time">
+                            <van-icon name="underway-o" class="card_icon" />
+                            护理完请拍照
+                        </view>
+                        <view class="card_address">
+                            <van-icon name="location-o" class="card_icon" />
+                            请拍照记录
+                        </view>
+                        <view class="card_img">
+                            <van-icon name="location-o" class="card_icon" />
+                            <image src="../../img/wechat.png"></image>
+                        </view>
+                    </view>
+                    <view class="card_right">
+                        <view class="qiandao">
+                            <view class="itme_bin">
+                                <text>未完成</text>
+                            </view>
+                            <image src="../../img/qiandao.png"></image>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <button type="primary" bindtap="onPrepare" class="btn">完成</button>
+        </block>
         <!-- 安全打卡 -->
-        <block wx:elif="{{tabs[5].isShow}}">安全打卡-正在开发中。。。。</block>
+        <block wx:elif="{{tabs[5].isShow}}">
+            <view class="goout_content">
+                <view class="card  prompt">
+                    <view class="card_left">
+                        <view class="card_time">
+                            <van-icon name="underway-o" class="card_icon" />
+                            到达安全地点
+                            <text>8:00</text>
+                        </view>
+                        <view class="card_address">
+                            <van-icon name="location-o" class="card_icon" />
+                            请拍照记录
+                        </view>
+                        <view class="card_img">
+                            <van-icon name="location-o" class="card_icon" />
+                            <image src="../../img/wechat.png"></image>
+                        </view>
+                    </view>
+                    <view class="card_right">
+                        <view class="qiandao">
+                            <view class="itme_bin">
+                                <text>未签到</text>
+                            </view>
+                            <image src="../../img/qiandao.png"></image>
+                        </view>
+                    </view>
+                </view>
+                <view class="prompt evaluate_content">
+                    <view class="evaluate">
+                        评价
+                        <van-rate value="{{ value1 }}" size="{{ 25 }}" color="#ee0a24" bind:change="onChange" />
+                        <text class="good">非常满意</text>
+                    </view>
+                    <van-cell-group>
+                        <van-field input-class="evaluate_inp" size="large" value="{{ value }}" placeholder="您对本次的服务是否满意呢, 请填写您宝贵的意见" border="{{ false }}" bind:change="onChange" />
+                    </van-cell-group>
+                </view>
+                <button type="primary" bindtap="onPrepare" class="btn">完成</button>
+            </view>
+        </block>
     </Tabs>
 </view>

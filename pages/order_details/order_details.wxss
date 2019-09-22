@@ -41,9 +41,10 @@
     font-size: 38rpx;
 }
 .first_tab .btn{
+     margin-top: 50rpx;
     width: 400rpx;
-    margin: 20rpx auto;
-    background-color: #03c173
+    background-color: #03c173;
+    
 }
 
 .first_tab .prompt{
@@ -67,21 +68,27 @@
 .first_tab .goout_content .card{
 color: #848181;
 display: flex;
+justify-content: space-between;
+/* align-items: center; */
 }
-.first_tab .goout_content .card .card_info {
+.first_tab .goout_content .card .card_left {
     flex: 2;
 }
-.first_tab .goout_content .card .sign {
+.first_tab .goout_content .card .card_right {
     flex: 1;
+    text-align: right;
 }
 .first_tab .goout_content .card .card_time {
 padding: 20rpx 0;
 }
-.first_tab .goout_content .card .card_time .itme_bin{
-    background-color: #03c173;
+.first_tab .goout_content .card .card_right .itme_bin {
     color: #ffffff;
+    margin-bottom: 30rpx;
+}
+.first_tab .goout_content .card .card_right .itme_bin text {
+    background-color: #03c173;
     padding: 6rpx;
-    margin-left: 30rpx;
+
 }
 .first_tab .goout_content .card .card_address {
 padding-bottom: 20rpx;
@@ -91,7 +98,6 @@ padding-bottom: 20rpx;
 width: 400rpx;
 padding-bottom: 20rpx;
 display: flex;
-/* align-content: center; */
 align-items: center;
 }
 .first_tab .goout_content .card .card_icon{
@@ -101,12 +107,11 @@ align-items: center;
 width: 220rpx;
 height: 220rpx;
 }
-.goout_content .card .sign .qiandao{
-/* width: 100rpx;
-height: 80rpx; */
+.goout_content .card .card_right .qiandao{
+
 margin:  20rpx auto;
 }
-.goout_content .card .sign .qiandao image {
+.goout_content .card .card_right .qiandao image {
     width: 180rpx;
    height: 180rpx;
 }
@@ -163,13 +168,52 @@ width: 400prx;
 }
  .prompt .assess_list{
     display: flex;
-    justify-content: space-between
+    align-items:center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 14rpx;
 }
 
  .prompt .assess_list .assess_title {
-   flex: 4
+   flex: 4;
 }
 
  .prompt .assess_list .assess_checked {
   flex: 8
+}
+.prompt .hint{
+    color: red;
+    font-size: 28rpx;
+    padding: 20rpx 0;
+}
+.first_tab .comment {
+    border:1rpx solid #e5e5e5;
+    padding: 2rpx 0;
+     margin-bottom: 18rpx;
+}
+.first_tab .comment .comment_inp{
+     font-size: 30rpx;
+
+    
+}
+.first_tab .record{
+    padding: 6rpx 0 14rpx 6rpx;
+}
+.prompt .evaluate{
+    display: flex;
+     justify-content: space-around;
+     font-size: 38rpx;
+}
+
+.prompt .evaluate .good {
+    color: red;
+    font-size: 34rpx;
+}
+.prompt .evaluate_inp{
+    font-size:32rpx;
+}
+.first_tab .evaluate_content{
+height: 220rpx;
+ padding: 20rpx 0;
+
 }

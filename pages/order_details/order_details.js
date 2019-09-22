@@ -5,67 +5,93 @@ Page({
      * 页面的初始数据
      */
     data: {
+        value1: 3,
         items: [{
                 title: "过敏药物食物",
                 name: 'food',
-                value: '有',
-                value1: "无"
+                option: {
+                    a: '有',
+                    b: "无"
+                }
+
             },
             {
                 title: "心里状态",
                 name: 'status',
-                value: '有',
-                value1: "无",
+                option: {
+                    a: '有',
+                    b: "无"
+                },
+
                 checked: 'true'
             },
             {
                 title: "吸烟",
                 name: 'XY',
-                value: '有',
-                value1: "无"
+                option: {
+                    a: '有',
+                    b: "无"
+                },
+
 
             },
             {
                 title: "饮酒",
                 name: 'YJ',
-                value: '有',
-                value1: "无"
+                option: {
+                    a: '有',
+                    b: "无"
+                },
+
             },
             {
                 title: "大小便",
                 name: 'DAB',
-                value: '正常',
-                value1: "异常"
+                option: {
+                    a: '正常',
+                    b: "异常"
+                }
             },
             {
                 title: "意识状态",
                 name: 'YSZT',
-                value: '清醒',
-                value1: "嗜睡",
-                value2: "烦躁",
-                value3: "昏迷",
-                value4: "其他"
+                option: {
+                    a: '清醒',
+                    b: "嗜睡",
+                    c: "烦躁",
+                    d: "昏迷",
+                    e: "其他",
+                }
+
             }, {
                 title: "自主能力",
                 name: 'ZZNL',
-                value: '正常',
-                value1: "全瘫",
-                value2: "截瘫",
-                value3: "偏瘫",
-                value4: "其他"
+                option: {
+                    a: '正常',
+                    b: "全瘫",
+                    c: "截瘫",
+                    d: "偏瘫",
+                    e: "其他",
+                }
+
             }, {
                 title: "评估等级",
                 name: 'PG',
-                value: '一般',
-                value1: "病重",
-                value2: "病危",
+                option: {
+                    a: '一般',
+                    b: "病重",
+                    c: "病危",
+                }
+
             }, {
                 title: "护理等级",
                 name: 'HL',
-                value1: '一级',
-                value2: '二级',
-                value3: "三级",
-                value4: "特级",
+                option: {
+                    a: '一级',
+                    b: "二级",
+                    c: "三级",
+                    d: "特级",
+                }
             },
         ],
         datas: [{
@@ -97,12 +123,12 @@ Page({
                 id: 3,
                 title: "评估报告",
                 isActive: true,
-                isShow: true,
+                isShow: false,
             }, {
                 id: 4,
                 title: "　 护理",
-                isActive: false,
-                isShow: false,
+                isActive: true,
+                isShow: true,
             }, {
                 id: 5,
                 title: "安全打卡",
@@ -118,8 +144,8 @@ Page({
             goods_info: "更换敷料、检查伤口、清洁伤口"
         }
     },
-    checkboxChange: function (e) {
-        console.log('checkbox发生change事件，携带value值为：', e.detail.value)
+    radioChange: function (e) {
+        console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     onChange(event) {
         // event.detail 为当前输入的值
@@ -138,6 +164,18 @@ Page({
             url: '../history/history'
         })
     },
+    // 开始护理
+    onNurse(){
+  let {
+      tabs
+  } = this.data;
+  tabs[3].isShow = false
+  tabs[4].isActive = true
+  tabs[4].isShow = true
+  this.setData({
+      tabs
+  })
+    },
     // 下一步
     onNextStep() {
         let {
@@ -145,7 +183,7 @@ Page({
         } = this.data;
         tabs[2].isShow = false
         tabs[3].isActive = true
-        tabs[4].isShow = true
+        tabs[3].isShow = true
         this.setData({
             tabs
         })
@@ -195,7 +233,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log(this.datatabs);
 
     },
 
