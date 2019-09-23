@@ -1,21 +1,21 @@
 /**index.wxss**/
-.userinfo {
+.eventBox {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.eventBox view {
+  width: 49%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  border: 1px solid #c9c9c9;
+  border-radius: 10rpx;
+  color: #fff;
 }
-
-.userinfo-nickname {
-  color: #aaa;
+.eventBox .eventList {
+  background: skyblue;
 }
-
-.usermotto {
-  margin-top: 200px;
+.eventBox .todayService {
+  background: #03c173;
 }

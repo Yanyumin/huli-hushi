@@ -1,16 +1,31 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+<view class="homeContainer">
+  <swiper indicator-dots="{{indicatorDots}}"
+    autoplay="true" interval="5000" duration="1000" indicatorDots="true">
+    <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" width="355" height="150"/>
+      </swiper-item>
     </block>
-    <van-button type="primary">默认按钮</van-button>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  </swiper>
+  <view class="contentBox">
+    <view class="eventBox">
+      <view class="eventList" bindtap="clickEvent">
+        接单列表(10)
+      </view>
+      <view class="todayService" bindtap='clickToday'>
+        今日服务(2)
+      </view>
+    </view>
+    <view class="eventContainer" wx:if="{{showEvent}}">
+      <orderItem
+        datas="{{oderList}}"
+        bind:startService="startService"
+      ></orderItem>
+    </view>
+    <view class="todayServiceContainer" wx:if="{{todayServiceShow}}">
+      <orderItem datas="{{todayOderList}}"></orderItem>
+    </view>
   </view>
 </view>
 

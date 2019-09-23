@@ -74,7 +74,7 @@ Page({
   },
   titleBindChange (e) {
     this.setData({
-      title: this.data.sexClumn[e.detail.value]
+      title: this.data.titleClumns[e.detail.value]
     })
   },
   submitThis () {

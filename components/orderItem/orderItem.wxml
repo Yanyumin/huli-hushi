@@ -27,7 +27,7 @@
                 </view>
             </view>
         </view>
-        <view class="orderHandle" wx:if="{{item.status != 5}}">
+        <view class="orderHandle" wx:if="{{item.status != 5 && item.status != 3}}">
             <button wx:if="{{item.status == 2}}" data-index="{{item.status}}" bindtap="startService">
                 开始服务
             </button>
