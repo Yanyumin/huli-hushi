@@ -1,6 +1,6 @@
 <van-tabs active="{{ active }}" bind:change="onChange"  color="#03bf72">
     <van-tab title="全部">
-        <orderItem  bindacceptService="acceptService" bindchange="clickOrder" datas="{{oderList}}"></orderItem>
+        <orderItem  bindstartService="startService"  bindacceptService="acceptService" bindchange="clickOrder" datas="{{oderList}}"></orderItem>
     </van-tab>
     <van-tab title="待确认">
         <orderItem bindacceptService="acceptService"  bindcancelService="cancelService" datas="{{oderList1}}"></orderItem>

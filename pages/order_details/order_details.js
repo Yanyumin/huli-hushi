@@ -1,10 +1,20 @@
-// pages/order_details/order_details.js
+const QQMapWX = require('../../lib/qqmap/qqmap-wx-jssdk.js');
+
+// 实例化API核心对象，对象调用方法实现功能
+let qqmapsdk = new QQMapWX({
+    key: '53IBZ-7X36X-CWE4D-TKKLE-T7K3V-STBS3'
+});
+//  console.log(qqmapsdk);
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
+            myLatitude: "",
+            myLongitude: "",
+            myAddress: "",
+        img:"",
         value1: 3,
         items: [{
                 title: "过敏药物食物",
@@ -144,6 +154,48 @@ Page({
             goods_info: "更换敷料、检查伤口、清洁伤口"
         }
     },
+    takePhoto(){
+        let that = this
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'],
+            sourceType: ['album', 'camera'],
+            success(res) {
+                console.log(res);
+                const tempFilePaths = res.tempFilePaths
+                console.log(tempFilePaths[0]);
+                that.setData({
+                    img: tempFilePaths[0]
+                })
+            }
+        })
+           //用微信提供的api获取经纬度
+           wx.getLocation({
+               type: 'wgs84',
+               success: function (res) {
+                   that.setData({
+                       myLatitude: res.latitude,
+                       myLongitude: res.longitude
+                   })
+                   //用腾讯地图的api，根据经纬度获取城市
+                   qqmapsdk.reverseGeocoder({
+                       location: {
+                           latitude: that.data.myLatitude,
+                           longitude: that.data.myLongitude
+                       },
+                       success: function (res) {
+                           console.log(res)
+                           var a = res.result.address_component
+                           that.setData({
+                               myAddress: a.city + a.district
+                           })
+                           console.log(that.data.myAddress)
+                       }
+                   })
+               }
+           })
+        
+    },
     radioChange: function (e) {
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
@@ -233,11 +285,9 @@ Page({
     },
     // 改变tabs标签的选中效果
     handleTitleChange(e) {
-        // 先获取子组件传递过来的数据
         const {
             index
         } = e.detail;
-        // 获取源数组
         let {
             tabs
         } = this.data;
@@ -250,8 +300,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+ var that = this
 
-    },
+ },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -264,7 +315,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
     },
 
     /**

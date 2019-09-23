@@ -157,19 +157,20 @@ Page({
 
     },
     acceptService(e) {
-console.log("待确认");
+console.log("接受");
 
     },
     clickOrder(e) {
-        // console.log("点击了");
+        console.log("点击了");
 //  wx.navigateTo({
 //      url: '../order_details/order_details',
 //  })
 
     },
     startService(e) {
-        console.log(e);
-               console.log(e);
+        console.log("开始服务");
+        
+        // console.log(e);
                wx.navigateTo({
                    url: '../order_details/order_details',
                })
