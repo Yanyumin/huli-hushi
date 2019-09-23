@@ -106,29 +106,29 @@ Page({
                 id: 0,
                 title: "预约信息",
                 isActive: true,
-                isShow: false,
+                isShow: true,
             },
             {
                 id: 1,
                 title: "出门准备",
-                isActive: true,
+                isActive: false,
                 isShow: false,
             },
             {
                 id: 2,
                 title: "到达地点",
-                isActive: true,
+                isActive: false,
                 isShow: false,
             }, {
                 id: 3,
                 title: "评估报告",
-                isActive: true,
+                isActive: false,
                 isShow: false,
             }, {
                 id: 4,
                 title: "　 护理",
-                isActive: true,
-                isShow: true,
+                isActive: false,
+                isShow: false,
             }, {
                 id: 5,
                 title: "安全打卡",
@@ -164,18 +164,35 @@ Page({
             url: '../history/history'
         })
     },
-    // 开始护理
-    onNurse(){
-  let {
-      tabs
-  } = this.data;
-  tabs[3].isShow = false
-  tabs[4].isActive = true
-  tabs[4].isShow = true
-  this.setData({
-      tabs
-  })
+    onSubmit(){
+        console.log("护理已结束");
+        
     },
+    // 护理结束
+    onNurseEnd() {
+        let {
+            tabs
+        } = this.data;
+        tabs[4].isShow = false
+        tabs[5].isActive = true
+        tabs[5].isShow = true
+        this.setData({
+            tabs
+        })
+    },
+    // 开始护理
+    onNurse() {
+        let {
+            tabs
+        } = this.data;
+        tabs[3].isShow = false
+        tabs[4].isActive = true
+        tabs[4].isShow = true
+        this.setData({
+            tabs
+        })
+    },
+
     // 下一步
     onNextStep() {
         let {

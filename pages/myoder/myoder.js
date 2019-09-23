@@ -99,28 +99,7 @@ Page({
                 orderNum: "vs223333333322222",
                 status: "3",
                 proImg: "../../img/cvr.png",
-                proName: "看看病",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            },
-            {
-                orderNum: "vs123333333322222",
-                status: "3",
-                proImg: "../../img/cvr.png",
-                proName: "护理康复",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            }
-        ],
-        oderList3: [{
-                orderNum: "vs223333333322222",
-                status: "3",
-                proImg: "../../img/cvr.png",
-                proName: "看看病",
+                proName: "看看",
                 Price: "328.00",
                 time: "2019-09-09",
                 amount: "1",
@@ -159,7 +138,7 @@ Page({
             },
             {
                 orderNum: "vs123333333322222",
-                status: "3",
+                status: "5",
                 proImg: "../../img/cvr.png",
                 proName: "护理康复",
                 Price: "328.00",
@@ -178,13 +157,14 @@ Page({
 
     },
     acceptService(e) {
+console.log("待确认");
 
     },
     clickOrder(e) {
-        console.log(e);
- wx.navigateTo({
-     url: '../order_details/order_details',
- })
+        // console.log("点击了");
+//  wx.navigateTo({
+//      url: '../order_details/order_details',
+//  })
 
     },
     startService(e) {
