@@ -14,7 +14,7 @@ Page({
             proDesc: "更换敷料、检查伤口、清洁伤口"
         }],
     infolist:{
-        status: "待服务",
+        status: "待确认",
         buycount: "1",
         serveperson: '温秀秀',
         phone: '135434343',
@@ -31,6 +31,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+console.log(options);
 
   },
 

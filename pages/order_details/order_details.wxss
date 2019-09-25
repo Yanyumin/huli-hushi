@@ -159,11 +159,7 @@ width: 400prx;
     display: flex;
     justify-content: space-around
 }
-.goout_content .arrive_btn {
-    padding: 50rpx;
-    display: flex;
-    justify-content: space-around
-}
+
 .goout_content .arrive_btn button{
     background-color: #03c173;
     border-radius: 34rpx;

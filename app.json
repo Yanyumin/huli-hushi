@@ -1,11 +1,11 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/index/index",
     "pages/myoder/myoder",
     "pages/punch_sign/punch_sign",
     "pages/patient_info/patient_info",
     "pages/order_details/order_details",
-    "pages/login/login",
     "pages/logs/logs",
     "pages/personal/personal",
     "pages/register/register",

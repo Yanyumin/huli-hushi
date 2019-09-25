@@ -20,7 +20,23 @@ Page({
         } else if (!this.data.checked) {
             Toast.fail('请勾选同意下方使用协议');
         } else if (this.data.phone_name == "admin" && this.data.password == "123") {
-
+              wx.login({
+                  success(res) {
+                      console.log(res.code);
+                      
+                      if (res.code) {
+                          //发起网络请求
+                        //   wx.request({
+                        //       url: 'https://test.com/onLogin',
+                        //       data: {
+                        //           code: res.code
+                        //       }
+                        //   })
+                      } else {
+                          console.log('登录失败！' + res.errMsg)
+                      }
+                  }
+              })
             // 这里修改成跳转的页面
             wx.showToast({
                 title: '登录成功',
@@ -37,7 +53,6 @@ Page({
             wx.showToast({
 
                 title: '登录失败',
-
                 icon: 'none',
 
                 duration: 2000

@@ -5,7 +5,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-        oderList: [{
+        oderList: [
+            {
                 orderNum: "vs123333333322222",
                 status: "1",
                 proImg: "../../img/cvr.png",
@@ -163,9 +164,9 @@ console.log("接受");
     clickOrder(e) {
         console.log(e);
         
-        console.log("点击查看详情");
+        console.log("点击查看详情--待确认");
  wx.navigateTo({
-     url: '../infolist/infolist',
+     url: '../infolist/infolist?id=1',
  })
 
     },

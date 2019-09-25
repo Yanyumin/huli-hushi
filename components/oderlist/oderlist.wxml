@@ -25,7 +25,7 @@
             <view class="info_name">{{item.history}}</view>
             <text class="arrows">》</text>
         </view>
-        <view class="info_list"  wx:if="{{item.yuyueprice}}">
+        <view class="info_list" wx:if="{{item.yuyueprice}}">
             <view class="info_title">预约上门费</view>
             <view class="info_name  paid">
                 已支付
@@ -46,7 +46,17 @@
             <view class="info_name">{{item.remark}}</view>
         </view>
     </view>
-    <!-- <view class="service_btn">
-        <button class="btn" bindtap="onStartService">开始服务</button>
-    </view> -->
+    <view class="service_btn">
+        <button class="btn" bindtap="onStartService" wx:if="{{item.status == '待服务'}}" data-index="{{item.status}}">
+            开始服务
+        </button>
+        <view wx:if="{{item.status == '待确认'}}" class="arrive_btn">
+            <button data-index="{{item.status}}" bindtap="acceptService">
+                接受
+            </button>
+            <button data-index="{{item.status}}" bindtap="cancelService">
+                退回
+            </button>
+        </view>
+    </view>
 </view>
