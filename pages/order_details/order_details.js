@@ -11,12 +11,37 @@ Page({
      * 页面的初始数据
      */
     data: {
-            myLatitude: "",
-            myLongitude: "",
-            myAddress: "",
-        img:"",
+          infolist: {
+              status: "待服务",
+              buycount: "1",
+              serveperson: '温秀秀',
+              phone: '135434343',
+              serveaddress: '广东广州海珠',
+              servetime: '2019-09-22',
+              history: '5',
+            //   yuyueprice: '119',
+              pricelist: '221',
+              remark: '疑难杂症',
+          },
+        myLatitude: "",
+        myLongitude: "",
+        myAddress: "",
+        img: "",
         value1: 3,
-        items: [{
+        list: {
+            status: "",
+            buycount: "",
+            serveperson: '',
+            phone:'',
+            serveaddress: '',
+            servetime:'',
+            history:'',
+            yuyueprice:'',
+            pricelist: '',
+            remark:'',
+        },
+        items: [
+            {
                 title: "过敏药物食物",
                 name: 'food',
                 option: {
@@ -154,7 +179,7 @@ Page({
             goods_info: "更换敷料、检查伤口、清洁伤口"
         }
     },
-    takePhoto(){
+    takePhoto() {
         let that = this
         wx.chooseImage({
             count: 1,
@@ -169,39 +194,39 @@ Page({
                 })
             }
         })
-           //用微信提供的api获取经纬度
-           wx.getLocation({
-               type: 'wgs84',
-               success: function (res) {
-                   that.setData({
-                       myLatitude: res.latitude,
-                       myLongitude: res.longitude
-                   })
-                   //用腾讯地图的api，根据经纬度获取城市
-                   qqmapsdk.reverseGeocoder({
-                       location: {
-                           latitude: that.data.myLatitude,
-                           longitude: that.data.myLongitude
-                       },
-                       success: function (res) {
-                           console.log(res)
-                           var a = res.result.address_component
-                           that.setData({
-                               myAddress: a.city + a.district
-                           })
-                           console.log(that.data.myAddress)
-                       }
-                   })
-               }
-           })
-        
+        //用微信提供的api获取经纬度
+        wx.getLocation({
+            type: 'wgs84',
+            success: function (res) {
+                that.setData({
+                    myLatitude: res.latitude,
+                    myLongitude: res.longitude
+                })
+                //用腾讯地图的api，根据经纬度获取城市
+                qqmapsdk.reverseGeocoder({
+                    location: {
+                        latitude: that.data.myLatitude,
+                        longitude: that.data.myLongitude
+                    },
+                    success: function (res) {
+                        console.log(res)
+                        var a = res.result.address_component
+                        that.setData({
+                            myAddress: a.city + a.district
+                        })
+                        console.log(that.data.myAddress)
+                    }
+                })
+            }
+        })
+
     },
     radioChange: function (e) {
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     onChange(event) {
         // event.detail 为当前输入的值
-        console.log(event.detail);
+        console.log(event.deta每日一丧il);
     },
     // 查看费用清单
     onExpense() {
@@ -216,9 +241,9 @@ Page({
             url: '../history/history'
         })
     },
-    onSubmit(){
+    onSubmit() {
         console.log("护理已结束");
-        
+
     },
     // 护理结束
     onNurseEnd() {
@@ -300,9 +325,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
- var that = this
+        var that = this
 
- },
+    },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -314,8 +339,7 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
-    },
+    onShow: function () {},
 
     /**
      * 生命周期函数--监听页面隐藏

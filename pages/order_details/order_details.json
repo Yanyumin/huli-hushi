@@ -1,7 +1,8 @@
 {
   "usingComponents": {
       "Tabs": "../../components/Tabs/Tabs",
-      "serviceItem": "../../components/serviceItem/serviceItem"
+      "serviceItem": "../../components/serviceItem/serviceItem",
+       "oderlist": "../../components/oderlist/oderlist"
   },
     "navigationBarTitleText": "订单详情"
 

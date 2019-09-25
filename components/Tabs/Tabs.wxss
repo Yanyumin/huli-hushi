@@ -16,7 +16,7 @@
     
 }
 .tabs .title_item .round{
-      margin: 0 30rpx;
+      margin: 0 28rpx;
       width: 50rpx;
       height:50rpx;
       border: 2rpx solid #a5a3a3;
@@ -34,6 +34,10 @@
 }
 .tabs .title_item:nth-last-child(1) text {
        display: none;
+}
+
+.tabs .title_item:nth-child(1) .round {
+    margin-left: 24rpx;
 }
 .tabs .title_item .title_name{
     font-size: 25rpx;

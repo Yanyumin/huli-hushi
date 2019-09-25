@@ -51,7 +51,7 @@ const checkIDCard = (idcode) => {
   var lastNo = checkCode[resisue]
 
   // 格式的正则
-  // 正则思路
+  // 正则思路 
   /*
   第一位不可能是0
   第二位到第六位可以是0-9

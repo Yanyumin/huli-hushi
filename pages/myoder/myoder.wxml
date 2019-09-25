@@ -1,9 +1,10 @@
+<van-search value="{{ value }}" placeholder="请输入搜索关键词" />
 <van-tabs active="{{ active }}" bind:change="onChange"  color="#03bf72">
     <van-tab title="全部">
-        <orderItem  bindstartService="startService"  bindacceptService="acceptService" bindchange="clickOrder" datas="{{oderList}}"></orderItem>
+        <orderItem  bindstartService="startService"  bindacceptService="acceptService" bindchange="clickOrder" datas="{{oderList}}" data-index="{{index}}"></orderItem>
     </van-tab>
     <van-tab title="待确认">
-        <orderItem bindacceptService="acceptService"  bindcancelService="cancelService" datas="{{oderList1}}"></orderItem>
+        <orderItem bindacceptService="acceptService"  bindcancelService="cancelService"  bindchange="clickOrder" data-item="{{oderList1[0].status}}" datas="{{oderList1}}"></orderItem>
     </van-tab>
     <van-tab title="待服务">
         <orderItem bindstartService="startService"  datas="{{oderList2}}"></orderItem>

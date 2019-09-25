@@ -4,7 +4,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+   item: {
+   type: Object
+   }
   },
 
   /**
@@ -18,6 +20,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+ onExpense(e){
+      this.triggerEvent('onExpense', {
+          value: e.currentTarget.dataset['index']
+      });
+ }
   }
 })

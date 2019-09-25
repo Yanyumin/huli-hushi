@@ -1,0 +1,2 @@
+<serviceItem datas="{{datas}}"></serviceItem>
+<oderlist item="{{infolist}}"></oderlist>

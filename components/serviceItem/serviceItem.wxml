@@ -1,19 +1,28 @@
-<!--components/serviceItem/serviceItem.wxml-->
-<view class='serviceItemContainer'> 
-  <view class='thisProject haveBorderBottom' wx:for-items="{{datas}}" wx:key="index" data-index="{{item.id}}" bindtap="clickService">
-    <view class='imgBox'>
-      <image src="{{item.proLogo}}" />
-    </view>
-    <view class="projectInfo">
-      <view class='projectName'>{{item.proName}}</view>
-      <view class='projectDesc'>{{item.proDesc}}</view>
-      <view class="timeAndPrice">
-        <view class="time">
-         <van-icon name="clock-o" />
-          {{item.time}}分钟
+<!-- components/serviceItem/serviceItem.wxml -->
+
+<view class='serviceItemContainer'>
+        <van-row class="service">
+        <van-col span="12" class="ser_icon">
+            <van-icon name="notes-o" />
+            服务项目
+        </van-col>
+        <van-col class="number" span="12">span2122122128</van-col>
+    </van-row>
+    <view class='thisProject haveBorderBottom' wx:for-items="{{datas}}" wx:key="index" data-index="{{item.id}}" bindtap="clickService">
+        
+        <view class='imgBox'>
+            <image src="{{item.proLogo}}" />
         </view>
-        <text class="price">￥{{item.price}}</text>
-      </view>
+        <view class="projectInfo">
+            <view class='projectName'>{{item.proName}}</view>
+            <view class='projectDesc'>{{item.proDesc}}</view>
+            <view class="timeAndPrice">
+                <view class="time">
+                    <van-icon name="clock-o" />
+                    {{item.time}}分钟
+                </view>
+                <text class="price">￥{{item.price}}</text>
+            </view>
+        </view>
     </view>
-  </view>
 </view>

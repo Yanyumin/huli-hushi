@@ -3,57 +3,8 @@
         <block wx:if="{{tabs[0].isShow}}">
             <!-- 预约信息 -->
             <view class="order_details">
-                <van-row class="service">
-                    <van-col span="12" class="ser_icon">
-                        <van-icon name="notes-o" />
-                        服务项目
-                    </van-col>
-                    <van-col class="number" span="12">span2122122128</van-col>
-                </van-row>
                 <serviceItem datas="{{datas}}"></serviceItem>
-                <view class="info_content">
-                    <view class="info_list">
-                        <view class="info_title">状态</view>
-                        <view class="info_name">待服务</view>
-                    </view>
-                    <view class="info_list">
-                        <view class="info_title">购买数量</view>
-                        <view class="info_name">1</view>
-                    </view>
-                    <view class="info_list">
-                        <view class="info_title">服务人</view>
-                        <view class="info_name">温秀先  1305433234222   本人</view>
-                    </view>
-                    <view class="info_list">
-                        <view class="info_title">服务地址</view>
-                        <view class="info_name">广州屌德斯时代大厦</view>
-                    </view>
-                    <view class="info_list">
-                        <view class="info_title">服务时间</view>
-                        <view class="info_name">201299-23</view>
-                    </view>
-                    <view class="info_list">
-                        <view class="info_title">电子签名</view>
-                        <view class="info_name">温秀先</view>
-                    </view>
-                    <view class="info_list" bindtap="onHistory">
-                        <view class="info_title">患者病历</view>
-                        <view class="info_name">5</view>
-                        <text class="arrows">》</text>
-                    </view>
-                    <view class="info_list" bindtap="onExpense">
-                        <view class="info_title">费用清单</view>
-                        <view class="info_name  paid">
-                            已支付
-                            <text class="paid_price">￥ 119.00</text>
-                            》
-                        </view>
-                    </view>
-                    <view class="info_list">
-                        <view class="info_title">备注</view>
-                        <view class="info_name">疑问、疑问等</view>
-                    </view>
-                </view>
+                <oderlist item="{{infolist}}"  bindonExpense="onExpense"></oderlist>
                 <view class="service_btn">
                     <button class="btn" type="primary" bindtap="onStartService">开始服务</button>
                 </view>
@@ -83,7 +34,7 @@
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
                             <text wx:if="{{!img}}">请拍照记录</text>
-                            <image wx:else  mode="widthFix" src="{{img}}"></image>
+                            <image wx:else mode="widthFix" src="{{img}}"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -91,10 +42,9 @@
                             <view class="itme_bin">
                                 <text>已打卡</text>
                             </view>
-                            <view  bindtap="takePhoto">
+                            <view bindtap="takePhoto">
                                 <image mode="widthFix" src="../../img/qiandao.png"></image>
                             </view>
-                          
                         </view>
                     </view>
                 </view>
@@ -117,7 +67,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image  mode="widthFix" src="../../img/wechat.png"></image>
+                            <image mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -125,7 +75,7 @@
                             <view class="itme_bin">
                                 <text>已打卡</text>
                             </view>
-                            <image  mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -145,7 +95,7 @@
                             <image mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                         <view class="photos_btn">
-                            <image mode="widthFix" src="../../img/Camaro.png"></image>
+                            <image mode="widthFix" src="../../img/最近更新Camaro.png"></image>
                         </view>
                     </view>
                 </view>
@@ -205,7 +155,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image  mode="widthFix" src="../../img/wechat.png"></image>
+                            <image mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -213,7 +163,7 @@
                             <view class="itme_bin">
                                 <text>已完成</text>
                             </view>
-                            <image  mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -242,7 +192,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image  mode="widthFix" src="../../img/wechat.png"></image>
+                            <image mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -250,7 +200,7 @@
                             <view class="itme_bin">
                                 <text>未完成</text>
                             </view>
-                            <image  mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -273,7 +223,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image  mode="widthFix" src="../../img/wechat.png"></image>
+                            <image mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">

@@ -1,0 +1,7 @@
+{
+"navigationBarTitleText": "订单详情",
+"usingComponents": {
+  "oderlist": "../../components/oderlist/oderlist",
+   "serviceItem": "../../components/serviceItem/serviceItem"
+}
+}

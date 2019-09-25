@@ -161,10 +161,12 @@ console.log("接受");
 
     },
     clickOrder(e) {
-        console.log("点击了");
-//  wx.navigateTo({
-//      url: '../order_details/order_details',
-//  })
+        console.log(e);
+        
+        console.log("点击查看详情");
+ wx.navigateTo({
+     url: '../infolist/infolist',
+ })
 
     },
     startService(e) {
@@ -176,10 +178,10 @@ console.log("接受");
                })
     },
     onChange(event) {
-        wx.showToast({
-            title: `切换到标签 ${event.detail.index + 1}`,
-            icon: 'none'
-        });
+        // wx.showToast({
+        //     title: `切换到标签 ${event.detail.index + 1}`,
+        //     icon: 'none'
+        // });
     },
     /**
      * 生命周期函数--监听页面加载

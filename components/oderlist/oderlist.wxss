@@ -1,1 +1,59 @@
-/* components/oderlist/oderlist.wxss */
+.order_details {
+    padding: 10rpx;
+}
+
+.order_details .service {
+    font-size: 28rpx;
+    vertical-align: middle;
+
+}
+
+.order_details .service .ser_icon {
+    color: #6d6b6b;
+}
+
+.order_details .number {
+    text-align: right;
+}
+
+.order_details .info_list {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e5e5;
+    line-height: 50rpx;
+    padding: 20rpx 14rpx;
+}
+
+.order_details .info_list .info_title {
+    flex: 4;
+}
+
+.order_details .info_list .info_name {
+    flex: 8;
+    font-size: 30rpx;
+    color: #606060;
+    justify-content: space-between;
+}
+
+.order_details .info_list .arrows {
+    text-align: right;
+}
+
+.order_details .info_list .paid {
+    text-align: right;
+    font-size: 26rpx;
+}
+
+.order_details .info_list .paid .paid_price {
+    color: orange;
+    font-size: 38rpx;
+}
+
+.btn {
+    color: #fff;
+    border-radius: 34rpx;
+    margin: 50rpx auto;
+    width: 400rpx;
+    background-color: #03c173;
+
+}

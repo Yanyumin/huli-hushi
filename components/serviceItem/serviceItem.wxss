@@ -1,7 +1,7 @@
 /* components/serviceItem/serviceItem.wxss */
 .thisProject {
  margin-top: 15rpx;
-  padding: 30rpx 0;
+  padding: 0rpx 10rpx;
   font-size: 30rpx;
   display: flex;
   border-bottom: 1px solid #e5e5e5;
@@ -48,4 +48,22 @@
 .price {
   font-size: 36rpx;
   color: orange
+}
+ .service {
+     /* padding: 10rpx; */
+    font-size: 28rpx;
+    vertical-align: middle;
+
+}
+
+ .service .ser_icon {
+    color: #6d6b6b;
+}
+
+ .number {
+    text-align: right;
+}
+.serviceItemContainer{
+ margin-top: 15rpx;
+padding: 0 14rpx
 }
