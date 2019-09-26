@@ -24,6 +24,11 @@ Component({
       this.triggerEvent('onExpense', {
           value: e.currentTarget.dataset['index']
       });
+ },
+ signin(e){
+       wx.navigateTo({
+           url: '../../pages/punch_sign/punch_sign',
+       });
  }
   }
 })

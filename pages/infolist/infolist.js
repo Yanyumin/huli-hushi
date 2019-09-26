@@ -32,6 +32,36 @@ Page({
    */
   onLoad: function (options) {
 console.log(options);
+let id = options.id
+let infolist =this.data.infolist
+
+if (id=='1') {
+    infolist.status = "待确认"
+    this.setData({
+infolist
+    })
+} else if (id=='2') {
+     infolist.status = "待服务"
+        this.setData({
+            infolist
+        })
+} else if (id=='3') {
+     infolist.status = "服务中"
+     this.setData({
+         infolist
+     })
+} else if (id=='4') {
+      infolist.status = "待评价"
+      this.setData({
+          infolist
+      })
+      
+}else if (id=="5") {
+      infolist.status = "完成"
+      this.setData({
+          infolist
+      })
+}
 
   },
 

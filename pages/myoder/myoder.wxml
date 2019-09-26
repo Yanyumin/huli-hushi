@@ -4,18 +4,18 @@
         <orderItem  bindstartService="startService"  bindacceptService="acceptService" bindchange="clickOrder" datas="{{oderList}}" data-index="{{index}}"></orderItem>
     </van-tab>
     <van-tab title="待确认">
-        <orderItem bindacceptService="acceptService"  bindcancelService="cancelService"  bindchange="clickOrder" data-item="{{oderList1[0].status}}" datas="{{oderList1}}"></orderItem>
+        <orderItem bindacceptService="acceptService"  bindcancelService="cancelService"  bindchange="clickOrder" data-status="{{oderList1[0].status}}" datas="{{oderList1}}"></orderItem>
     </van-tab>
     <van-tab title="待服务">
-        <orderItem bindstartService="startService"  bindchange="clickOrder"  data-item="{{oderList2[0].status}}"  datas="{{oderList2}}"></orderItem>
+        <orderItem bindstartService="startService"  bindchange="clickOrder"  data-status="{{oderList2[0].status}}"  datas="{{oderList2}}"></orderItem>
     </van-tab>
     <van-tab title="服务中">
-        <orderItem datas="{{oderList3}}"  bindchange="clickOrder"  data-item="{{oderList3[0].status}}"></orderItem>
+        <orderItem datas="{{oderList3}}"  bindchange="clickOrder"  data-status="{{oderList3[0].status}}"></orderItem>
     </van-tab>
     <van-tab title="待评价">
-        <orderItem bindtoAppraise="toAppraise" datas="{{oderList4}}"  bindchange="clickOrder" data-item="{{oderList4[0].status}}"></orderItem>
+        <orderItem bindtoAppraise="toAppraise" datas="{{oderList4}}"  bindchange="clickOrder" data-status="{{oderList4[0].status}}"></orderItem>
     </van-tab>
     <van-tab title="已完成">
-        <orderItem datas="{{oderList5}}"   bindchange="clickOrder" data-item="{{oderList5[0].status}}"></orderItem>
+        <orderItem datas="{{oderList5}}"   bindchange="clickOrder" data-status="{{oderList5[0].status}}"></orderItem>
     </van-tab>
 </van-tabs>

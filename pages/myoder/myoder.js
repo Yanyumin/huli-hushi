@@ -163,19 +163,21 @@ console.log("接受");
     },
     clickOrder(e) {
         console.log(e);
+        let status = e.currentTarget.dataset.status
+        console.log(status);
         
         console.log("点击查看详情--待确认");
  wx.navigateTo({
-     url: '../infolist/infolist?id=1',
+     url: '../infolist/infolist?id=' + status,
  })
 
     },
     startService(e) {
         console.log("开始服务");
-        
+          
         // console.log(e);
                wx.navigateTo({
-                   url: '../order_details/order_details',
+                   url: '../order_details/order_details' ,
                })
     },
     onChange(event) {
@@ -188,7 +190,18 @@ console.log("接受");
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+ wx.request({
+     url: 'https://api.gdbkyz.com/AppUser/api/NurseOrder/GetNurseList',
+     data: {
 
+     },
+     header: {
+         'content-type': 'application/json' // 默认值
+     },
+     success(res) {
+         console.log(res.data)
+     }
+ })
     },
 
     /**
