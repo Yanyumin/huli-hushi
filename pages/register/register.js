@@ -32,8 +32,8 @@ formSubmit(){
          Toast.fail('两次密码不一致,请重新确认');
      }else if (that.data.phone=='') {
          Toast.fail('请输入手机号');
-     } else if (that.data.sms == '') {
-         Toast.fail('请输入验证码');
+    //  } else if (that.data.sms == '') {
+    //      Toast.fail('请输入验证码');
      } else if (!that.data.checked) {
          Toast.fail('请勾选同意下方使用协议');
      } else {
@@ -46,7 +46,21 @@ formSubmit(){
             }
         }).then(res=>{
             console.log(res);
-            
+                 if (res.data.ResultCode == 1) {
+                     wx.showToast({
+                         title: res.data.Message,
+                         icon: 'success',
+                         duration: 3500,
+                         success: function () {
+                             wx.switchTab({
+                                 url: '../index/index'
+                             })
+                         }
+                     })
+                 } else {
+                     Toast.fail(res.data.Message);
+                     return false
+                 }
         })
      }
      return true;
