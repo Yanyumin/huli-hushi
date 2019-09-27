@@ -59,7 +59,6 @@
             </button>
         </view>
                 <view wx:if="{{item.status == '服务中'}}" class="arrive_btn">
-            <button data-index="{{item.status}}" bindtap="signin">签到</button>
             <button data-index="{{item.status}}" bindtap="cancelService"> 结束服务</button>
         </view>
     </view>

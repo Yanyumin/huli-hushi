@@ -1,1 +1,4 @@
 /* pages/infolist/infolist.wxss */
+.infolist{
+    padding: 20rpx 0;
+}

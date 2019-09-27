@@ -1,2 +1,6 @@
+<view class="infolist">
 <serviceItem datas="{{datas}}"></serviceItem>
 <oderlist item="{{infolist}}"></oderlist>
+
+</view>
+

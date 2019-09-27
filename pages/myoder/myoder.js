@@ -5,8 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        oderList: [
-            {
+        oderList: [{
                 orderNum: "vs123333333322222",
                 status: "1",
                 proImg: "../../img/cvr.png",
@@ -158,27 +157,27 @@ Page({
 
     },
     acceptService(e) {
-console.log("接受");
+        console.log("接受");
 
     },
     clickOrder(e) {
         console.log(e);
         let status = e.currentTarget.dataset.status
         console.log(status);
-        
+
         console.log("点击查看详情--待确认");
- wx.navigateTo({
-     url: '../infolist/infolist?id=' + status,
- })
+        wx.navigateTo({
+            url: '../infolist/infolist?id=' + status,
+        })
 
     },
     startService(e) {
         console.log("开始服务");
-          
+
         // console.log(e);
-               wx.navigateTo({
-                   url: '../order_details/order_details' ,
-               })
+        wx.navigateTo({
+            url: '../order_details/order_details',
+        })
     },
     onChange(event) {
         // wx.showToast({
@@ -190,18 +189,30 @@ console.log("接受");
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
- wx.request({
-     url: 'https://api.gdbkyz.com/AppUser/api/NurseOrder/GetNurseList',
-     data: {
+        let cookies = wx.getStorageSync("cookies")
+        wx.request({
+            url: 'https://api.gdbkyz.com/AppUser/api/NurseOrder/GetNurseList',
+            data: {
+                orderId:1,
+                // orderId: 1,
+                // gmywsw: 1,
+                // xlzt: 1,
+                // xy: 2,
+                // yj: 3,
+                // dxb: 3,
+                // yszt: 5,
+                // zznl: 9,
+                // pgdj: 23,
 
-     },
-     header: {
-         'content-type': 'application/json' // 默认值
-     },
-     success(res) {
-         console.log(res.data)
-     }
- })
+            },
+            header: {
+                'cookie': cookies,
+                'content-type': 'application/json' // 默认值
+            },
+            success(res) {
+                console.log(res.data)
+            }
+        })
     },
 
     /**

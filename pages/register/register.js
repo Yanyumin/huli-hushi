@@ -1,4 +1,7 @@
+const {request} = require("../../utils/request")
+
 import Toast from 'vant-weapp/toast/toast';
+
 Page({
 
   /**
@@ -6,7 +9,7 @@ Page({
    */
   data: {
   userName:'',
-  checked:true,
+  checked:false,
   user_pro: "<<用户使用协议>>",
   password:'',
   password_c:'',
@@ -14,60 +17,77 @@ Page({
   sms:''
   },
 formSubmit(){
-    console.log("登录");
-     if (this.data.userName == "" || this.data.userName == null ||this.data.userName == undefined) {
+    console.log("注册");
+    let that = this
+    let passwordRes = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{6,16}$/
+     if (that.data.userName == "" || that.data.userName == null ||that.data.userName == undefined) {
          Toast.fail('请输入用户名');
-     } else if (this.data.password == "" || this.data.password == null || this.data.password == undefined) {
+     } else if (that.data.password == "" || that.data.password == null || that.data.password == undefined) {
          Toast.fail('请输入密码');
-     } else if (this.data.password.length < 6) {
-         Toast.fail('密码至少要6位');
-     } else if (this.data.password_c=='') {
+     } else if (!passwordRes.test(that.data.password)) {
+         Toast.fail('密码格式不正确');
+     } else if (that.data.password_c=='') {
       Toast.fail('请确认密码');
-     }else if (this.data.password_c != this.data.password) {
+     }else if (that.data.password_c != that.data.password) {
          Toast.fail('两次密码不一致,请重新确认');
-     }else if (this.data.phone=='') {
+     }else if (that.data.phone=='') {
          Toast.fail('请输入手机号');
-     } else if (this.data.sms == '') {
+     } else if (that.data.sms == '') {
          Toast.fail('请输入验证码');
+     } else if (!that.data.checked) {
+         Toast.fail('请勾选同意下方使用协议');
+     } else {
+        request({
+             method: "POST",
+            url: 'NurseRegister/Register',
+            data: {
+                UserName: that.data.userName,
+                Password: that.data.password
+            }
+        }).then(res=>{
+            console.log(res);
+            
+        })
      }
      return true;
-}
-  ,
+},
  onChangeName(event) {
      // event.detail 为当前输入的值
-     console.log(event.detail);
      this.setData({
          userName: event.detail
      });
  },
  onChangePassword(e){
-     console.log(e.detail);
    this.setData({
        password: e.detail
    });
  },
  onChangePassword_c(e){
-     console.log(e.detail);
  this.setData({
      password_c: e.detail
  });
  },
  onChangePhone(e){
-     console.log(e.detail);
       this.setData({
           phone: e.detail
       });
  },
  onChangeSms(e){
-     console.log(e.detail);
  this.setData({
      sms: e.detail
  });
  },
  codeSubmit(){
 console.log("发送一个验证码");
+//  this.setData({
+//      userName: e.detail
+//  });
+ },
+//  同意
+ onChangebtn(e){
+     
  this.setData({
-     userName: e.detail
+     checked: e.detail
  });
  },
   /**

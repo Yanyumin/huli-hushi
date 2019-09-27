@@ -13,71 +13,72 @@ Page({
         logIcon: "../../img/tab-personal-gray.png",
     },
     //发送验证码
-    onSms(){
+    onSms() {
         console.log("发送验证码");
-        
- wx.request({
-     method:"POST",
-     url: 'https://api.gdbkyz.com/AppUser/api/Auth/GetUserInfo',
-     data: {
-       
-     },
-     header: {
-         'content-type': 'application/json' // 默认值
-     },
-     success(res) {
-         console.log(res.data)
-     }
- })
+
+        wx.request({
+            method: "POST",
+            url: 'https://api.gdbkyz.com/AppUser/api/Auth/GetUserInfo',
+            data: {
+
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success(res) {
+                console.log(res.data)
+            }
+        })
     },
-    onChangeLogin() {
-        if (!this.data.phone_name) {
-            Toast.fail('请输入用户名/手机号');
-        } else if (!this.data.password) {
-            Toast.fail('请输入密码');
-        } else if (!this.data.checked) {
-            Toast.fail('请勾选同意下方使用协议');
-        } else {
-              wx.login({
-                  success(res) {
-                      console.log(res.code);
-                      
-                      if (res.code) {
-                          wx.request({
-                              url: 'https://api.gdbkyz.com/AppUser/api/Auth/Login',
-                              data: {
-                                  code: res.code
-                              },
-                              success(res){
-                                  console.log(res);
-                                  console.log();
-                                  if (res.statusCode=="200") {
+     onChangeLogin() {
+         if (!this.data.phone_name) {
+             Toast.fail('请输入用户名/手机号');
+         } else if (!this.data.password) {
+             Toast.fail('请输入密码');
+         } else if (!this.data.checked) {
+             Toast.fail('请勾选同意下方使用协议');
+         } else {
+             wx.login({
+                 success(res) {
+                     console.log(res.code);
+
+                     if (res.code) {
+                         wx.request({
+                             url: 'https://api.gdbkyz.com/AppUser/api/Auth/Login',
+                             data: {
+                                 code: res.code
+                             },
+                             success(res) {
+                                 console.log(res);
+                                 console.log();
+                                 if (res.statusCode == "200") {
 
                                      wx.setStorageSync('cookies', res.cookies[0])
-                                        wx.showToast({
-                                            title: '登录成功',
-                                            icon: 'success',
-                                            duration: 2000,
-                                            success: function () {
-                                                wx.switchTab({
-                                                    url: '../index/index'
-                                                })
-                                            }
-                                        })
-                                  }
-                              }
-                          })
-                      } else {
-                          console.log('登录失败！' + res.errMsg)
-                      }
-                  }
-              })
-            // 这里修改成跳转的页面
-          
-        }
-        return true;
+                                     
+                                    //  wx.showToast({
+                                    //      title: '登录成功',
+                                    //      icon: 'success',
+                                    //      duration: 2000,
+                                    //      success: function () {
+                                    //          wx.switchTab({
+                                    //              url: '../index/index'
+                                    //          })
+                                    //      }
+                                    //  })
+                                 }
+                             }
+                         })
+                     } else {
+                         console.log('登录失败！' + res.errMsg)
+                     }
+                 }
+             })
+             // 这里修改成跳转的页面
 
-    },
+         }
+         return true;
+
+     },
     handleLogin() {
         console.log("登录");
         let phoneRes = /^1(3|4|5|7|8)\d{9}$/
@@ -93,10 +94,10 @@ Page({
         return true;
     },
     // 记住密码
-    rememberPasd(e){
+    rememberPasd(e) {
         console.log(e);
         this.setData({
-            checked_password:e.detail,
+            checked_password: e.detail,
         })
     },
     onChangePhone(e) {
