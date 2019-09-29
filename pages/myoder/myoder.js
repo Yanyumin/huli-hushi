@@ -166,6 +166,9 @@ Page({
     onLoad: function (options) {
         request({
             url: 'NurseOrder/GetNurseList',
+            data:{
+                type:''
+            }
         }).then(res => {
             console.log(res);
             let {
