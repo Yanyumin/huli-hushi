@@ -25,6 +25,10 @@ Component({
           value: e.currentTarget.dataset['index']
       });
  },
-
+onStartService(e){
+     this.triggerEvent('onStartService', {
+         value: e.currentTarget.dataset['index']
+     });
+}
   }
 })

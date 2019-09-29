@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/index/index",
+    "pages/login/login",
     "pages/myoder/myoder",
     "pages/punch_sign/punch_sign",
     "pages/patient_info/patient_info",

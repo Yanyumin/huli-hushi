@@ -12,7 +12,7 @@ Page({
         phone: '',
         user_pro: "<<用户使用协议>>",
         checked: false,
-        checked_password: false,
+        pasd: false,
         active: 1,
         logIcon: "../../img/tab-personal-gray.png",
     },
@@ -35,6 +35,7 @@ Page({
         })
     },
     onChangeLogin() {
+        let pasd = this.data.pasd
         let UserName = this.data.phone_name
         let Password = this.data.password
         if (!this.data.phone_name) {
@@ -46,8 +47,6 @@ Page({
         } else {
             wx.login({
                 success(res) {
-                    console.log(res.code);
-
                     if (res.code) {
                         request({
                             url: 'Auth/Login',
@@ -55,12 +54,8 @@ Page({
                                 code: res.code
                             }
                         }).then(res => {
-                            console.log(res);
-                            console.log();
                             if (res.statusCode == "200") {
-
                                 wx.setStorageSync('cookies', res.cookies[0])
-
                                 request({
                                     method: 'POST',
                                     url: 'NurseRegister/SignIn',
@@ -69,11 +64,10 @@ Page({
                                         Password
                                     }
                                 }).then(res => {
-                                    console.log(res);
                                     if (res.data.ResultCode == 1) {
-                                        wx.setStorageSync("token", res.data.row.Token)
-                                        console.log(wx.getStorageSync("token", res.data.row.Token));
-
+                                        if (pasd) {
+                                            wx.setStorageSync("token", res.data.row.Token)
+                                        }
                                         wx.showToast({
                                             title: '登录成功',
                                             icon: 'success',
@@ -118,7 +112,7 @@ Page({
     rememberPasd(e) {
         console.log(e);
         this.setData({
-            checked_password: e.detail,
+            pasd: e.detail,
         })
     },
     onChangePhone(e) {

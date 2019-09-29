@@ -1,57 +1,15 @@
 // pages/myoder/myoder.js
+const {
+    request
+} = require("../../utils/request")
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        oderList: [{
-                orderNum: "vs123333333322222",
-                status: "1",
-                proImg: "../../img/cvr.png",
-                proName: "看看病",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            },
-            {
-                orderNum: "vs123333333322222",
-                status: "2",
-                proImg: "../../img/cvr.png",
-                proName: "护理康复",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            },
-            {
-                orderNum: "vs123333333322222",
-                status: "3",
-                proImg: "../../img/cvr.png",
-                proName: "偏瘫康复",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            }, {
-                orderNum: "vs123333333322222",
-                status: "4",
-                proImg: "../../img/cvr.png",
-                proName: "偏瘫康复",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            }, {
-                orderNum: "vs123333333322222",
-                status: "5",
-                proImg: "../../img/cvr.png",
-                proName: "偏瘫康复",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-            }
+        oderList: [
+           
         ],
         oderList1: [{
                 orderNum: "vs123333333322222",
@@ -153,11 +111,28 @@ Page({
 
     },
     cancelService(e) {
-        console.log(e);
+        console.log(e , "拒绝");
+ request({
+     url: 'NurseOrder/ReceiveFailed',
+     data: {
+         orderId: 1
+     }
+ }).then(res => {
+     console.log(res);
 
+ })
     },
     acceptService(e) {
         console.log("接受");
+     request({
+         url: 'NurseOrder/ReceiveSuccess',
+         data:{
+             orderId:1
+         }
+     }).then(res => {
+         console.log(res);
+
+     })
 
     },
     clickOrder(e) {
@@ -189,30 +164,20 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        let cookies = wx.getStorageSync("cookies")
-        wx.request({
-            url: 'https://api.gdbkyz.com/AppUser/api/NurseOrder/GetNurseList',
-            data: {
-                orderId:1,
-                // orderId: 1,
-                // gmywsw: 1,
-                // xlzt: 1,
-                // xy: 2,
-                // yj: 3,
-                // dxb: 3,
-                // yszt: 5,
-                // zznl: 9,
-                // pgdj: 23,
-
-            },
-            header: {
-                'cookie': cookies,
-                'content-type': 'application/json' // 默认值
-            },
-            success(res) {
-                console.log(res.data)
-            }
+        request({
+            url: 'NurseOrder/GetNurseList',
+        }).then(res => {
+            console.log(res);
+            let {
+                NurseList
+            } = res.data
+            this.setData({
+                oderList: NurseList
+            })
+            console.log(this.data.oderList);
+            
         })
+
     },
 
     /**

@@ -74,7 +74,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // const token = wx.getStorageSync('token');
+    // if (!token) {
+    //     console.log('没有 token 跳转到登录授权页');
+    //     wx.navigateTo({
+    //         url: '/pages/login/login',
+    //     });
+    //     // 没有授权就退出函数，需要返回 Promise 对象，防止外部 then 的时候报错。
+    // }
   },
 
   /**

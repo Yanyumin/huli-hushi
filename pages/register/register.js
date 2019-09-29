@@ -50,7 +50,7 @@ formSubmit(){
                      wx.showToast({
                          title: res.data.Message,
                          icon: 'success',
-                         duration: 3500,
+                         duration: 3000,
                          success: function () {
                              wx.switchTab({
                                  url: '../index/index'

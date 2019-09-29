@@ -4,10 +4,10 @@
             <!-- 预约信息 -->
             <view class="order_details">
                 <serviceItem datas="{{datas}}"></serviceItem>
-                <oderlist item="{{infolist}}"  bindonExpense="onExpense"></oderlist>
-                <view class="service_btn">
+                <oderlist item="{{infolist}}"  bindonExpense="onExpense"  bindonStartService="onStartService"></oderlist>
+                <!-- <view class="service_btn">
                     <button class="btn" type="primary" bindtap="onStartService">开始服务</button>
-                </view>
+                </view> -->
             </view>
         </block>
         <!-- 出门准备 -->

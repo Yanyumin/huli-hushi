@@ -210,11 +210,23 @@ Page({
                     },
                     success: function (res) {
                         console.log(res)
-                        var a = res.result.address_component
+                   
                         that.setData({
-                            myAddress: a.city + a.district
+                            myAddress: res.result.address
                         })
-                        console.log(that.data.myAddress)
+                        request({
+                            url: 'NurseOrder/OneConfirm',
+                            data: {
+                                orderId: 1,
+                                location:this.data.myAddress,
+                                baseImg:this.data.img,
+                                patientName:'',
+                                idenNo:''
+                            }
+                        }).then(res => {
+                            console.log(res);
+
+                        })
                     }
                 })
             }

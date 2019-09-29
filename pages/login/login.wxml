@@ -50,7 +50,7 @@
                                 <van-field value="{{ password }}" type="password" placeholder="请输入密码"  bind:change="handlePassword"/>
                             </van-cell-group>
                             <view class="rempasw">
-                                <van-checkbox shape="square" value="{{ checked_password }}" checked-color="#07c160" bind:change="rememberPasd">
+                                <van-checkbox shape="square" value="{{  pasd }}" checked-color="#07c160" bind:change="rememberPasd">
                                     记住密码
                                 </van-checkbox>
                             </view>
