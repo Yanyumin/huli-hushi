@@ -15,13 +15,22 @@ const formatNumber = n => {
 }
 
 // 获取当前日期
-const formatDate = () => {
+const formatHour = () => {
   const date = new Date()
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
 
-  return [year, month, day].map(formatNumber).join('-')
+
+  return [hour, minute].map(formatNumber).join(':')
+}
+// 获取当前时间
+const formatDate = () => {
+    const date = new Date()
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+
+    return [year, month, day].map(formatNumber).join('-')
 }
 
 // 身份证验证
@@ -73,5 +82,6 @@ const checkIDCard = (idcode) => {
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
-  checkIDCard: checkIDCard
+  checkIDCard: checkIDCard,
+  formatHour: formatHour
 }

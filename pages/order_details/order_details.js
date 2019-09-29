@@ -2,6 +2,7 @@ const QQMapWX = require('../../lib/qqmap/qqmap-wx-jssdk.js');
 const {
     request
 } = require("../../utils/request")
+var util = require('../../utils/util.js');
 // 实例化API核心对象，对象调用方法实现功能
 let qqmapsdk = new QQMapWX({
     key: '53IBZ-7X36X-CWE4D-TKKLE-T7K3V-STBS3'
@@ -14,6 +15,7 @@ Page({
      */
     data: {
           infolist: {
+              clocktime: '',
               status: "待服务",
               buycount: "1",
               serveperson: '温秀秀',
@@ -190,51 +192,57 @@ Page({
             success(res) {
                 console.log(res);
                 const tempFilePaths = res.tempFilePaths
+
+
                 console.log(tempFilePaths[0]);
+                  var time = util.formatHour(new Date());
+                  // 再通过setData更改Page()里面的data，动态更新页面的数据
+                
                 that.setData({
+                      clocktime: time,
                     img: tempFilePaths[0]
                 })
+                       //用微信提供的api获取经纬度
+                       wx.getLocation({
+                           type: 'wgs84',
+                           success: function (res) {
+                               that.setData({
+                                   myLatitude: res.latitude,
+                                   myLongitude: res.longitude
+                               })
+                               //用腾讯地图的api，根据经纬度获取城市
+                               qqmapsdk.reverseGeocoder({
+                                   location: {
+                                       latitude: that.data.myLatitude,
+                                       longitude: that.data.myLongitude
+                                   },
+                                   success: function (res) {
+                                       console.log(res)
 
-                      //用微信提供的api获取经纬度
-                      wx.getLocation({
-                          type: 'wgs84',
-                          success: function (res) {
-                              that.setData({
-                                  myLatitude: res.latitude,
-                                  myLongitude: res.longitude
-                              })
-                              //用腾讯地图的api，根据经纬度获取城市
-                              qqmapsdk.reverseGeocoder({
-                                  location: {
-                                      latitude: that.data.myLatitude,
-                                      longitude: that.data.myLongitude
-                                  },
-                                  success: function (res) {
-                                      console.log(res)
+                                       that.setData({
+                                           myAddress: res.result.address
+                                       })
+                                       request({
+                                           method: 'POST',
+                                           url: 'NurseOrder/OneConfirm',
+                                           data: {
+                                               orderId: 1,
+                                               location: that.data.myAddress,
+                                               baseImg: that.data.img,
+                                               patientName: '',
+                                               idenNo: ''
+                                           }
+                                       }).then(res => {
+                                           console.log(res);
 
-                                      that.setData({
-                                          myAddress: res.result.address
-                                      })
-                                      request({
-                                          url: 'NurseOrder/OneConfirm',
-                                          data: {
-                                              orderId: 1,
-                                              location: that.data.myAddress,
-                                              baseImg: that.data.img,
-                                              patientName: '',
-                                              idenNo: ''
-                                          }
-                                      }).then(res => {
-                                          console.log(res);
-
-                                      })
-                                  }
-                              })
-                          }
-                      })
+                                       })
+                                   }
+                               })
+                           }
+                       })
             }
         })
-    
+ 
 
     },
     radioChange: function (e) {

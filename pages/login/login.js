@@ -65,9 +65,7 @@ Page({
                                     }
                                 }).then(res => {
                                     if (res.data.ResultCode == 1) {
-                                        if (pasd) {
                                             wx.setStorageSync("token", res.data.row.Token)
-                                        }
                                         wx.showToast({
                                             title: '登录成功',
                                             icon: 'success',
