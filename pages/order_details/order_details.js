@@ -23,7 +23,6 @@ Page({
               serveaddress: '广东广州海珠',
               servetime: '2019-09-22',
               history: '5',
-            //   yuyueprice: '119',
               pricelist: '221',
               remark: '疑难杂症',
           },
@@ -44,95 +43,6 @@ Page({
             pricelist: '',
             remark:'',
         },
-        items: [
-            {
-                title: "过敏药物食物",
-                name: 'food',
-                option: {
-                    1: '有',
-                    2: "无"
-                }
-
-            },
-            {
-                title: "心里状态",
-                name: 'status',
-                option: {
-                    1: '有',
-                    2: "无"
-                },
-
-                checked: 'true'
-            },
-            {
-                title: "吸烟",
-                name: 'XY',
-                option: {
-                    1: '有',
-                    2: "无"
-                },
-
-
-            },
-            {
-                title: "饮酒",
-                name: 'YJ',
-                option: {
-                    1: '有',
-                    2: "无"
-                },
-
-            },
-            {
-                title: "大小便",
-                name: 'DAB',
-                option: {
-                    a: '正常',
-                    b: "异常"
-                }
-            },
-            {
-                title: "意识状态",
-                name: 'YSZT',
-                option: {
-                    1: '清醒',
-                    2: "嗜睡",
-                    3: "烦躁",
-                    4: "昏迷",
-                    4: "其他",
-                }
-
-            }, {
-                title: "自主能力",
-                name: 'ZZNL',
-                option: {
-                    a: '正常',
-                    b: "全瘫",
-                    c: "截瘫",
-                    d: "偏瘫",
-                    e: "其他",
-                }
-
-            }, {
-                title: "评估等级",
-                name: 'PG',
-                option: {
-                    a: '一般',
-                    b: "病重",
-                    c: "病危",
-                }
-
-            }, {
-                title: "护理等级",
-                name: 'HL',
-                option: {
-                    a: '一级',
-                    b: "二级",
-                    c: "三级",
-                    d: "特级",
-                }
-            },
-        ],
         datas: [{
             id: 1,
             proLogo: '../../img/wechat.png',
@@ -141,7 +51,8 @@ Page({
             time: "30",
             proDesc: "更换敷料、检查伤口、清洁伤口"
         }],
-        tabs: [{
+        tabs: [
+            {
                 id: 0,
                 title: "预约信息",
                 isActive: true,
@@ -252,11 +163,12 @@ Page({
 
     },
     radioChange: function (e) {
+        console.log(e);
+        
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     onChange(event) {
         // event.detail 为当前输入的值
-        console.log(event.deta每日一丧il);
     },
     // 查看费用清单
     onExpense() {

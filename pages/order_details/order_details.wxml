@@ -4,7 +4,7 @@
             <!-- 预约信息 -->
             <view class="order_details">
                 <serviceItem datas="{{datas}}"></serviceItem>
-                <oderlist item="{{infolist}}"  bindonExpense="onExpense"  bindonStartService="onStartService"></oderlist>
+                <oderlist item="{{infolist}}" bindonExpense="onExpense" bindonStartService="onStartService"></oderlist>
                 <!-- <view class="service_btn">
                     <button class="btn" type="primary" bindtap="onStartService">开始服务</button>
                 </view> -->
@@ -108,29 +108,169 @@
         <!-- 评估报告 -->
         <block wx:elif="{{tabs[3].isShow}}">
             <view class="prompt">
-                <view class="assess_list" wx:for="{{items}}" wx:key="{{value}}">
-                    <view class="assess_title">{{item.title}}</view>
+                <view class="assess_list">
+                    <view class="assess_title">过敏药物食物</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChange'>
+                        <radio-group class='radio-group' name='answer' bindchange='radioChangeGmyw'>
                             <label class='radio'>
-                                <radio value="A" color='#03c173' />
-                                {{item.option.a}}
+                                <radio value="1" color='#03c173' />
+                                有
                             </label>
                             <label class='radio'>
-                                <radio value="B" color='#03c173' />
-                                {{item.option.b}}
+                                <radio value="2" color='#03c173' />
+                                无
+                            </label>
+                        </radio-group>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">心里状态</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' name='answer' bindchange='radioChangeXlzt' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                有
                             </label>
                             <label class='radio'>
-                                <radio value="C" color='#03c173' wx:if="{{item.option.c}}" />
-                                {{item.option.c}}
+                                <radio value="2" color='#03c173' />
+                                无
+                            </label>
+                        </radio-group>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">吸烟</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' name='answer' bindchange='radioChangeXy' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                有
                             </label>
                             <label class='radio'>
-                                <radio value="D" color='#03c173' wx:if="{{item.option.d}}" />
-                                {{item.option.d}}
+                                <radio value="2" color='#03c173' />
+                                无
+                            </label>
+                        </radio-group>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">饮酒</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' name='answer' bindchange='radioChangeYj' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                有
                             </label>
                             <label class='radio'>
-                                <radio value="E" color='#03c173' wx:if="{{item.option.e}}" />
-                                {{item.option.e}}
+                                <radio value="2" color='#03c173' />
+                                无
+                            </label>
+                        </radio-group>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">大小便</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' name='answer' bindchange='radioChangeDxb' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                正常
+                            </label>
+                            <label class='radio'>
+                                <radio value="2" color='#03c173' />
+                                异常
+                            </label>
+                        </radio-group>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">意识状态</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' name='answer' bindchange='radioChangeYszt' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                清醒
+                            </label>
+                            <label class='radio'>
+                                <radio value="2" color='#03c173' />
+                                嗜睡
+                            </label>
+                            <label class='radio'>
+                                <radio value="3" color='#03c173' />
+                                烦躁
+                            </label>
+                            <label class='radio'>
+                                <radio value="4" color='#03c173' />
+                                昏迷
+                            </label>
+                            <label class='radio'>
+                                <radio value="5" color='#03c173' />
+                                其他
+                            </label>
+                        </radio-group>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">自主能力</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' name='answer' bindchange='radioChangeZznl' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                正常
+                            </label>
+                            <label class='radio'>
+                                <radio value="2" color='#03c173' />
+                                全瘫
+                            </label>
+                            <label class='radio'>
+                                <radio value="3" color='#03c173' />
+                                截瘫
+                            </label>
+                            <label class='radio'>
+                                <radio value="4" color='#03c173' />
+                                偏瘫
+                            </label>
+                        </radio-group>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">评估等级</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' name='answer' bindchange='radioChangePgdj' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                一般
+                            </label>
+                            <label class='radio'>
+                                <radio value="2" color='#03c173' />
+                                病重
+                            </label>
+                            <label class='radio'>
+                                <radio value="3" color='#03c173' />
+                                病危
+                            </label>
+                        </radio-group>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">护理等级</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' name='answer' bindchange='radioChangeHldj' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                一级
+                            </label>
+                            <label class='radio'>
+                                <radio value="2" color='#03c173' />
+                                二级
+                            </label>
+                            <label class='radio'>
+                                <radio value="3" color='#03c173' />
+                                三级
+                            </label>
+                            <label class='radio'>
+                                <radio value="4" color='#03c173' />
+                                特级
                             </label>
                         </radio-group>
                     </view>
