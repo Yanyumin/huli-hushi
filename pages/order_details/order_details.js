@@ -167,6 +167,16 @@ Page({
         
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
+     radioChange: function (e) {
+         console.log(e);
+
+         console.log('radio发生change事件，携带value值为：', e.detail.value)
+     },
+      radioChange: function (e) {
+          console.log(e);
+
+          console.log('radio发生change事件，携带value值为：', e.detail.value)
+      },
     onChange(event) {
         // event.detail 为当前输入的值
     },
