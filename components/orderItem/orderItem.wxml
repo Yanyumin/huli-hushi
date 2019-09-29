@@ -1,16 +1,16 @@
 <!-- components/orderItem/orderItem.wxml -->
 <view class="orderContainer">
-    <view class="orderItem" wx:for-items="{{datas}}" wx:key="index" data-index="{{item.status}}">
+    <view class="orderItem" wx:for-items="{{datas}}" wx:key="index" data-index="{{item.OrderStatus}}">
         <view class="orderNum">
             <view class="num">
                 <image class='iconfont' src="../../img/dingdan.png" />
                 订单编号：{{item.OrderNo}}
             </view>
-            <view class="status" wx:if="{{item.status == 1}}">待确认</view>
-            <view class="status" wx:if="{{item.status == 2}}">待服务</view>
-            <view class="status" wx:if="{{item.status == 3}}">服务中</view>
-            <view class="status" wx:if="{{item.status == 4}}">待评价</view>
-            <view class="status" wx:if="{{item.status == 5}}">完成</view>
+            <view class="status" wx:if="{{item.OrderStatus == 1}}">待确认</view>
+            <view class="status" wx:if="{{item.OrderStatus == 2}}">待服务</view>
+            <view class="status" wx:if="{{item.OrderStatus == 3}}">服务中</view>
+            <view class="status" wx:if="{{item.OrderStatus == 4}}">待评价</view>
+            <view class="status" wx:if="{{item.OrderStatus == 5}}">完成</view>
         </view>
         <view class='orderInfo' bindtap="clickOrder" >
             <view class="imgBox">
@@ -27,19 +27,19 @@
                 </view>
             </view>
         </view>
-        <view class="orderHandle" wx:if="{{item.status != 5 && item.status != 3}}">
-            <button wx:if="{{item.status == 2}}" data-index="{{item.status}}" bindtap="startService"  data-id="{{ item.OrderId }}">
+        <view class="orderHandle" wx:if="{{item.OrderStatus != 5 && item.OrderStatus != 3}}">
+            <button wx:if="{{item.OrderStatus == 2}}" data-index="{{item.OrderStatus}}" bindtap="startService"  data-id="{{ item.OrderId }}">
                 开始服务
             </button>
-            <block wx:if="{{item.status == 1}}">
-                <button class="acceptBtn" data-index="{{item.status}}" bindtap="acceptService"  data-id="{{ item.OrderId }}">
+            <block wx:if="{{item.OrderStatus == 1}}">
+                <button class="acceptBtn" data-index="{{item.OrderStatus}}" bindtap="acceptService"  data-id="{{ item.OrderId }}">
                     接受
                 </button>
-                <button class="cancelBtn" data-index="{{item.status}}" bindtap="cancelService"  data-id="{{ item.OrderId }}">
+                <button class="cancelBtn" data-index="{{item.OrderStatus}}" bindtap="cancelService"  data-id="{{ item.OrderId }}">
                     退回
                 </button>
             </block>
-            <button wx:if="{{item.status == 4}}" data-index="{{item.status}}" bindtap="toAppraise"  data-id="{{ item.OrderId }}">
+            <button wx:if="{{item.OrderStatus == 4}}" data-index="{{item.OrderStatus}}" bindtap="toAppraise"  data-id="{{ item.OrderId }}">
                 评价
             </button>
         </view>

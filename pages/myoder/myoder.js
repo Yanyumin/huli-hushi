@@ -13,7 +13,7 @@ Page({
         ],
         oderList1: [{
                 orderNum: "vs123333333322222",
-                status: "1",
+                OrderStatus: "1",
                 proImg: "../../img/cvr.png",
                 proName: "看看病",
                 Price: "328.00",
@@ -23,7 +23,7 @@ Page({
             },
             {
                 orderNum: "vs123333333322222",
-                status: "1",
+                OrderStatus: "1",
                 proImg: "../../img/cvr.png",
                 proName: "护理康复",
                 Price: "328.00",
@@ -34,7 +34,7 @@ Page({
         ],
         oderList2: [{
                 orderNum: "vs123333333322222",
-                status: "2",
+                OrderStatus: "2",
                 proImg: "../../img/cvr.png",
                 proName: "看看病",
                 Price: "328.00",
@@ -44,7 +44,7 @@ Page({
             },
             {
                 orderNum: "vs123333333322222",
-                status: "2",
+                OrderStatus: "2",
                 proImg: "../../img/cvr.png",
                 proName: "护理康复",
                 Price: "328.00",
@@ -55,7 +55,7 @@ Page({
         ],
         oderList3: [{
                 orderNum: "vs223333333322222",
-                status: "3",
+                OrderStatus: "3",
                 proImg: "../../img/cvr.png",
                 proName: "看看",
                 Price: "328.00",
@@ -65,7 +65,7 @@ Page({
             },
             {
                 orderNum: "vs123333333322222",
-                status: "3",
+                OrderStatus: "3",
                 proImg: "../../img/cvr.png",
                 proName: "护理康复",
                 Price: "328.00",
@@ -76,7 +76,7 @@ Page({
         ],
         oderList4: [{
             orderNum: "vs224444444422222",
-            status: "4",
+            OrderStatus: "4",
             proImg: "../../img/cvr.png",
             proName: "看看病",
             Price: "328.00",
@@ -86,7 +86,7 @@ Page({
         }],
         oderList5: [{
                 orderNum: "vs225555555522222",
-                status: "5",
+                OrderStatus: "5",
                 proImg: "../../img/cvr.png",
                 proName: "看看病",
                 Price: "328.00",
@@ -96,7 +96,7 @@ Page({
             },
             {
                 orderNum: "vs123333333322222",
-                status: "5",
+                OrderStatus: "5",
                 proImg: "../../img/cvr.png",
                 proName: "护理康复",
                 Price: "328.00",

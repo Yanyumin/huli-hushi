@@ -190,19 +190,27 @@ Page({
             sizeType: ['original', 'compressed'],
             sourceType: ['album', 'camera'],
             success(res) {
-                console.log(res);
-                const tempFilePaths = res.tempFilePaths
-
-
-                console.log(tempFilePaths[0]);
                   var time = util.formatHour(new Date());
-                  // 再通过setData更改Page()里面的data，动态更新页面的数据
-                
-                that.setData({
-                      clocktime: time,
-                    img: tempFilePaths[0]
-                })
-                       //用微信提供的api获取经纬度
+                const tempFilePaths = res.tempFilePaths
+                  wx.uploadFile({
+                            method:"POST",
+                              url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages', 
+                              filePath: tempFilePaths[0],
+                              name: 'file',
+                              success: function (res) {
+                                 let data = JSON.parse(res.data)
+                             if (res.statusCode == 200) {
+                                    that.setData({
+                                        clocktime: time,
+                                        img: data.ResultMsg
+                                    })
+                             }
+                              }
+
+                            })
+
+             
+                    //    用微信提供的api获取经纬度
                        wx.getLocation({
                            type: 'wgs84',
                            success: function (res) {
@@ -217,8 +225,6 @@ Page({
                                        longitude: that.data.myLongitude
                                    },
                                    success: function (res) {
-                                       console.log(res)
-
                                        that.setData({
                                            myAddress: res.result.address
                                        })
@@ -226,7 +232,7 @@ Page({
                                            method: 'POST',
                                            url: 'NurseOrder/OneConfirm',
                                            data: {
-                                               orderId: 1,
+                                               orderId: 7,
                                                location: that.data.myAddress,
                                                baseImg: that.data.img,
                                                patientName: '',

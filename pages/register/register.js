@@ -42,7 +42,8 @@ formSubmit(){
             url: 'NurseRegister/Register',
             data: {
                 UserName: that.data.userName,
-                Password: that.data.password
+                Password: that.data.password,
+                Phone: that.data.phone
             }
         }).then(res=>{
             console.log(res);

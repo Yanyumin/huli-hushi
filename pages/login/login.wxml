@@ -19,13 +19,13 @@
                                 <van-cell-group>
                    <van-field value="{{ phone }}" label="手机号" placeholder="请输入手机号"  bind:change="handlePhone"/>
                </van-cell-group>
-               <van-cell-group>
+               <!-- <van-cell-group>
                    <van-field value="{{ sms }}" center clearable label="短信验证码" placeholder="请输入验证码"  bind:change="handleSms" use-button-slot>
                        <van-button slot="button" size="small" type="primary"  bind:click="onSms">
                              发送验证码
                          </van-button>
                      </van-field>
-                 </van-cell-group>
+                 </van-cell-group> -->
              </view>
          </view>
                         <view class="btn-area">
