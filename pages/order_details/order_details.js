@@ -1,5 +1,7 @@
 const QQMapWX = require('../../lib/qqmap/qqmap-wx-jssdk.js');
-
+const {
+    request
+} = require("../../utils/request")
 // 实例化API核心对象，对象调用方法实现功能
 let qqmapsdk = new QQMapWX({
     key: '53IBZ-7X36X-CWE4D-TKKLE-T7K3V-STBS3'
@@ -192,45 +194,47 @@ Page({
                 that.setData({
                     img: tempFilePaths[0]
                 })
-            }
-        })
-        //用微信提供的api获取经纬度
-        wx.getLocation({
-            type: 'wgs84',
-            success: function (res) {
-                that.setData({
-                    myLatitude: res.latitude,
-                    myLongitude: res.longitude
-                })
-                //用腾讯地图的api，根据经纬度获取城市
-                qqmapsdk.reverseGeocoder({
-                    location: {
-                        latitude: that.data.myLatitude,
-                        longitude: that.data.myLongitude
-                    },
-                    success: function (res) {
-                        console.log(res)
-                   
-                        that.setData({
-                            myAddress: res.result.address
-                        })
-                        request({
-                            url: 'NurseOrder/OneConfirm',
-                            data: {
-                                orderId: 1,
-                                location:this.data.myAddress,
-                                baseImg:this.data.img,
-                                patientName:'',
-                                idenNo:''
-                            }
-                        }).then(res => {
-                            console.log(res);
 
-                        })
-                    }
-                })
+                      //用微信提供的api获取经纬度
+                      wx.getLocation({
+                          type: 'wgs84',
+                          success: function (res) {
+                              that.setData({
+                                  myLatitude: res.latitude,
+                                  myLongitude: res.longitude
+                              })
+                              //用腾讯地图的api，根据经纬度获取城市
+                              qqmapsdk.reverseGeocoder({
+                                  location: {
+                                      latitude: that.data.myLatitude,
+                                      longitude: that.data.myLongitude
+                                  },
+                                  success: function (res) {
+                                      console.log(res)
+
+                                      that.setData({
+                                          myAddress: res.result.address
+                                      })
+                                      request({
+                                          url: 'NurseOrder/OneConfirm',
+                                          data: {
+                                              orderId: 1,
+                                              location: that.data.myAddress,
+                                              baseImg: that.data.img,
+                                              patientName: '',
+                                              idenNo: ''
+                                          }
+                                      }).then(res => {
+                                          console.log(res);
+
+                                      })
+                                  }
+                              })
+                          }
+                      })
             }
         })
+    
 
     },
     radioChange: function (e) {
