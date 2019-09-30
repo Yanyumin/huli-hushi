@@ -146,8 +146,7 @@ width: 400prx;
   font-size: 32rpx;
   font-weight: 500;
 }
-.first_tab .prompt .realNames .weiren{
-   background-color: rgb(245, 72, 20);
+.first_tab .prompt .realNames .weiren text {
    color: #ffffff;
    padding: 8rpx;
 }

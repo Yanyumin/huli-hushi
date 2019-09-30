@@ -61,7 +61,7 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             到达打卡
-                            <text>8:00</text>
+                            <text>{{arriveTime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
@@ -75,7 +75,8 @@
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                                <text>已打卡</text>
+                               <text wx:if="{{goOutClock}}">已打卡</text>
+                                <text wx:else="{{!goOutClock}}" style="background-color: red;">未打卡</text>
                             </view>
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
@@ -84,7 +85,8 @@
                 <view class="prompt">
                     <view class="realNames">
                         <view class="shim">实名认证</view>
-                        <view class="weiren">未认证</view>
+                        <view class="weiren"> <text wx:if="{{goOutClock}}"  style="background-color:  #03c173;">已认证</text>
+                      <text wx:else="{{!goOutClock}}" style="background-color: red;">未认证</text></view>
                     </view>
                     <view class="info_input">
                         <van-cell-group>
@@ -97,7 +99,7 @@
                             <image mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                         <view class="photos_btn">
-                            <image mode="widthFix" src="../../img/最近更新Camaro.png"></image>
+                            <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -357,7 +359,7 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             到达安全地点
-                            <text>8:00</text>
+                            <text>{{safetyTime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
@@ -371,7 +373,8 @@
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                                <text>未签到</text>
+                               <text wx:if="{{safetyClock}}">已打卡</text>
+                                <text wx:else="{{!safetyClock}}" style="background-color: red;">未打卡</text>
                             </view>
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>

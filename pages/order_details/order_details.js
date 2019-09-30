@@ -14,8 +14,26 @@ Page({
      * 页面的初始数据
      */
     data: {
+        //安全到达打开
+        safetyClock:false,
+        // 安全到达时间
+        safetyTime:'',
+        // 评估报告数据
+        pgdj: '',
+        zznl: '',
+        yszt: '',
+        dxb: '',
+        yj: '',
+        xy: '',
+        xlzt: '',
+        gmywsw: '',
+        //到达打卡
+        arriveClock:false,
+        arriveTime:'',
+        // 出门打卡
         goOutClock: false,
-        goOuttime: '',
+        // 出门时间
+        goOutime: '',
         infolist: {
             status: "待服务",
             buycount: "1",
@@ -149,13 +167,13 @@ Page({
                                     }
                                 }).then(res => {
                                     console.log(res);
-                                if (res.data.ResultCode==0) {
-                                    that.setData({
-                                       goOutClock: true
-                                    })
-                                }else{
-                                    console.log(res.data.ResultMsg);
-                                }
+                                    if (res.data.ResultCode == 0) {
+                                        that.setData({
+                                            goOutClock: true
+                                        })
+                                    } else {
+                                        console.log(res.data.ResultMsg);
+                                    }
                                 })
                             }
                         })
@@ -166,48 +184,137 @@ Page({
 
 
     },
+        // 到达打卡
+        takePhoto() {
+            let that = this
+            wx.chooseImage({
+                count: 1,
+                sizeType: ['original', 'compressed'],
+                sourceType: ['album', 'camera'],
+                success(res) {
+                    var time = util.formatHour(new Date());
+                    const tempFilePaths = res.tempFilePaths
+                    wx.uploadFile({
+                        method: "POST",
+                        url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                        filePath: tempFilePaths[0],
+                        name: 'file',
+                        success: function (res) {
+                            let data = JSON.parse(res.data)
+                            if (res.statusCode == 200) {
+                                that.setData({
+                                    goOuttime: time,
+                                    img: data.ResultMsg
+                                })
+                            }
+                        }
+                    })
+                    //    用微信提供的api获取经纬度
+                    wx.getLocation({
+                        type: 'wgs84',
+                        success: function (res) {
+                            that.setData({
+                                myLatitude: res.latitude,
+                                myLongitude: res.longitude
+                            })
+                            //用腾讯地图的api，根据经纬度获取城市
+                            qqmapsdk.reverseGeocoder({
+                                location: {
+                                    latitude: that.data.myLatitude,
+                                    longitude: that.data.myLongitude
+                                },
+                                success: function (res) {
+                                    that.setData({
+                                        myAddress: res.result.address
+                                    })
+                                    request({
+                                        method: 'POST',
+                                        url: 'NurseOrder/OneConfirm',
+                                        data: {
+                                            orderId: 7,
+                                            location: that.data.myAddress,
+                                            baseImg: that.data.img,
+                                            patientName: '',
+                                            idenNo: ''
+                                        }
+                                    }).then(res => {
+                                        console.log(res);
+                                        if (res.data.ResultCode == 0) {
+                                            that.setData({
+                                                goOutClock: true
+                                            })
+                                        } else {
+                                            console.log(res.data.ResultMsg);
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+
+
+        },
     radioChangeGmyw: function (e) {
         console.log(e);
 
         console.log('radio发生change事件，携带value值为：', e.detail.value)
+        this.setData({
+            gmywsw: e.detail.value
+        })
     },
     radioChangeXlzt: function (e) {
         console.log(e);
 
         console.log('radio发生change事件，携带value值为：', e.detail.value)
+        this.setData({
+            xlzt: e.detail.value
+        })
     },
     radioChangeXy: function (e) {
-        console.log(e);
-
+        this.setData({
+            xy: e.detail.value
+        })
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeYj: function (e) {
-        console.log(e);
+        this.setData({
+            yj: e.detail.value
+        })
 
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeDxb: function (e) {
-        console.log(e);
+        this.setData({
+            dxb: e.detail.value
+        })
 
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeYszt: function (e) {
-        console.log(e);
-
+        this.setData({
+            yszt: e.detail.value
+        })
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeZznl: function (e) {
-        console.log(e);
+        this.setData({
+            zznl: e.detail.value
+        })
 
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangePgdj: function (e) {
-        console.log(e);
-
+        this.setData({
+            pgdj: e.detail.value
+        })
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeHldj: function (e) {
-        console.log(e);
+        this.setData({
+            hldj: e.detail.value
+        })
 
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
@@ -245,15 +352,45 @@ Page({
     },
     // 开始护理
     onNurse() {
+        let that = this
         let {
             tabs
-        } = this.data;
+        } = that.data;
         tabs[3].isShow = false
         tabs[4].isActive = true
         tabs[4].isShow = true
-        this.setData({
+        that.setData({
             tabs
         })
+        request({
+            url: 'NurseOrder/NurseDetail',
+            data: {
+                orderId: 7,
+                gmywsw: that.data.gmywsw,
+                xlzt: that.data.xlzt,
+                xy: that.data.xy,
+                yj: that.data.yj,
+                dxb: that.data.dxb,
+                yszt: that.data.yszt,
+                zznl: that.data.zznl,
+                pgdj: that.data.pgdj
+            }
+        }).then(res => {
+            console.log(res);
+
+        })
+    },
+    //取消订单
+    onOderderOff(){
+            request({
+                url: 'NurseOrder/BillOrderFailed',
+                data: {
+                    orderId: 7,
+                }
+            }).then(res => {
+                console.log(res);
+
+            })
     },
 
     // 下一步
