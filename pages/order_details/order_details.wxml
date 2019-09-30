@@ -375,7 +375,8 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image mode="widthFix" src="../../img/wechat.png"></image>
+                           <text wx:if="{{!safetyImg}}"></text>
+                            <image wx:else mode="widthFix" src="{{safetyImg}}"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -384,18 +385,18 @@
                                <text wx:if="{{safetyClock}}">已打卡</text>
                                 <text wx:else="{{!safetyClock}}" style="background-color: red;">未打卡</text>
                             </view>
-                            <image mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image bindtap="onSafety" mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
                 <view class="prompt evaluate_content">
                     <view class="evaluate">
                         评价
-                        <van-rate value="{{ value1 }}" size="{{ 25 }}" color="#ee0a24" bind:change="onChange" />
+                        <van-rate value="{{ Score }}" size="{{ 25 }}" color="#ee0a24" bind:change="onChange" />
                         <text class="good">非常满意</text>
                     </view>
                     <van-cell-group>
-                        <van-field input-class="evaluate_inp" size="large" value="{{ value }}" placeholder="您对本次的服务是否满意呢, 请填写您宝贵的意见" border="{{ false }}" bind:change="onChange" />
+                        <van-field input-class="evaluate_inp" size="large" value="{{ opinion }}" placeholder="您对本次的服务是否满意呢, 请填写您宝贵的意见" border="{{ false }}" bind:change="onChangeOpinion" />
                     </van-cell-group>
                 </view>
                 <button type="primary" bindtap="onSubmit" class="btn">提交</button>

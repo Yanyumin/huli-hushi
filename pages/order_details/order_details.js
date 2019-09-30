@@ -16,15 +16,18 @@ Page({
      * 页面的初始数据
      */
     data: {
-        //安全到达打开
+        opinion:'',
+        Score: 0,
+        //安全到达打卡
         safetyClock: false,
         // 安全到达时间
         safetyTime: '',
+        safetyImg: '',
         //护理结束
         nurseEndClock: false,
         nurseEndImg: '',
-        measures:'',
-        evaluate:'',
+        measures: '',
+        evaluate: '',
         //护理前
         nurseBeforeClock: false,
         nurseTime: '',
@@ -70,7 +73,6 @@ Page({
         },
         myLatitude: "",
         myLongitude: "",
-        value1: 3,
         list: {
             status: "",
             buycount: "",
@@ -132,6 +134,55 @@ Page({
             goods_time: "30分钟",
             goods_info: "更换敷料、检查伤口、清洁伤口"
         }
+    },
+    //到达安全地点打卡
+    onSafety(){
+        let that = this
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'],
+            sourceType: ['album', 'camera'],
+            success(res) {
+                var time = util.formatHour(new Date());
+                const tempFilePaths = res.tempFilePaths
+                wx.uploadFile({
+                    method: "POST",
+                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                    filePath: tempFilePaths[0],
+                    name: 'file',
+                    success: function (res) {
+                        let data = JSON.parse(res.data)
+                        if (res.statusCode == 200) {
+                            that.setData({
+                                safetyTime: time,
+                                safetyImg: data.ResultMsg
+                            })
+                              request({
+                                method: "POST",
+                                url: 'NurseOrder/ThreeConfirm',
+                                data: {
+                                    orderId: 2,
+                                    location:'',
+                                    baseImg: that.data.safetyImg,
+                                    patientName: '',
+                                    idenNo: '',
+                                    Score: '',
+                                }
+                            }).then(res => {
+                                console.log(res);
+                                if (res.data.ResultCode == 0) {
+                                    that.setData({
+                                        safetyClock: true
+                                    })
+                                } else {
+                                    console.log(res.data.ResultMsg);
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        })
     },
     // 护理结束打卡
     NurseEnd() {
@@ -516,16 +567,21 @@ Page({
             patientName: e.detail
         })
     },
-    //护理记录
-    onChangeMeasures(e){
- this.setData({
-     measures:e.detail
- })
+    onChangeOpinion(e){
+     this.setData({
+            opinion: e.detail
+        })
     },
-    onChangeEvaluate(e){
-this.setData({
-     evaluate:e.detail
- })
+    //护理记录
+    onChangeMeasures(e) {
+        this.setData({
+            measures: e.detail
+        })
+    },
+    onChangeEvaluate(e) {
+        this.setData({
+            evaluate: e.detail
+        })
     },
     // 身份证
     onChangeCode(e) {
@@ -553,16 +609,35 @@ this.setData({
     },
     // 护理结束
     onNurseEnd() {
-        
+
         let {
             tabs
         } = this.data;
-        tabs[4].isShow = false
-        tabs[5].isActive = true
-        tabs[5].isShow = true
-        this.setData({
-            tabs
-        })
+        if (!this.data.nurseBeforeClock || !this.data.nurseEndClock) {
+            Toast.fail('请先打卡');
+            } else if (this.data.measures=='' || this.data.evaluate=='') {
+                Toast.fail('请填写护理记录');
+        } else {
+            tabs[4].isShow = false
+            tabs[5].isActive = true
+            tabs[5].isShow = true
+            this.setData({
+                tabs
+            })
+
+                request({
+                    url: 'NurseOrder/OrderRecord',
+                    data: {
+                        orderId: 2,
+                        Measures: that.data.measures,
+                        Record: that.data.evaluate,
+                    }
+                }).then(res => {
+                    console.log(res);
+
+                })
+        }
+        return true
     },
     // 开始护理
     onNurse() {
@@ -570,29 +645,47 @@ this.setData({
         let {
             tabs
         } = that.data;
+      if (!this.data.gmywsw) {
+        Toast.fail('请选择过敏药物食物');
+      }else if(!this.data.xlzt){
+        Toast.fail('请选择心里状态');
+      } else if (!this.data.xy ||!this.data.yj || !this.data.dxb) {
+        Toast.fail('请先勾选');
+      } else if (!this.data.xlzt) {
+        Toast.fail('请选择心里状态');
+      } else if (!this.data.yszt) {
+        Toast.fail('请选择意识状态');
+      } else if (!this.data.pgdj) {
+        Toast.fail('请选择评估等级');
+      } else if (!this.data.hldj) {
+        Toast.fail('请选择护理等级');
+      }
+      else{
         tabs[3].isShow = false
         tabs[4].isActive = true
         tabs[4].isShow = true
         that.setData({
-            tabs
+          tabs
         })
         request({
-            url: 'NurseOrder/NurseDetail',
-            data: {
-                orderId: 2,
-                gmywsw: that.data.gmywsw,
-                xlzt: that.data.xlzt,
-                xy: that.data.xy,
-                yj: that.data.yj,
-                dxb: that.data.dxb,
-                yszt: that.data.yszt,
-                zznl: that.data.zznl,
-                pgdj: that.data.pgdj
-            }
+          url: 'NurseOrder/NurseDetail',
+          data: {
+            orderId: 2,
+            gmywsw: that.data.gmywsw,
+            xlzt: that.data.xlzt,
+            xy: that.data.xy,
+            yj: that.data.yj,
+            dxb: that.data.dxb,
+            yszt: that.data.yszt,
+            zznl: that.data.zznl,
+            pgdj: that.data.pgdj
+          }
         }).then(res => {
-            console.log(res);
+          console.log(res);
 
         })
+      }
+  
     },
 
     // 准备完成
@@ -600,12 +693,17 @@ this.setData({
         let {
             tabs
         } = this.data;
+      if (!this.data.goOutClock) {
+        Toast.fail('请先打卡');
+      }else{
         tabs[1].isShow = false
         tabs[2].isActive = true
         tabs[2].isShow = true
         this.setData({
-            tabs
+          tabs
         })
+      }
+     
     },
     // 开始服务
     onStartService() {
