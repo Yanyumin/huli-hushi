@@ -313,7 +313,7 @@
                                 <text wx:if="{{nurseBeforeClock}}">已完成</text>
                                 <text wx:else="{{!nurseBeforeClock}}" style="background-color: red;">未完成</text>
                             </view>
-                            <image bindtap='onNurseBefore' mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image bindtap='NurseBefore' mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -321,12 +321,12 @@
             <view class="record">护理记录</view>
             <view class="comment">
                 <van-cell-group>
-                    <van-field input-class="comment_inp" value="{{ value }}" placeholder="病情观察及护理措施" border="{{ false }}" bind:change="onChange" />
+                    <van-field input-class="comment_inp" value="{{ measures }}" placeholder="病情观察及护理措施" border="{{ false }}" bind:change="onChangeMeasures" />
                 </van-cell-group>
             </view>
             <view class="comment">
                 <van-cell-group>
-                    <van-field input-class="comment_inp" value="{{ value }}" placeholder="护理效果评价" border="{{ false }}" bind:change="onChange" />
+                    <van-field input-class="comment_inp" value="{{ value }}" placeholder="护理效果评价" border="{{ evaluate }}" bind:change="onChangeEvaluate" />
                 </van-cell-group>
             </view>
             <view class="goout_content">
@@ -342,17 +342,17 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                             <text wx:if="{{!nurseBeforeImg}}"></text>
-                            <image wx:else mode="widthFix" src="../../img/wechat.png"></image>
+                             <text wx:if="{{!nurseEndImg}}"></text>
+                            <image wx:else mode="widthFix" src="{{nurseEndImg}}"></image>
                         </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                               <text wx:if="{{nurseBeforeClock}}">已完成</text>
-                                <text wx:else="{{!nurseBeforeClock}}" style="background-color: red;">未完成</text>
+                               <text wx:if="{{nurseEndClock}}">已完成</text>
+                                <text wx:else="{{!nurseEndClock}}" style="background-color: red;">未完成</text>
                             </view>
-                            <image mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image bindtap="NurseEnd" mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>

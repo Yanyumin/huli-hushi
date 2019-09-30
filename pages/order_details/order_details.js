@@ -20,7 +20,11 @@ Page({
         safetyClock: false,
         // 安全到达时间
         safetyTime: '',
-
+        //护理结束
+        nurseEndClock: false,
+        nurseEndImg: '',
+        measures:'',
+        evaluate:'',
         //护理前
         nurseBeforeClock: false,
         nurseTime: '',
@@ -129,75 +133,125 @@ Page({
             goods_info: "更换敷料、检查伤口、清洁伤口"
         }
     },
+    // 护理结束打卡
+    NurseEnd() {
+        let that = this
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'],
+            sourceType: ['album', 'camera'],
+            success(res) {
+                const tempFilePaths = res.tempFilePaths
+                wx.uploadFile({
+                    method: "POST",
+                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                    filePath: tempFilePaths[0],
+                    name: 'file',
+                    success: function (res) {
+                        let data = JSON.parse(res.data)
+                        console.log(res);
+
+                        if (data.ResultCode == 0) {
+                            that.setData({
+                                nurseEndImg: data.ResultMsg
+                            })
+                            request({
+                                method: "POST",
+                                url: 'NurseOrder/ThreeConfirm',
+                                data: {
+                                    orderId: 2,
+                                    location: that.data.nurseAddress,
+                                    baseImg: that.data.nurseEndImg,
+                                    patientName: '',
+                                    idenNo: '',
+                                    Score: '',
+                                }
+                            }).then(res => {
+                                console.log(res);
+                                if (res.data.ResultCode == 0) {
+                                    that.setData({
+                                        nurseBeforeClock: true
+                                    })
+                                } else {
+                                    console.log(res.data.ResultMsg);
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        })
+
+    },
     //护理前打卡
-    onNurseBefore(){
-  let that = this
-  wx.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success(res) {
-          var time = util.formatHour(new Date());
-          const tempFilePaths = res.tempFilePaths
-          wx.uploadFile({
-              method: "POST",
-              url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-              filePath: tempFilePaths[0],
-              name: 'file',
-              success: function (res) {
-                  let data = JSON.parse(res.data)
-                  if (res.statusCode == 200) {
-                      that.setData({
-                          nurseTime: time,
-                          nurseBeforeImg: data.ResultMsg
-                      })
-                  }
-              }
-          })
-          //    用微信提供的api获取经纬度
-          wx.getLocation({
-              type: 'wgs84',
-              success: function (res) {
-                  that.setData({
-                      myLatitude: res.latitude,
-                      myLongitude: res.longitude
-                  })
-                  //用腾讯地图的api，根据经纬度获取城市
-                  qqmapsdk.reverseGeocoder({
-                      location: {
-                          latitude: that.data.myLatitude,
-                          longitude: that.data.myLongitude
-                      },
-                      success: function (res) {
-                          that.setData({
-                              nurseAddress: res.result.address
-                          })
-                          request({
-                              method: 'POST',
-                              url: 'NurseOrder/TwoConfirm',
-                              data: {
-                                  orderId: 7,
-                                  location: that.data.nurseAddress,
-                                  baseImg: that.data.nurseBeforeImg,
-                                  patientName: '',
-                                  idenNo: ''
-                              }
-                          }).then(res => {
-                              console.log(res);
-                              if (res.data.ResultCode == 0) {
-                                  that.setData({
-                                      arriveClock: true
-                                  })
-                              } else {
-                                  console.log(res.data.ResultMsg);
-                              }
-                          })
-                      }
-                  })
-              }
-          })
-      }
-  })
+    NurseBefore() {
+        let that = this
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'],
+            sourceType: ['album', 'camera'],
+            success(res) {
+                var time = util.formatHour(new Date());
+                const tempFilePaths = res.tempFilePaths
+                wx.uploadFile({
+                    method: "POST",
+                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                    filePath: tempFilePaths[0],
+                    name: 'file',
+                    success: function (res) {
+                        let data = JSON.parse(res.data)
+                        if (res.statusCode == 200) {
+                            that.setData({
+                                nurseTime: time,
+                                nurseBeforeImg: data.ResultMsg
+                            })
+                        }
+                    }
+                })
+                //    用微信提供的api获取经纬度
+                wx.getLocation({
+                    type: 'wgs84',
+                    success: function (res) {
+                        that.setData({
+                            myLatitude: res.latitude,
+                            myLongitude: res.longitude
+                        })
+                        //用腾讯地图的api，根据经纬度获取城市
+                        qqmapsdk.reverseGeocoder({
+                            location: {
+                                latitude: that.data.myLatitude,
+                                longitude: that.data.myLongitude
+                            },
+                            success: function (res) {
+                                that.setData({
+                                    nurseAddress: res.result.address
+                                })
+                                request({
+                                    method: 'POST',
+                                    url: 'NurseOrder/TwoConfirm',
+                                    data: {
+                                        orderId: 2,
+                                        location: that.data.nurseAddress,
+                                        baseImg: that.data.nurseBeforeImg,
+                                        patientName: '',
+                                        idenNo: ''
+                                    }
+                                }).then(res => {
+                                    console.log(res);
+                                    if (res.data.ResultCode == 0) {
+                                        that.setData({
+                                            nurseBeforeClock: true
+                                        })
+                                    } else {
+                                        console.log(res.data.ResultMsg);
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
 
     },
     // 出门打卡
@@ -247,7 +301,7 @@ Page({
                                     method: 'POST',
                                     url: 'NurseOrder/OneConfirm',
                                     data: {
-                                        orderId: 7,
+                                        orderId: 2,
                                         location: that.data.goOutAddress,
                                         baseImg: that.data.goOutImg,
                                         patientName: '',
@@ -355,7 +409,7 @@ Page({
                                     method: 'POST',
                                     url: 'NurseOrder/TwoConfirm',
                                     data: {
-                                        orderId: 7,
+                                        orderId: 2,
                                         location: that.data.arriveAddress,
                                         baseImg: arriveImg,
                                         patientImg,
@@ -384,7 +438,7 @@ Page({
         request({
             url: 'NurseOrder/BillOrderFailed',
             data: {
-                orderId: 7,
+                orderId: 2,
             }
         }).then(res => {
             console.log(res);
@@ -462,6 +516,17 @@ Page({
             patientName: e.detail
         })
     },
+    //护理记录
+    onChangeMeasures(e){
+ this.setData({
+     measures:e.detail
+ })
+    },
+    onChangeEvaluate(e){
+this.setData({
+     evaluate:e.detail
+ })
+    },
     // 身份证
     onChangeCode(e) {
         console.log(e)
@@ -488,6 +553,7 @@ Page({
     },
     // 护理结束
     onNurseEnd() {
+        
         let {
             tabs
         } = this.data;
@@ -513,7 +579,7 @@ Page({
         request({
             url: 'NurseOrder/NurseDetail',
             data: {
-                orderId: 7,
+                orderId: 2,
                 gmywsw: that.data.gmywsw,
                 xlzt: that.data.xlzt,
                 xy: that.data.xy,
