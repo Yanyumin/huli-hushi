@@ -1,4 +1,7 @@
 //index.js
+const {
+  request
+} = require("../../utils/request")
 //获取应用实例
 Page({
 
@@ -11,26 +14,7 @@ Page({
       '../../img/dingdan.png',
       '../../img/photos.jpg'
     ],
-    oderList: [{
-      orderNum: "vs123333333322222",
-      status: "1",
-      proImg: "../../img/cvr.png",
-      proName: "看看病",
-      Price: "328.00",
-      time: "2019-09-09",
-      amount: "1",
-
-    },
-    {
-      orderNum: "vs123333333322222",
-      status: "2",
-      proImg: "../../img/cvr.png",
-      proName: "护理康复",
-      Price: "328.00",
-      time: "2019-09-09",
-      amount: "1",
-
-    }],
+    oderList: [],
     todayOderList: [{
       orderNum: "vs123333333322222",
       status: "2",
@@ -69,6 +53,22 @@ Page({
   startService () {
     console.log(123)
   },
+  getList () {
+    request({
+      url: 'NurseOrder/GetNurseList',
+      data: {type: ''}
+  }).then(res => {
+      console.log(res);
+      let {
+          NurseList
+      } = res.data
+      this.setData({
+          oderList: NurseList
+      })
+      console.log(this.data.oderList);
+      
+  })
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -82,6 +82,7 @@ Page({
     //     });
     //     // 没有授权就退出函数，需要返回 Promise 对象，防止外部 then 的时候报错。
     // }
+    this.getList()
   },
 
   /**

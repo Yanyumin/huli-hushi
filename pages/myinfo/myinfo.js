@@ -1,4 +1,7 @@
 // pages/myinfo/myinfo.js
+const {
+  request
+} = require("../../utils/request")
 Page({
 
   /**
@@ -19,7 +22,18 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    let params = {
+      id: 'C0C1F4F8-9598-43B8-9563-B6A95D2F48C3'
+    }
+    request({
+      url: 'NurseRegister/Detail',
+      data: params,
+      method: 'POST'
+    }).then(res => {
+      if (res.data.ResultCode === 1) {
+        console.log(res)
+      }
+    })
   },
 
   /**

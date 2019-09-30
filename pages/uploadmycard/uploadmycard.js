@@ -1,4 +1,8 @@
 // pages/uploadmycard/uploadmycard.js
+const {
+    request
+  } = require("../../utils/request")
+let certy = []
 Page({
 
   /**
@@ -13,7 +17,12 @@ Page({
     showUpload1:true,
     certificateList: [],
     certificateNum: 0,
-    certificateShowUpload: true
+    certificateShowUpload: true,
+    certificateImages: [],
+    img1: '',
+    img2: '',
+    img3: '',
+    pId: ''
   },
  // 删除身份证正面图片
  clearImg:function(e){
@@ -51,7 +60,21 @@ upload: function(e) {
           console.log(res)
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
           let tempFilePaths = res.tempFilePaths;
-          let uploaderList = that.data.uploaderList.concat(tempFilePaths);
+          let uploaderList = that.data.uploaderList.concat(tempFilePaths); 
+          wx.uploadFile({
+            method:"POST",
+            url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages', 
+            filePath: tempFilePaths[0],
+            name: 'file',
+            success: function (res) {
+               let data = JSON.parse(res.data)
+               if (res.statusCode == 200) {
+                 that.setData({
+                    img1: data.ResultMsg
+                 })
+               }
+             }
+          })
           if (uploaderList.length==1){
               that.setData({
                   showUpload:false
@@ -100,7 +123,21 @@ upload1: function(e) {
          console.log(res)
          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
          let tempFilePaths = res.tempFilePaths;
-         let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
+         let uploaderList = that.data.uploaderList1.concat(tempFilePaths); 
+         wx.uploadFile({
+            method:"POST",
+            url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages', 
+            filePath: tempFilePaths[0],
+            name: 'file',
+            success: function (res) {
+               let data = JSON.parse(res.data)
+               if (res.statusCode == 200) {
+                 that.setData({
+                    img2: data.ResultMsg
+                 })
+               }
+             }
+          })
          if (uploaderList.length==1){
              that.setData({
                  showUpload1:false
@@ -149,7 +186,23 @@ certificateUpload: function(e) {
          console.log(res)
          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
          let tempFilePaths = res.tempFilePaths;
-         let uploaderList = that.data.certificateList.concat(tempFilePaths);
+         let uploaderList = that.data.certificateList.concat(tempFilePaths); 
+         wx.uploadFile({
+            method:"POST",
+            url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages', 
+            filePath: tempFilePaths[0],
+            name: 'file',
+            success: function (res) {
+               let data = JSON.parse(res.data)
+               if (res.statusCode == 200) {
+                certy.push(data.ResultMsg)
+                 that.setData({
+                    certificateImages: certy
+                })
+                console.log(that.data.certificateImages)
+              }
+             }
+          })
          that.setData({
           certificateList: uploaderList,
           certificateNum: uploaderList.length,
@@ -165,15 +218,32 @@ certificateAdd: function (e) {
   })
 },
     submitThis () {
-        wx.navigateTo({
-        url: '../submitresult/submitresult',
+        let params = {
+            Id: this.data.pId,
+            IDCardImage: this.data.img1,
+            IDCardImage2: this.data.img2,
+            OtherImages: this.data.certificateImages.join(';')
+        }
+        request({
+            url: 'NurseRegister/Update',
+            method: 'POST',
+            data: params
+        }).then(res => {
+            if (res.data.ResultData == 1) {
+                wx.navigateTo({
+                    url: '../myinfo/myinfo',
+                })
+            }
+            
         })
     },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+        pId: options.id
+    })
   },
 
   /**

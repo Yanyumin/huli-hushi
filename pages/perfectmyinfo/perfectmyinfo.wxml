@@ -2,8 +2,8 @@
 <view class="pageContainer">
   <view class="headerBox cell">
     <text>头像</text>
-    <view class="logoBox inputBox">
-      <image src="../../img/userNo.png" />
+    <view class="logoBox inputBox" bindtap="certificateUpload">
+      <image src="{{logo}}" />
       <van-icon name="arrow" />
     </view>
   </view>
