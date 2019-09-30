@@ -3,6 +3,7 @@ const {
     request
   } = require("../../utils/request")
 let certy = []
+let index = ''
 Page({
 
   /**
@@ -156,6 +157,8 @@ certificateClearImg:function(e){
  var uploaderList = this.data.certificateList;//原数据
  for (let i = 0; i < uploaderList.length;i++){
      if (i == e.currentTarget.dataset.index){
+         index = i
+          certy.splice(index, 1)
          continue;
      }else{
          nowList.push(uploaderList[i])
@@ -166,14 +169,21 @@ certificateClearImg:function(e){
       certificateList: nowList,
       certificateShowUpload: true
  })
+ let isShow = true
+ if (this.data.certificateNum >= 1) {
+    isShow = false
+ }
+ this.setData({
+      certificateShowUpload: isShow
+ })
 },
 //展示证书图片
 certificateShowImg:function(e){
- var that=this;
- wx.previewImage({
-     urls: that.data.uploaderList1,
-     current: that.data.uploaderList1[e.currentTarget.dataset.index]
- })
+    var that=this;
+    wx.previewImage({
+        urls: that.data.uploaderList1,
+        current: that.data.uploaderList1[e.currentTarget.dataset.index]
+    })
 },
 //上传证书图片
 certificateUpload: function(e) {
@@ -229,9 +239,22 @@ certificateAdd: function (e) {
             method: 'POST',
             data: params
         }).then(res => {
-            if (res.data.ResultData == 1) {
-                wx.navigateTo({
-                    url: '../myinfo/myinfo',
+            if (res.data.ResultCode == 1) {
+                // wx.navigateTo({
+                //     url: '../myinfo/myinfo',
+                // })
+                request({
+                    url: 'NurseRegister/Detail',
+                    method: 'POST',
+                    data: {Id: this.data.pId}
+                }).then(res => {
+                    if (res.data.ResultCode == 1) {
+                        // wx.navigateTo({
+                        //     url: '../myinfo/myinfo',
+                        // })
+                        console.log(res)
+                    }
+                    
                 })
             }
             
@@ -241,6 +264,7 @@ certificateAdd: function (e) {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+      console.log(options.id)
     this.setData({
         pId: options.id
     })

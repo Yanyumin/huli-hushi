@@ -133,9 +133,6 @@ Page({
       RankName: this.data.title,
       IDCard: this.data.cardNo
     }
-    wx.navigateTo({
-      url: '../uploadmycard/uploadmycard',
-    })
     request({
       url: 'NurseRegister/New',
       data: params,
@@ -143,14 +140,14 @@ Page({
     }).then(res => {
       if (res.data.ResultCode === 1) {
         this.setData({
-          myId: res.data.Id
+          myId: res.data.row.Id
         })
         wx.navigateTo({
           url: '../uploadmycard/uploadmycard?id=' + this.data.myId,
         })
       }
   })
-  },//上传证书图片
+  },//上传头像
   certificateUpload: function(e) {
    var that = this;
    wx.chooseImage({
