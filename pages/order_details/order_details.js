@@ -14,8 +14,9 @@ Page({
      * 页面的初始数据
      */
     data: {
+        goOutClock: false,
+        goOuttime: '',
         infolist: {
-            clocktime: '',
             status: "待服务",
             buycount: "1",
             serveperson: '温秀秀',
@@ -93,6 +94,7 @@ Page({
             goods_info: "更换敷料、检查伤口、清洁伤口"
         }
     },
+    // 出门打卡
     takePhoto() {
         let that = this
         wx.chooseImage({
@@ -111,15 +113,12 @@ Page({
                         let data = JSON.parse(res.data)
                         if (res.statusCode == 200) {
                             that.setData({
-                                clocktime: time,
+                                goOuttime: time,
                                 img: data.ResultMsg
                             })
                         }
                     }
-
                 })
-
-
                 //    用微信提供的api获取经纬度
                 wx.getLocation({
                     type: 'wgs84',
@@ -150,7 +149,13 @@ Page({
                                     }
                                 }).then(res => {
                                     console.log(res);
-
+                                if (res.data.ResultCode==0) {
+                                    that.setData({
+                                       goOutClock: true
+                                    })
+                                }else{
+                                    console.log(res.data.ResultMsg);
+                                }
                                 })
                             }
                         })

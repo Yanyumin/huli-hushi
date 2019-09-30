@@ -17,23 +17,23 @@ Page({
       logIcon: "../../img/tab-personal-gray.png",
   },
   //发送验证码
-  onSms() {
-      console.log("发送验证码");
+  // onSms() {
+  //     console.log("发送验证码");
 
-      wx.request({
-          method: "POST",
-          url: 'https://api.gdbkyz.com/AppUser/api/Auth/GetUserInfo',
-          data: {
+  //     wx.request({
+  //         method: "POST",
+  //         url: 'https://api.gdbkyz.com/AppUser/api/Auth/GetUserInfo',
+  //         data: {
 
-          },
-          header: {
-              'content-type': 'application/json' // 默认值
-          },
-          success(res) {
-              console.log(res.data)
-          }
-      })
-  },
+  //         },
+  //         header: {
+  //             'content-type': 'application/json' // 默认值
+  //         },
+  //         success(res) {
+  //             console.log(res.data)
+  //         }
+  //     })
+  // },
   onChangeLogin() {
       let pasd = this.data.pasd
       let UserName = this.data.phone_name

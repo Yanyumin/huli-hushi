@@ -25,7 +25,7 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             出门打卡
-                            <text>{{clocktime}}</text>
+                            <text>{{goOuttime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
@@ -40,7 +40,9 @@
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                                <text>已打卡</text>
+                                <text wx:if="{{goOutClock}}">已打卡</text>
+                                <text wx:else="{{!goOutClock}}" style="background-color: red;">未打卡</text>
+
                             </view>
                             <view bindtap="takePhoto">
                                 <image mode="widthFix" src="../../img/qiandao.png"></image>
