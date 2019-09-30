@@ -14,18 +14,18 @@ Page({
      * 页面的初始数据
      */
     data: {
-          infolist: {
-              clocktime: '',
-              status: "待服务",
-              buycount: "1",
-              serveperson: '温秀秀',
-              phone: '135434343',
-              serveaddress: '广东广州海珠',
-              servetime: '2019-09-22',
-              history: '5',
-              pricelist: '221',
-              remark: '疑难杂症',
-          },
+        infolist: {
+            clocktime: '',
+            status: "待服务",
+            buycount: "1",
+            serveperson: '温秀秀',
+            phone: '135434343',
+            serveaddress: '广东广州海珠',
+            servetime: '2019-09-22',
+            history: '5',
+            pricelist: '221',
+            remark: '疑难杂症',
+        },
         myLatitude: "",
         myLongitude: "",
         myAddress: "",
@@ -35,13 +35,13 @@ Page({
             status: "",
             buycount: "",
             serveperson: '',
-            phone:'',
+            phone: '',
             serveaddress: '',
-            servetime:'',
-            history:'',
-            yuyueprice:'',
+            servetime: '',
+            history: '',
+            yuyueprice: '',
             pricelist: '',
-            remark:'',
+            remark: '',
         },
         datas: [{
             id: 1,
@@ -51,8 +51,7 @@ Page({
             time: "30",
             proDesc: "更换敷料、检查伤口、清洁伤口"
         }],
-        tabs: [
-            {
+        tabs: [{
                 id: 0,
                 title: "预约信息",
                 isActive: true,
@@ -101,82 +100,112 @@ Page({
             sizeType: ['original', 'compressed'],
             sourceType: ['album', 'camera'],
             success(res) {
-                  var time = util.formatHour(new Date());
+                var time = util.formatHour(new Date());
                 const tempFilePaths = res.tempFilePaths
-                  wx.uploadFile({
-                            method:"POST",
-                              url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages', 
-                              filePath: tempFilePaths[0],
-                              name: 'file',
-                              success: function (res) {
-                                 let data = JSON.parse(res.data)
-                             if (res.statusCode == 200) {
-                                    that.setData({
-                                        clocktime: time,
-                                        img: data.ResultMsg
-                                    })
-                             }
-                              }
-
+                wx.uploadFile({
+                    method: "POST",
+                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                    filePath: tempFilePaths[0],
+                    name: 'file',
+                    success: function (res) {
+                        let data = JSON.parse(res.data)
+                        if (res.statusCode == 200) {
+                            that.setData({
+                                clocktime: time,
+                                img: data.ResultMsg
                             })
+                        }
+                    }
 
-             
-                    //    用微信提供的api获取经纬度
-                       wx.getLocation({
-                           type: 'wgs84',
-                           success: function (res) {
-                               that.setData({
-                                   myLatitude: res.latitude,
-                                   myLongitude: res.longitude
-                               })
-                               //用腾讯地图的api，根据经纬度获取城市
-                               qqmapsdk.reverseGeocoder({
-                                   location: {
-                                       latitude: that.data.myLatitude,
-                                       longitude: that.data.myLongitude
-                                   },
-                                   success: function (res) {
-                                       that.setData({
-                                           myAddress: res.result.address
-                                       })
-                                       request({
-                                           method: 'POST',
-                                           url: 'NurseOrder/OneConfirm',
-                                           data: {
-                                               orderId: 7,
-                                               location: that.data.myAddress,
-                                               baseImg: that.data.img,
-                                               patientName: '',
-                                               idenNo: ''
-                                           }
-                                       }).then(res => {
-                                           console.log(res);
+                })
 
-                                       })
-                                   }
-                               })
-                           }
-                       })
+
+                //    用微信提供的api获取经纬度
+                wx.getLocation({
+                    type: 'wgs84',
+                    success: function (res) {
+                        that.setData({
+                            myLatitude: res.latitude,
+                            myLongitude: res.longitude
+                        })
+                        //用腾讯地图的api，根据经纬度获取城市
+                        qqmapsdk.reverseGeocoder({
+                            location: {
+                                latitude: that.data.myLatitude,
+                                longitude: that.data.myLongitude
+                            },
+                            success: function (res) {
+                                that.setData({
+                                    myAddress: res.result.address
+                                })
+                                request({
+                                    method: 'POST',
+                                    url: 'NurseOrder/OneConfirm',
+                                    data: {
+                                        orderId: 7,
+                                        location: that.data.myAddress,
+                                        baseImg: that.data.img,
+                                        patientName: '',
+                                        idenNo: ''
+                                    }
+                                }).then(res => {
+                                    console.log(res);
+
+                                })
+                            }
+                        })
+                    }
+                })
             }
         })
- 
+
 
     },
-    radioChange: function (e) {
+    radioChangeGmyw: function (e) {
         console.log(e);
-        
+
         console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
-     radioChange: function (e) {
-         console.log(e);
+    radioChangeXlzt: function (e) {
+        console.log(e);
 
-         console.log('radio发生change事件，携带value值为：', e.detail.value)
-     },
-      radioChange: function (e) {
-          console.log(e);
+        console.log('radio发生change事件，携带value值为：', e.detail.value)
+    },
+    radioChangeXy: function (e) {
+        console.log(e);
 
-          console.log('radio发生change事件，携带value值为：', e.detail.value)
-      },
+        console.log('radio发生change事件，携带value值为：', e.detail.value)
+    },
+    radioChangeYj: function (e) {
+        console.log(e);
+
+        console.log('radio发生change事件，携带value值为：', e.detail.value)
+    },
+    radioChangeDxb: function (e) {
+        console.log(e);
+
+        console.log('radio发生change事件，携带value值为：', e.detail.value)
+    },
+    radioChangeYszt: function (e) {
+        console.log(e);
+
+        console.log('radio发生change事件，携带value值为：', e.detail.value)
+    },
+    radioChangeZznl: function (e) {
+        console.log(e);
+
+        console.log('radio发生change事件，携带value值为：', e.detail.value)
+    },
+    radioChangePgdj: function (e) {
+        console.log(e);
+
+        console.log('radio发生change事件，携带value值为：', e.detail.value)
+    },
+    radioChangeHldj: function (e) {
+        console.log(e);
+
+        console.log('radio发生change事件，携带value值为：', e.detail.value)
+    },
     onChange(event) {
         // event.detail 为当前输入的值
     },
