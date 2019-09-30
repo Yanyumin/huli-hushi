@@ -29,12 +29,12 @@
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            {{myAddress}}
+                            {{goOutAddress}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <text wx:if="{{!img}}">请拍照记录</text>
-                            <image wx:else mode="widthFix" src="{{img}}"></image>
+                            <text wx:if="{{!goOutImg}}">请拍照记录</text>
+                            <image wx:else mode="widthFix" src="{{goOutImg}}"></image>
                         </view>
                     </view>
                     <view class="card_right">
@@ -65,40 +65,44 @@
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            广东省妇幼医院d栋
+                           {{arriveAddress}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image mode="widthFix" src="../../img/wechat.png"></image>
+                             <text wx:if="{{!arriveImg}}">请拍照记录</text>
+                            <image wx:else mode="widthFix" src="{{arriveImg}}"></image>
                         </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                               <text wx:if="{{goOutClock}}">已打卡</text>
-                                <text wx:else="{{!goOutClock}}" style="background-color: red;">未打卡</text>
+                               <text wx:if="{{arriveClock}}">已打卡</text>
+                                <text wx:else="{{!arriveClock}}" style="background-color: red;">未打卡</text>
                             </view>
+                            <view bindtap="onarriveClock">
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
+                            </view>
                         </view>
                     </view>
                 </view>
                 <view class="prompt">
                     <view class="realNames">
                         <view class="shim">实名认证</view>
-                        <view class="weiren"> <text wx:if="{{goOutClock}}"  style="background-color:  #03c173;">已认证</text>
-                      <text wx:else="{{!goOutClock}}" style="background-color: red;">未认证</text></view>
-                    </view>
+                        <view class="weiren"> <text wx:if="{{attestation}}"  style="background-color:  #03c173;">已认证</text>
+                      <text wx:else="{{!attestation}}" style="background-color: red;">未认证</text></view>
+                    </view> 
                     <view class="info_input">
                         <van-cell-group>
-                            <van-field value="{{ value }}" label="患者姓名:" placeholder="请输入患者姓名" border="{{ false }}" bind:change="onChange" />
-                            <van-field value="{{ value }}" label="身份证号码:" placeholder="请输入患者姓身份证号码" border="{{ false }}" bind:change="onChange" />
+                            <van-field value="{{ patientName }}" label="患者姓名:" placeholder="请输入患者姓名" border="{{ false }}" bind:change="onChangeName" />
+                            <van-field value="{{ idenNo }}" label="身份证号码:" placeholder="请输入患者姓身份证号码" border="{{ false }}" bind:change="onChangeCode" />
                         </van-cell-group>
                     </view>
                     <view class="photos">
                         <view class="photos_position">
-                            <image mode="widthFix" src="../../img/wechat.png"></image>
+                             <text wx:if="{{!patientImg}}"style="font-size: 30rpx;;">　请拍照记录</text>
+                            <image wx:else mode="widthFix" src="{{patientImg}}"></image>
                         </view>
-                        <view class="photos_btn">
+                        <view class="photos_btn" bindtap="attestationClock">
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
@@ -291,23 +295,25 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             护理前拍照
-                            <text>8:00</text>
+                            <text>{{nurseTime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            广东省妇幼医院d栋
+                            {{nurseAddress}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image mode="widthFix" src="../../img/wechat.png"></image>
+                             <text wx:if="{{!nurseBeforeImg}}">请拍照记录</text>
+                            <image  wx:else mode="widthFix" src="{{nurseBeforeImg}}"></image>
                         </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                                <text>已完成</text>
+                                <text wx:if="{{nurseBeforeClock}}">已完成</text>
+                                <text wx:else="{{!nurseBeforeClock}}" style="background-color: red;">未完成</text>
                             </view>
-                            <image mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image bindtap='onNurseBefore' mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -328,7 +334,7 @@
                     <view class="card_left">
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
-                            护理 完请拍照
+                            护理完请拍照
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
@@ -336,13 +342,15 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image mode="widthFix" src="../../img/wechat.png"></image>
+                             <text wx:if="{{!nurseBeforeImg}}"></text>
+                            <image wx:else mode="widthFix" src="../../img/wechat.png"></image>
                         </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                                <text>未完成</text>
+                               <text wx:if="{{nurseBeforeClock}}">已完成</text>
+                                <text wx:else="{{!nurseBeforeClock}}" style="background-color: red;">未完成</text>
                             </view>
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
@@ -395,3 +403,4 @@
         </block>
     </Tabs>
 </view>
+  <van-toast id="van-toast" />

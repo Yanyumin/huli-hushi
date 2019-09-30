@@ -1,3 +1,5 @@
+import Toast from 'vant-weapp/toast/toast';
+
 const QQMapWX = require('../../lib/qqmap/qqmap-wx-jssdk.js');
 const {
     request
@@ -15,9 +17,15 @@ Page({
      */
     data: {
         //安全到达打开
-        safetyClock:false,
+        safetyClock: false,
         // 安全到达时间
-        safetyTime:'',
+        safetyTime: '',
+
+        //护理前
+        nurseBeforeClock: false,
+        nurseTime: '',
+        nurseAddress: '',
+        nurseBeforeImg: '',
         // 评估报告数据
         pgdj: '',
         zznl: '',
@@ -27,13 +35,24 @@ Page({
         xy: '',
         xlzt: '',
         gmywsw: '',
+
         //到达打卡
-        arriveClock:false,
-        arriveTime:'',
+        arriveClock: false,
+        arriveTime: '',
+        arriveImg: '',
+        arriveAddress: '',
+        //实名认证
+        attestation: false,
+        patientName: '',
+        idenNo: '',
+        patientImg: '',
         // 出门打卡
         goOutClock: false,
-        // 出门时间
         goOutime: '',
+        goOutImg: "",
+        goOutAddress: "",
+
+
         infolist: {
             status: "待服务",
             buycount: "1",
@@ -47,8 +66,6 @@ Page({
         },
         myLatitude: "",
         myLongitude: "",
-        myAddress: "",
-        img: "",
         value1: 3,
         list: {
             status: "",
@@ -112,6 +129,77 @@ Page({
             goods_info: "更换敷料、检查伤口、清洁伤口"
         }
     },
+    //护理前打卡
+    onNurseBefore(){
+  let that = this
+  wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+          var time = util.formatHour(new Date());
+          const tempFilePaths = res.tempFilePaths
+          wx.uploadFile({
+              method: "POST",
+              url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+              filePath: tempFilePaths[0],
+              name: 'file',
+              success: function (res) {
+                  let data = JSON.parse(res.data)
+                  if (res.statusCode == 200) {
+                      that.setData({
+                          nurseTime: time,
+                          nurseBeforeImg: data.ResultMsg
+                      })
+                  }
+              }
+          })
+          //    用微信提供的api获取经纬度
+          wx.getLocation({
+              type: 'wgs84',
+              success: function (res) {
+                  that.setData({
+                      myLatitude: res.latitude,
+                      myLongitude: res.longitude
+                  })
+                  //用腾讯地图的api，根据经纬度获取城市
+                  qqmapsdk.reverseGeocoder({
+                      location: {
+                          latitude: that.data.myLatitude,
+                          longitude: that.data.myLongitude
+                      },
+                      success: function (res) {
+                          that.setData({
+                              nurseAddress: res.result.address
+                          })
+                          request({
+                              method: 'POST',
+                              url: 'NurseOrder/TwoConfirm',
+                              data: {
+                                  orderId: 7,
+                                  location: that.data.nurseAddress,
+                                  baseImg: that.data.nurseBeforeImg,
+                                  patientName: '',
+                                  idenNo: ''
+                              }
+                          }).then(res => {
+                              console.log(res);
+                              if (res.data.ResultCode == 0) {
+                                  that.setData({
+                                      arriveClock: true
+                                  })
+                              } else {
+                                  console.log(res.data.ResultMsg);
+                              }
+                          })
+                      }
+                  })
+              }
+          })
+      }
+  })
+
+    },
     // 出门打卡
     takePhoto() {
         let that = this
@@ -132,7 +220,7 @@ Page({
                         if (res.statusCode == 200) {
                             that.setData({
                                 goOuttime: time,
-                                img: data.ResultMsg
+                                goOutImg: data.ResultMsg
                             })
                         }
                     }
@@ -153,15 +241,15 @@ Page({
                             },
                             success: function (res) {
                                 that.setData({
-                                    myAddress: res.result.address
+                                    goOutAddress: res.result.address
                                 })
                                 request({
                                     method: 'POST',
                                     url: 'NurseOrder/OneConfirm',
                                     data: {
                                         orderId: 7,
-                                        location: that.data.myAddress,
-                                        baseImg: that.data.img,
+                                        location: that.data.goOutAddress,
+                                        baseImg: that.data.goOutImg,
                                         patientName: '',
                                         idenNo: ''
                                     }
@@ -169,7 +257,7 @@ Page({
                                     console.log(res);
                                     if (res.data.ResultCode == 0) {
                                         that.setData({
-                                            goOutClock: true
+                                            arriveClock: true
                                         })
                                     } else {
                                         console.log(res.data.ResultMsg);
@@ -184,15 +272,73 @@ Page({
 
 
     },
-        // 到达打卡
-        takePhoto() {
-            let that = this
+    // 到达打卡
+    onarriveClock() {
+        let that = this
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'],
+            sourceType: ['album', 'camera'],
+            success(res) {
+                var time = util.formatHour(new Date());
+                const tempFilePaths = res.tempFilePaths
+                wx.uploadFile({
+                    method: "POST",
+                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                    filePath: tempFilePaths[0],
+                    name: 'file',
+                    success: function (res) {
+                        let data = JSON.parse(res.data)
+                        if (res.statusCode == 200) {
+                            that.setData({
+                                arriveClock: true,
+                                arriveTime: time,
+                                arriveImg: data.ResultMsg
+                            })
+                        }
+                    }
+                })
+                //    用微信提供的api获取经纬度
+                wx.getLocation({
+                    type: 'wgs84',
+                    success: function (res) {
+                        that.setData({
+                            myLatitude: res.latitude,
+                            myLongitude: res.longitude
+                        })
+                        //用腾讯地图的api，根据经纬度获取城市
+                        qqmapsdk.reverseGeocoder({
+                            location: {
+                                latitude: that.data.myLatitude,
+                                longitude: that.data.myLongitude
+                            },
+                            success: function (res) {
+                                that.setData({
+                                    arriveAddress: res.result.address
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+
+
+    },
+    //实名认证 
+    attestationClock() {
+        let that = this
+        let arriveImg = that.data.arriveImg
+        let patientImg = that.data.patientImg
+
+        if (that.data.patientName == '' || that.data.idenNo == '') {
+            Toast.fail('请输入患者姓名或身份证号');
+        } else {
             wx.chooseImage({
                 count: 1,
                 sizeType: ['original', 'compressed'],
                 sourceType: ['album', 'camera'],
                 success(res) {
-                    var time = util.formatHour(new Date());
                     const tempFilePaths = res.tempFilePaths
                     wx.uploadFile({
                         method: "POST",
@@ -203,71 +349,74 @@ Page({
                             let data = JSON.parse(res.data)
                             if (res.statusCode == 200) {
                                 that.setData({
-                                    goOuttime: time,
-                                    img: data.ResultMsg
+                                    patientImg: data.ResultMsg
+                                })
+                                request({
+                                    method: 'POST',
+                                    url: 'NurseOrder/TwoConfirm',
+                                    data: {
+                                        orderId: 7,
+                                        location: that.data.arriveAddress,
+                                        baseImg: arriveImg,
+                                        patientImg,
+                                        patientName: that.data.patientName,
+                                        idenNo: that.data.idenNo,
+                                        Score: '',
+                                    }
+                                }).then(res => {
+                                    console.log(res);
+
+                                    if (res.data.ResultCode == 0) {
+                                        //  实名认证成功
+                                    }
                                 })
                             }
                         }
                     })
-                    //    用微信提供的api获取经纬度
-                    wx.getLocation({
-                        type: 'wgs84',
-                        success: function (res) {
-                            that.setData({
-                                myLatitude: res.latitude,
-                                myLongitude: res.longitude
-                            })
-                            //用腾讯地图的api，根据经纬度获取城市
-                            qqmapsdk.reverseGeocoder({
-                                location: {
-                                    latitude: that.data.myLatitude,
-                                    longitude: that.data.myLongitude
-                                },
-                                success: function (res) {
-                                    that.setData({
-                                        myAddress: res.result.address
-                                    })
-                                    request({
-                                        method: 'POST',
-                                        url: 'NurseOrder/OneConfirm',
-                                        data: {
-                                            orderId: 7,
-                                            location: that.data.myAddress,
-                                            baseImg: that.data.img,
-                                            patientName: '',
-                                            idenNo: ''
-                                        }
-                                    }).then(res => {
-                                        console.log(res);
-                                        if (res.data.ResultCode == 0) {
-                                            that.setData({
-                                                goOutClock: true
-                                            })
-                                        } else {
-                                            console.log(res.data.ResultMsg);
-                                        }
-                                    })
-                                }
-                            })
-                        }
-                    })
                 }
             })
+        }
+        return true;
 
+    },
+    //取消订单
+    onOderderOff() {
+        request({
+            url: 'NurseOrder/BillOrderFailed',
+            data: {
+                orderId: 7,
+            }
+        }).then(res => {
+            console.log(res);
 
-        },
+        })
+    },
+
+    // 下一步
+    onNextStep() {
+        let {
+            tabs
+        } = this.data;
+        if (!this.data.arriveClock) {
+            Toast.fail('请先打卡');
+            // } else if (!this.data.attestation) {
+            //     Toast.fail('请先实名认证');
+        } else {
+            tabs[2].isShow = false
+            tabs[3].isActive = true
+            tabs[3].isShow = true
+            this.setData({
+                tabs
+            })
+        }
+
+    },
     radioChangeGmyw: function (e) {
-        console.log(e);
-
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
         this.setData({
             gmywsw: e.detail.value
         })
     },
     radioChangeXlzt: function (e) {
-        console.log(e);
-
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
         this.setData({
             xlzt: e.detail.value
         })
@@ -276,50 +425,49 @@ Page({
         this.setData({
             xy: e.detail.value
         })
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeYj: function (e) {
         this.setData({
             yj: e.detail.value
         })
-
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeDxb: function (e) {
         this.setData({
             dxb: e.detail.value
         })
-
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeYszt: function (e) {
         this.setData({
             yszt: e.detail.value
         })
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeZznl: function (e) {
         this.setData({
             zznl: e.detail.value
         })
-
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangePgdj: function (e) {
         this.setData({
             pgdj: e.detail.value
         })
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
     radioChangeHldj: function (e) {
         this.setData({
             hldj: e.detail.value
         })
-
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
     },
-    onChange(event) {
-        // event.detail 为当前输入的值
+    //验证 患者姓名
+    onChangeName(e) {
+        this.setData({
+            patientName: e.detail
+        })
+    },
+    // 身份证
+    onChangeCode(e) {
+        console.log(e)
+        this.setData({
+            idenNo: e.detail
+        })
     },
     // 查看费用清单
     onExpense() {
@@ -380,31 +528,7 @@ Page({
 
         })
     },
-    //取消订单
-    onOderderOff(){
-            request({
-                url: 'NurseOrder/BillOrderFailed',
-                data: {
-                    orderId: 7,
-                }
-            }).then(res => {
-                console.log(res);
 
-            })
-    },
-
-    // 下一步
-    onNextStep() {
-        let {
-            tabs
-        } = this.data;
-        tabs[2].isShow = false
-        tabs[3].isActive = true
-        tabs[3].isShow = true
-        this.setData({
-            tabs
-        })
-    },
     // 准备完成
     onPrepare() {
         let {
