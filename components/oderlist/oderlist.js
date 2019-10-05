@@ -20,15 +20,27 @@ Component({
    * 组件的方法列表
    */
   methods: {
- onExpense(e){
-      this.triggerEvent('onExpense', {
+    onExpense(e){
+          this.triggerEvent('onExpense', {
+              value: e.currentTarget.dataset['index']
+          });
+    },
+    onStartService(e){
+        this.triggerEvent('onStartService', {
+            value: e.currentTarget.dataset['index']
+        });
+    },
+
+    acceptService(e){
+      this.triggerEvent('acceptService', {
           value: e.currentTarget.dataset['index']
       });
- },
-onStartService(e){
-     this.triggerEvent('onStartService', {
-         value: e.currentTarget.dataset['index']
-     });
-}
+    },
+
+    cancelService(e){
+      this.triggerEvent('cancelService', {
+          value: e.currentTarget.dataset['index']
+      });
+    }
   }
 })

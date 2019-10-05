@@ -1,6 +1,8 @@
 <view class="infolist">
 <serviceItem datas="{{datas}}"></serviceItem>
-<oderlist item="{{infolist}}"></oderlist>
+<oderlist
+  item="{{infolist}}"
+  bind:acceptService='acceptService'></oderlist>
 
 </view>
 

@@ -11,10 +11,10 @@
   <view class="contentBox">
     <view class="eventBox">
       <view class="eventList" bindtap="clickEvent">
-        接单列表(10)
+        接单列表({{oderList.length}})
       </view>
       <view class="todayService" bindtap='clickToday'>
-        今日服务(2)
+        今日服务({{todayOderList.length}})
       </view>
     </view>
     <view class="eventContainer" wx:if="{{showEvent}}">

@@ -1,4 +1,7 @@
-// pages/infolist/infolist.js
+// pages/infolist/infolist.jsconst {
+const {
+    request
+} = require("../../utils/request")
 Page({
 
   /**
@@ -31,40 +34,60 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-console.log(options);
-let id = options.id
-let infolist =this.data.infolist
+    console.log(options);
+    let id = options.id
+    let infolist =this.data.infolist
 
-if (id=='1') {
-    infolist.status = "待确认"
-    this.setData({
-infolist
-    })
-} else if (id=='2') {
-     infolist.status = "待服务"
+    if (id=='1') {
+        infolist.status = "待确认"
+        this.setData({
+    infolist
+        })
+    } else if (id=='2') {
+        infolist.status = "待服务"
+            this.setData({
+                infolist
+            })
+    } else if (id=='3') {
+        infolist.status = "服务中"
         this.setData({
             infolist
         })
-} else if (id=='3') {
-     infolist.status = "服务中"
-     this.setData({
-         infolist
-     })
-} else if (id=='4') {
-      infolist.status = "待评价"
-      this.setData({
-          infolist
-      })
-      
-}else if (id=="5") {
-      infolist.status = "完成"
-      this.setData({
-          infolist
-      })
-}
+    } else if (id=='4') {
+        infolist.status = "待评价"
+        this.setData({
+            infolist
+        })
+        
+    }else if (id=="5") {
+        infolist.status = "完成"
+        this.setData({
+            infolist
+        })
+    }
 
   },
+  onStartService (e) {
+      console.log(e.detail.value)
+  },
+  acceptService (e) {
+      console.log(e.detail.value)
+    request({
+        url: 'NurseOrder/ReceiveSuccess',
+        data: {orderId: e.detail.value}
+    }).then(res => {
 
+    })
+  },
+  cancelService (e) {
+      console.log(e.detail.value)
+    request({
+        url: 'NurseOrder/ReceiveFailed',
+        data: {orderId: e.detail.value}
+    }).then(res => {
+        
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

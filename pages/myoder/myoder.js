@@ -124,15 +124,15 @@ Page({
     },
     acceptService(e) {
         console.log("接受");
-     request({
-         url: 'NurseOrder/ReceiveSuccess',
-         data:{
-             orderId:1
-         }
-     }).then(res => {
-         console.log(res);
+        request({
+            url: 'NurseOrder/ReceiveSuccess',
+            data:{
+                orderId:1
+            }
+        }).then(res => {
+            console.log(res);
 
-     })
+        })
 
     },
     clickOrder(e) {

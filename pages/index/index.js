@@ -15,26 +15,7 @@ Page({
       '../../img/photos.jpg'
     ],
     oderList: [],
-    todayOderList: [{
-      orderNum: "vs123333333322222",
-      status: "2",
-      proImg: "../../img/cvr.png",
-      proName: "看看病ya",
-      Price: "328.00",
-      time: "2019-09-09",
-      amount: "2",
-
-    },
-    {
-      orderNum: "vs123333333322222",
-      status: "2",
-      proImg: "../../img/cvr.png",
-      proName: "护理康复ya",
-      Price: "328.00",
-      time: "2019-09-09",
-      amount: "1",
-
-    }],
+    todayOderList: [],
     showEvent: true,
     todayServiceShow: false
   },
@@ -45,6 +26,15 @@ Page({
     })
   },
   clickToday () {
+    request({
+      url: 'NurseOrder/GetNurseList',
+      data: {type: 'today'}
+  }).then(res => {
+      let { NurseList } = res.data
+      this.setData({
+        todayOderList: NurseList
+      })
+    })
     this.setData({
       showEvent: false,
       todayServiceShow: true
@@ -59,15 +49,11 @@ Page({
       data: {type: ''}
   }).then(res => {
       console.log(res);
-      let {
-          NurseList
-      } = res.data
+      let { NurseList } = res.data
       this.setData({
           oderList: NurseList
       })
-      console.log(this.data.oderList);
-      
-  })
+    })
   },
 
   /**
