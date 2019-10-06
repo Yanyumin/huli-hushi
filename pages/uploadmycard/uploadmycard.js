@@ -229,32 +229,27 @@ certificateAdd: function (e) {
 },
     submitThis () {
         let params = {
-            Id: this.data.pId,
             IDCardImage: this.data.img1,
             IDCardImage2: this.data.img2,
             OtherImages: this.data.certificateImages.join(';')
         }
+        let userId = wx.getStorageSync('userInfo').Id
+        var user_info = wx.getStorageSync("user_info")
+        user_info.IDCardImage = this.data.img1
+        user_info.IDCardImage2 = this.data.img2
+        user_info.OtherImages = this.data.certificateImages.join(';')
+        user_info.Id = userId
         request({
             url: 'NurseRegister/Update',
             method: 'POST',
-            data: params
+            data: user_info
         }).then(res => {
             if (res.data.ResultCode == 1) {
-                // wx.navigateTo({
-                //     url: '../myinfo/myinfo',
-                // })
-                request({
-                    url: 'NurseRegister/Detail',
-                    method: 'POST',
-                    data: {Id: this.data.pId}
-                }).then(res => {
-                    if (res.data.ResultCode == 1) {
-                        // wx.navigateTo({
-                        //     url: '../myinfo/myinfo',
-                        // })
-                        console.log(res)
-                    }
-                    
+                wx.navigateTo({
+                    url: '../myinfo/myinfo',
+                })
+                this.setData({
+                    pId: res.data.row.Id
                 })
             }
             
@@ -264,10 +259,6 @@ certificateAdd: function (e) {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      console.log(options.id)
-    this.setData({
-        pId: options.id
-    })
   },
 
   /**

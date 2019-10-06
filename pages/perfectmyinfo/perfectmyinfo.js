@@ -13,7 +13,7 @@ Page({
     value: '',
     columns: ['外科', '骨科', '神经科'],
     sexClumn: ['男', '女'],
-    titleClumns: ['护士', '护士长', '专家'],
+    titleClumns: [],
     index: 0,
     workUnit: '',
     depart: '外科',
@@ -25,7 +25,9 @@ Page({
     address: '',
     title: '护士',
     myId: '',
-    logo: '../../img/userNo.png'
+    logo: '../../img/userNo.png',
+    ScheduleNo: '',
+    ScheduleNoArr: []
   },
   onChange(event) {
     // event.detail 为当前输入的值
@@ -79,8 +81,10 @@ Page({
     })
   },
   titleBindChange (e) {
+    const { picker, value, index } = e.detail;
     this.setData({
-      title: this.data.titleClumns[e.detail.value]
+      title: this.data.titleClumns[value],
+      ScheduleNo: this.data.ScheduleNoArr[value]
     })
   },
   submitThis () {
@@ -133,20 +137,10 @@ Page({
       RankName: this.data.title,
       IDCard: this.data.cardNo
     }
-    request({
-      url: 'NurseRegister/New',
-      data: params,
-      method: 'POST'
-    }).then(res => {
-      if (res.data.ResultCode === 1) {
-        this.setData({
-          myId: res.data.row.Id
-        })
-        wx.navigateTo({
-          url: '../uploadmycard/uploadmycard?id=' + this.data.myId,
-        })
-      }
-  })
+    wx.setStorageSync('user_info', params);
+    wx.navigateTo({
+      url: '../uploadmycard/uploadmycard',
+    })
   },//上传头像
   certificateUpload: function(e) {
    var that = this;
@@ -175,11 +169,35 @@ Page({
        }
    })
   },
+  GetNurseSchedule () {
+    request({
+      url: 'NurseRegister/GetNurseSchedule',
+      method: 'GET'
+  }).then(res => {
+      if (res.data.ResultCode == 0) {
+          // wx.navigateTo({
+          //     url: '../myinfo/myinfo',
+          // })
+          let names = []
+          let Nos = []
+          for (let i in res.data.rows) {
+            names.push(res.data.rows[i].Value)
+            Nos.push(res.data.rows[i].Key)
+          }
+          this.setData({
+            titleClumns: names,
+            ScheduleNoArr: Nos,
+            ScheduleNo: Nos[0]
+          })
+      }
+      
+  })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.GetNurseSchedule()
   },
 
   /**

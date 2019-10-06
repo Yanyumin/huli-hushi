@@ -5,12 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userInfo: ''
   },
   toPersonalInfo () {
-    wx.navigateTo({
-      url: '../perfectmyinfo/perfectmyinfo',
-    })
+    if (wx.getStorageSync('haveInfo')) {
+      wx.navigateTo({
+        url: '../myinfo/myinfo',
+      })
+    } else {
+      wx.navigateTo({
+        url: '../perfectmyinfo/perfectmyinfo',
+      })
+    }
   },
   toQrcode () {
     wx.navigateTo({
@@ -26,7 +32,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let userInfo = wx.getStorageSync('userInfo')
+    this.setData({
+      userInfo: userInfo
+    })
   },
 
   /**

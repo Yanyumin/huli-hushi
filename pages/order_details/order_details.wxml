@@ -50,7 +50,7 @@
                         </view>
                     </view>
                 </view>
-                <button type="primary" bindtap="onPrepare" class="btn">准备完成</button>
+                <button type="primary" bindtap="onPrepare" wx:if="{{!isGoOut}}" class="btn">准备完成</button>
             </view>
         </block>
         <!-- 到达地点 -->
@@ -107,7 +107,7 @@
                         </view>
                     </view>
                 </view>
-                <view class="arrive_btn">
+                <view class="arrive_btn" wx:if="{{!isArrive}}">
                     <button type="primary" bindtap="onOderderOff">取消订单</button>
                     <button type="primary" bindtap="onNextStep">下一步</button>
                 </view>
@@ -132,16 +132,24 @@
                     </view>
                 </view>
                 <view class="assess_list">
-                    <view class="assess_title">心里状态</view>
+                    <view class="assess_title">心理状态</view>
                     <view class="assess_checked">
                         <radio-group class='radio-group' name='answer' bindchange='radioChangeXlzt' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
-                                有
+                                稳定
                             </label>
                             <label class='radio'>
                                 <radio value="2" color='#03c173' />
-                                无
+                                紧张
+                            </label>
+                            <label class='radio'>
+                                <radio value="3" color='#03c173' />
+                                焦虑
+                            </label>
+                            <label class='radio'>
+                                <radio value="4" color='#03c173' />
+                                烦躁
                             </label>
                         </radio-group>
                     </view>
@@ -284,7 +292,7 @@
                     </view>
                 </view>
                 <view class="hint">注: 按护理等级收费,默认护理等级为一级,护理等级为一级以上则需要额外收取费用</view>
-                <button type="primary" bindtap="onNurse" class="btn">开始护理</button>
+                <button type="primary" bindtap="onNurse" wx:if="{{!isPinggu}}" class="btn">开始护理</button>
             </view>
         </block>
         <!-- 护理 -->
@@ -335,10 +343,11 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             护理完请拍照
+                            <text>{{nurseEndTime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            请拍照记录
+                            {{nurseEndAddress}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
@@ -357,7 +366,7 @@
                     </view>
                 </view>
             </view>
-            <button type="primary" bindtap="onNurseEnd" class="btn">完成</button>
+            <button wx:if="{{!isNurseEnd}}" type="primary" bindtap="onNurseEnd" class="btn">完成</button>
         </block>
         <!-- 安全打卡 -->
         <block wx:elif="{{tabs[5].isShow}}">
@@ -371,7 +380,8 @@
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            请拍照记录
+                            <text wx:if="{{!safetyImg}}">请拍照记录</text>
+                            {{goOutAddress}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
@@ -389,7 +399,7 @@
                         </view>
                     </view>
                 </view>
-                <view class="prompt evaluate_content">
+                <!-- <view class="prompt evaluate_content">
                     <view class="evaluate">
                         评价
                         <van-rate value="{{ Score }}" size="{{ 25 }}" color="#ee0a24" bind:change="onChange" />
@@ -398,8 +408,8 @@
                     <van-cell-group>
                         <van-field input-class="evaluate_inp" size="large" value="{{ opinion }}" placeholder="您对本次的服务是否满意呢, 请填写您宝贵的意见" border="{{ false }}" bind:change="onChangeOpinion" />
                     </van-cell-group>
-                </view>
-                <button type="primary" bindtap="onSubmit" class="btn">提交</button>
+                </view> -->
+                <button wx:if="{{!isSafety}}" type="primary" bindtap="onSubmit" class="btn">提交</button>
             </view>
         </block>
     </Tabs>

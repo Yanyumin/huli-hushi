@@ -15,6 +15,16 @@
 .order_details .number{
     text-align: right;
 }
+.cancelMsg {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 40rpx;
+    border: 1px solid #e5e5e5;
+    text-align: left;
+    padding: 10rpx;
+    box-sizing: border-box;
+}
+    
 
 .order_details .info_list{
     display: flex;

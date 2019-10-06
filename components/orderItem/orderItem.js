@@ -22,19 +22,19 @@ Component({
    */
   methods: {
     clickOrder (e) {
-      this.triggerEvent('change', { value: e.currentTarget.dataset['index'] });
+      this.triggerEvent('change', { value: e.currentTarget.dataset['id'] });
     },
     startService (e) {
-      this.triggerEvent('startService', { value: e.currentTarget.dataset['index'] });
+      this.triggerEvent('startService', { value: e.currentTarget.dataset['id'] });
     },
     acceptService (e) {
-      this.triggerEvent('acceptService', { value: e.currentTarget.dataset['index'] });
+      this.triggerEvent('acceptService', { value: e.currentTarget.dataset['id'] });
     },
     cancelService (e) {
-      this.triggerEvent('cancelService', { value: e.currentTarget.dataset['index'] });
+      this.triggerEvent('cancelService', { value: e.currentTarget.dataset['id'] });
     },
     toAppraise (e) {
-      this.triggerEvent('toAppraise', { value: e.currentTarget.dataset['index'] });
+      this.triggerEvent('toAppraise', { value: e.currentTarget.dataset['id'] });
     }
   }
 })

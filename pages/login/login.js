@@ -65,15 +65,16 @@ Page({
                                   }
                               }).then(res => {
                                   if (res.data.ResultCode == 1) {
-                                          wx.setStorageSync("token", res.data.row.Token)
                                       wx.showToast({
                                           title: '登录成功',
                                           icon: 'success',
                                           duration: 2000,
                                           success: function () {
-                                              wx.switchTab({
-                                                  url: '../index/index'
-                                              })
+                                            wx.setStorageSync('userInfo', res.data.row)
+                                            wx.setStorageSync('haveInfo', res.data.Result)
+                                            wx.switchTab({
+                                                url: '../index/index'
+                                            })
                                           }
                                       })
                                   } else {
@@ -125,7 +126,6 @@ Page({
                                         console.log(res);
                                         
                                         if (res.data.ResultCode == 1) {
-                                            wx.setStorageSync("token", res.data.row.Token)
                                             wx.showToast({
                                                 title: '登录成功',
                                                 icon: 'success',
@@ -203,6 +203,6 @@ Page({
   // },
   onLoad: function (options) {
       // 页面初始化 options为页面跳转所带来的参数
-      // wx.clearStorageSync(); //清除缓存
+    //   wx.clearStorageSync(); //清除缓存
   },
 })

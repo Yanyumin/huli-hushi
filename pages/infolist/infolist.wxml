@@ -2,7 +2,13 @@
 <serviceItem datas="{{datas}}"></serviceItem>
 <oderlist
   item="{{infolist}}"
-  bind:acceptService='acceptService'></oderlist>
+  bind:acceptService='acceptService'
+  bind:successService='successService'></oderlist>
 
+<van-popup show="{{ show }}">
+    <textarea class="cancelMsg" value="{{remark}}" bindChange='remarkChange' placeholder="请填写取消订单原因"></textarea>
+    <van-button class="sureCancel" type="primary" bindtap='sureCancel'>确定</van-button>
+    <van-button class="falseCancel" color="gray" bindtap='falseCancel'>取消</van-button>
+</van-popup>
 </view>
 

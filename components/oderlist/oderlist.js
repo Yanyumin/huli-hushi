@@ -41,6 +41,12 @@ Component({
       this.triggerEvent('cancelService', {
           value: e.currentTarget.dataset['index']
       });
+    },
+
+    successService(e){
+      this.triggerEvent('successService', {
+          value: e.currentTarget.dataset['index']
+      });
     }
   }
 })

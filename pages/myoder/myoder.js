@@ -8,12 +8,10 @@ Page({
      * 页面的初始数据
      */
     data: {
-        oderList: [
-           
-        ],
+        oderList: [],
         oderList1: [{
                 orderNum: "vs123333333322222",
-                OrderStatus: "1",
+                status: "1",
                 proImg: "../../img/cvr.png",
                 proName: "看看病",
                 Price: "328.00",
@@ -23,7 +21,7 @@ Page({
             },
             {
                 orderNum: "vs123333333322222",
-                OrderStatus: "1",
+                status: "1",
                 proImg: "../../img/cvr.png",
                 proName: "护理康复",
                 Price: "328.00",
@@ -34,7 +32,7 @@ Page({
         ],
         oderList2: [{
                 orderNum: "vs123333333322222",
-                OrderStatus: "2",
+                status: "2",
                 proImg: "../../img/cvr.png",
                 proName: "看看病",
                 Price: "328.00",
@@ -44,7 +42,7 @@ Page({
             },
             {
                 orderNum: "vs123333333322222",
-                OrderStatus: "2",
+                status: "2",
                 proImg: "../../img/cvr.png",
                 proName: "护理康复",
                 Price: "328.00",
@@ -55,7 +53,7 @@ Page({
         ],
         oderList3: [{
                 orderNum: "vs223333333322222",
-                OrderStatus: "3",
+                status: "3",
                 proImg: "../../img/cvr.png",
                 proName: "看看",
                 Price: "328.00",
@@ -65,7 +63,7 @@ Page({
             },
             {
                 orderNum: "vs123333333322222",
-                OrderStatus: "3",
+                status: "3",
                 proImg: "../../img/cvr.png",
                 proName: "护理康复",
                 Price: "328.00",
@@ -76,7 +74,7 @@ Page({
         ],
         oderList4: [{
             orderNum: "vs224444444422222",
-            OrderStatus: "4",
+            status: "4",
             proImg: "../../img/cvr.png",
             proName: "看看病",
             Price: "328.00",
@@ -86,7 +84,7 @@ Page({
         }],
         oderList5: [{
                 orderNum: "vs225555555522222",
-                OrderStatus: "5",
+                status: "5",
                 proImg: "../../img/cvr.png",
                 proName: "看看病",
                 Price: "328.00",
@@ -96,7 +94,7 @@ Page({
             },
             {
                 orderNum: "vs123333333322222",
-                OrderStatus: "5",
+                status: "5",
                 proImg: "../../img/cvr.png",
                 proName: "护理康复",
                 Price: "328.00",
@@ -112,37 +110,49 @@ Page({
     },
     cancelService(e) {
         console.log(e , "拒绝");
- request({
-     url: 'NurseOrder/ReceiveFailed',
-     data: {
-         orderId: 1
-     }
- }).then(res => {
-     console.log(res);
+        request({
+            url: 'NurseOrder/ReceiveFailed',
+            data: {
+                orderId: e.detail.value
+            }
+        }).then(res => {
+            if (res.data.ResultCode === '0') {
+                wx.showToast({
+                    title: '成功退回',
+                    icon: 'success',
+                    duration: 2000
+                })
+            }
 
- })
+        })
     },
     acceptService(e) {
         console.log("接受");
         request({
             url: 'NurseOrder/ReceiveSuccess',
             data:{
-                orderId:1
+                orderId:e.detail.value
             }
         }).then(res => {
-            console.log(res);
+            if (res.data.ResultCode === '0') {
+                wx.showToast({
+                    title: '成功接受',
+                    icon: 'success',
+                    duration: 2000
+                })
+            }
 
         })
 
     },
     clickOrder(e) {
         console.log(e);
-        let status = e.currentTarget.dataset.status
-        console.log(status);
+        let id = e.detail.value
+        console.log(id);
 
         console.log("点击查看详情--待确认");
         wx.navigateTo({
-            url: '../infolist/infolist?id=' + status,
+            url: '../infolist/infolist?id=' + id,
         })
 
     },
@@ -151,7 +161,7 @@ Page({
 
         // console.log(e);
         wx.navigateTo({
-            url: '../order_details/order_details',
+            url: '../order_details/order_details?id=' + e.detail.value,
         })
     },
     onChange(event) {

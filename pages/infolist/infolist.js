@@ -8,26 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-        datas: [{
-            id: 1,
-            proLogo: '../../img/wechat.png',
-            proName: "换药",
-            price: "119",
-            time: "30",
-            proDesc: "更换敷料、检查伤口、清洁伤口"
-        }],
-    infolist:{
-        status: "待确认",
-        buycount: "1",
-        serveperson: '温秀秀',
-        phone: '135434343',
-        serveaddress: '广东广州海珠',
-        servetime: '2019-09-22',
-        history: '5',
-        yuyueprice: '119',
-        pricelist: '221',
-        remark: '疑难杂症',
-    },
+    datas: [],
+    infolist:{},
+    orderId: '',
+    show: false,
+    remark: ''
   },
 
   /**
@@ -37,35 +22,81 @@ Page({
     console.log(options);
     let id = options.id
     let infolist =this.data.infolist
-
-    if (id=='1') {
-        infolist.status = "待确认"
-        this.setData({
-    infolist
-        })
-    } else if (id=='2') {
-        infolist.status = "待服务"
-            this.setData({
-                infolist
-            })
-    } else if (id=='3') {
-        infolist.status = "服务中"
-        this.setData({
-            infolist
-        })
-    } else if (id=='4') {
-        infolist.status = "待评价"
-        this.setData({
-            infolist
-        })
+    this.setData({
+        orderId: id
+    })
+    // if (id=='1') {
+    //     infolist.status = "待确认"
+    //     this.setData({
+    // infolist
+    //     })
+    // } else if (id=='2') {
+    //     infolist.status = "待服务"
+    //         this.setData({
+    //             infolist
+    //         })
+    // } else if (id=='3') {
+    //     infolist.status = "服务中"
+    //     this.setData({
+    //         infolist
+    //     })
+    // } else if (id=='4') {
+    //     infolist.status = "待评价"
+    //     this.setData({
+    //         infolist
+    //     })
         
-    }else if (id=="5") {
-        infolist.status = "完成"
-        this.setData({
-            infolist
-        })
-    }
+    // }else if (id=="5") {
+    //     infolist.status = "完成"
+    //     this.setData({
+    //         infolist
+    //     })
+    // }
+    this.getOrderDetail()
 
+  },
+  
+  remarkChange: function (e) {
+    this.setData({
+        remark: e.detail.value
+    })
+},
+  getOrderDetail () {
+    request({
+        url: 'NurseOrder/GetNurseDetail',
+        data: {orderId: this.data.orderId}
+    }).then(res => {
+        if (res.data.ResultCode == '0') {
+            let details = res.data.NurseList
+            let DatasObj = {
+                id: details[0].OrderId,
+                proLogo: '../../img/wechat.png',
+                proName: details[0].ItemName,
+                time: details[0].ItemTime,
+                proDesc: details[0].ItemIntroduce,
+                price: details[0].ItemMoney,
+                orderNo: details[0].OrderNo
+            }
+            let datasArr = [DatasObj]
+            let patientObj = {
+                status: details[0].OrderStatus,
+                buycount: "1",
+                serveperson: details[0].PatientName,
+                phone: details[0].Phone,
+                serveaddress: details[0].Address,
+                servetime: details[0].RegDate + ' ' + details[0].RegTime,
+                history: '5',
+                yuyueprice: '20',
+                pricelist: details[0].ItemMoney,
+                remark: details[0].Remark,
+                id: details[0].OrderId
+            }
+            this.setData({
+                datas: datasArr,
+                infolist: patientObj
+            })
+        }
+    })
   },
   onStartService (e) {
       console.log(e.detail.value)
@@ -76,17 +107,74 @@ Page({
         url: 'NurseOrder/ReceiveSuccess',
         data: {orderId: e.detail.value}
     }).then(res => {
-
+        if (res.data.ResultCode === '0') {
+            wx.showToast({
+                title: '成功接受',
+                icon: 'success',
+                duration: 2000
+            })
+        }
     })
   },
   cancelService (e) {
-      console.log(e.detail.value)
+      this.setData({
+        show: true
+      })
+    console.log(e.detail.value)
+    
+  },
+  sureCancel () {
+      if (!this.data.remark) {
+        wx.showToast({
+            title: '请填写原因',
+            icon: 'error',
+            duration: 2000
+        })
+        return
+      }
     request({
         url: 'NurseOrder/ReceiveFailed',
-        data: {orderId: e.detail.value}
+        data: {orderId: e.detail.value, remark: this.data.remark}
     }).then(res => {
-        
+        if (res.data.ResultCode === '0') {
+            wx.showToast({
+                title: '成功退回',
+                icon: 'success',
+                duration: 2000
+            })
+        }
     })
+  },
+  falseCancel () {
+    this.setData({
+        show: false
+      })
+  },
+  successService (e) {
+      let that = this
+      request({
+          method: "POST",
+          url: 'NurseOrder/OrderSuccess',
+          data: {
+              orderId: e.detail.value,
+              location:'',
+              baseImg: '',
+              patientName: '',
+              idenNo: '',
+              Score: '',
+          }
+      }).then(res => {
+          console.log(res);
+          if (res.data.ResultCode == '0') {
+            wx.showToast({
+                title: '成功结束服务',
+                icon: 'success',
+                duration: 2000
+            })
+          } else {
+              console.log(res.data.ResultMsg);
+          }
+      })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

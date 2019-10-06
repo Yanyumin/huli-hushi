@@ -6,7 +6,6 @@
     "pages/myoder/myoder",
     "pages/punch_sign/punch_sign",
     "pages/patient_info/patient_info",
-    "pages/order_details/order_details",
     "pages/logs/logs",
     "pages/personal/personal",
     "pages/register/register",
@@ -77,7 +76,8 @@
     "van-picker": "vant-weapp/picker",
     "van-stepper": "vant-weapp/stepper",
     "van-rate": "vant-weapp/rate",
-    "van-search": "vant-weapp/search"
+    "van-search": "vant-weapp/search",
+    "van-popup": "vant-weapp/popup"
   },
   "permission": {
     "scope.userLocation": {

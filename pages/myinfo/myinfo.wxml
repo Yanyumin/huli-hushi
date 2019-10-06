@@ -10,55 +10,55 @@
   <view class="cell">
     <text>工作单位</text>
     <view class="inputBox">
-      中医院
+      {{userInfo.HospitalName}}
     </view>
   </view>
   <view class="cell">
     <text>科室</text>
     <view class="inputBox">
-      妇科
+      {{userInfo.DepartmentName}}
     </view>
   </view>
   <view class="cell">
     <text>姓名</text>
     <view class="inputBox">
-       小李
+      {{userInfo.Name}}
     </view>
   </view>
   <view class="cell">
     <text>性别</text>
     <view class="inputBox">
-      女
+      {{userInfo.Sex}}
     </view>
   </view>
   <view class="cell">
     <text>出生日期</text>
     <view class="inputBox">
-      1996-02-26
+      {{birthday}}
     </view>
   </view>
   <view class="cell">
     <text>身份证号</text>
     <view class="inputBox">
-       41235645621231545
+      {{userInfo.IDCard}}
     </view>
   </view>
   <view class="cell">
     <text>手机号码</text>
     <view class="inputBox">
-       133548545
+      {{userInfo.ContactPhone}}
     </view>
   </view>
   <view class="cell">
     <text>联系地址</text>
     <view class="inputBox">
-       天府大厦
+      {{userInfo.ContactAddress}}
     </view>
   </view>
   <view class="cell">
     <text>职称</text>
     <view class="inputBox">
-      护士
+      {{userInfo.RankName}}
     </view>
   </view>
   <view class="cell">
@@ -66,8 +66,8 @@
   </view>
   <view class="cell">
     <view class="inputBox">
-      <image src="../../img/cvr.png" />
-      <image src="../../img/cvr.png" />
+      <image src="{{userInfo.IDCardImage}}" />
+      <image src="{{userInfo.IDCardImage2}}" />
     </view>
   </view>
   <view class="cell">
@@ -75,8 +75,7 @@
   </view>
   <view class="cell">
     <view class="inputBox">
-      <image src="../../img/cvr.png" />
-      <image src="../../img/cvr.png" />
+      <image wx:for="{{otherImgs}}" src="{{item}}" />
     </view>
   </view>
 </view>

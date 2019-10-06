@@ -23,11 +23,16 @@ Page({
         // 安全到达时间
         safetyTime: '',
         safetyImg: '',
+        safetyAddress: '',
+        isSafety: false,
         //护理结束
         nurseEndClock: false,
         nurseEndImg: '',
         measures: '',
         evaluate: '',
+        isNurseEnd: false,
+        nurseEndTime: '',
+        nurseEndAddress: '',
         //护理前
         nurseBeforeClock: false,
         nurseTime: '',
@@ -42,12 +47,14 @@ Page({
         xy: '',
         xlzt: '',
         gmywsw: '',
+        isPinggu: false,
 
         //到达打卡
         arriveClock: false,
         arriveTime: '',
         arriveImg: '',
         arriveAddress: '',
+        isArrive: false,
         //实名认证
         attestation: false,
         patientName: '',
@@ -58,7 +65,7 @@ Page({
         goOutime: '',
         goOutImg: "",
         goOutAddress: "",
-
+        isGoOut: false,
 
         infolist: {
             status: "待服务",
@@ -133,7 +140,9 @@ Page({
             goods_price: "119",
             goods_time: "30分钟",
             goods_info: "更换敷料、检查伤口、清洁伤口"
-        }
+        },
+        orderId: '',
+        show: true
     },
     //到达安全地点打卡
     onSafety(){
@@ -157,28 +166,29 @@ Page({
                                 safetyTime: time,
                                 safetyImg: data.ResultMsg
                             })
-                              request({
-                                method: "POST",
-                                url: 'NurseOrder/ThreeConfirm',
-                                data: {
-                                    orderId: 2,
-                                    location:'',
-                                    baseImg: that.data.safetyImg,
-                                    patientName: '',
-                                    idenNo: '',
-                                    Score: '',
-                                }
-                            }).then(res => {
-                                console.log(res);
-                                if (res.data.ResultCode == 0) {
-                                    that.setData({
-                                        safetyClock: true
-                                    })
-                                } else {
-                                    console.log(res.data.ResultMsg);
-                                }
-                            })
                         }
+                    }
+                })
+                //    用微信提供的api获取经纬度
+                wx.getLocation({
+                    type: 'wgs84',
+                    success: function (res) {
+                        that.setData({
+                            myLatitude: res.latitude,
+                            myLongitude: res.longitude
+                        })
+                        //用腾讯地图的api，根据经纬度获取城市
+                        qqmapsdk.reverseGeocoder({
+                            location: {
+                                latitude: that.data.myLatitude,
+                                longitude: that.data.myLongitude
+                            },
+                            success: function (res) {
+                                that.setData({
+                                    safetyAddress: res.result.address
+                                })
+                            }
+                        })
                     }
                 })
             }
@@ -201,33 +211,36 @@ Page({
                     success: function (res) {
                         let data = JSON.parse(res.data)
                         console.log(res);
+                        var time = util.formatHour(new Date());
 
                         if (data.ResultCode == 0) {
                             that.setData({
-                                nurseEndImg: data.ResultMsg
-                            })
-                            request({
-                                method: "POST",
-                                url: 'NurseOrder/ThreeConfirm',
-                                data: {
-                                    orderId: 2,
-                                    location: that.data.nurseAddress,
-                                    baseImg: that.data.nurseEndImg,
-                                    patientName: '',
-                                    idenNo: '',
-                                    Score: '',
-                                }
-                            }).then(res => {
-                                console.log(res);
-                                if (res.data.ResultCode == 0) {
-                                    that.setData({
-                                        nurseBeforeClock: true
-                                    })
-                                } else {
-                                    console.log(res.data.ResultMsg);
-                                }
+                                nurseEndImg: data.ResultMsg,
+                                nurseEndTime: time
                             })
                         }
+                    }
+                }) //    用微信提供的api获取经纬度
+                wx.getLocation({
+                    type: 'wgs84',
+                    success: function (res) {
+                        that.setData({
+                            myLatitude: res.latitude,
+                            myLongitude: res.longitude
+                        })
+                        //用腾讯地图的api，根据经纬度获取城市
+                        qqmapsdk.reverseGeocoder({
+                            location: {
+                                latitude: that.data.myLatitude,
+                                longitude: that.data.myLongitude
+                            },
+                            success: function (res) {
+                                that.setData({
+                                    nurseEndAddress: res.result.address,
+                                    nurseEndClock: true
+                                })
+                            }
+                        })
                     }
                 })
             }
@@ -275,27 +288,8 @@ Page({
                             },
                             success: function (res) {
                                 that.setData({
-                                    nurseAddress: res.result.address
-                                })
-                                request({
-                                    method: 'POST',
-                                    url: 'NurseOrder/TwoConfirm',
-                                    data: {
-                                        orderId: 2,
-                                        location: that.data.nurseAddress,
-                                        baseImg: that.data.nurseBeforeImg,
-                                        patientName: '',
-                                        idenNo: ''
-                                    }
-                                }).then(res => {
-                                    console.log(res);
-                                    if (res.data.ResultCode == 0) {
-                                        that.setData({
-                                            nurseBeforeClock: true
-                                        })
-                                    } else {
-                                        console.log(res.data.ResultMsg);
-                                    }
+                                    nurseAddress: res.result.address,
+                                    nurseBeforeClock: true
                                 })
                             }
                         })
@@ -346,27 +340,8 @@ Page({
                             },
                             success: function (res) {
                                 that.setData({
-                                    goOutAddress: res.result.address
-                                })
-                                request({
-                                    method: 'POST',
-                                    url: 'NurseOrder/OneConfirm',
-                                    data: {
-                                        orderId: 2,
-                                        location: that.data.goOutAddress,
-                                        baseImg: that.data.goOutImg,
-                                        patientName: '',
-                                        idenNo: ''
-                                    }
-                                }).then(res => {
-                                    console.log(res);
-                                    if (res.data.ResultCode == 0) {
-                                        that.setData({
-                                            arriveClock: true
-                                        })
-                                    } else {
-                                        console.log(res.data.ResultMsg);
-                                    }
+                                    goOutAddress: res.result.address,
+                                    goOutClock: true
                                 })
                             }
                         })
@@ -434,7 +409,6 @@ Page({
     attestationClock() {
         let that = this
         let arriveImg = that.data.arriveImg
-        let patientImg = that.data.patientImg
 
         if (that.data.patientName == '' || that.data.idenNo == '') {
             Toast.fail('请输入患者姓名或身份证号');
@@ -454,26 +428,8 @@ Page({
                             let data = JSON.parse(res.data)
                             if (res.statusCode == 200) {
                                 that.setData({
-                                    patientImg: data.ResultMsg
-                                })
-                                request({
-                                    method: 'POST',
-                                    url: 'NurseOrder/TwoConfirm',
-                                    data: {
-                                        orderId: 2,
-                                        location: that.data.arriveAddress,
-                                        baseImg: arriveImg,
-                                        patientImg,
-                                        patientName: that.data.patientName,
-                                        idenNo: that.data.idenNo,
-                                        Score: '',
-                                    }
-                                }).then(res => {
-                                    console.log(res);
-
-                                    if (res.data.ResultCode == 0) {
-                                        //  实名认证成功
-                                    }
+                                    patientImg: data.ResultMsg,
+                                    attestation: true
                                 })
                             }
                         }
@@ -489,7 +445,7 @@ Page({
         request({
             url: 'NurseOrder/BillOrderFailed',
             data: {
-                orderId: 2,
+                orderId: this.data.orderId,
             }
         }).then(res => {
             console.log(res);
@@ -499,6 +455,9 @@ Page({
 
     // 下一步
     onNextStep() {
+        let that = this
+        let arriveImg = that.data.arriveImg
+        let patientImg = that.data.patientImg
         let {
             tabs
         } = this.data;
@@ -507,9 +466,34 @@ Page({
             // } else if (!this.data.attestation) {
             //     Toast.fail('请先实名认证');
         } else {
-            tabs[2].isShow = false
-            tabs[3].isActive = true
-            tabs[3].isShow = true
+            let imgsArr = []
+            imgsArr.push(arriveImg)
+            imgsArr.push(patientImg)
+            request({
+                method: 'POST',
+                url: 'NurseOrder/TwoConfirm',
+                data: {
+                    orderId: this.data.orderId,
+                    location: that.data.arriveAddress,
+                    baseImg: imgsArr.join(','),
+                    patientName: that.data.patientName,
+                    idenNo: that.data.idenNo,
+                    Score: '',
+                }
+            }).then(res => {
+                console.log(res);
+                if (res.data.ResultCode == 0) {
+                    //  实名认证成功
+                    tabs[2].isShow = false
+                    tabs[3].isActive = true
+                    tabs[3].isShow = true
+                    that.setData({
+                        isArrive: true
+                    })
+                } else {
+                    Toast.fail('出了一点问题，请稍后再试');
+                }
+            })
             this.setData({
                 tabs
             })
@@ -605,11 +589,33 @@ Page({
     },
     onSubmit() {
         console.log("护理已结束");
-
+        let that = this
+        request({
+            method: "POST",
+            url: 'NurseOrder/OrderSuccess',
+            data: {
+                orderId: this.data.orderId,
+                location:that.data.safetyAddress,
+                baseImg: that.data.safetyImg,
+                patientName: '',
+                idenNo: '',
+                Score: '',
+            }
+        }).then(res => {
+            console.log(res);
+            if (res.data.ResultCode == 0) {
+                that.setData({
+                    safetyClock: true,
+                    isSafety: true
+                })
+            } else {
+                console.log(res.data.ResultMsg);
+            }
+        })
     },
     // 护理结束
     onNurseEnd() {
-
+        let that = this
         let {
             tabs
         } = this.data;
@@ -624,18 +630,46 @@ Page({
             this.setData({
                 tabs
             })
-
-                request({
-                    url: 'NurseOrder/OrderRecord',
-                    data: {
-                        orderId: 2,
-                        Measures: that.data.measures,
-                        Record: that.data.evaluate,
-                    }
-                }).then(res => {
-                    console.log(res);
-
-                })
+            let addressArr = []
+            addressArr.push(that.data.nurseAddress)
+            let imgArr = []
+            imgArr.push(that.data.nurseBeforeImg)
+            imgArr.push(that.data.nurseEndImg)
+            request({
+                method: 'POST',
+                url: 'NurseOrder/ThreeConfirm',
+                data: {
+                    orderId: this.data.orderId,
+                    location: addressArr.join(','),
+                    baseImg: imgArr.join(','),
+                    patientName: '',
+                    idenNo: ''
+                }
+            }).then(res => {
+                console.log(res);
+                if (res.data.ResultCode == 0) {
+                    that.setData({
+                        isNurseEnd: true
+                    })
+                } else {
+                    console.log(res.data.ResultMsg);
+                }
+            })
+            request({
+                url: 'NurseOrder/OrderRecord',
+                data: {
+                    orderId: 2,
+                    Measures: that.data.measures,
+                    Record: that.data.evaluate,
+                }
+            }).then(res => {
+                console.log(res);
+                if (res.data.ResultCode === '0') {
+                    that.setData({
+                        isNurseEnd: true
+                    })
+                }
+            })
         }
         return true
     },
@@ -648,29 +682,23 @@ Page({
       if (!this.data.gmywsw) {
         Toast.fail('请选择过敏药物食物');
       }else if(!this.data.xlzt){
-        Toast.fail('请选择心里状态');
+        Toast.fail('请选择心理状态');
       } else if (!this.data.xy ||!this.data.yj || !this.data.dxb) {
         Toast.fail('请先勾选');
-      } else if (!this.data.xlzt) {
-        Toast.fail('请选择心里状态');
       } else if (!this.data.yszt) {
         Toast.fail('请选择意识状态');
+      } else if (!this.data.zznl) {
+        Toast.fail('请选择自主能力');
       } else if (!this.data.pgdj) {
         Toast.fail('请选择评估等级');
       } else if (!this.data.hldj) {
         Toast.fail('请选择护理等级');
       }
       else{
-        tabs[3].isShow = false
-        tabs[4].isActive = true
-        tabs[4].isShow = true
-        that.setData({
-          tabs
-        })
         request({
           url: 'NurseOrder/NurseDetail',
           data: {
-            orderId: 2,
+            orderId: this.data.orderId,
             gmywsw: that.data.gmywsw,
             xlzt: that.data.xlzt,
             xy: that.data.xy,
@@ -682,7 +710,15 @@ Page({
           }
         }).then(res => {
           console.log(res);
-
+            if (res.data.ResultCode === '0') {
+                tabs[3].isShow = false
+                tabs[4].isActive = true
+                tabs[4].isShow = true
+                that.setData({
+                    tabs,
+                    isPinggu: true
+                })
+            }
         })
       }
   
@@ -699,6 +735,28 @@ Page({
         tabs[1].isShow = false
         tabs[2].isActive = true
         tabs[2].isShow = true
+        let that = this
+        request({
+            method: 'POST',
+            url: 'NurseOrder/OneConfirm',
+            data: {
+                orderId: this.data.orderId,
+                location: that.data.goOutAddress,
+                baseImg: that.data.goOutImg,
+                patientName: '',
+                idenNo: ''
+            }
+        }).then(res => {
+            console.log(res);
+            if (res.data.ResultCode == '0') {
+                that.setData({
+                    arriveClock: true,
+                    isGoOut: true
+                })
+            } else {
+                console.log(res.data.ResultMsg);
+            }
+        })
         this.setData({
           tabs
         })
@@ -736,7 +794,11 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        var that = this
+        let id = options.id
+        let infolist =this.data.infolist
+        this.setData({
+            orderId: id
+        })
 
     },
 
