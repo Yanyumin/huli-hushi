@@ -1,4 +1,7 @@
 // pages/patientInfo/patientinfo.js
+const {
+  request
+} = require("../../utils/request")
 import { formatDate } from '../../utils/util.js'
 Page({
 
@@ -21,7 +24,8 @@ Page({
       proName: '打针',
       proDesc: '打针打针打针',
       id: '123'
-    }]
+    }],
+    orderId: ''
   },
 
   workUnitOnChange (e) {
@@ -65,14 +69,35 @@ Page({
       characterDescribe: e.detail
     })
   },
+  submitThis () {
+    request({
+      url: 'Auth/GetAppNurseUrlDetail',
+      data: {orderId: this.data.orderId}
+    }).then(res => {
+        if (res.data.ResultCode === '0') {
+          wx.showToast({
+              title: '保存成功',
+              icon: 'success',
+              duration: 2000
+          })
+        } else {
+          
+          wx.showToast({
+            title: '保存失败',
+            icon: 'fail',
+            duration: 2000
+        })
+        }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.setData({
-      nowDate: formatDate()
+      nowDate: formatDate(),
+      orderId: options.id
     })
-    console.log(formatDate())
   },
 
   /**

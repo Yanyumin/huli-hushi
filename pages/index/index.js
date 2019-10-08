@@ -31,6 +31,10 @@ Page({
       data: {type: 'today'}
   }).then(res => {
       let { NurseList } = res.data
+      for (let i in NurseList) {
+        NurseList[i].status = NurseList[i].OrderStatus
+        NurseList[i].Price = NurseList[i].ItemMoney
+      }
       this.setData({
         todayOderList: NurseList
       })
@@ -50,10 +54,53 @@ Page({
   }).then(res => {
       console.log(res);
       let { NurseList } = res.data
+      for (let i in NurseList) {
+        NurseList[i].status = NurseList[i].OrderStatus
+        NurseList[i].Price = NurseList[i].ItemMoney
+      }
       this.setData({
           oderList: NurseList
       })
     })
+  },
+  clickOrder(e) {
+      let id = e.detail.value
+      wx.navigateTo({
+          url: '../infolist/infolist?id=' + id,
+      })
+  },
+  acceptService (e) {
+    request({
+        url: 'NurseOrder/ReceiveSuccess',
+        data: {orderId: e.detail.value}
+    }).then(res => {
+        if (res.data.ResultCode === '0') {
+            wx.showToast({
+                title: '成功接受',
+                icon: 'success',
+                duration: 2000
+            })
+        }
+    })
+  },
+  sureCancel () {
+    request({
+        url: 'NurseOrder/ReceiveFailed',
+        data: {orderId: e.detail.value, remark: ''}
+    }).then(res => {
+        if (res.data.ResultCode === '0') {
+            wx.showToast({
+                title: '成功退回',
+                icon: 'success',
+                duration: 2000
+            })
+        }
+    })
+  },
+  toAppraise(e) {
+      wx.navigateTo({
+        url: '../pingjia/pingjia?id=' + e.detail.value
+      })
   },
 
   /**

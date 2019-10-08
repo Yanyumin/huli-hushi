@@ -28,6 +28,11 @@ Page({
       url: '../invite/invite',
     })
   },
+  toSchedule () {
+    wx.navigateTo({
+      url: '../schedule/schedule',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

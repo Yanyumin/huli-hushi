@@ -1,11 +1,11 @@
 <!--pages/perfectmyinfo/perfectmyinfo.wxml-->
 <view class="pageContainer">
   <view class="cell">
-    <text class="title">基本病情</text>
+    <text class="title">基本信息</text>
     <view class="inputBox">
     </view>
   </view>
-  <view class="cell">
+  <!-- <view class="cell">
     <text>住院医院</text>
     <view class="inputBox">
       {{ workUnit }}
@@ -61,6 +61,43 @@
     <text>性格描述</text>
     <view class="inputBox">
      {{characterDescribe}}
+    </view>
+  </view> -->
+  
+  <view class="cell">
+    <text>姓名</text>
+    <view class="inputBox">
+     {{detailInfo.PatientName}}
+    </view>
+  </view>
+  <view class="cell">
+    <text>电话</text>
+    <view class="inputBox">
+     {{detailInfo.Phone}}
+    </view>
+  </view>
+  <view class="cell">
+    <text>地址</text>
+    <view class="inputBox">
+     {{detailInfo.Address}}
+    </view>
+  </view>
+  <view class="cell">
+    <text>备注</text>
+    <view class="inputBox">
+     {{detailInfo.Remark}}
+    </view>
+  </view>
+  <view class="cell">
+    <text>上次预约时间</text>
+    <view class="inputBox">
+     {{detailInfo.RegDate}}
+    </view>
+  </view>
+  <view class="cell">
+    <text>上次预约项目</text>
+    <view class="inputBox">
+     {{detailInfo.ItemName}}
     </view>
   </view>
   <view class="cell recommendBox">

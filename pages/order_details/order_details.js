@@ -48,6 +48,7 @@ Page({
         xlzt: '',
         gmywsw: '',
         isPinggu: false,
+        hldj: '',
 
         //到达打卡
         arriveClock: false,
@@ -488,14 +489,12 @@ Page({
                     tabs[3].isActive = true
                     tabs[3].isShow = true
                     that.setData({
-                        isArrive: true
+                        isArrive: true,
+                        tabs
                     })
                 } else {
-                    Toast.fail('出了一点问题，请稍后再试');
+                    Toast.fail(res.data.ResultMsg);
                 }
-            })
-            this.setData({
-                tabs
             })
         }
 
@@ -643,7 +642,8 @@ Page({
                     location: addressArr.join(','),
                     baseImg: imgArr.join(','),
                     patientName: '',
-                    idenNo: ''
+                    idenNo: '',
+                    Score: ''
                 }
             }).then(res => {
                 console.log(res);
@@ -696,7 +696,7 @@ Page({
       }
       else{
         request({
-          url: 'NurseOrder/NurseDetail',
+          url: 'NurseOrder/NurseAssessment',
           data: {
             orderId: this.data.orderId,
             gmywsw: that.data.gmywsw,
@@ -706,7 +706,8 @@ Page({
             dxb: that.data.dxb,
             yszt: that.data.yszt,
             zznl: that.data.zznl,
-            pgdj: that.data.pgdj
+            pgdj: that.data.pgdj,
+            hldj: that.data.hldj
           }
         }).then(res => {
           console.log(res);
@@ -744,21 +745,20 @@ Page({
                 location: that.data.goOutAddress,
                 baseImg: that.data.goOutImg,
                 patientName: '',
-                idenNo: ''
+                idenNo: '',
+                Score: ''
             }
         }).then(res => {
             console.log(res);
             if (res.data.ResultCode == '0') {
                 that.setData({
                     arriveClock: true,
-                    isGoOut: true
+                    isGoOut: true,
+                    tabs
                 })
             } else {
                 console.log(res.data.ResultMsg);
             }
-        })
-        this.setData({
-          tabs
         })
       }
      
@@ -790,16 +790,121 @@ Page({
             tabs
         });
     },
+    getdetails () {
+        request({
+            method: 'GET',
+            url: 'NurseOrder/GetNurseDetail',
+            data: {
+                orderId: this.data.orderId
+            }
+        }).then(res => {
+            if (res.data.ResultCode == '0') {
+                let caseImgs = ''
+                if (res.data.NurseList[0].PatientCaseImg) {
+                    caseImgs = res.data.NurseList[0].PatientCaseImg.split(',')
+                } else {
+                    caseImgs = []
+                }
+                
+                let listObj = {
+                    status: res.data.NurseList[0].OrderStatus,
+                    buycount: "1",
+                    serveperson: res.data.NurseList[0].PatientName,
+                    phone: res.data.NurseList[0].Phone,
+                    serveaddress: res.data.NurseList[0].Address,
+                    servetime: res.data.NurseList[0].RegDate + ' ' + res.data.NurseList[0].RegTime,
+                    history: caseImgs,
+                    pricelist: res.data.NurseList[0].ItemMoney,
+                    remark: res.data.NurseList[0].Remark
+                }
+                let serviceDataObj = {
+                    id: res.data.NurseList[0].OrderId,
+                    proLogo: '../../img/wechat.png',
+                    proName: res.data.NurseList[0].ItemName,
+                    price: res.data.NurseList[0].ItemMoney,
+                    time: res.data.NurseList[0].ItemTime,
+                    proDesc: res.data.NurseList[0].ItemIntroduce
+                }
+                wx.setStorageSync('caseImgs', caseImgs)
+                wx.setStorageSync('UnitList', res.data.NurseList[0].UnitList)
+                let serviseData = [serviceDataObj]
+                this.setData({
+                    infolist: listObj,
+                    datas: serviseData
+                })
+                let {
+                    tabs
+                } = this.data;
+                let infolist =this.data.infolist
+                if (infolist.status == 3) {
+                    tabs[0].isShow = false
+                    tabs[1].isShow = false
+                    tabs[1].isActive = true
+                    tabs[2].isActive = true
+                    tabs[2].isShow = true
+                    this.setData({
+                        arriveClock: true,
+                        isGoOut: true,
+                        tabs
+                    })
+                } else if (infolist.status == 4) {
+                    tabs[0].isShow = false
+                    tabs[1].isShow = false
+                    tabs[2].isShow = false
+                    tabs[3].isActive = true
+                    tabs[1].isActive = true
+                    tabs[2].isActive = true
+                    tabs[3].isShow = true
+                    this.setData({
+                        isArrive: true,
+                        tabs
+                    })
+                } else if (infolist.status == 5) {
+        
+                } else if (infolist.status == 7) {
+                    tabs[0].isShow = false
+                    tabs[1].isShow = false
+                    tabs[3].isShow = false
+                    tabs[1].isActive = true
+                    tabs[2].isActive = true
+                    tabs[3].isActive = true
+                    tabs[4].isActive = true
+                    tabs[4].isShow = true
+                    this.setData({
+                        tabs,
+                        isPinggu: true
+                    })
+                }
+            } else {
+                console.log(res.data.ResultMsg);
+            }
+        })
+    },
+    toHistory () {
+        wx.navigateTo({
+            url: '../history/history'
+        })
+    },
+    toCostList () {
+        wx.navigateTo({
+            url: '../consumable/consumable'
+        })
+    },
+    goPay () {
+        wx.navigateTo({
+            url: '../costList/costList?id=' + this.data.orderId
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
         let id = options.id
-        let infolist =this.data.infolist
         this.setData({
             orderId: id
         })
-
+        this.getdetails()
+        
     },
 
     /**

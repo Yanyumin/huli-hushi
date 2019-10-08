@@ -13,9 +13,9 @@ totalPrice:0,
   },
 //   查看耗材费
 onConsumable(){
-wx.navigateTo({
-    url: '../consumable/consumable'
-})
+  wx.navigateTo({
+      url: '../consumable/consumable'
+  })
 },
   /**
    * 生命周期函数--监听页面加载

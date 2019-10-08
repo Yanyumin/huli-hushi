@@ -1,0 +1,14 @@
+<!--pages/pingjia/pingjia.wxml-->
+
+  <view class="prompt evaluate_content">
+      <view class="evaluate">
+          评价
+          <van-rate value="{{ Score }}" size="{{ 25 }}" bind:change="onChange" />
+          <text class="good">{{evaMsg[Score]}}</text>
+      </view>
+      <!-- <van-cell-group>
+          <van-field input-class="evaluate_inp" size="large" value="{{ opinion }}" placeholder="您对本次的服务是否满意呢, 请填写您宝贵的意见" border="{{ false }}" bind:change="textareaChange" />
+      </van-cell-group> -->
+      <textarea placeholder="您对本次的服务是否满意呢, 请填写您宝贵的意见" value="{{ opinion }}" bindinput="textareaChange"></textarea>
+      <van-button type="primary" bindtap='submitOrderEva'>提交</van-button>
+  </view>

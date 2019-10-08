@@ -7,9 +7,9 @@
     bind:cancel="onCancel"
   />
   <view class="contentBox">
-    <view class="cell" bindtap='patientInfo'>
+    <view class="cell" wx:for="{{list}}" wx:key="{{item.OrderId}}" data-id="{{item.OrderId}}" bindtap='patientInfo'>
       <image src="../../img/userNo.png" />
-      <text>张三</text>
+      <text>{{item.PatientName}}</text>
       <van-icon name="arrow" />
     </view>
   </view>

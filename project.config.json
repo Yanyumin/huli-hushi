@@ -54,7 +54,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -96,6 +96,12 @@
 					"name": "pages/myoder/myoder",
 					"pathName": "pages/myoder/myoder",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
 					"scene": null
 				}
 			]

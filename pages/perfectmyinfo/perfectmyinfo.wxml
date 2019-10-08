@@ -100,3 +100,4 @@
     <van-button round type="primary" bindtap="submitThis">保存</van-button>
   </view>
 </view>
+<van-toast id="van-toast" />

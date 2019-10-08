@@ -1,1 +1,9 @@
 /* pages/history/history.wxss */
+.pageContainer {
+  padding: 20rpx;
+  text-align: center;
+}
+image {
+  width: 100%;
+  margin-top: 20rpx;
+}

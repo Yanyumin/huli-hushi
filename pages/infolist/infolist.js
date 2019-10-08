@@ -68,6 +68,12 @@ Page({
     }).then(res => {
         if (res.data.ResultCode == '0') {
             let details = res.data.NurseList
+            let caseImgs = ''
+            if (details[0].PatientCaseImg) {
+                caseImgs = details[0].PatientCaseImg.split(',')
+            } else {
+                caseImgs = []
+            }
             let DatasObj = {
                 id: details[0].OrderId,
                 proLogo: '../../img/wechat.png',
@@ -77,6 +83,8 @@ Page({
                 price: details[0].ItemMoney,
                 orderNo: details[0].OrderNo
             }
+            wx.setStorageSync('caseImgs', caseImgs)
+            wx.setStorageSync('UnitList', details[0].UnitList)
             let datasArr = [DatasObj]
             let patientObj = {
                 status: details[0].OrderStatus,
@@ -85,8 +93,7 @@ Page({
                 phone: details[0].Phone,
                 serveaddress: details[0].Address,
                 servetime: details[0].RegDate + ' ' + details[0].RegTime,
-                history: '5',
-                yuyueprice: '20',
+                history: caseImgs,
                 pricelist: details[0].ItemMoney,
                 remark: details[0].Remark,
                 id: details[0].OrderId
@@ -99,7 +106,9 @@ Page({
     })
   },
   onStartService (e) {
-      console.log(e.detail.value)
+    wx.navigateTo({
+        url: '../order_details/order_details?id=' + e.detail.value,
+    })
   },
   acceptService (e) {
       console.log(e.detail.value)
@@ -174,6 +183,16 @@ Page({
           } else {
               console.log(res.data.ResultMsg);
           }
+      })
+  },
+  toHistory () {
+      wx.navigateTo({
+          url: '../history/history'
+      })
+  },
+  toCostList () {
+      wx.navigateTo({
+          url: '../consumable/consumable'
       })
   },
   /**

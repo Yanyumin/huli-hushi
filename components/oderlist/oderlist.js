@@ -47,6 +47,12 @@ Component({
       this.triggerEvent('successService', {
           value: e.currentTarget.dataset['index']
       });
+    },
+    toCostList () {
+      this.triggerEvent('toCostList');
+    },
+    toHistory () {
+      this.triggerEvent('toHistory');
     }
   }
 })

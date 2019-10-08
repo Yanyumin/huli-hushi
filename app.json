@@ -1,8 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/login/login",
-    
+    "pages/index/index",
     "pages/myoder/myoder",
     "pages/punch_sign/punch_sign",
     "pages/patient_info/patient_info",
@@ -19,8 +18,10 @@
     "pages/invite/invite",
     "pages/patientInfo/patientinfo",
     "pages/myinfo/myinfo",
-    "pages/costList/costList",
-    "pages/infolist/infolist"
+    "pages/infolist/infolist",
+    "pages/schedule/schedule",
+    "pages/pingjia/pingjia",
+    "pages/costList/costList"
   ],
   "tabBar": {
     "color": "#a9b7b7",

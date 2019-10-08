@@ -1,8 +1,19 @@
 /* pages/qrcode/qrcode.wxss */
 .codeContainer {
-  padding: 100rpx 40rpx;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 image {
-  width: 100%;
+  width: 686rpx;
+  height: 686rpx;
+  background-color: #f9f9f9;
+}
+.canvas-box {
+  position: fixed;
+  top: 999999rpx;
+  left: 0;
 }

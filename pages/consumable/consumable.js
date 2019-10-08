@@ -9,6 +9,7 @@ Page({
         blood: 200,
         cloth: 200,
         totalPrice: 0,
+        costList: ''
     },
 
     /**
@@ -16,8 +17,15 @@ Page({
      */
     onLoad: function (options) {
         let totalPrice = this.data.narcosis + this.data.blood + this.data.cloth
+        
+        let costList = wx.getStorageSync('UnitList')
+        let price = 0
+        for (let i in costList) {
+            price = parseInt(costList[i].Money) + price
+        }
         this.setData({
-            totalPrice,
+            costList: costList,
+            totalPrice: price
         })
     },
 

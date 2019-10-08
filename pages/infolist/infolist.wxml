@@ -2,8 +2,11 @@
 <serviceItem datas="{{datas}}"></serviceItem>
 <oderlist
   item="{{infolist}}"
+  bind:onStartService='onStartService'
   bind:acceptService='acceptService'
-  bind:successService='successService'></oderlist>
+  bind:successService='successService'
+  bind:toCostList="toCostList"
+  bind:toHistory="toHistory"></oderlist>
 
 <van-popup show="{{ show }}">
     <textarea class="cancelMsg" value="{{remark}}" bindChange='remarkChange' placeholder="请填写取消订单原因"></textarea>

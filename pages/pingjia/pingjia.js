@@ -1,4 +1,4 @@
-// pages/patient_info/patient_info.js
+// pages/pingjia/pingjia.js
 const {
   request
 } = require("../../utils/request")
@@ -8,62 +8,65 @@ Page({
    * 页面的初始数据
    */
   data: {
-    columns: ['外科', '骨科', '神经科'],
-    depart: '外科',
-    workUnit: '南方医院',
-    patientNo: '1120',
-    beHosp: '2019-01-01',
-    outHosp: '2019-01-01',
-    describe: '烦躁,失眠',
-    nowDate: '',
-    character: 1,
-    characterDescribe: '  平易近人,非常好相处',
-    recommendList: [{
-      proLogo: '../../img/cvr.png',
-      proName: '打针',
-      proDesc: '打针打针打针',
-      id: '123'
-    }],
-    detailInfo: '',
+    Score: 1,
+    evaMsg: [
+      '',
+      '非常不满意',
+      '不满意',
+      '比较满意',
+      '满意',
+      '非常满意'
+    ],
+    opinion: '',
+    false: false,
     orderId: ''
   },
-  getDetail () {
+  textareaChange (e) {
+    console.log(e)
+    this.setData({
+      opinion: e.detail.value
+    })
+  },
+  onChange(event) {
+    this.setData({
+      Score: event.detail
+    });
+  },
+  submitOrderEva () {
     request({
-      url: 'Auth/GetAppNurseUrlDetail',
-      data: {orderId: this.data.orderId}
+      url: 'NurseOrder/OrderEvaluate',
+      data: {
+        orderId: this.data.orderId,
+        content: this.data.opinion,
+        score: this.data.Score
+      }
     }).then(res => {
         if (res.data.ResultCode === '0') {
-          let obj = {
-            proLogo: '../../img/cvr.png',
-            proName: res.data.NurseList[0].ItemName,
-            proDesc: res.data.NurseList[0].ItemIntroduce,
-            id: ''
-          }
-          let arr = [obj]
-          this.setData({
-            detailInfo: res.data.NurseList[0],
-            recommendList: arr
+            wx.showToast({
+                title: '提交成功',
+                icon: 'success',
+                duration: 2000
+            })
+            wx.switchTab({
+              url: '../myoder/myoder'
           })
         } else {
-          
           wx.showToast({
-            title: '保存失败',
+            title: '提交失败',
             icon: 'fail',
             duration: 2000
         })
         }
     })
   },
- 
- 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let id = options.id
     this.setData({
-      orderId: options.id
+      orderId: id
     })
-    this.getDetail()
   },
 
   /**

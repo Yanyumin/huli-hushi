@@ -1,0 +1,44 @@
+<!--pages/schedule/schedule.wxml-->
+<view class="scheduleContainer">
+  <view class="weekTab">
+    <view
+      class="{{selectWeek == item.Date ? 'weekBox weekActive' : 'weekBox'}}"
+      bindtap="clickThisWeek"
+      wx:for="{{weekTimes}}"
+      data-date="{{ item.Date }}"
+      data-index="{{ index }}"
+      wx:key="{{item.Date}}">
+      <text>{{item.WeekDay}}</text>
+    </view>
+  </view>
+  <view class="timeContainer">
+    <!-- <text class='timeActive' wx:for="{{selectTime}}" wx:key="{{item.SliceTime}}">{{item.SliceTime}}</text> -->
+    <van-checkbox-group value="{{ result }}" bind:change="onChange">
+      <view
+        class="text"
+        wx:for="{{ selectTime }}"
+        wx:key="index">
+        <van-checkbox
+        name="{{ item.SliceTime }}"
+        >
+        {{ item.SliceTime }}
+        </van-checkbox>
+      </view>
+      
+    </van-checkbox-group>
+  </view>
+  <view class="allday">
+    <text class='{{isAllday == 1 ? "timeActive" : ""}}' data-isallday="1" bindtap='alldayClick'>全天接单</text>
+    <text class='{{isAllday == 0 ? "timeActive" : ""}}' data-isallday="0" bindtap='alldayClick'>全天不接单</text>
+    <text>引用默认排班表</text>
+  </view>
+  <view class="tip">
+    <view>护士排班说明</view>
+    <view>1.根据您设置的可接单时间以及常在地点，更优地为您分派订单</view>
+    <view>2.选择时间，如:选择1-2点，则代表1-2点不接单</view>
+  </view>
+  <view class="handleBox">
+    <van-button type="primary" bindtap="submit">保存</van-button>
+  </view>
+</view>
+  <van-toast id="van-toast" />

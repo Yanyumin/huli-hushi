@@ -15,7 +15,7 @@
   font-weight: 600;
 }
 .cell text {
-  width: 130rpx;
+  width: 200rpx;
 }
 .cell .inputBox {
   flex: 1;

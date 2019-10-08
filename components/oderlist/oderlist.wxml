@@ -12,7 +12,8 @@
             <view class="info_name" wx:if="{{item.status == 7}}">下单成功</view>
             <view class="info_name" wx:if="{{item.status == 8}}">取消下单</view>
             <view class="info_name" wx:if="{{item.status == 9}}">已结束</view>
-            <view class="info_name" wx:if="{{item.status == 10}}">安全到达</view>
+            <view class="info_name" wx:if="{{item.status == 10}}">评价</view>
+            <view class="info_name" wx:if="{{item.status == 11}}">安全到达</view>
         </view>
         <view class="info_list">
             <view class="info_title">购买数量</view>
@@ -32,8 +33,9 @@
         </view>
         <view wx:if="{{item.history!==''}}" class="info_list" bindtap="onHistory">
             <view class="info_title">患者病历</view>
-            <view class="info_name">{{item.history}}</view>
-            <text class="arrows">》</text>
+            <view class="info_name" wx:if="{{item.history.length > 0}}"  bindtap='toHistory'>{{item.history.length}}</view>
+            <view class="info_name" wx:else>0</view>
+            <text class="arrows" wx:if="{{item.history.length > 0}}"  bindtap='toHistory'>》</text>
         </view>
         <view class="info_list" wx:if="{{item.yuyueprice}}">
             <view class="info_title">预约上门费</view>
@@ -45,7 +47,7 @@
         </view>
         <view class="info_list" bindtap="onExpense">
             <view class="info_title">费用清单</view>
-            <view class="info_name  paid">
+            <view class="info_name  paid" bindtap='toCostList'>
                 已支付
                 <text class="paid_price">￥ {{item.pricelist}}</text>
                 》
@@ -57,7 +59,7 @@
         </view>
     </view>
     <view class="service_btn">
-        <button class="btn" bindtap="onStartService" wx:if="{{item.status == 2}}" data-index="{{item.status}}">
+        <button class="btn" bindtap="onStartService" wx:if="{{item.status == 2 || item.status == 3 || item.status == 4}}" data-index="{{item.id}}">
             开始服务
         </button>
         <view wx:if="{{item.status == 0}}" class="arrive_btn">

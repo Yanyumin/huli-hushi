@@ -9,103 +9,36 @@ Page({
      */
     data: {
         oderList: [],
-        oderList1: [{
-                orderNum: "vs123333333322222",
-                status: "1",
-                proImg: "../../img/cvr.png",
-                proName: "看看病",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            },
-            {
-                orderNum: "vs123333333322222",
-                status: "1",
-                proImg: "../../img/cvr.png",
-                proName: "护理康复",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            }
-        ],
+        oderList1: [],
         oderList2: [{
-                orderNum: "vs123333333322222",
-                status: "2",
-                proImg: "../../img/cvr.png",
-                proName: "看看病",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            },
-            {
-                orderNum: "vs123333333322222",
-                status: "2",
-                proImg: "../../img/cvr.png",
-                proName: "护理康复",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            }
-        ],
-        oderList3: [{
-                orderNum: "vs223333333322222",
-                status: "3",
-                proImg: "../../img/cvr.png",
-                proName: "看看",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            },
-            {
-                orderNum: "vs123333333322222",
-                status: "3",
-                proImg: "../../img/cvr.png",
-                proName: "护理康复",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            }
-        ],
-        oderList4: [{
-            orderNum: "vs224444444422222",
-            status: "4",
+            orderNum: "vs123333333322222",
+            status: "2",
             proImg: "../../img/cvr.png",
             proName: "看看病",
             Price: "328.00",
             time: "2019-09-09",
             amount: "1",
 
-        }],
-        oderList5: [{
-                orderNum: "vs225555555522222",
-                status: "5",
-                proImg: "../../img/cvr.png",
-                proName: "看看病",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
+        },
+        {
+            orderNum: "vs123333333322222",
+            status: "2",
+            proImg: "../../img/cvr.png",
+            proName: "护理康复",
+            Price: "328.00",
+            time: "2019-09-09",
+            amount: "1",
 
-            },
-            {
-                orderNum: "vs123333333322222",
-                status: "5",
-                proImg: "../../img/cvr.png",
-                proName: "护理康复",
-                Price: "328.00",
-                time: "2019-09-09",
-                amount: "1",
-
-            }
-        ],
+        }
+    ],
+        oderList3: [],
+        oderList4: [],
+        oderList5: [],
     },
     toAppraise(e) {
-        console.log(e);
+        wx.navigateTo({
+            url: '../pingjia/pingjia?id=' + e.detail.value
+          })
 
     },
     cancelService(e) {
@@ -123,6 +56,7 @@ Page({
                     duration: 2000
                 })
             }
+            this.initPage()
 
         })
     },
@@ -140,6 +74,7 @@ Page({
                     icon: 'success',
                     duration: 2000
                 })
+                this.initPage()
             }
 
         })
@@ -170,10 +105,26 @@ Page({
         //     icon: 'none'
         // });
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
+    sureCancel () {
+      request({
+          url: 'NurseOrder/ReceiveFailed',
+          data: {orderId: e.detail.value, remark: ''}
+      }).then(res => {
+          if (res.data.ResultCode === '0') {
+              wx.showToast({
+                  title: '成功退回',
+                  icon: 'success',
+                  duration: 2000
+              })
+          }
+      })
+    },
+    toAppraise(e) {
+        wx.navigateTo({
+          url: '../pingjia/pingjia?id=' + e.detail.value
+        })
+    },
+    initPage (){
         request({
             url: 'NurseOrder/GetNurseList',
             data:{
@@ -184,12 +135,54 @@ Page({
             let {
                 NurseList
             } = res.data
+            for (let i in NurseList) {
+                let obj = NurseList[i]
+                obj.status = obj.OrderStatus
+                obj.Price = obj.ItemMoney
+                if (NurseList[i].OrderStatus == 2 ) {
+                    let list1 = []
+                    list1.push(obj)
+                    this.setData({
+                        oderList1: list1 
+                    })
+                } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4) {
+                    let list2 = []
+                    list2.push(obj)
+                    this.setData({
+                        oderList2: list2 
+                    })
+                } else if (NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8) {
+                    let list3 = []
+                    list3.push(obj)
+                    this.setData({
+                        oderList3: list3 
+                    })
+                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
+                    let list4 = []
+                    list4.push(obj)
+                    this.setData({
+                        oderList4: list4 
+                    })
+                } else {
+                    let list5 = []
+                    list5.push(obj)
+                    this.setData({
+                        oderList5: list5 
+                    })
+                }
+            }
             this.setData({
                 oderList: NurseList
             })
             console.log(this.data.oderList);
             
         })
+    },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+        this.initPage()
 
     },
 

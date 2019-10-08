@@ -1,21 +1,68 @@
 <van-search value="{{ value }}" placeholder="请输入搜索关键词" />
 <van-tabs active="{{ active }}" bind:change="onChange"  color="#03bf72">
     <van-tab title="全部">
-        <orderItem  bindstartService="startService"  bindacceptService="acceptService" bindchange="clickOrder" datas="{{oderList}}" data-index="{{index}}"></orderItem>
+        <orderItem
+            bindstartService="startService"
+            bindacceptService="acceptService"
+            bindchange="clickOrder"
+            bind:cancelService='sureCancel'
+            bind:toAppraise='toAppraise'
+            datas="{{oderList}}"
+            data-index="{{index}}">
+        </orderItem>
     </van-tab>
     <van-tab title="待确认">
-        <orderItem bindacceptService="acceptService"  bindcancelService="cancelService"  bindchange="clickOrder" data-status="{{oderList1[0].status}}" datas="{{oderList1}}"></orderItem>
+        <orderItem
+            bindacceptService="acceptService"
+            bindcancelService="cancelService"
+            bindchange="clickOrder"
+            bind:cancelService='sureCancel'
+            bind:toAppraise='toAppraise'
+            data-status="{{oderList1[0].status}}"
+            datas="{{oderList1}}">
+        </orderItem>
     </van-tab>
     <van-tab title="待服务">
-        <orderItem bindstartService="startService"  bindchange="clickOrder"  data-status="{{oderList2[0].status}}"  datas="{{oderList2}}"></orderItem>
+        <!-- <block wx:if="{{oderList2.length > 0}}"> -->
+         <orderItem
+             bindstartService="startService"
+             bindchange="clickOrder"
+            bind:cancelService='sureCancel'
+            bind:toAppraise='toAppraise'
+             data-status="{{oderList2[0].status}}"
+             datas="{{oderList2}}">
+            </orderItem>
+        <!-- </block> -->
+        <!-- <block wx:else>
+            <text>暂无数据</text>
+        </block> -->
     </van-tab>
     <van-tab title="服务中">
-        <orderItem datas="{{oderList3}}"  bindchange="clickOrder"  data-status="{{oderList3[0].status}}"></orderItem>
+        <orderItem
+            datas="{{oderList3}}"
+            bindchange="clickOrder"
+            bind:cancelService='sureCancel'
+            bind:toAppraise='toAppraise'
+            data-status="{{oderList3[0].status}}">
+        </orderItem>
     </van-tab>
     <van-tab title="待评价">
-        <orderItem bindtoAppraise="toAppraise" datas="{{oderList4}}"  bindchange="clickOrder" data-status="{{oderList4[0].status}}"></orderItem>
+        <orderItem 
+            bindtoAppraise="toAppraise"
+             datas="{{oderList4}}"
+             bindchange="clickOrder" 
+            bind:cancelService='sureCancel'
+            bind:toAppraise='toAppraise'
+             data-status="{{oderList4[0].status}}">
+        </orderItem>
     </van-tab>
     <van-tab title="已完成">
-        <orderItem datas="{{oderList5}}"   bindchange="clickOrder" data-status="{{oderList5[0].status}}"></orderItem>
+        <orderItem 
+            datas="{{oderList5}}"
+            bindchange="clickOrder" 
+            bind:cancelService='sureCancel'
+            bind:toAppraise='toAppraise'
+            data-status="{{oderList5[0].status}}">
+        </orderItem>
     </van-tab>
 </van-tabs>

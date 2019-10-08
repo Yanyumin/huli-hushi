@@ -1,0 +1,30 @@
+/* pages/pingjia/pingjia.wxss */
+.evaluate_content {
+  padding: 40rpx 20rpx;
+
+  text-align: center;
+}
+.prompt .evaluate{
+  display: flex;
+   justify-content: space-around;
+   font-size: 38rpx;
+}
+
+.prompt .evaluate .good {
+  color: red;
+  font-size: 34rpx;
+}
+.prompt .evaluate_inp{
+  font-size:32rpx;
+}
+textarea {
+  width: 100%;
+  margin: 20rpx 0;
+  padding: 20rpx;
+  box-sizing: border-box;
+  text-align: left;
+  border: 1px solid #e5e5e5;
+}
+.van-button {
+  width: 60%;
+}

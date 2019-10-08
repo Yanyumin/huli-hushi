@@ -21,10 +21,20 @@
       <orderItem
         datas="{{oderList}}"
         bind:startService="startService"
+        bind:change='clickOrder'
+        bind:acceptService='acceptService'
+        bind:cancelService='sureCancel'
+        bind:toAppraise='toAppraise'
       ></orderItem>
     </view>
     <view class="todayServiceContainer" wx:if="{{todayServiceShow}}">
-      <orderItem datas="{{todayOderList}}"></orderItem>
+      <orderItem 
+        datas="{{todayOderList}}"
+        bind:startService="startService"
+        bind:change='clickOrder'
+        bind:acceptService='acceptService'
+        bind:cancelService='sureCancel'
+        bind:toAppraise='toAppraise'></orderItem>
     </view>
   </view>
 </view>

@@ -26,14 +26,21 @@
   text-align: center;
   line-height: 70rpx;
   margin-right: 30rpx;
-  color: #fff;
   display: inline-block;
 }
 .erweima {
   background: #64deac;
 }
-.Patient {
-  background: #e5e5;
+.pImg {
+  background: #e5e5 !important;
+  width: 70rpx;
+  height: 70rpx;
+  padding: 4rpx;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 70rpx;
+  margin-right: 30rpx;
+  display: inline-block;
 }
 .schedule {
   background: skyblue;
