@@ -227,6 +227,7 @@ certificateAdd: function (e) {
     certificateShowUpload: true
   })
 },
+
     submitThis () {
         let params = {
             IDCardImage: this.data.img1,
@@ -246,7 +247,7 @@ certificateAdd: function (e) {
         }).then(res => {
             if (res.data.ResultCode == 1) {
                 wx.navigateTo({
-                    url: '../myinfo/myinfo',
+                    url: '../submitresult/submitresult',
                 })
                 this.setData({
                     pId: res.data.row.Id
