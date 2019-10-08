@@ -54,6 +54,8 @@ Page({
                 Password
             }
         }).then(res => {
+            console.log(res);
+            
             if (res.data.ResultCode == 1) {
                 wx.showToast({
                     title: '登录成功',
