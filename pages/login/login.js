@@ -54,6 +54,8 @@ Page({
                 Password
             }
         }).then(res => {
+            console.log(res);
+            
             if (res.data.ResultCode == 1) {
                 wx.showToast({
                     title: '登录成功',
@@ -190,6 +192,8 @@ Page({
     //   wx.clearStorageSync(); //清除缓存
     wx.login({
         success(res) {
+            console.log();
+            
             if (res.code) {
               wx.request({
                   url: 'https://api.gdbkyz.com/AppUser/api/Auth/Login',
@@ -203,7 +207,7 @@ Page({
                     } else {
                     }
                   }
-                })
+                })   
               //   request({
               //       url: 'Auth/Login',
               //       data: {
