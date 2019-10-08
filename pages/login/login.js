@@ -55,6 +55,8 @@ Page({
                           }
                       }).then(res => {
                           if (res.statusCode == "200") {
+                              console.log(res);
+                              
                               wx.setStorageSync('cookies', res.cookies[0])
                               request({
                                   method: 'POST',
