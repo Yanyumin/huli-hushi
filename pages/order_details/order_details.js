@@ -628,7 +628,7 @@ Page({
             tabs[5].isShow = true
             this.setData({
                 tabs
-            })
+            })    
             let addressArr = []
             addressArr.push(that.data.nurseAddress)
             let imgArr = []
@@ -710,6 +710,8 @@ Page({
             hldj: that.data.hldj
           }
         }).then(res => {
+            console.log(res);
+            
           console.log(res);
             if (res.data.ResultCode === '0') {
                 tabs[3].isShow = false

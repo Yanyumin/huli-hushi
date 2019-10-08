@@ -45,59 +45,41 @@ Page({
       } else if (!this.data.checked) {
           Toast.fail('请勾选同意下方使用协议');
       } else {
-          wx.login({
-              success(res) {
-                  if (res.code) {
-                      request({
-                          url: 'Auth/Login',
-                          data: {
-                              code: res.code
-                          }
-                      }).then(res => {
-                          if (res.statusCode == "200") {
-                              console.log(res);
-                              
-                              wx.setStorageSync('cookies', res.cookies[0])
-                              request({
-                                  method: 'POST',
-                                  url: 'NurseRegister/SignIn',
-                                  data: {
-                                      UserName,
-                                      Password
-                                  }
-                              }).then(res => {
-                                  if (res.data.ResultCode == 1) {
-                                      wx.showToast({
-                                          title: '登录成功',
-                                          icon: 'success',
-                                          duration: 2000,
-                                          success: function () {
-                                            wx.setStorageSync('userInfo', res.data.row)
-                                            wx.setStorageSync('haveInfo', res.data.Result)
-                                            wx.switchTab({
-                                                url: '../index/index'
-                                            })
-                                          }
-                                      })
-                                  } else {
-                                      Toast.fail(res.data.Message);
-                                      return false
-                                  }
-                              })
-
-                          }
+          
+        request({
+            method: 'POST',
+            url: 'NurseRegister/SignIn',
+            data: {
+                UserName,
+                Password
+            }
+        }).then(res => {
+            if (res.data.ResultCode == 1) {
+                wx.showToast({
+                    title: '登录成功',
+                    icon: 'success',
+                    duration: 2000,
+                    success: function () {
+                      wx.setStorageSync('userInfo', res.data.row)
+                      wx.setStorageSync('haveInfo', res.data.Result)
+                      wx.switchTab({
+                          url: '../index/index'
                       })
-                  }
-              }
-
-          })
+                    }
+                })
+            } else {
+                Toast.fail(res.data.Message);
+                return false
+            }
+        })
+          
       }
       return true;
 
   },
   handleLogin() {
       let phone = this.data.phone
-      let phoneRes = /^1(3|4|5|7|8)\d{9}$/
+      let phoneRes = /^1(3|4|5|6|7|8|9)\d{9}$/
       if (this.data.phone == '' || this.data.phone == undefined) {
           Toast.fail('请输入手机号');
       } else if (!phoneRes.test(this.data.phone)) {
@@ -206,5 +188,39 @@ Page({
   onLoad: function (options) {
       // 页面初始化 options为页面跳转所带来的参数
     //   wx.clearStorageSync(); //清除缓存
+    wx.login({
+        success(res) {
+            console.log();
+            
+            if (res.code) {
+              wx.request({
+                  url: 'https://api.gdbkyz.com/AppUser/api/Auth/Login',
+                  data: {code: res.code},
+                  method: 'GET',
+                  success(res) {
+                    wx.hideLoading()
+                    if (res.statusCode == "200") {
+                        console.log(res)
+                      wx.setStorageSync('cookies', res.header['Set-Cookie'])
+                    } else {
+                    }
+                  }
+                })   
+              //   request({
+              //       url: 'Auth/Login',
+              //       data: {
+              //           code: res.code
+              //       }
+              //   }).then(res => {
+              //       if (res.statusCode == "200") {
+              //           console.log(res)
+              //           wx.setStorageSync('cookies', res.cookies[0])
+
+                    }
+              //   })
+          //   }
+        }
+
+    })
   },
 })
