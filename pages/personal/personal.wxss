@@ -32,15 +32,7 @@
   background: #64deac;
 }
 .pImg {
-  background: #e5e5 !important;
-  width: 70rpx;
-  height: 70rpx;
-  padding: 4rpx;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 70rpx;
-  margin-right: 30rpx;
-  display: inline-block;
+  background: rgba(238, 85, 238, 0.333) !important;
 }
 .schedule {
   background: skyblue;

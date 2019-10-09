@@ -17,8 +17,8 @@
     </van-cell>
     <van-cell value='' bindtap="toPatientList">
       <view slot="title">
-        <view class="iconBox thisp">
-          <image class='pImg' src="../../img/users.png" />
+        <view class="iconBox pImg">
+          <image src="../../img/users.png" />
         </view>
         <view class="van-cell-text">患者管理</view>
       </view>
