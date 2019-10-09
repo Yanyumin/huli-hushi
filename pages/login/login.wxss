@@ -79,3 +79,28 @@ padding: 20rpx 0;
   flex: 1;
   text-align: right;
 }
+.cell {
+    color: #333;
+    display: flex;
+    font-size: 30rpx;
+    border-bottom: 1px solid #f5f2f2;
+    line-height: 88rpx;
+    padding-left: 30rpx;
+}
+
+.cell text {
+    flex: 2;
+}
+
+.cell .inputBox {
+    flex: 3;
+}
+.van-ellipsis{
+    font-size: 32rpx;
+}
+.van-field__input{
+    font-size: 30rpx;
+}
+.van-cell__title{
+    font-size: 30rpx;
+}

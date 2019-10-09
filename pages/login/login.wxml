@@ -11,7 +11,7 @@
     <view class="form-wrapper">
         <!-- 表单头部tab -->
         <view class="tabs">
-            <van-tabs active="{{ active }}" bind:change="onChangeTab" color="#03c173">
+            <van-tabs active="{{ active }}"color="#03c173">
                 <van-tab title="快捷登录">
                     <view class="form_inp">
                         <view class="input-area">
@@ -19,6 +19,14 @@
                                 <van-cell-group>
                    <van-field value="{{ phone }}" label="手机号" placeholder="请输入手机号"  bind:change="handlePhone"/>
                </van-cell-group>
+                 <view class="cell">
+                         <text>请选择医院</text>
+                         <view class="inputBox havePadding">
+                             <picker bindchange="hospitaBindChange" value="{{hospitalName}}" range="{{hospitalArray}}">
+                                 <view class="picker">{{hospitalName}}</view>
+                             </picker>
+                         </view>
+                     </view>
                <!-- <van-cell-group>
                    <van-field value="{{ sms }}" center clearable label="短信验证码" placeholder="请输入验证码"  bind:change="handleSms" use-button-slot>
                        <van-button slot="button" size="small" type="primary"  bind:click="onSms">

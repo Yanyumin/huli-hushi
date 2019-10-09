@@ -19,7 +19,7 @@
            </view>
      </view>
      <view class="btn">
-         <van-button type="primary" size="large"input-class="comment_inp" bind:click="formSubmit">注册</van-button>
+         <van-button type="primary" size="large" input-class="comment_inp" bind:click="formSubmit">注册</van-button>
      </view>
      
  </view>

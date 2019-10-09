@@ -246,6 +246,11 @@ certificateAdd: function (e) {
             data: user_info
         }).then(res => {
             if (res.data.ResultCode == 1) {
+               let Result = wx.getStorageSync("haveInfo")
+               Result = true
+               wx.setStorageSync('haveInfo', Result)
+               console.log(Result);
+               
                 wx.navigateTo({
                     // url: '../submitresult/submitresult',
                     url: '../myinfo/myinfo',

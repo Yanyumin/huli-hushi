@@ -21,7 +21,7 @@ Page({
   toQrcode () {
     wx.navigateTo({
       url: '../qrcode/qrcode',
-    })
+    })  
   },
   toPatientList () {
     wx.navigateTo({
