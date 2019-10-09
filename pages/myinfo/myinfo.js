@@ -27,6 +27,8 @@ Page({
       method: 'GET'
     }).then(res => {
       if (res.data.ResultCode === 1) {
+          console.log(res);
+          
         let imgs = res.data.row.OtherImages.split(",")
         this.setData({
           userInfo: res.data.row,

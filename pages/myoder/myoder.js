@@ -10,27 +10,7 @@ Page({
     data: {
         oderList: [],
         oderList1: [],
-        oderList2: [{
-            orderNum: "vs123333333322222",
-            status: "2",
-            proImg: "../../img/cvr.png",
-            proName: "看看病",
-            Price: "328.00",
-            time: "2019-09-09",
-            amount: "1",
-
-        },
-        {
-            orderNum: "vs123333333322222",
-            status: "2",
-            proImg: "../../img/cvr.png",
-            proName: "护理康复",
-            Price: "328.00",
-            time: "2019-09-09",
-            amount: "1",
-
-        }
-    ],
+        oderList2: [],
         oderList3: [],
         oderList4: [],
         oderList5: [],

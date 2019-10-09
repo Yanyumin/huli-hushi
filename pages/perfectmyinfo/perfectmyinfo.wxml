@@ -41,7 +41,7 @@
     <text>性别</text>
     <view class="inputBox havePadding">
       <picker bindchange="sexBindChange" value="{{index}}" range="{{sexClumn}}">
-        <view class="picker">{{sex}}</view>
+        <view class="picker">{{sex?'男':'女'}}</view>
       </picker>
     </view>
   </view>

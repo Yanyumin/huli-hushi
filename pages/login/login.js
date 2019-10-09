@@ -12,7 +12,7 @@ Page({
       phone: '',
       user_pro: "<<用户使用协议>>",
       checked: false,
-      pasd: false,
+      remPassword: false,
       active: 1,
       logIcon: "../../img/tab-personal-gray.png",
   },
@@ -35,12 +35,12 @@ Page({
   //     })
   // },
   onChangeLogin() {
-      let pasd = this.data.pasd
+      let remPassword = this.data.remPassword
       let UserName = this.data.phone_name
       let Password = this.data.password
-      if (!this.data.phone_name) {
+      if (!UserName) {
           Toast.fail('请输入用户名/手机号');
-      } else if (!this.data.password) {
+      } else if (!Password) {
           Toast.fail('请输入密码');
       } else if (!this.data.checked) {
           Toast.fail('请勾选同意下方使用协议');
@@ -62,6 +62,9 @@ Page({
                     icon: 'success',
                     duration: 2000,
                     success: function () {
+                        if (remPassword) {
+                         wx.setStorageSync('token', res.data.row.token)
+                        }
                       wx.setStorageSync('userInfo', res.data.row)
                       wx.setStorageSync('haveInfo', res.data.Result)
                       wx.switchTab({
@@ -141,7 +144,7 @@ Page({
   rememberPasd(e) {
       console.log(e);
       this.setData({
-          pasd: e.detail,
+          remPassword: e.detail,
       })
   },
   onChangePhone(e) {

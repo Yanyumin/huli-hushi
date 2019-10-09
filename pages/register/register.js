@@ -48,6 +48,8 @@ formSubmit(){
         }).then(res=>{
             console.log(res);
                  if (res.data.ResultCode == 1) {
+                      wx.setStorageSync('userInfo', res.data.row)
+                      wx.setStorageSync('haveInfo', res.data.Result)
                      wx.showToast({
                          title: res.data.Message,
                          icon: 'success',

@@ -28,7 +28,7 @@
   <view class="cell">
     <text>性别</text>
     <view class="inputBox">
-      {{userInfo.Sex}}
+      {{userInfo.Sex?'男':'女'}}
     </view>
   </view>
   <view class="cell">
@@ -75,7 +75,7 @@
   </view>
   <view class="cell">
     <view class="inputBox">
-      <image wx:for="{{otherImgs}}" src="{{item}}" />
+      <image wx:for="{{otherImgs}}" wx:key="{{item}}" src="{{item}}" />
     </view>
   </view>
 </view>

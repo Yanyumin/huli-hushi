@@ -247,7 +247,9 @@ certificateAdd: function (e) {
         }).then(res => {
             if (res.data.ResultCode == 1) {
                 wx.navigateTo({
-                    url: '../submitresult/submitresult',
+                    // url: '../submitresult/submitresult',
+                    url: '../myinfo/myinfo',
+
                 })
                 this.setData({
                     pId: res.data.row.Id
