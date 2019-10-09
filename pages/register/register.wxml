@@ -1,17 +1,25 @@
  <view class="register-container">
      <view class="from-container">
          <van-cell-group>
-             <van-field value="{{ userName }}" placeholder="请输入用户名" bind:change="onChangeName" />
-             <van-field value="{{ password }}" type="password" placeholder="设置密码(6-16位字符/字母+数字)"  bind:change="onChangePassword"/>
-                <van-field value="{{ password_c }}" type="password" placeholder="确认密码"  bind:change="onChangePassword_c"/>
-                <van-field value="{{ phone }}" placeholder="请输入手机号 " bind:change="onChangePhone" />
+             <van-field  input-class="comment_inp" value="{{ userName }}" placeholder="请输入用户名" bind:change="onChangeName" />
+             <van-field  input-class="comment_inp" value="{{ password }}" type="password" placeholder="设置密码(6-16位字符/字母+数字)"  bind:change="onChangePassword"/>
+                <van-field  input-class="comment_inp" value="{{ password_c }}" type="password" placeholder="确认密码"  bind:change="onChangePassword_c"/>
+                <van-field  input-class="comment_inp" value="{{ phone }}" placeholder="请输入手机号 " bind:change="onChangePhone" />
                   <!-- <van-field value="{{ sms }}" center clearable placeholder="请输入验证码" use-button-slot  bind:change="onChangeSms">
     <van-button slot="button" size="small" type="primary"  bind:click="codeSubmit">发送验证码</van-button>
   </van-field> -->
          </van-cell-group>
+                    <view class="cell">
+               <text>请选择医院</text>
+               <view class="inputBox havePadding">
+                   <picker bindchange="hospitaBindChange" value="{{hospitalName}}" range="{{hospitalArray}}">
+                       <view class="picker">{{hospitalName}}</view>
+                   </picker>
+               </view>
+           </view>
      </view>
      <view class="btn">
-         <van-button type="primary" size="large" class="btn-area"  bind:click="formSubmit">注册</van-button>
+         <van-button type="primary" size="large"input-class="comment_inp" bind:click="formSubmit">注册</van-button>
      </view>
      
  </view>

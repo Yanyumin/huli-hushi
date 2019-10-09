@@ -17,3 +17,24 @@
     font-size: 25rpx;
     margin-left: 10%
 }
+.comment_inp {
+    font-size: 30rpx;
+
+
+}
+.cell {
+    color: #333;
+    display: flex;
+    font-size: 30rpx;
+    border-bottom: 1px solid #f5f2f2;
+    line-height: 88rpx;
+    padding-left: 30rpx;
+}
+.cell text {
+flex: 2;
+color: #9c9a9a
+}
+
+.cell .inputBox {
+    flex: 3;
+}
