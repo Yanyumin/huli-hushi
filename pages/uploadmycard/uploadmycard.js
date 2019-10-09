@@ -245,6 +245,8 @@ certificateAdd: function (e) {
             method: 'POST',
             data: user_info
         }).then(res => {
+            console.log(res);
+            
             if (res.data.ResultCode == 1) {
                let Result = wx.getStorageSync("haveInfo")
                Result = true
