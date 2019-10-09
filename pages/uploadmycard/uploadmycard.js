@@ -239,6 +239,8 @@ certificateAdd: function (e) {
         user_info.IDCardImage = this.data.img1
         user_info.IDCardImage2 = this.data.img2
         user_info.OtherImages = this.data.certificateImages.join(';')
+        user_info.HospitalId = wx.getStorageSync('userInfo').HospitalId
+        console.log(wx.getStorageSync('userInfo'))
         user_info.Id = userId
         request({
             url: 'NurseRegister/Update',

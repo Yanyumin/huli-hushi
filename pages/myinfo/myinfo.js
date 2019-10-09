@@ -28,12 +28,22 @@ Page({
     }).then(res => {
       if (res.data.ResultCode === 1) {
           console.log(res);
-          
-        let imgs = res.data.row.OtherImages.split(",")
+          let imgs = ''
+          if (!res.data.row.OtherImages) {
+            imgs = ''
+          } else {
+            imgs = res.data.row.OtherImages.split(",")
+          }
+          let Birth = ''
+          if (!res.data.row.Birthday) {
+            Birth = ''
+          } else {
+            Birth = res.data.row.Birthday.slice(0, 10)
+          }
         this.setData({
           userInfo: res.data.row,
           otherImgs: imgs,
-          birthday: res.data.row.Birthday.slice(0, 10)
+          birthday: Birth
         })
       }
     })

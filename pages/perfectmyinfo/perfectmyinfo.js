@@ -156,7 +156,8 @@ Page({
             ContactAddress: this.data.address,
             DepartmentName: this.data.depart,
             RankName: this.data.title,
-            IDCard: this.data.cardNo
+            IDCard: this.data.cardNo,
+            ScheduleNo: this.data.ScheduleNo
         }
         wx.setStorageSync('user_info', params);
         wx.navigateTo({
@@ -193,7 +194,8 @@ Page({
     GetNurseSchedule() {
         request({
             url: 'NurseRegister/GetNurseSchedule',
-            method: 'GET'
+            method: 'GET',
+            data: {hospitalId: wx.getStorageSync('userInfo').HospitalId}
         }).then(res => {
             if (res.data.ResultCode == 0) {
                 // wx.navigateTo({
