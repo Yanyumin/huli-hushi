@@ -78,6 +78,7 @@ Page({
         wx.navigateTo({
             url: '../order_details/order_details?id=' + e.detail.value,
         })
+         this.initPage()
     },
     onChange(event) {
         // wx.showToast({
@@ -119,31 +120,31 @@ Page({
                 let obj = NurseList[i]
                 obj.status = obj.OrderStatus
                 obj.Price = obj.ItemMoney
-                if (NurseList[i].OrderStatus == 2 ) {
+                if (NurseList[i].OrderStatus == 0 ) {
                     let list1 = []
                     list1.push(obj)
                     this.setData({
                         oderList1: list1 
                     })
-                } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4) {
+                } else if (NurseList[i].OrderStatus ==2 ) {
                     let list2 = []
                     list2.push(obj)
                     this.setData({
                         oderList2: list2 
                     })
-                } else if (NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8) {
+                } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8) {
                     let list3 = []
                     list3.push(obj)
                     this.setData({
                         oderList3: list3 
                     })
-                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
+                } else if ( NurseList[i].OrderStatus == 9) {
                     let list4 = []
                     list4.push(obj)
                     this.setData({
                         oderList4: list4 
                     })
-                } else {
+                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 11) {
                     let list5 = []
                     list5.push(obj)
                     this.setData({
@@ -163,6 +164,7 @@ Page({
      */
     onLoad: function (options) {
         this.initPage()
+console.log(this.data.oderList1);
 
     },
 

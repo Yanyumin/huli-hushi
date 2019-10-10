@@ -102,6 +102,8 @@ Page({
                 datas: datasArr,
                 infolist: patientObj
             })
+            console.log(this.data.datas);
+            
         }
     })
   },

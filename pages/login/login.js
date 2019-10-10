@@ -23,8 +23,6 @@ Page({
     //     console.log("发送验证码");
     // },
         hospitaBindChange(e) {
-            console.log(e);
-
             const {
                 value,
             } = e.detail;
@@ -103,8 +101,12 @@ Page({
                                 code: res.code
                             }
                         }).then(res => {
+                            console.log(
+                                res
+                            );
+                            
                             if (res.statusCode == "200") {
-                                wx.setStorageSync('cookies', res.cookies[0])
+                                wx.setStorageSync('cookies', res.header['Set-Cookie'])
                                 request({
                                     method: 'POST',
                                     url: 'NurseRegister/SignInByPhone',
@@ -143,7 +145,6 @@ Page({
     },
     // 记住密码
     rememberPasd(e) {
-        console.log(e);
         this.setData({
             remPassword: e.detail,
         })
@@ -164,7 +165,6 @@ Page({
         })
     },
     handlePhone(e) {
-        console.log(e.detail);
         this.setData({
             phone: e.detail,
         })
@@ -185,6 +185,7 @@ Page({
         //   });
 
     },
+
     // onChangeTab(event) {
     //     wx.showToast({
     //         title: `切换到标签 ${event.detail.index + 1}`,

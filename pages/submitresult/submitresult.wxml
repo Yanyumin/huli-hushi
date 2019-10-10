@@ -11,3 +11,5 @@
     <text>020-9898898</text>
   </view>
 </view>
+
+<van-toast id="custom-selector" />

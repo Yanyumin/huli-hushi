@@ -8,7 +8,8 @@ Page({
     userInfo: ''
   },
   toPersonalInfo () {
-    if (wx.getStorageSync('haveInfo')) {
+      let user = wx.getStorageSync('userInfo')
+    if (user.IDCard) {
       wx.navigateTo({
         url: '../myinfo/myinfo',
       })

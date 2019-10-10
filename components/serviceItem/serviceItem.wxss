@@ -8,8 +8,8 @@
   border-top: 1px solid #e5e5e5;
 }
 .imgBox {
-  width: 150rpx;
-  height: 150rpx;
+    flex: 2;
+  /* height: 150rpx; */
 }
 .imgBox image {
   width: 100%;
@@ -17,7 +17,9 @@
 }
 .projectInfo {
   margin-left: 30rpx;
-  flex: 1;
+  flex: 6;
+  width: 0;
+
 }
 .projectInfo .projectName {
   font-weight: 600;
