@@ -71,6 +71,8 @@ Page({
                 orderId: this.data.orderId
             }
         }).then(res => {
+            console.log(res);
+            
             if (res.data.ResultCode == '0') {
                 let details = res.data.NurseList
                 let caseImgs = ''

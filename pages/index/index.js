@@ -28,7 +28,9 @@ Page({
   clickToday () {
     request({
       url: 'NurseOrder/GetNurseList',
-      data: {type: 'today'}
+      data: {
+          type: 'today', nurseId:wx.getStorageSync('userInfo').Id
+      }
   }).then(res => {
       let { NurseList } = res.data
       for (let i in NurseList) {
@@ -50,7 +52,10 @@ Page({
   getList () {
     request({
       url: 'NurseOrder/GetNurseList',
-      data: {type: ''}
+      data: {
+          type: '',
+          nurseId: wx.getStorageSync('userInfo').Id
+      }
   }).then(res => {
       console.log(res);
       let { NurseList } = res.data

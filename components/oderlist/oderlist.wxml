@@ -55,7 +55,7 @@
         </view>
         <view class="info_list">
             <view class="info_title">备注</view>
-            <view class="info_name">{{item.remark}}</view>
+            <view class="info_name">{{item.remark?item.remark:'无'}}</view>
         </view>
     </view>
     <view class="service_btn">

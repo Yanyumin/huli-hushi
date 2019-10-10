@@ -50,7 +50,7 @@
                                 <text wx:else="{{!goOutClock}}" style="background-color: red;">未打卡</text>
 
                             </view>
-                            <view bindtap="takePhoto">
+                            <view bindtap="takePhoto" wx:if="{{!goOutClock}}">
                                 <image mode="widthFix" src="../../img/qiandao.png"></image>
                             </view>
                         </view>

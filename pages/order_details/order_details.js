@@ -16,7 +16,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        opinion:'',
+        opinion: '',
         Score: 0,
         //安全到达打卡
         safetyClock: false,
@@ -146,7 +146,7 @@ Page({
         show: true
     },
     //到达安全地点打卡
-    onSafety(){
+    onSafety() {
         let that = this
         wx.chooseImage({
             count: 1,
@@ -296,6 +296,7 @@ Page({
                         })
                     }
                 })
+
             }
         })
 
@@ -325,7 +326,6 @@ Page({
                         }
                     }
                 })
-                //    用微信提供的api获取经纬度
                 wx.getLocation({
                     type: 'wgs84',
                     success: function (res) {
@@ -342,15 +342,54 @@ Page({
                             success: function (res) {
                                 that.setData({
                                     goOutAddress: res.result.address,
-                                    goOutClock: true
+                                })
+                                request({
+                                    method: 'POST',
+                                    url: 'NurseOrder/OneConfirm',
+                                    data: {
+                                        orderId: that.data.orderId,
+                                        location: that.data.goOutAddress,
+                                        baseImg: that.data.goOutImg,
+                                        patientName: '',
+                                        idenNo: '',
+                                        Score: ''
+                                    }
+                                }).then(res => {
+                                    console.log(res);
+                                    if (res.data.ResultCode == '0') {
+                                        that.setData({
+                                            goOutClock: true
+                                        })
+                                    } else {
+                                        Toast.fail(res.data.ResultMsg);
+                                    }
                                 })
                             }
+
                         })
                     }
                 })
             }
         })
 
+
+    },
+    // 准备完成
+    onPrepare() {
+        let {
+            tabs
+        } = this.data;
+        if (!this.data.goOutClock) {
+            Toast.fail('请先打卡');
+        } else {
+            tabs[1].isShow = false
+            tabs[2].isActive = true
+            tabs[2].isShow = true
+            this.setData({
+                isGoOut: true,
+                tabs
+            })
+        }
 
     },
     // 到达打卡
@@ -361,7 +400,7 @@ Page({
             sizeType: ['original', 'compressed'],
             sourceType: ['album', 'camera'],
             success(res) {
-                var time = util.formatHour(new Date());
+                var time2 = util.formatHour(new Date());
                 const tempFilePaths = res.tempFilePaths
                 wx.uploadFile({
                     method: "POST",
@@ -373,7 +412,7 @@ Page({
                         if (res.statusCode == 200) {
                             that.setData({
                                 arriveClock: true,
-                                arriveTime: time,
+                                arriveTime: time2,
                                 arriveImg: data.ResultMsg
                             })
                         }
@@ -483,7 +522,7 @@ Page({
                 }
             }).then(res => {
                 console.log(res);
-                if (res.data.ResultCode == 0) {
+                if (res.data.ResultCode =='0') {
                     //  实名认证成功
                     tabs[2].isShow = false
                     tabs[3].isActive = true
@@ -550,8 +589,8 @@ Page({
             patientName: e.detail
         })
     },
-    onChangeOpinion(e){
-     this.setData({
+    onChangeOpinion(e) {
+        this.setData({
             opinion: e.detail
         })
     },
@@ -594,7 +633,7 @@ Page({
             url: 'NurseOrder/OrderSuccess',
             data: {
                 orderId: this.data.orderId,
-                location:that.data.safetyAddress,
+                location: that.data.safetyAddress,
                 baseImg: that.data.safetyImg,
                 patientName: '',
                 idenNo: '',
@@ -607,6 +646,10 @@ Page({
                     safetyClock: true,
                     isSafety: true
                 })
+                   wx.switchTab({
+                       url: '../index/index',
+
+                   })
             } else {
                 console.log(res.data.ResultMsg);
             }
@@ -620,15 +663,15 @@ Page({
         } = this.data;
         if (!this.data.nurseBeforeClock || !this.data.nurseEndClock) {
             Toast.fail('请先打卡');
-            } else if (this.data.measures=='' || this.data.evaluate=='') {
-                Toast.fail('请填写护理记录');
+        } else if (this.data.measures == '' || this.data.evaluate == '') {
+            Toast.fail('请填写护理记录');
         } else {
             tabs[4].isShow = false
             tabs[5].isActive = true
             tabs[5].isShow = true
             this.setData({
                 tabs
-            })    
+            })
             let addressArr = []
             addressArr.push(that.data.nurseAddress)
             let imgArr = []
@@ -679,92 +722,54 @@ Page({
         let {
             tabs
         } = that.data;
-      if (!this.data.gmywsw) {
-        Toast.fail('请选择过敏药物食物');
-      }else if(!this.data.xlzt){
-        Toast.fail('请选择心理状态');
-      } else if (!this.data.xy ||!this.data.yj || !this.data.dxb) {
-        Toast.fail('请先勾选');
-      } else if (!this.data.yszt) {
-        Toast.fail('请选择意识状态');
-      } else if (!this.data.zznl) {
-        Toast.fail('请选择自主能力');
-      } else if (!this.data.pgdj) {
-        Toast.fail('请选择评估等级');
-      } else if (!this.data.hldj) {
-        Toast.fail('请选择护理等级');
-      }
-      else{
-        request({
-          url: 'NurseOrder/NurseAssessment',
-          data: {
-            orderId: this.data.orderId,
-            gmywsw: that.data.gmywsw,
-            xlzt: that.data.xlzt,
-            xy: that.data.xy,
-            yj: that.data.yj,
-            dxb: that.data.dxb,
-            yszt: that.data.yszt,
-            zznl: that.data.zznl,
-            pgdj: that.data.pgdj,
-            hldj: that.data.hldj
-          }
-        }).then(res => {
-            console.log(res);
-            
-          console.log(res);
-            if (res.data.ResultCode === '0') {
-                tabs[3].isShow = false
-                tabs[4].isActive = true
-                tabs[4].isShow = true
-                that.setData({
-                    tabs,
-                    isPinggu: true
-                })
-            }
-        })
-      }
-  
+        if (!this.data.gmywsw) {
+            Toast.fail('请选择过敏药物食物');
+        } else if (!this.data.xlzt) {
+            Toast.fail('请选择心理状态');
+        } else if (!this.data.xy || !this.data.yj || !this.data.dxb) {
+            Toast.fail('请先勾选');
+        } else if (!this.data.yszt) {
+            Toast.fail('请选择意识状态');
+        } else if (!this.data.zznl) {
+            Toast.fail('请选择自主能力');
+        } else if (!this.data.pgdj) {
+            Toast.fail('请选择评估等级');
+        } else if (!this.data.hldj) {
+            Toast.fail('请选择护理等级');
+        } else {
+            request({
+                url: 'NurseOrder/NurseAssessment',
+                data: {
+                    orderId: this.data.orderId,
+                    gmywsw: that.data.gmywsw,
+                    xlzt: that.data.xlzt,
+                    xy: that.data.xy,
+                    yj: that.data.yj,
+                    dxb: that.data.dxb,
+                    yszt: that.data.yszt,
+                    zznl: that.data.zznl,
+                    pgdj: that.data.pgdj,
+                    hldj: that.data.hldj
+                }
+            }).then(res => {
+                console.log(res);
+
+                console.log(res);
+                if (res.data.ResultCode === '0') {
+                    tabs[3].isShow = false
+                    tabs[4].isActive = true
+                    tabs[4].isShow = true
+                    that.setData({
+                        tabs,
+                        isPinggu: true
+                    })
+                }
+            })
+        }
+
     },
 
-    // 准备完成
-    onPrepare() {
-        let {
-            tabs
-        } = this.data;
-      if (!this.data.goOutClock) {
-        Toast.fail('请先打卡');
-      }else{
-        tabs[1].isShow = false
-        tabs[2].isActive = true
-        tabs[2].isShow = true
-        let that = this
-        request({
-            method: 'POST',
-            url: 'NurseOrder/OneConfirm',
-            data: {
-                orderId: this.data.orderId,
-                location: that.data.goOutAddress,
-                baseImg: that.data.goOutImg,
-                patientName: '',
-                idenNo: '',
-                Score: ''
-            }
-        }).then(res => {
-            console.log(res);
-            if (res.data.ResultCode == '0') {
-                that.setData({
-                    arriveClock: true,
-                    isGoOut: true,
-                    tabs
-                })
-            } else {
-                console.log(res.data.ResultMsg);
-            }
-        })
-      }
-     
-    },
+
     // 开始服务
     onStartService() {
         let {
@@ -792,7 +797,7 @@ Page({
             tabs
         });
     },
-    getdetails () {
+    getdetails() {
         request({
             method: 'GET',
             url: 'NurseOrder/GetNurseDetail',
@@ -800,6 +805,8 @@ Page({
                 orderId: this.data.orderId
             }
         }).then(res => {
+            console.log(res);
+            
             if (res.data.ResultCode == '0') {
                 let caseImgs = ''
                 if (res.data.NurseList[0].PatientCaseImg) {
@@ -807,7 +814,7 @@ Page({
                 } else {
                     caseImgs = []
                 }
-                
+
                 let listObj = {
                     status: res.data.NurseList[0].OrderStatus,
                     buycount: "1",
@@ -837,7 +844,7 @@ Page({
                 let {
                     tabs
                 } = this.data;
-                let infolist =this.data.infolist
+                let infolist = this.data.infolist
                 if (infolist.status == 3) {
                     tabs[0].isShow = false
                     tabs[1].isShow = false
@@ -845,7 +852,7 @@ Page({
                     tabs[2].isActive = true
                     tabs[2].isShow = true
                     this.setData({
-                        arriveClock: true,
+                        // arriveClock: true,
                         isGoOut: true,
                         tabs
                     })
@@ -862,7 +869,7 @@ Page({
                         tabs
                     })
                 } else if (infolist.status == 5) {
-        
+
                 } else if (infolist.status == 7) {
                     tabs[0].isShow = false
                     tabs[1].isShow = false
@@ -882,17 +889,17 @@ Page({
             }
         })
     },
-    toHistory () {
+    toHistory() {
         wx.navigateTo({
             url: '../history/history'
         })
     },
-    toCostList () {
+    toCostList() {
         wx.navigateTo({
             url: '../consumable/consumable'
         })
     },
-    goPay () {
+    goPay() {
         wx.navigateTo({
             url: '../costList/costList?id=' + this.data.orderId
         })
@@ -906,7 +913,7 @@ Page({
             orderId: id
         })
         this.getdetails()
-        
+
     },
 
     /**

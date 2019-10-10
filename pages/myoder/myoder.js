@@ -43,9 +43,11 @@ Page({
                         title: '成功退回',
                         icon: 'success',
                         duration: 2000,
-                       
+                       success:function () {
+                       that.initPage()
+                           
+                       }
                     })
-                    that.initPage()
                 }
             })
         },
@@ -125,7 +127,7 @@ Page({
         request({
             url: 'NurseOrder/GetNurseList',
             data:{
-                type:''
+                type: '', nurseId: wx.getStorageSync('userInfo').Id
             }
         }).then(res => {
             console.log(res);
@@ -154,13 +156,13 @@ Page({
                     this.setData({
                         oderList3: list3 
                     })
-                } else if ( NurseList[i].OrderStatus == 9) {
+                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
                     let list4 = []
                     list4.push(obj)
                     this.setData({
                         oderList4: list4 
                     })
-                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 11) {
+                } else if ( NurseList[i].OrderStatus == 11) {
                     let list5 = []
                     list5.push(obj)
                     this.setData({
