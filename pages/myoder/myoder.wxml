@@ -66,3 +66,8 @@
         </orderItem>
     </van-tab>
 </van-tabs>
+<van-popup show="{{ showRemark }}">
+    <textarea class="cancelMsg" value="{{remark}}" bindinput='remarkChange' placeholder="请填写取消订单原因"></textarea>
+    <van-button class="sureCancel" type="primary" bindtap='sureCancel'>确定</van-button>
+    <van-button class="falseCancel" color="gray" bindtap='falseCancel'>取消</van-button>
+</van-popup>

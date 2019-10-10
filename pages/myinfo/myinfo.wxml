@@ -3,7 +3,7 @@
   <view class="headerBox cell">
     <text>头像</text>
     <view class="logoBox inputBox">
-      <image src="../../img/userNo.png" />
+      <image src="{{userInfo.Logo || '../../img/userNo.png'}}" />
       <van-icon name="arrow" />
     </view>
   </view>

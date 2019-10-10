@@ -8,6 +8,9 @@ Page({
      * 页面的初始数据
      */
     data: {
+        canOrderId:'',
+        remark:'',
+        showRemark:'',
         oderList: [],
         oderList1: [],
         oderList2: [],
@@ -15,6 +18,49 @@ Page({
         oderList4: [],
         oderList5: [],
     },
+        sureCancel() {
+            let that = this
+            if (!that.data.remark) {
+                wx.showToast({
+                    title: '请填写原因',
+                    icon: 'error',
+                    duration: 2000
+                })
+                return
+            }
+            request({
+                url: 'NurseOrder/ReceiveFailed',
+                data: {
+                    orderId: that.data.canOrderId,
+                    remark: that.data.remark
+                }
+            }).then(res => {
+                if (res.data.ResultCode === '0') {
+                    that.setData({
+                        show: false
+                    })
+                    wx.showToast({
+                        title: '成功退回',
+                        icon: 'success',
+                        duration: 2000,
+                       
+                    })
+                    that.initPage()
+                }
+            })
+        },
+      falseCancel() {
+          this.setData({
+              showRemark: false
+          })
+      },
+      remarkChange: function (e) {
+          this.setData({
+              remark: e.detail.value
+          })
+          console.log(this.data.remark);
+
+      },
     toAppraise(e) {
         wx.navigateTo({
             url: '../pingjia/pingjia?id=' + e.detail.value
@@ -23,21 +69,9 @@ Page({
     },
     cancelService(e) {
         console.log(e , "拒绝");
-        request({
-            url: 'NurseOrder/ReceiveFailed',
-            data: {
-                orderId: e.detail.value
-            }
-        }).then(res => {
-            if (res.data.ResultCode === '0') {
-                wx.showToast({
-                    title: '成功退回',
-                    icon: 'success',
-                    duration: 2000
-                })
-            }
-            this.initPage()
-
+        this.setData({
+            showRemark: true,
+            canOrderId: e.detail.value
         })
     },
     acceptService(e) {
@@ -81,24 +115,6 @@ Page({
          this.initPage()
     },
     onChange(event) {
-        // wx.showToast({
-        //     title: `切换到标签 ${event.detail.index + 1}`,
-        //     icon: 'none'
-        // });
-    },
-    sureCancel () {
-      request({
-          url: 'NurseOrder/ReceiveFailed',
-          data: {orderId: e.detail.value, remark: ''}
-      }).then(res => {
-          if (res.data.ResultCode === '0') {
-              wx.showToast({
-                  title: '成功退回',
-                  icon: 'success',
-                  duration: 2000
-              })
-          }
-      })
     },
     toAppraise(e) {
         wx.navigateTo({

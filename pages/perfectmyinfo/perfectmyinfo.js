@@ -148,6 +148,7 @@ Page({
             return
         }
         let params = {
+            Logo: this.data.logo,
             Name: this.data.userName,
             Sex: this.data.sex,
             HospitalName: this.data.workUnit,

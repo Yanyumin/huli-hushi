@@ -237,24 +237,30 @@ Page({
         let userId = wx.getStorageSync('userInfo').Id
 
         var user_info = wx.getStorageSync("user_info")
+        console.log(user_info);
+        
         user_info.IDCardImage = this.data.img1
         user_info.IDCardImage2 = this.data.img2
         user_info.OtherImages = this.data.certificateImages.join(';')
         user_info.HospitalId = wx.getStorageSync('userInfo').HospitalId
         console.log(wx.getStorageSync('userInfo'))
         user_info.Id = userId
+        console.log(user_info);
 
         request({
             url: 'NurseRegister/Update',
             method: 'POST',
             data: user_info
         }).then(res => {
+            console.log(res);
             if (res.data.ResultCode == 1) {
-                             var user_info = wx.getStorageSync("user_info")
-                              let userInfo = wx.getStorageSync('userInfo')
-                        userInfo.IDCard = user_info.IDCard
-                  wx.setStorageSync('userInfo', userInfo)
-                  console.log(userInfo);
+         wx.setStorageSync('userInfo', res.data.row)
+
+                //              var user_info = wx.getStorageSync("user_info")
+                //               let userInfo = wx.getStorageSync('userInfo')
+                //         userInfo.IDCard = user_info.IDCard
+                //   wx.setStorageSync('userInfo', userInfo)
+                //   console.log(userInfo);
 
                 wx.navigateTo({
                     url: '../submitresult/submitresult',
