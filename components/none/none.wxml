@@ -1,0 +1,7 @@
+<!--components/none/none.wxml-->
+<view class="noneContainer">
+  <view>
+    <image src="../../img/none.png" />
+    <view>无数据</view>
+  </view>
+</view>

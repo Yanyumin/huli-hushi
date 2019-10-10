@@ -80,6 +80,17 @@ Page({
     })
   },
   submit () {
+    let unitLists = []
+    for (let i in this.data.list) {
+      let item = this.data.list[i]
+      if (item.amount > 1) {
+        for (let k = 0; k < item.amount; k ++) {
+          unitLists.push(item.UnitNo)
+        }
+      } else {
+        unitLists.push(item.UnitNo)
+      }
+    }
     request({
       url: 'NurseOrder/GetUnitMoney',
       data: {visitNo: this.data.unitList.join(',')}

@@ -16,6 +16,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        allDetails: '',
         opinion: '',
         Score: 0,
         //安全到达打卡
@@ -839,7 +840,8 @@ Page({
                 let serviseData = [serviceDataObj]
                 this.setData({
                     infolist: listObj,
-                    datas: serviseData
+                    datas: serviseData,
+                    allDetails: res.data.NurseList[0]
                 })
                 let {
                     tabs

@@ -10,12 +10,13 @@
   <view class="cell">
     <text>工作单位</text>
     <view class="inputBox">
-       <van-field
+       <!-- <van-field
         value="{{ workUnit }}"
         placeholder="请输入医院名称"
         border="{{ false }}"
         bind:change="workUnitOnChange"
-      />
+      /> -->
+      <text class="phoneText">{{workUnit}}</text>
     </view>
   </view>
   <view class="cell">
@@ -69,12 +70,13 @@
   <view class="cell">
     <text>手机号码</text>
     <view class="inputBox">
-       <van-field
+       <!-- <van-field
         value="{{ phone }}"
         placeholder="请输入手机号"
         border="{{ false }}"
         bind:change="phoneChange"
-      />
+      /> -->
+      <text class="phoneText">{{phone}}</text>
     </view>
   </view>
   <view class="cell">

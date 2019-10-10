@@ -46,8 +46,10 @@ Page({
       todayServiceShow: true
     })
   },
-  startService () {
-    console.log(123)
+  startService (e) {
+    wx.navigateTo({
+        url: '../order_details/order_details?id=' + e.detail.value,
+    })
   },
   getList () {
     request({
@@ -63,6 +65,7 @@ Page({
         NurseList[i].status = NurseList[i].OrderStatus
         NurseList[i].Price = NurseList[i].ItemMoney
       }
+      console.log(NurseList)
       this.setData({
           oderList: NurseList
       })
@@ -85,6 +88,7 @@ Page({
                 icon: 'success',
                 duration: 2000
             })
+            this.getList()
         }
     })
   },
@@ -120,6 +124,7 @@ Page({
         });
     }
     this.getList()
+    // this.clickToday()
   },
 
   /**

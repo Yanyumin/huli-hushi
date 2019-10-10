@@ -1,7 +1,8 @@
 
   {
     "usingComponents": {
-      "orderItem": "../../components/orderItem/orderItem"
+      "orderItem": "../../components/orderItem/orderItem",
+      "none": "../../components/none/none"
     },
     "navigationBarTitleText": "我的订单"
 }

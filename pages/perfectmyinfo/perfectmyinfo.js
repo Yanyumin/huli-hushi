@@ -222,6 +222,10 @@ Page({
      */
     onLoad: function (options) {
         this.GetNurseSchedule()
+        this.setData({
+            phone: wx.getStorageSync('userInfo').ContactPhone,
+            workUnit: wx.getStorageSync('userInfo').HospitalName
+        })
     },
 
     /**

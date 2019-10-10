@@ -1,0 +1,10 @@
+/* components/none/none.wxss */
+.noneContainer {
+  padding: 100rpx 0;
+  text-align: center;
+  color: gray;
+}
+image {
+  width: 500rpx;
+  height: 390rpx;
+}

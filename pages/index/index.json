@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "首页",
   "usingComponents": {
-    "orderItem": "../../components/orderItem/orderItem"
+    "orderItem": "../../components/orderItem/orderItem",
+    "none": "../../components/none/none"
   }
 }

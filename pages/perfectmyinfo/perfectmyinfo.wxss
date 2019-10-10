@@ -37,3 +37,6 @@
 .handleBox .van-button {
   width: 80%;
 }
+.phoneText {
+  padding-left: 26rpx;
+}

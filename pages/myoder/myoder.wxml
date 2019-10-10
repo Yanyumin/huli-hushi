@@ -10,6 +10,7 @@
             datas="{{oderList}}"
             data-index="{{index}}">
         </orderItem>
+        <none wx:if="{{oderList.length == 0}}"></none>
     </van-tab>
     <van-tab title="待确认">
         <orderItem
@@ -21,6 +22,7 @@
             data-status="{{oderList1[0].status}}"
             datas="{{oderList1}}">
         </orderItem>
+        <none wx:if="{{oderList1.length == 0}}"></none>
     </van-tab>
     <van-tab title="待服务">
         <!-- <block wx:if="{{oderList2.length > 0}}"> -->
@@ -32,6 +34,7 @@
              data-status="{{oderList2[0].status}}"
              datas="{{oderList2}}">
             </orderItem>
+        <none wx:if="{{oderList2.length == 0}}"></none>
         <!-- </block> -->
         <!-- <block wx:else>
             <text>暂无数据</text>
@@ -45,6 +48,7 @@
             bind:toAppraise='toAppraise'
             data-status="{{oderList3[0].status}}">
         </orderItem>
+        <none wx:if="{{oderList3.length == 0}}"></none>
     </van-tab>
     <van-tab title="待评价">
         <orderItem 
@@ -55,6 +59,7 @@
             bind:toAppraise='toAppraise'
              data-status="{{oderList4[0].status}}">
         </orderItem>
+        <none wx:if="{{oderList4.length == 0}}"></none>
     </van-tab>
     <van-tab title="已完成">
         <orderItem 
@@ -64,6 +69,7 @@
             bind:toAppraise='toAppraise'
             data-status="{{oderList5[0].status}}">
         </orderItem>
+        <none wx:if="{{oderList5.length == 0}}"></none>
     </van-tab>
 </van-tabs>
 <van-popup show="{{ showRemark }}">

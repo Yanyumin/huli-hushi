@@ -26,6 +26,7 @@
         bind:cancelService='sureCancel'
         bind:toAppraise='toAppraise'
       ></orderItem>
+      <none wx:if="{{oderList.length == 0}}"></none>
     </view>
     <view class="todayServiceContainer" wx:if="{{todayServiceShow}}">
       <orderItem 
@@ -35,6 +36,7 @@
         bind:acceptService='acceptService'
         bind:cancelService='sureCancel'
         bind:toAppraise='toAppraise'></orderItem>
+      <none wx:if="{{todayOderList.length == 0}}"></none>
     </view>
   </view>
 </view>

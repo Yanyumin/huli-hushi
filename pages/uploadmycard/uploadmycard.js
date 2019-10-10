@@ -229,6 +229,16 @@ Page({
     },
 
     submitThis() {
+        if (!this.data.img1) {
+            Toast.fail('请上传身份证正面照片');
+            return
+        } else if (!this.data.img2) {
+            Toast.fail('请上传身份证背面照片');
+            return
+        } else if (this.data.certificateImages.length == 0) {
+            Toast.fail('请上传证书照片');
+            return
+        }
         let params = {
             IDCardImage: this.data.img1,
             IDCardImage2: this.data.img2,

@@ -31,26 +31,33 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             出门打卡
-                            <text>{{goOuttime}}</text>
+                            <text wx:if="{{goOuttime}}">{{goOuttime}}</text>
+                            <text wx:else>{{allDetails.OneConfirmTime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            {{goOutAddress}}
+                            <text wx:if="{{goOutAddress}}">{{goOutAddress}}</text>
+                            <text wx:else>{{allDetails.OneLocation}}</text>
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <text wx:if="{{!goOutImg}}">请拍照记录</text>
-                            <image wx:else mode="widthFix" src="{{goOutImg}}"></image>
+                            <block wx:if="{{!goOutImg}}">
+                                <text wx:if="{{!goOutImg}}">请拍照记录</text>
+                                <image wx:else mode="widthFix" src="{{goOutImg}}"></image>
+                            </block>
+                            <block wx:else>
+                                <image mode="widthFix" src="{{allDetails.OneImg}}"></image>
+                            </block>
                         </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                                <text wx:if="{{goOutClock}}">已打卡</text>
+                                <text wx:if="{{goOutClock || allDetails.OneConfirmTime}}">已打卡</text>
                                 <text wx:else="{{!goOutClock}}" style="background-color: red;">未打卡</text>
 
                             </view>
-                            <view bindtap="takePhoto" wx:if="{{!goOutClock}}">
+                            <view bindtap="takePhoto" wx:if="{{!goOutClock || !allDetails.OneConfirmTime}}">
                                 <image mode="widthFix" src="../../img/qiandao.png"></image>
                             </view>
                         </view>
