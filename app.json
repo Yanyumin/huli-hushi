@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/costList/costList",
     "pages/index/index",
     "pages/login/login",
     "pages/myoder/myoder",
@@ -20,8 +21,7 @@
     "pages/myinfo/myinfo",
     "pages/infolist/infolist",
     "pages/schedule/schedule",
-    "pages/pingjia/pingjia",
-    "pages/costList/costList"
+    "pages/pingjia/pingjia"
   ],
   "tabBar": {
     "color": "#a9b7b7",

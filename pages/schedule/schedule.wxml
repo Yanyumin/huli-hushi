@@ -27,10 +27,10 @@
       
     </van-checkbox-group>
   </view>
-  <view class="allday">
+  <view class="allday" wx:if="{{selectTime.length > 0}}">
     <text class='{{isAllday == 1 ? "timeActive" : ""}}' data-isallday="1" bindtap='alldayClick'>全天接单</text>
     <text class='{{isAllday == 0 ? "timeActive" : ""}}' data-isallday="0" bindtap='alldayClick'>全天不接单</text>
-    <text>引用默认排班表</text>
+    <!-- <text>引用默认排班表</text> -->
   </view>
   <view class="tip">
     <view>护士排班说明</view>

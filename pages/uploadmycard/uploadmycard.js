@@ -125,12 +125,14 @@ Page({
                 // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                 let tempFilePaths = res.tempFilePaths;
                 let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
+                wx.showLoading({title: '加载中…'})
                 wx.uploadFile({
                     method: "POST",
                     url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
                     filePath: tempFilePaths[0],
                     name: 'file',
                     success: function (res) {
+                        wx.hideLoading()
                         let data = JSON.parse(res.data)
                         if (res.statusCode == 200) {
                             that.setData({

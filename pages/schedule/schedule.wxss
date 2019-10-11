@@ -21,9 +21,18 @@
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
   text-align: center;
-  padding: 30rpx 8rpx;
   margin-top: 5rpx;
 }
+.van-checkbox__label {
+  margin-left: 0 !important;
+  padding: 30rpx 10rpx 30rpx 12rpx;
+}
+.van-checkbox__icon-wrap {
+  padding-top: 31rpx;
+  padding-left: 0rpx;
+  margin-left: 14rpx;
+}
+  
 .weekActive {
   color: #fff;
   background: #03c173;
