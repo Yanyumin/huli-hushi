@@ -1,0 +1,182 @@
+<!--pages/perfectmyinfo/perfectmyinfo.wxml-->
+<view class="pageContainer">
+  <view class="headerBox cell">
+    <text>头像</text>
+    <view class="logoBox inputBox" bindtap="certificateUpload">
+      <image src="{{userInfo.Logo || '../../img/userNo.png'}}}}" />
+      <van-icon name="arrow" />
+    </view>
+  </view>
+  <view class="cell">
+    <text>工作单位</text>
+    <view class="inputBox">
+       <!-- <van-field
+        value="{{ workUnit }}"
+        placeholder="请输入医院名称"
+        border="{{ false }}"
+        bind:change="workUnitOnChange"
+      /> -->
+      <text class="phoneText">{{userInfo.HospitalName}}</text>
+    </view>
+  </view>
+  <view class="cell">
+    <text>科室</text>
+    <view class="inputBox havePadding">
+      <picker bindchange="departBindChange" value="{{index}}" range="{{columns}}">
+        <view class="picker">{{userInfo.DepartmentName}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="cell">
+    <text>姓名</text>
+    <view class="inputBox">
+       <!-- <van-field
+        value="{{ userName }}"
+        placeholder="请输入姓名"
+        border="{{ false }}"
+        bind:change="userNameChange"
+      /> -->
+      <text class="phoneText">{{userInfo.Name}}</text>
+    </view>
+  </view>
+  <view class="cell">
+    <text>性别</text>
+    <view class="inputBox havePadding">
+      <picker bindchange="sexBindChange" value="{{index}}" range="{{sexClumn}}">
+        <view class="picker">{{userInfo.Sex?'男':'女'}}</view>
+      </picker>
+    </view>
+  </view>
+  <!-- <view class="cell">
+    <text>出生日期</text>
+    <view class="inputBox havePadding">
+      <picker mode="date" value="{{birthday}}" start="1970-01-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{birthday}}
+        </view>
+      </picker>
+    </view>
+  </view> -->
+  <view class="cell">
+    <text>身份证号</text>
+    <view class="inputBox">
+       <van-field
+        value="{{ userInfo.IDCard }}"
+        placeholder="请输入身份证号"
+        border="{{ false }}"
+        bind:change="cardNoChange"
+        />
+    </view>
+  </view>
+  <view class="cell">
+    <text>手机号码</text>
+    <view class="inputBox">
+       <!-- <van-field
+        value="{{ phone }}"
+        placeholder="请输入手机号"
+        border="{{ false }}"
+        bind:change="phoneChange"
+      /> -->
+      <text class="phoneText">{{userInfo.ContactPhone}}</text>
+    </view>
+  </view>
+  <view class="cell">
+    <text>联系地址</text>
+    <view class="inputBox">
+       <van-field
+        value="{{ userInfo.ContactAddress }}"
+        placeholder="请输入联系地址"
+        border="{{ false }}"
+        bind:change="addressChange"
+        />
+    </view>
+  </view>
+  <view class="cell">
+    <text>职称</text>
+    <view class="inputBox havePadding">
+      <picker bindchange="titleBindChange" value="{{userInfo.RankName}}" range="{{titleClumns}}">
+        <view class="picker">{{userInfo.RankName}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="uploadContainer">
+  <view class="topic">
+    身份证
+  </view>
+  <view class="contentBox">
+    <view class="uploadTopic">
+      <view>
+        1、请分别上传您本人身份证正面和反面清晰照片
+      </view>
+      <view>
+        2、照片支持jpg/png/jpeg格式，最大不超过4M
+      </view>
+    </view>
+    <view class='ui_uploader_cell'>
+      <!-- 根据已选择的图片临时路径数组展示图片-->
+      <view class='ui_uploader_item' wx:if="{{!userInfo.IDCardImage}}">
+        <!-- 删除-->
+        <van-icon name="clear"  bindtap='clearImg' type="clear"/>
+        <!-- 图片-->
+        <image bindtap='showImg' src='{{userInfo.IDCardImage}}'></image>
+      </view>
+      <!-- 上传按钮+框 -->
+      <view class='ui_uploader' bindtap='upload' wx:if="{{showUpload}}">
+        <van-icon name="plus" />
+        <view class='uploadTip'>上传身份证正面</view>
+      </view>
+    </view>
+    <view class='ui_uploader_cell'>
+      <!-- 根据已选择的图片临时路径数组展示图片-->
+      <view class='ui_uploader_item' wx:if="{{!userInfo.IDCardImage2}}">
+        <!-- 删除-->
+        <van-icon name="clear"  bindtap='clearImg1' type="clear"/>
+        <!-- 图片-->
+        <image bindtap='showImg1' src='{{userInfo.IDCardImage2}}'></image>
+      </view>
+      <!-- 上传按钮+框 -->
+      <view class='ui_uploader' bindtap='upload1' wx:if="{{showUpload1}}">
+        <van-icon name="plus" />
+        <view class='uploadTip'>上传身份证反面</view>
+      </view>
+    </view>
+  </view>
+  <view class="topic">
+    证书
+  </view>
+  <view class="contentBox">
+    <view class="uploadTopic">
+      <view>
+        1、请上传您证书的正面清晰图片
+      </view>
+      <view>
+        2、照片支持jpg/png/jpeg格式，最大不超过4M
+      </view>
+    </view>
+    <view class='ui_uploader_cell'>
+      <!-- 根据已选择的图片临时路径数组展示图片-->
+      <view class='ui_uploader_item' wx:for="{{certificateList}}" wx:key="{{index}}">
+        <!-- 删除-->
+        <van-icon name="clear"  bindtap='certificateClearImg' data-index="{{index}}" type="clear"/>
+        <!-- 图片-->
+        <image bindtap='certificateShowImg' data-index="{{index}}" src='{{item}}'></image>
+      </view>
+      <!-- 上传按钮+框 -->
+      <view class='ui_uploader' bindtap='certificateUpload' wx:if="{{certificateShowUpload}}">
+        <van-icon name="plus" />
+        <view class='uploadTip'>上传证书正面</view>
+      </view>
+    </view>
+  </view>
+  <view class="handleBox">
+    <van-button round color="#ffa500" bindtap="certificateAdd">+增加一张</van-button>
+  </view>
+  <!-- <view class="handleBox nextTip">
+    <van-button round type="primary" bindtap="certificateAdd" bindtap="submitThis">提交审核</van-button>
+  </view> -->
+</view>
+  <view class="handleBox">
+    <van-button round type="primary" bindtap="submitThis">保存</van-button>
+  </view>
+</view>
+<van-toast id="van-toast" />
