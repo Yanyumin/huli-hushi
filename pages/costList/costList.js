@@ -18,9 +18,12 @@ Page({
     allCost: ''
   },
   onChange(event) {
-    this.setData({
-      costValue1: event.detail,
-    })
+    // let list1 = this.data.list
+    // let index = event.currentTarget.dataset['index']
+    // list1[index].amount = event.detail
+    // this.setData({
+    //   list: list1
+    // })
   },
   addChange(e) {
     let price = e.currentTarget.dataset['price']
@@ -28,9 +31,9 @@ Page({
     let index = e.currentTarget.dataset['index']
     let list1 = this.data.list
     let saveCost1 = costList[index].Money
-    list1[index].amount = amount
+    list1[index].amount = amount+1
     let cost = parseInt(price) + parseInt(saveCost1)
-    list1[index].Money = cost
+    // list1[index].Money = cost
     // costList = list1
     this.setData({
       cost1: cost,
@@ -43,9 +46,9 @@ Page({
     let index = e.currentTarget.dataset['index']
     let saveCost1 = costList[index].Money
     let list1 = this.data.list
-    list1[index].amount = amount
+    list1[index].amount = amount-1
     let cost = parseInt(price) - parseInt(saveCost1)
-    list1[index].Money = cost
+    // list1[index].Money = cost
     // costList = list1
     this.setData({
       cost1: cost,
@@ -92,13 +95,13 @@ Page({
     }
     request({
       url: 'NurseOrder/GetUnitMoney',
-      data: {visitNo: this.data.unitList.join(',')}
+      data: {visitNo: unitLists.join(',')}
     }).then(res => {
         if (res.data.ResultCode === '0') {
           request({
             url: 'NurseOrder/CreateBillOrder',
             data: {
-              visitNo: this.data.unitList.join(','),
+              visitNo: unitLists.join(','),
               orderId: this.data.orderId,
               recipeSeq: '',
               prescMoney: res.data.SumMoney,
@@ -109,15 +112,18 @@ Page({
                 wx.showToast({
                   title: '提交成功',
                   icon: 'success',
-                  duration: 2000
+                  duration: 2000,
+                  success: function () {
+                    wx.switchTab({
+                      url: '../myoder/myoder'
+                    })
+                  }
                 })
-                wx.switchTab({
-                  url: '../index/index'
-                })
+                
               } else {
                 wx.showToast({
                   title: '提交失败',
-                  icon: 'fail',
+                  icon: 'error',
                   duration: 2000
                 })
               }
@@ -125,7 +131,7 @@ Page({
         } else {
           wx.showToast({
             title: '提交失败',
-            icon: 'fail',
+            icon: 'error',
             duration: 2000
           })
         }

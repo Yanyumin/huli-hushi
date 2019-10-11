@@ -95,6 +95,28 @@ Page({
         }
     })
   },
+  toquxiao(e) {
+      let that = this
+      request({
+          url: 'NurseOrder/BillOrderFailed',
+          data:{
+              orderId:e.detail.value
+          }
+      }).then(res => {
+          if (res.data.ResultCode === '0') {
+              wx.showToast({
+                  title: '成功取消',
+                  icon: 'success',
+                  duration: 2000,
+                  success: function () {
+                      that.clickToday()
+                  }
+              })
+          }
+
+      })
+
+  },
   sureCancel () {
     let that = this
     request({

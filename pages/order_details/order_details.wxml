@@ -131,7 +131,7 @@
                 <view class="assess_list">
                     <view class="assess_title">过敏药物食物</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChangeGmyw'>
+                        <radio-group wx:if="{{gmywsw == -1}}" class='radio-group' name='answer' bindchange='radioChangeGmyw'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 有
@@ -141,12 +141,13 @@
                                 无
                             </label>
                         </radio-group>
+                        <text wx:else>{{renderData.ishave[gmywsw-1]}}</text>
                     </view>
                 </view>
                 <view class="assess_list">
                     <view class="assess_title">心理状态</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChangeXlzt' data-name='{{item.name}}'>
+                        <radio-group wx:if="{{allDetails.xlzt == -1}}" class='radio-group' name='answer' bindchange='radioChangeXlzt' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 稳定
@@ -164,12 +165,13 @@
                                 烦躁
                             </label>
                         </radio-group>
+                        <text wx:else>{{renderData.Xlzt[allDetails.xlzt-1]}}</text>
                     </view>
                 </view>
                 <view class="assess_list">
                     <view class="assess_title">吸烟</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChangeXy' data-name='{{item.name}}'>
+                        <radio-group wx:if="{{allDetails.xy == -1}}" class='radio-group' name='answer' bindchange='radioChangeXy' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 有
@@ -179,12 +181,13 @@
                                 无
                             </label>
                         </radio-group>
+                        <text wx:else>{{renderData.ishave[allDetails.xy-1]}}</text>
                     </view>
                 </view>
                 <view class="assess_list">
                     <view class="assess_title">饮酒</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChangeYj' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.yj == -1}}" name='answer' bindchange='radioChangeYj' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 有
@@ -194,12 +197,13 @@
                                 无
                             </label>
                         </radio-group>
+                        <text wx:else>{{renderData.ishave[allDetails.yj-1]}}</text>
                     </view>
                 </view>
                 <view class="assess_list">
                     <view class="assess_title">大小便</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChangeDxb' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.dxb == -1}}" name='answer' bindchange='radioChangeDxb' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 正常
@@ -209,12 +213,13 @@
                                 异常
                             </label>
                         </radio-group>
+                        <text wx:else>{{renderData.Dxb[allDetails.dxb-1]}}</text>
                     </view>
                 </view>
                 <view class="assess_list">
                     <view class="assess_title">意识状态</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChangeYszt' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.yszt == -1}}" name='answer' bindchange='radioChangeYszt' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 清醒
@@ -236,12 +241,13 @@
                                 其他
                             </label>
                         </radio-group>
+                        <text wx:else>{{renderData.Yszt[allDetails.yszt-1]}}</text>
                     </view>
                 </view>
                 <view class="assess_list">
                     <view class="assess_title">自主能力</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChangeZznl' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.zznl == -1}}" name='answer' bindchange='radioChangeZznl' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 正常
@@ -259,12 +265,13 @@
                                 偏瘫
                             </label>
                         </radio-group>
+                        <text wx:else>{{renderData.Zznl[allDetails.zznl-1]}}</text>
                     </view>
                 </view>
                 <view class="assess_list">
                     <view class="assess_title">评估等级</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChangePgdj' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.pgdj == -1}}" name='answer' bindchange='radioChangePgdj' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 一般
@@ -278,12 +285,13 @@
                                 病危
                             </label>
                         </radio-group>
+                        <text wx:else>{{renderData.Pgdj[allDetails.pgdj-1]}}</text>
                     </view>
                 </view>
                 <view class="assess_list">
                     <view class="assess_title">护理等级</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' name='answer' bindchange='radioChangeHldj' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.hldj == -1}}" name='answer' bindchange='radioChangeHldj' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 一级
@@ -301,11 +309,12 @@
                                 特级
                             </label>
                         </radio-group>
+                        <text wx:else>{{renderData.Hldj[allDetails.hldj-1]}}</text>
                     </view>
-                </view>
+                </view> wx:if="{{allDetails.xlzt == -1}}"
                 <view class="hint">注: 按护理等级收费,默认护理等级为一级,护理等级为一级以上则需要额外收取费用</view>
-                <button type="primary" wx:if="{{hldj > 1}}" bindtap="goPay" class="btn">生成支付订单</button>
-                <button type="primary" bindtap="onNurse" wx:if="{{!isPinggu && hldj == 1}}" class="btn">开始护理</button>
+                <button type="primary" wx:if="{{hldj > 1 && allDetails.hldj != -1}}" bindtap="goPay" class="btn">生成支付订单</button>
+                <button type="primary" bindtap="onNurse" wx:if="{{!isPinggu && hldj == 1 && allDetails.hldj != -1}}" class="btn">开始护理</button>
             </view>
         </block>
         <!-- 护理 -->

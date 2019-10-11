@@ -100,6 +100,28 @@ Page({
         })
 
     },
+    toquxiao(e) {
+        let that = this
+        request({
+            url: 'NurseOrder/BillOrderFailed',
+            data:{
+                orderId:e.detail.value
+            }
+        }).then(res => {
+            if (res.data.ResultCode === '0') {
+                wx.showToast({
+                    title: '成功取消',
+                    icon: 'success',
+                    duration: 2000,
+                    success: function () {
+                        that.initPage()
+                    }
+                })
+            }
+
+        })
+
+    },
     clickOrder(e) {
         console.log(e);
         let id = e.detail.value
@@ -121,6 +143,7 @@ Page({
          this.initPage()
     },
     onChange(event) {
+        this.initPage()
     },
     toAppraise(e) {
         wx.navigateTo({
@@ -171,6 +194,11 @@ Page({
                     list5.push(obj)
                     this.setData({
                         oderList5: list5 
+                    })
+                } else if (NurseList[i].OrderStatus == 0 || NurseList[i].OrderStatus == 1 || NurseList[i].OrderStatus == 3) {
+                    list3.push(obj)
+                    this.setData({
+                        oderList6: list3 
                     })
                 }
             }

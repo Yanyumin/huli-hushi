@@ -12,22 +12,23 @@
         <view class="item" wx:for="{{list}}" wx:key="{{item.UnitNo}}">
           <text class='text firstView'>{{item.Name}}</text>
           <view class='text firstView'>
-            <!-- <van-stepper
+            <van-stepper
               value="{{item.amount}}"
               bind:plus="addChange"
               data-amount='{{item.amount}}'
               data-price="{{item.Money}}"
               data-index='{{index}}'
+              disable-input='true'
               bind:minus="cutChange"
-              bind:change="onChange" /> -->
-              {{item.amount}}
+              bind:change="onChange" />
+              <!-- {{item.amount}} -->
           </view>
           <text class='text'>{{item.Money}}</text>
         </view>
         <view class="item">
           <text class='text firstView'></text>
           <view class='text firstView'>
-            总计
+            单价总计
           </view>
           <text class='text'>{{allCost}}</text>
         </view>

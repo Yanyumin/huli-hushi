@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/costList/costList",
+    "pages/index/index",
     "pages/login/login",
     "pages/myoder/myoder",
     "pages/punch_sign/punch_sign",

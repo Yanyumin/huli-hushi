@@ -50,6 +50,17 @@
         </orderItem>
         <none wx:if="{{oderList3.length == 0}}"></none>
     </van-tab>
+    <van-tab title="待支付">
+        <orderItem
+            datas="{{oderList6}}"
+            bindchange="clickOrder"
+            bind:cancelService='sureCancel'
+            bind:toAppraise='toAppraise'
+            bind:toquxiao='toquxiao'
+            data-status="{{oderList6[0].status}}">
+        </orderItem>
+        <none wx:if="{{oderList3.length == 0}}"></none>
+    </van-tab>
     <van-tab title="待评价">
         <orderItem 
             bindtoAppraise="toAppraise"

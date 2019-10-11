@@ -35,6 +35,7 @@
         bind:change='clickOrder'
         bind:acceptService='acceptService'
         bind:cancelService='sureCancel'
+        bind:toquxiao='toquxiao'
         bind:toAppraise='toAppraise'></orderItem>
       <none wx:if="{{todayOderList.length == 0}}"></none>
     </view>
