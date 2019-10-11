@@ -53,6 +53,11 @@ Component({
     },
     toHistory () {
       this.triggerEvent('toHistory');
-    }
+    },
+     toAppraise(e) {
+         this.triggerEvent('toAppraise', {
+             value: e.currentTarget.dataset['id']
+         });
+     }
   }
 })

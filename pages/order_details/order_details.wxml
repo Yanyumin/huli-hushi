@@ -31,8 +31,7 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             出门打卡
-                            <text wx:if="{{goOuttime||myOneClok.goOuttime}}">{{goOuttime ||myOneClok.goOuttime || ''}}</text>
-                            <text wx:else>{{allDetails.OneConfirmTime}}</text>
+                            <text>{{goOuttime ||myOneClok.goOuttime || ''}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
@@ -42,8 +41,9 @@
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
                             <block wx:if="{{!goOutImg}}">
-                                <text wx:if="{{!allDetails.OneImg}}">请拍照记录</text>
-                                <image wx:else mode="widthFix" src="{{goOutImg||allDetails.OneImg}}"></image>
+                             <image wx:if="{{allDetails.OneImg ||  goOutImg}}" mode="widthFix" src="{{goOutImg||allDetails.OneImg}}"></image>
+                                <text wx:else>请拍照记录</text>
+                               
                             </block>
                         </view>
                     </view>
@@ -60,7 +60,7 @@
                         </view>
                     </view>
                 </view>
-                <button type="primary" bindtap="onPrepare" wx:if="{{!isGoOut}}" class="btn">准备完成</button>
+                <button type="primary" bindtap="onPrepare" wx:if="{{!allDetails.OneConfirmTime}}" class="btn">准备完成</button>
             </view>
         </block>
         <!-- 到达地点 -->
@@ -316,25 +316,25 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             护理前拍照
-                            <text>{{nurseTime}}</text>
+                            <text>{{nurseTime||allDetails.ThreeConfirmTime || ''}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            {{nurseAddress}}
+                            {{nurseAddress ||  allDetails.ThreeLocation ||''}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                             <text wx:if="{{!nurseBeforeImg}}">请拍照记录</text>
-                            <image  wx:else mode="widthFix" src="{{nurseBeforeImg}}"></image>
+                               <image wx:if="{{nurseBeforeImg|| allDetails.ThreeImg}}" mode="widthFix" src="{{nurseBeforeImg || allDetails.ThreeImg[0]}}"></image>
+                             <text wx:else>请拍照记录</text>
                         </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                                <text wx:if="{{nurseBeforeClock}}">已完成</text>
+                                <text wx:if="{{nurseBeforeClock ||  allDetails.ThreeImg}}">已完成</text>
                                 <text wx:else="{{!nurseBeforeClock}}" style="background-color: red;">未完成</text>
                             </view>
-                            <image bindtap='NurseBefore' mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image  wx:if="{{!allDetails.ThreeImg}}" bindtap='NurseBefore' mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -364,17 +364,18 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                             <text wx:if="{{!nurseEndImg}}"></text>
-                            <image wx:else mode="widthFix" src="{{nurseEndImg ||    allDetails.ThreeImg}}"></image>
+                            <image wx:if="{{nurseEndImg|| allDetails.ThreeImg}}" mode="widthFix" src="{{nurseEndImg || allDetails.ThreeImg[1]}}"></image>
+                             <text wx:else></text>
+
                         </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                               <text wx:if="{{nurseEndClock}}">已完成</text>
+                               <text wx:if="{{nurseEndClock||allDetails.ThreeImg}}">已完成</text>
                                 <text wx:else="{{!nurseEndClock}}" style="background-color: red;">未完成</text>
                             </view>
-                            <image bindtap="NurseEnd" mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image  wx:if="{{!allDetails.ThreeImg}}" bindtap="NurseEnd" mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>

@@ -363,7 +363,7 @@ Page({
                                         that.setData({
                                             goOutClock: true,
                                         })
-                                        let myGoOut ={}
+                                        let myGoOut = {}
                                         myGoOut.goOutClock = true
                                         myGoOut.goOuttime = that.goOuttime
                                         myGoOut.goOutAddress = that.goOutAddress
@@ -419,7 +419,7 @@ Page({
                     success: function (res) {
                         let data = JSON.parse(res.data)
                         if (res.statusCode == 200) {
-                             
+
                             that.setData({
                                 arriveClock: true,
                                 arriveTime: time2,
@@ -430,7 +430,7 @@ Page({
                             //         myOneClok.goOuttime =that.goOuttime,
                             //         myOneClok.arriveTime = that.goOutAddress,
                             //         myOneClok.arriveImg = that.goOutImg
-                            
+
                         }
                     }
                 })
@@ -770,7 +770,7 @@ Page({
                 console.log(res);
 
                 if (res.data.ResultCode === '0') {
-                 
+
                     tabs[3].isShow = false
                     tabs[4].isActive = true
                     tabs[4].isShow = true
@@ -778,8 +778,8 @@ Page({
                         tabs,
                         isPinggu: true
                     })
-                }else{
-                       Toast.fail(res.data.ResultMsg);
+                } else {
+                    Toast.fail(res.data.ResultMsg);
                 }
             })
         }
@@ -835,16 +835,17 @@ Page({
                 if (nurse.OneConfirmTime) {
                     nurse.OneConfirmTime = nurse.OneConfirmTime.substring(11, 16)
 
-                }  if (nurse.TwoConfirmTime) {
+                }
+                if (nurse.TwoConfirmTime) {
                     nurse.TwoConfirmTime = nurse.TwoConfirmTime.substring(11, 16)
-                } 
-                 if (nurse.TwoImg) {
-                     nurse.TwoImg = nurse.TwoImg.split(',')
-                 }
-                  if (nurse.ThreeImg) {
-                      nurse.ThreeImg = nurse.ThreeImg.split(',')
-                  }
-                 if (nurse.ThreeConfirmTime) {
+                }
+                if (nurse.TwoImg) {
+                    nurse.TwoImg = nurse.TwoImg.split(',')
+                }
+                if (nurse.ThreeImg) {
+                    nurse.ThreeImg = nurse.ThreeImg.split(',')
+                }
+                if (nurse.ThreeConfirmTime) {
                     nurse.ThreeConfirmTime = nurse.ThreeConfirmTime.substring(11, 16)
                 }
                 let listObj = {
@@ -916,6 +917,23 @@ Page({
                     tabs[4].isActive = true
                     tabs[4].isShow = true
                     this.setData({
+                        tabs,
+                        isPinggu: true
+                    })
+                } else if (infolist.status == 9) {
+                    tabs[0].isShow = false
+                    tabs[1].isShow = false
+                    tabs[3].isShow = false
+                    tabs[1].isActive = true
+                    tabs[2].isActive = true
+                    tabs[3].isActive = true
+                    tabs[4].isActive = true
+                    tabs[4].isShow = false
+                    tabs[5].isActive = true
+                    tabs[5].isShow = true
+                    this.setData({
+                        isNurseEnd: true,
+                        isArrive: true,
                         tabs,
                         isPinggu: true
                     })

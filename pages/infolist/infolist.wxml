@@ -7,6 +7,7 @@
   bind:acceptService='acceptService'
   bind:successService='successService'
   bind:toCostList="toCostList"
+  bind:toCostList="toAppraise"
   bind:toHistory="toHistory"></oderlist>
 
 <van-popup show="{{ show }}">

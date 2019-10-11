@@ -119,6 +119,11 @@ Page({
             url: '../order_details/order_details?id=' + e.detail.value,
         })
     },
+    toAppraise(e) {
+        wx.navigateTo({
+            url: '../pingjia/pingjia?id=' + e.detail.value
+        })
+    },
     acceptService(e) {
         console.log(e.detail.value)
         request({
