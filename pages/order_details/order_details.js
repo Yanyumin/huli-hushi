@@ -16,6 +16,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        myOneClok: wx.getStorageSync('myOneClok'),
         allDetails: '',
         opinion: '',
         Score: 0,
@@ -358,9 +359,16 @@ Page({
                                 }).then(res => {
                                     console.log(res);
                                     if (res.data.ResultCode == '0') {
+
                                         that.setData({
-                                            goOutClock: true
+                                            goOutClock: true,
                                         })
+                                        let myGoOut ={}
+                                        myGoOut.goOutClock = true
+                                        myGoOut.goOuttime = that.goOuttime
+                                        myGoOut.goOutAddress = that.goOutAddress
+                                        myGoOut.goOutImg = that.goOutImg
+                                        wx.setStorageSync('myOneClok', myGoOut)
                                     } else {
                                         Toast.fail(res.data.ResultMsg);
                                     }
@@ -411,11 +419,18 @@ Page({
                     success: function (res) {
                         let data = JSON.parse(res.data)
                         if (res.statusCode == 200) {
+                             
                             that.setData({
                                 arriveClock: true,
                                 arriveTime: time2,
                                 arriveImg: data.ResultMsg
                             })
+                            // let myOneClok = wx.getStorageSync('myOneClok')
+                            //         myOneClok.arriveClock = that.arriveClock,
+                            //         myOneClok.goOuttime =that.goOuttime,
+                            //         myOneClok.arriveTime = that.goOutAddress,
+                            //         myOneClok.arriveImg = that.goOutImg
+                            
                         }
                     }
                 })
@@ -523,7 +538,7 @@ Page({
                 }
             }).then(res => {
                 console.log(res);
-                if (res.data.ResultCode =='0') {
+                if (res.data.ResultCode == '0') {
                     //  实名认证成功
                     tabs[2].isShow = false
                     tabs[3].isActive = true
@@ -608,7 +623,6 @@ Page({
     },
     // 身份证
     onChangeCode(e) {
-        console.log(e)
         this.setData({
             idenNo: e.detail
         })
@@ -647,10 +661,10 @@ Page({
                     safetyClock: true,
                     isSafety: true
                 })
-                   wx.switchTab({
-                       url: '../index/index',
+                wx.switchTab({
+                    url: '../index/index',
 
-                   })
+                })
             } else {
                 console.log(res.data.ResultMsg);
             }
@@ -755,8 +769,8 @@ Page({
             }).then(res => {
                 console.log(res);
 
-                console.log(res);
                 if (res.data.ResultCode === '0') {
+                 
                     tabs[3].isShow = false
                     tabs[4].isActive = true
                     tabs[4].isShow = true
@@ -764,6 +778,8 @@ Page({
                         tabs,
                         isPinggu: true
                     })
+                }else{
+                       Toast.fail(res.data.ResultMsg);
                 }
             })
         }
@@ -807,42 +823,60 @@ Page({
             }
         }).then(res => {
             console.log(res);
-            
+
             if (res.data.ResultCode == '0') {
                 let caseImgs = ''
-                if (res.data.NurseList[0].PatientCaseImg) {
-                    caseImgs = res.data.NurseList[0].PatientCaseImg.split(',')
+                let nurse = res.data.NurseList[0]
+                if (nurse.PatientCaseImg) {
+                    caseImgs = nurse.PatientCaseImg.split(',')
                 } else {
                     caseImgs = []
                 }
+                if (nurse.OneConfirmTime) {
+                    nurse.OneConfirmTime = nurse.OneConfirmTime.substring(11, 16)
 
+                }  if (nurse.TwoConfirmTime) {
+                    nurse.TwoConfirmTime = nurse.TwoConfirmTime.substring(11, 16)
+                } 
+                 if (nurse.TwoImg) {
+                     nurse.TwoImg = nurse.TwoImg.split(',')
+                 }
+                  if (nurse.ThreeImg) {
+                      nurse.ThreeImg = nurse.ThreeImg.split(',')
+                  }
+                 if (nurse.ThreeConfirmTime) {
+                    nurse.ThreeConfirmTime = nurse.ThreeConfirmTime.substring(11, 16)
+                }
                 let listObj = {
-                    status: res.data.NurseList[0].OrderStatus,
+                    status: nurse.OrderStatus,
                     buycount: "1",
-                    serveperson: res.data.NurseList[0].PatientName,
-                    phone: res.data.NurseList[0].Phone,
-                    serveaddress: res.data.NurseList[0].Address,
-                    servetime: res.data.NurseList[0].RegDate + ' ' + res.data.NurseList[0].RegTime,
+                    serveperson: nurse.PatientName,
+                    phone: nurse.Phone,
+                    serveaddress: nurse.Address,
+                    servetime: nurse.RegDate + ' ' + nurse.RegTime,
                     history: caseImgs,
-                    pricelist: res.data.NurseList[0].ItemMoney,
-                    remark: res.data.NurseList[0].Remark
+                    pricelist: nurse.ItemMoney,
+                    remark: nurse.Remark
                 }
                 let serviceDataObj = {
-                    id: res.data.NurseList[0].OrderId,
+                    id: nurse.OrderId,
                     proLogo: '../../img/wechat.png',
-                    proName: res.data.NurseList[0].ItemName,
-                    price: res.data.NurseList[0].ItemMoney,
-                    time: res.data.NurseList[0].ItemTime,
-                    proDesc: res.data.NurseList[0].ItemIntroduce
+                    proName: nurse.ItemName,
+                    price: nurse.ItemMoney,
+                    time: nurse.ItemTime,
+                    proDesc: nurse.ItemIntroduce
                 }
                 wx.setStorageSync('caseImgs', caseImgs)
-                wx.setStorageSync('UnitList', res.data.NurseList[0].UnitList)
+                wx.setStorageSync('UnitList', nurse.UnitList)
+
                 let serviseData = [serviceDataObj]
                 this.setData({
                     infolist: listObj,
                     datas: serviseData,
-                    allDetails: res.data.NurseList[0]
+                    allDetails: nurse
                 })
+                console.log(this.data.allDetails);
+
                 let {
                     tabs
                 } = this.data;

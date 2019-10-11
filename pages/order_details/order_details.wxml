@@ -31,7 +31,7 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             出门打卡
-                            <text wx:if="{{goOuttime}}">{{goOuttime}}</text>
+                            <text wx:if="{{goOuttime||myOneClok.goOuttime}}">{{goOuttime ||myOneClok.goOuttime}}</text>
                             <text wx:else>{{allDetails.OneConfirmTime}}</text>
                         </view>
                         <view class="card_address">
@@ -42,11 +42,8 @@
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
                             <block wx:if="{{!goOutImg}}">
-                                <text wx:if="{{!goOutImg}}">请拍照记录</text>
-                                <image wx:else mode="widthFix" src="{{goOutImg}}"></image>
-                            </block>
-                            <block wx:else>
-                                <image mode="widthFix" src="{{allDetails.OneImg}}"></image>
+                                <text wx:if="{{!allDetails.OneImg}}">请拍照记录</text>
+                                <image wx:else mode="widthFix" src="{{goOutImg||allDetails.OneImg}}"></image>
                             </block>
                         </view>
                     </view>
@@ -57,7 +54,7 @@
                                 <text wx:else="{{!goOutClock}}" style="background-color: red;">未打卡</text>
 
                             </view>
-                            <view bindtap="takePhoto" wx:if="{{!goOutClock || !allDetails.OneConfirmTime}}">
+                            <view bindtap="takePhoto" wx:if="{{!allDetails.OneConfirmTime}}">
                                 <image mode="widthFix" src="../../img/qiandao.png"></image>
                             </view>
                         </view>
@@ -74,25 +71,26 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             到达打卡
-                            <text>{{arriveTime}}</text>
+                            <text>{{arriveTime || allDetails.TwoConfirmTime || ''}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                           {{arriveAddress}}
+                           {{arriveAddress ||allDetails.TwoLocation || ''}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                             <text wx:if="{{!arriveImg}}">请拍照记录</text>
-                            <image wx:else mode="widthFix" src="{{arriveImg}}"></image>
+                            <image wx:if="{{allDetails.TwoImg || arriveImg}}" mode="widthFix" src="{{allDetails.TwoImg[0] || arriveImg}}"></image>
+                             <text wx:else>请拍照记录</text>
+
                         </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                               <text wx:if="{{arriveClock}}">已打卡</text>
+                               <text wx:if="{{arriveClock ||  allDetails.TwoConfirmTime}}">已打卡</text>
                                 <text wx:else="{{!arriveClock}}" style="background-color: red;">未打卡</text>
                             </view>
-                            <view bindtap="onarriveClock">
+                            <view bindtap="onarriveClock"  wx:if="{{!allDetails.TwoConfirmTime}}">
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
                             </view>
                         </view>
@@ -101,10 +99,10 @@
                 <view class="prompt">
                     <view class="realNames">
                         <view class="shim">实名认证</view>
-                        <view class="weiren"> <text wx:if="{{attestation}}"  style="background-color:  #03c173;">已认证</text>
-                      <text wx:else="{{!attestation}}" style="background-color: red;">未认证</text></view>
+                        <view class="weiren"> <text wx:if="{{allDetails.TwoImg ||  isArrive}}"  style="background-color:  #03c173;">已认证</text>
+                      <text wx:else="{{!allDetails.TwoImg}}" style="background-color: red;">未认证</text></view>
                     </view> 
-                    <view class="info_input">
+                    <view   wx:if="{{!allDetails.TwoConfirmTime}}" class="info_input">
                         <van-cell-group>
                             <van-field value="{{ patientName }}" label="患者姓名:" placeholder="请输入患者姓名" border="{{ false }}" bind:change="onChangeName" />
                             <van-field value="{{ idenNo }}" label="身份证号码:" placeholder="请输入患者姓身份证号码" border="{{ false }}" bind:change="onChangeCode" />
@@ -112,10 +110,11 @@
                     </view>
                     <view class="photos">
                         <view class="photos_position">
-                             <text wx:if="{{!patientImg}}"style="font-size: 30rpx;;">　请拍照记录</text>
-                            <image wx:else mode="widthFix" src="{{patientImg}}"></image>
+                            
+                            <image  wx:if="{{patientImg||allDetails.TwoImg}}" mode="widthFix" src="{{patientImg ||  allDetails.TwoImg[1]}}"></image>
+                             <text wx:else style="font-size: 30rpx;;">　请拍照记录</text>
                         </view>
-                        <view class="photos_btn" bindtap="attestationClock">
+                        <view wx:if="{{!allDetails.TwoConfirmTime}}" class="photos_btn" bindtap="attestationClock">
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
@@ -357,11 +356,11 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             护理完请拍照
-                            <text>{{nurseEndTime}}</text>
+                            <text>{{nurseEndTime || allDetails.ThreeConfirmTime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            {{nurseEndAddress}}
+                            {{nurseEndAddress ||  allDetails.ThreeConfirmTime}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />

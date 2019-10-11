@@ -42,6 +42,8 @@ Page({
       }
     }).then(res => {
         if (res.data.ResultCode === '0') {
+            console.log(res);
+            
             wx.showToast({
                 title: '提交成功',
                 icon: 'success',

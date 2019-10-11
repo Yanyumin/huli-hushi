@@ -78,6 +78,7 @@ Page({
     },
     acceptService(e) {
         console.log("接受");
+        let that = this
         request({
             url: 'NurseOrder/ReceiveSuccess',
             data:{
@@ -88,9 +89,12 @@ Page({
                 wx.showToast({
                     title: '成功接受',
                     icon: 'success',
-                    duration: 2000
+                    duration: 2000,
+                    success: function () {
+                        console.log('lalalalal')
+                        that.initPage()
+                    }
                 })
-                this.initPage()
             }
 
         })
@@ -134,36 +138,36 @@ Page({
             let {
                 NurseList
             } = res.data
+            let list1 = []
+            let list2 = []
+            let list3 = []
+            let list4 = []
+            let list5 = []
             for (let i in NurseList) {
                 let obj = NurseList[i]
                 obj.status = obj.OrderStatus
                 obj.Price = obj.ItemMoney
                 if (NurseList[i].OrderStatus == 0 ) {
-                    let list1 = []
                     list1.push(obj)
                     this.setData({
                         oderList1: list1 
                     })
                 } else if (NurseList[i].OrderStatus ==2 ) {
-                    let list2 = []
                     list2.push(obj)
                     this.setData({
                         oderList2: list2 
                     })
                 } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8) {
-                    let list3 = []
                     list3.push(obj)
                     this.setData({
                         oderList3: list3 
                     })
-                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
-                    let list4 = []
+                } else if (NurseList[i].OrderStatus == 11) {
                     list4.push(obj)
                     this.setData({
                         oderList4: list4 
                     })
-                } else if ( NurseList[i].OrderStatus == 11) {
-                    let list5 = []
+                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
                     list5.push(obj)
                     this.setData({
                         oderList5: list5 
