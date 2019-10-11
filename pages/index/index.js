@@ -78,6 +78,7 @@ Page({
       })
   },
   acceptService (e) {
+    let that = this
     request({
         url: 'NurseOrder/ReceiveSuccess',
         data: {orderId: e.detail.value}
@@ -86,13 +87,16 @@ Page({
             wx.showToast({
                 title: '成功接受',
                 icon: 'success',
-                duration: 2000
+                duration: 2000,
+                success: function () {
+                  that.getList()
+                }
             })
-            this.getList()
         }
     })
   },
   sureCancel () {
+    let that = this
     request({
         url: 'NurseOrder/ReceiveFailed',
         data: {orderId: e.detail.value, remark: ''}
@@ -101,7 +105,10 @@ Page({
             wx.showToast({
                 title: '成功退回',
                 icon: 'success',
-                duration: 2000
+                duration: 2000,
+                success: function () {
+                  that.getList()
+                }
             })
         }
     })

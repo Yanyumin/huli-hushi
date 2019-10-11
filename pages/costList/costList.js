@@ -23,7 +23,6 @@ Page({
     })
   },
   addChange(e) {
-    debugger
     let price = e.currentTarget.dataset['price']
     let amount = e.currentTarget.dataset['amount']
     let index = e.currentTarget.dataset['index']
@@ -137,7 +136,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      orderId: options.id
+      // orderId: options.id
+      orderId: 38
     })
     this.getUnitList()
   },

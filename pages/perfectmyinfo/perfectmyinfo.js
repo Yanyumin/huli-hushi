@@ -224,7 +224,8 @@ Page({
         this.GetNurseSchedule()
         this.setData({
             phone: wx.getStorageSync('userInfo').ContactPhone,
-            workUnit: wx.getStorageSync('userInfo').HospitalName
+            workUnit: wx.getStorageSync('userInfo').HospitalName,
+            userName: wx.getStorageSync('userInfo').UserName
         })
     },
 

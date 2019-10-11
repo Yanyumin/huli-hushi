@@ -1,9 +1,9 @@
 /* pages/patientInfo/patientinfo.wxss */
 .cell {
   display: flex;
-  font-size: 28rpx;
+  font-size: 30rpx;
   border-bottom: 1px solid #e2e2e2;
-  line-height: 88rpx;
+  line-height: 90rpx;
   padding-left: 30rpx;
 }
 .headerBox {

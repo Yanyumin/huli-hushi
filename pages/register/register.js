@@ -25,23 +25,34 @@ Page({
     formSubmit() {
         console.log("注册");
         let that = this
+        let phoneRes = /^1(3|4|5|6|7|8|9)\d{9}$/
         let passwordRes = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{6,16}$/
         if (that.data.userName == "" || that.data.userName == null || that.data.userName == undefined) {
             Toast.fail('请输入用户名');
+            return
         } else if (that.data.password == "" || that.data.password == null || that.data.password == undefined) {
             Toast.fail('请输入密码');
+            return
         } else if (!passwordRes.test(that.data.password)) {
             Toast.fail('密码格式不正确');
+            return
         } else if (that.data.password_c == '') {
             Toast.fail('请确认密码');
+            return
         } else if (that.data.password_c != that.data.password) {
             Toast.fail('两次密码不一致,请重新确认');
+            return
         } else if (that.data.phone == '') {
             Toast.fail('请输入手机号');
+            return
             //  } else if (that.data.sms == '') {
             //      Toast.fail('请输入验证码');
+        } else if (!phoneRes.test(this.data.phone)) {
+            Toast.fail('手机号码格式不正确');
+            return
         } else if (!that.data.checked) {
             Toast.fail('请勾选同意下方使用协议');
+            return
         } else {
             request({
                 method: "POST",
