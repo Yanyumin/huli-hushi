@@ -31,13 +31,13 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             出门打卡
-                            <text wx:if="{{goOuttime||myOneClok.goOuttime}}">{{goOuttime ||myOneClok.goOuttime}}</text>
+                            <text wx:if="{{goOuttime||myOneClok.goOuttime}}">{{goOuttime ||myOneClok.goOuttime || ''}}</text>
                             <text wx:else>{{allDetails.OneConfirmTime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
                             <text wx:if="{{goOutAddress}}">{{goOutAddress}}</text>
-                            <text wx:else>{{allDetails.OneLocation}}</text>
+                            <text wx:else>{{allDetails.OneLocation || ''}}</text>
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
@@ -356,16 +356,16 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             护理完请拍照
-                            <text>{{nurseEndTime || allDetails.ThreeConfirmTime}}</text>
+                            <text>{{nurseEndTime || allDetails.ThreeConfirmTime || ''}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            {{nurseEndAddress ||  allDetails.ThreeConfirmTime}}
+                            {{nurseEndAddress ||  allDetails.ThreeLocation ||''}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
                              <text wx:if="{{!nurseEndImg}}"></text>
-                            <image wx:else mode="widthFix" src="{{nurseEndImg}}"></image>
+                            <image wx:else mode="widthFix" src="{{nurseEndImg ||    allDetails.ThreeImg}}"></image>
                         </view>
                     </view>
                     <view class="card_right">
