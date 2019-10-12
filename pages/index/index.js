@@ -1,6 +1,6 @@
 //index.js
 const {
-  request
+  request, pullDownrequest
 } = require("../../utils/request")
 //获取应用实例
 Page({
@@ -20,12 +20,25 @@ Page({
     todayServiceShow: false
   },
   clickEvent () {
+    this.getList()
     this.setData({
       showEvent: true,
       todayServiceShow: false
     })
   },
   clickToday () {
+    this.getTodayList()
+    this.setData({
+      showEvent: false,
+      todayServiceShow: true
+    })
+  },
+  startService (e) {
+    wx.navigateTo({
+        url: '../order_details/order_details?id=' + e.detail.value,
+    })
+  },
+  getTodayList () {
     request({
       url: 'NurseOrder/GetNurseList',
       data: {
@@ -41,15 +54,6 @@ Page({
         todayOderList: NurseList
       })
     })
-    this.setData({
-      showEvent: false,
-      todayServiceShow: true
-    })
-  },
-  startService (e) {
-    wx.navigateTo({
-        url: '../order_details/order_details?id=' + e.detail.value,
-    })
   },
   getList () {
     request({
@@ -61,13 +65,19 @@ Page({
   }).then(res => {
       console.log(res);
       let { NurseList } = res.data
+      let arr = []
       for (let i in NurseList) {
-        NurseList[i].status = NurseList[i].OrderStatus
-        NurseList[i].Price = NurseList[i].ItemMoney
+        let obj = {}
+        if (NurseList[i].OrderStatus == 0) {
+          NurseList[i].status = NurseList[i].OrderStatus
+          NurseList[i].Price = NurseList[i].ItemMoney
+          obj = NurseList[i]
+          arr.push(obj)
+        }
       }
       console.log(NurseList)
       this.setData({
-          oderList: NurseList
+          oderList: arr
       })
     })
   },
@@ -153,7 +163,7 @@ Page({
         });
     }
     this.getList()
-    // this.clickToday()
+    this.getTodayList()
   },
 
   /**
@@ -188,7 +198,34 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    let that = this
+    wx.showNavigationBarLoading(); //在标题栏中显示加载图标
+    pullDownrequest({
+      url: 'NurseOrder/GetNurseList',
+      data: {
+          type: '',
+          nurseId: wx.getStorageSync('userInfo').Id
+      }
+  }).then(res => {
+      console.log(res);
+      let { NurseList } = res.data
+      let arr = []
+      for (let i in NurseList) {
+        let obj = {}
+        if (NurseList[i].OrderStatus == 0) {
+          NurseList[i].status = NurseList[i].OrderStatus
+          NurseList[i].Price = NurseList[i].ItemMoney
+          obj = NurseList[i]
+          arr.push(obj)
+        }
+      }
+      console.log(NurseList)
+      that.setData({
+          oderList: arr
+      })
+      
+      that.getTodayList()
+    })
   },
 
   /**

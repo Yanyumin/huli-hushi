@@ -443,4 +443,9 @@
         </block>
     </Tabs>
 </view>
+<van-popup show="{{ showCancel }}">
+    <textarea class="cancelMsg" value="{{Cancelremark}}"  bindinput='remarkChange' placeholder="请填写取消订单原因"></textarea>
+    <van-button class="sureCancel" type="primary" bindtap='sureCancel'>确定</van-button>
+    <van-button class="falseCancel" color="gray" bindtap='falseCancel'>取消</van-button>
+</van-popup>
   <van-toast id="van-toast" />

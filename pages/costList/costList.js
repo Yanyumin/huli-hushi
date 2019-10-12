@@ -66,7 +66,7 @@ Page({
           let allCost = 0
           for (let i in res.data.UnitList) {
             let obj = res.data.UnitList[i]
-            obj.amount = 1
+            obj.amount = 0
             arr.push(obj)
             allCost = parseInt(res.data.UnitList[i].Money) + allCost
             costList.push(res.data.UnitList[i].Money)
@@ -85,12 +85,10 @@ Page({
     let unitLists = []
     for (let i in this.data.list) {
       let item = this.data.list[i]
-      if (item.amount > 1) {
+      if (item.amount >= 1) {
         for (let k = 0; k < item.amount; k ++) {
           unitLists.push(item.UnitNo)
         }
-      } else {
-        unitLists.push(item.UnitNo)
       }
     }
     request({
@@ -142,8 +140,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      // orderId: options.id
-      orderId: 38
+      orderId: options.id
+      // orderId: 38
     })
     this.getUnitList()
   },

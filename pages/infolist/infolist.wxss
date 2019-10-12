@@ -2,6 +2,11 @@
 .infolist{
     padding: 20rpx 0;
 }
+.van-center-enter-active,.van-center-leave-active {
+    width: 600rpx;
+    padding: 30rpx;
+    border-radius: 10rpx;
+}
 .sureCancel button {
     margin-right: 30rpx;
     width: 46%;

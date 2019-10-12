@@ -1,6 +1,6 @@
 // pages/myoder/myoder.js
 const {
-    request
+    request, pullDownrequest
 } = require("../../utils/request")
 Page({
 
@@ -228,7 +228,7 @@ console.log(this.data.oderList1);
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-    this.initPage()
+        this.initPage()
     },
 
     /**
@@ -249,7 +249,64 @@ console.log(this.data.oderList1);
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-
+        let that = this
+        wx.showNavigationBarLoading(); //在标题栏中显示加载图标
+        pullDownrequest({
+            url: 'NurseOrder/GetNurseList',
+            data:{
+                type: '', nurseId: wx.getStorageSync('userInfo').Id
+            }
+        }).then(res => {
+            let {
+                NurseList
+            } = res.data
+            let list1 = []
+            let list2 = []
+            let list3 = []
+            let list4 = []
+            let list5 = []
+            for (let i in NurseList) {
+                let obj = NurseList[i]
+                obj.status = obj.OrderStatus
+                obj.Price = obj.ItemMoney
+                if (NurseList[i].OrderStatus == 0 ) {
+                    list1.push(obj)
+                    that.setData({
+                        oderList1: list1 
+                    })
+                } else if (NurseList[i].OrderStatus ==2 ) {
+                    list2.push(obj)
+                    that.setData({
+                        oderList2: list2 
+                    })
+                } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8 || NurseList[i].OrderStatus == 9) {
+                    list3.push(obj)
+                    that.setData({
+                        oderList3: list3 
+                    })
+                } else if (NurseList[i].OrderStatus == 11) {
+                    list4.push(obj)
+                    that.setData({
+                        oderList4: list4 
+                    })
+                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
+                    list5.push(obj)
+                    that.setData({
+                        oderList5: list5 
+                    })
+                } else if (NurseList[i].OrderStatus == 0 || NurseList[i].OrderStatus == 1 || NurseList[i].OrderStatus == 3) {
+                    list3.push(obj)
+                    that.setData({
+                        oderList6: list3 
+                    })
+                }
+            }
+            that.setData({
+                oderList: NurseList
+            })
+            console.log(that.data.oderList);
+            
+        })
     },
 
     /**

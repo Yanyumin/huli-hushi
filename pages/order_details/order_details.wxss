@@ -226,3 +226,30 @@ height: 220rpx;
  padding: 20rpx 0;
 
 }
+.van-center-enter-active,.van-center-leave-active {
+    width: 600rpx;
+    padding: 30rpx;
+    border-radius: 10rpx;
+}
+    
+.sureCancel button {
+    margin-right: 30rpx;
+    width: 46%;
+}
+.falseCancel button {
+    width: 46%;
+}
+.van-popup {
+    width: 74%;
+    text-align: center;
+    padding: 40rpx;
+}
+.cancelMsg {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 40rpx;
+    border: 1px solid #e5e5e5;
+    text-align: left;
+    padding: 10rpx;
+    box-sizing: border-box;
+}

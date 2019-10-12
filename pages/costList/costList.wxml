@@ -19,6 +19,7 @@
               data-price="{{item.Money}}"
               data-index='{{index}}'
               disable-input='true'
+              min='0'
               bind:minus="cutChange"
               bind:change="onChange" />
               <!-- {{item.amount}} -->

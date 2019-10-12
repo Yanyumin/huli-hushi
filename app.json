@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/order_details/order_details",
     "pages/costList/costList",
+    "pages/order_details/order_details",
     "pages/login/login",
     "pages/myoder/myoder",
     "pages/punch_sign/punch_sign",
@@ -60,7 +60,9 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#03c173",
     "navigationBarTitleText": "",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 50
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {

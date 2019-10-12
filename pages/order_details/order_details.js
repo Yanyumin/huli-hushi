@@ -152,7 +152,9 @@ Page({
             Zznl: ['正常', '全瘫', '截瘫', '偏瘫'],
             Pgdj: ['一般', '病重', '病危'],
             Hldj: ['一级', '二级', '三级', '特级'],
-        }
+        },
+        showCancel: false,
+        Cancelremark: ''
     },
     //到达安全地点打卡
     onSafety() {
@@ -526,21 +528,58 @@ Page({
         return true;
 
     },
+    
+
+    remarkChange: function (e) {
+        this.setData({
+            Cancelremark: e.detail.value
+        })
+        console.log(this.data.Cancelremark);
+
+    },
     //取消订单
     onOderderOff() {
-
+        this.setData({
+            showCancel: true
+        })
+    },
+    sureCancel () {
+        let that = this
+        if (!this.data.Cancelremark) {
+            wx.showToast({
+                title: '请填写原因',
+                icon: 'error',
+                duration: 2000
+            })
+            return
+        }
         request({
-            url: 'NurseOrder/BillOrderFailed',
+            url: 'NurseOrder/ReceiveFailed',
             data: {
                 orderId: this.data.orderId,
+                remark: this.data.Cancelremark
             }
         }).then(res => {
-            console.log(res);
-     if (res.data.ResultCode == '0') {
-        
-     } else {
-         Toast.fail(res.data.ResultMsg);
-     }
+            if (res.data.ResultCode === '0') {
+                that.setData({
+                    show: false
+                })
+                wx.showToast({
+                    title: '成功退回',
+                    icon: 'success',
+                    duration: 2000,
+                    success:function () {
+                         wx.switchTab({
+                             url: '../index/index'
+                         })
+                    }
+                })
+            }
+        })
+    },
+    falseCancel() {
+        this.setData({
+            showCancel: false
         })
     },
 
