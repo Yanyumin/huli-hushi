@@ -157,7 +157,6 @@ Page({
                 type: '', nurseId: wx.getStorageSync('userInfo').Id
             }
         }).then(res => {
-            console.log(res);
             let {
                 NurseList
             } = res.data

@@ -313,8 +313,14 @@
                     </view>
                 </view>
                 <view class="hint">注: 按护理等级收费,默认护理等级为一级,护理等级为一级以上则需要额外收取费用</view>
-                <button type="primary" wx:if="{{hldj > 1 && allDetails.hldj != -1}}" bindtap="goPay" class="btn">生成支付订单</button>
-                <button type="primary" bindtap="onNurse" wx:if="{{!isPinggu && hldj == 1 && allDetails.hldj != -1}}" class="btn">开始护理</button>
+                <block wx:if="{{allDetails.hldj === -1}}">
+                    <button type="primary" wx:if="{{hldj > 1 }}" bindtap="goPay" class="btn">
+                    生成支付订单
+                    </button>
+                    <button type="primary" bindtap="onNurse" wx:if="{{!isPinggu && hldj == 1}}" class="btn">
+                  开始护理
+              </button>  
+                </block>
             </view>
         </block>
         <!-- 护理 -->

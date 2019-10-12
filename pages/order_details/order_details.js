@@ -327,6 +327,8 @@ Page({
                     filePath: tempFilePaths[0],
                     name: 'file',
                     success: function (res) {
+                        console.log(res);
+                        
                         let data = JSON.parse(res.data)
                         if (res.statusCode == 200) {
                             that.setData({
@@ -368,6 +370,7 @@ Page({
     },
     // 准备完成
     onPrepare() {
+        let that =this
         let {
             tabs
         } = this.data;
@@ -488,7 +491,31 @@ Page({
                                 that.setData({
                                     patientImg: data.ResultMsg,
                                     attestation: true
-                                })
+                                }) 
+
+                                  let patientImg = that.data.patientImg
+                                         let imgsArr = []
+                                         imgsArr.push(arriveImg)
+                                         imgsArr.push(patientImg)
+                                         request({
+                                             method: 'POST',
+                                             url: 'NurseOrder/TwoConfirm',
+                                             data: {
+                                                 orderId: this.data.orderId,
+                                                 location: that.data.arriveAddress,
+                                                 baseImg: imgsArr.join(','),
+                                                 patientName: that.data.patientName,
+                                                 idenNo: that.data.idenNo,
+                                                 Score: '',
+                                             }
+                                         }).then(res => {
+                                             console.log(res);
+                                             if (res.data.ResultCode == '0') {
+                                              
+                                             } else {
+                                                 Toast.fail(res.data.ResultMsg);
+                                             }
+                                         })
                             }
                         }
                     })
@@ -514,8 +541,7 @@ Page({
     // 下一步
     onNextStep() {
         let that = this
-        let arriveImg = that.data.arriveImg
-        let patientImg = that.data.patientImg
+       
         let {
             tabs
         } = this.data;
@@ -524,23 +550,7 @@ Page({
             // } else if (!this.data.attestation) {
             //     Toast.fail('请先实名认证');
         } else {
-            let imgsArr = []
-            imgsArr.push(arriveImg)
-            imgsArr.push(patientImg)
-            request({
-                method: 'POST',
-                url: 'NurseOrder/TwoConfirm',
-                data: {
-                    orderId: this.data.orderId,
-                    location: that.data.arriveAddress,
-                    baseImg: imgsArr.join(','),
-                    patientName: that.data.patientName,
-                    idenNo: that.data.idenNo,
-                    Score: '',
-                }
-            }).then(res => {
-                console.log(res);
-                if (res.data.ResultCode == '0') {
+           
                     //  实名认证成功
                     tabs[2].isShow = false
                     tabs[3].isActive = true
@@ -549,12 +559,7 @@ Page({
                         isArrive: true,
                         tabs
                     })
-                } else {
-                    Toast.fail(res.data.ResultMsg);
                 }
-            })
-        }
-
     },
     radioChangeGmyw: function (e) {
         this.setData({

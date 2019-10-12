@@ -74,8 +74,8 @@ Page({
                         icon: 'success',
                         duration: 3000,
                         success: function () {
-                            wx.switchTab({
-                                url: '../index/index'
+                            wx.navigateTo({
+                                url: '../perfectmyinfo/perfectmyinfo'
                             })
                         }
                     })
