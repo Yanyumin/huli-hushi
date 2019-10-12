@@ -16,7 +16,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        myOneClok: wx.getStorageSync('myOneClok'),
         allDetails: '',
         opinion: '',
         Score: 0,
@@ -151,9 +150,9 @@ Page({
             Xlzt: ['稳定', '紧张', '焦虑', '烦躁'],
             Dxb: ['正常', '异常'],
             Yszt: ['清醒', '嗜睡', '烦躁', '昏迷', '其他'],
-            Zznl: ['正常','全瘫','截瘫','偏瘫'],
-            Pgdj: ['一般','病重','病危'],
-            Hldj: ['一级','二级','三级', '特级'],
+            Zznl: ['正常', '全瘫', '截瘫', '偏瘫'],
+            Pgdj: ['一般', '病重', '病危'],
+            Hldj: ['一级', '二级', '三级', '特级'],
         }
     },
     //到达安全地点打卡
@@ -353,35 +352,10 @@ Page({
                             success: function (res) {
                                 that.setData({
                                     goOutAddress: res.result.address,
-                                })
-                                request({
-                                    method: 'POST',
-                                    url: 'NurseOrder/OneConfirm',
-                                    data: {
-                                        orderId: that.data.orderId,
-                                        location: that.data.goOutAddress,
-                                        baseImg: that.data.goOutImg,
-                                        patientName: '',
-                                        idenNo: '',
-                                        Score: ''
-                                    }
-                                }).then(res => {
-                                    console.log(res);
-                                    if (res.data.ResultCode == '0') {
+                                    goOutClock: true,
 
-                                        that.setData({
-                                            goOutClock: true,
-                                        })
-                                        let myGoOut = {}
-                                        myGoOut.goOutClock = true
-                                        myGoOut.goOuttime = that.goOuttime
-                                        myGoOut.goOutAddress = that.goOutAddress
-                                        myGoOut.goOutImg = that.goOutImg
-                                        wx.setStorageSync('myOneClok', myGoOut)
-                                    } else {
-                                        Toast.fail(res.data.ResultMsg);
-                                    }
                                 })
+
                             }
 
                         })
@@ -400,13 +374,32 @@ Page({
         if (!this.data.goOutClock) {
             Toast.fail('请先打卡');
         } else {
-            tabs[1].isShow = false
-            tabs[2].isActive = true
-            tabs[2].isShow = true
-            this.setData({
-                isGoOut: true,
-                tabs
+            request({
+                method: 'POST',
+                url: 'NurseOrder/OneConfirm',
+                data: {
+                    orderId: that.data.orderId,
+                    location: that.data.goOutAddress,
+                    baseImg: that.data.goOutImg,
+                    patientName: '',
+                    idenNo: '',
+                    Score: ''
+                }
+            }).then(res => {
+                console.log(res);
+                if (res.data.ResultCode == '0') {
+                    tabs[1].isShow = false
+                    tabs[2].isActive = true
+                    tabs[2].isShow = true
+                    this.setData({
+                        isGoOut: true,
+                        tabs
+                    })
+                } else {
+                    Toast.fail(res.data.ResultMsg);
+                }
             })
+
         }
 
     },

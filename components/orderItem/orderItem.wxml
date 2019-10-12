@@ -48,8 +48,8 @@
             <button wx:if="{{ item.status == 11}}" data-index="{{item.status}}" bindtap="toAppraise"  data-id="{{ item.OrderId }}">
                 评价
             </button>
-            <button wx:if="{{ item.status == 0}}" data-index="{{item.status}}" bindtap="toquxiao"  data-id="{{ item.OrderId }}">
-                评价
+            <button wx:if="{{ item.status == 7}}" data-index="{{item.status}}" bindtap="toquxiao"  data-id="{{ item.OrderId }}">
+                取消订单
             </button>
         </view>
     </view>

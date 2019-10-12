@@ -136,7 +136,12 @@ Page({
                 wx.showToast({
                     title: '成功接受',
                     icon: 'success',
-                    duration: 2000
+                    duration: 2000,
+                        success: function () {
+                            wx.switchTab({
+                                url: '../index/index'
+                            })
+                        }
                 })
             }
         })
