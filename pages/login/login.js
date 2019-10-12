@@ -92,53 +92,31 @@ Page({
         } else if (!that.data.checked) {
             Toast.fail('请勾选同意下方使用协议');
         } else {
-            wx.login({
-                success(res) {
-                    if (res.code) {
-                        request({
-                            url: 'Auth/Login',
-                            data: {
-                                code: res.code
-                            }
-                        }).then(res => {
-                            console.log(
-                                res
-                            );
-                            
-                            if (res.statusCode == "200") {
-                                wx.setStorageSync('cookies', res.header['Set-Cookie'])
-                                request({
-                                    method: 'POST',
-                                    url: 'NurseRegister/SignInByPhone',
-                                    data: {
-                                        phone,
-                                        HospitalId:that.data.hospitaNo
-                                    }
-                                }).then(res => {
-                                    console.log(res);
-
-                                    if (res.data.ResultCode == 1) {
-                                        wx.showToast({
-                                            title: '登录成功',
-                                            icon: 'success',
-                                            duration: 2000,
-                                            success: function () {
-                                                wx.switchTab({
-                                                    url: '../index/index'
-                                                })
-                                            }
-                                        })
-                                    } else {
-                                        Toast.fail(res.data.Message);
-                                        return false
-                                    }
-                                })
-
-                            }
-                        })
-                    }
+            request({
+                method: 'POST',
+                url: 'NurseRegister/SignInByPhone',
+                data: {
+                    phone,
+                    HospitalId:that.data.hospitaNo
                 }
+            }).then(res => {
+                console.log(res);
 
+                if (res.data.ResultCode == 1) {
+                    wx.showToast({
+                        title: '登录成功',
+                        icon: 'success',
+                        duration: 2000,
+                        success: function () {
+                            wx.switchTab({
+                                url: '../index/index'
+                            })
+                        }
+                    })
+                } else {
+                    Toast.fail(res.data.Message);
+                    return false
+                }
             })
         }
         return true;
