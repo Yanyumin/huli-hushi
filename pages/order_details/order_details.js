@@ -1,5 +1,4 @@
 import Toast from 'vant-weapp/toast/toast';
-
 const QQMapWX = require('../../lib/qqmap/qqmap-wx-jssdk.js');
 const {
     request
@@ -501,7 +500,7 @@ Page({
                                              method: 'POST',
                                              url: 'NurseOrder/TwoConfirm',
                                              data: {
-                                                 orderId: this.data.orderId,
+                                                 orderId: that.data.orderId,
                                                  location: that.data.arriveAddress,
                                                  baseImg: imgsArr.join(','),
                                                  patientName: that.data.patientName,
@@ -511,7 +510,9 @@ Page({
                                          }).then(res => {
                                              console.log(res);
                                              if (res.data.ResultCode == '0') {
-                                              
+                                                 that.setData({
+                                                     isArrive: true,
+                                                 })
                                              } else {
                                                  Toast.fail(res.data.ResultMsg);
                                              }
@@ -527,6 +528,7 @@ Page({
     },
     //取消订单
     onOderderOff() {
+
         request({
             url: 'NurseOrder/BillOrderFailed',
             data: {
@@ -534,7 +536,11 @@ Page({
             }
         }).then(res => {
             console.log(res);
-
+     if (res.data.ResultCode == '0') {
+        
+     } else {
+         Toast.fail(res.data.ResultMsg);
+     }
         })
     },
 
@@ -547,16 +553,14 @@ Page({
         } = this.data;
         if (!this.data.arriveClock) {
             Toast.fail('请先打卡');
-            // } else if (!this.data.attestation) {
-            //     Toast.fail('请先实名认证');
+            } else if (!this.data.isArrive) {
+                Toast.fail('请先实名认证');
         } else {
            
-                    //  实名认证成功
                     tabs[2].isShow = false
                     tabs[3].isActive = true
                     tabs[3].isShow = true
                     that.setData({
-                        isArrive: true,
                         tabs
                     })
                 }

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/order_details/order_details",
     "pages/costList/costList",
     "pages/login/login",
     "pages/myoder/myoder",
