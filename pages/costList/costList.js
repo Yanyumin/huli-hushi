@@ -32,13 +32,15 @@ Page({
     let list1 = this.data.list
     let saveCost1 = costList[index].Money
     list1[index].amount = amount+1
-    let cost = parseInt(price) + parseInt(saveCost1)
+    let cost = Number(price) + Number(saveCost1)
     // list1[index].Money = cost
     // costList = list1
     this.setData({
       cost1: cost,
       list: list1
     })
+    console.log(this.data.list);
+    // this.getUnitList()
   },
   cutChange(e) {
     let price = e.currentTarget.dataset['price']
@@ -47,7 +49,7 @@ Page({
     let saveCost1 = costList[index].Money
     let list1 = this.data.list
     list1[index].amount = amount-1
-    let cost = parseInt(price) - parseInt(saveCost1)
+    let cost = Number(price) - Number(saveCost1)
     // list1[index].Money = cost
     // costList = list1
     this.setData({
@@ -60,6 +62,8 @@ Page({
         url: 'NurseOrder/GetUnitList',
         data: {orderId:  this.data.orderId}
     }).then(res => {
+        console.log(res.data.UnitList);
+        
         // if (res.data.ResultCode === '0') {
           let arr = []
           let unitList = []
@@ -68,7 +72,7 @@ Page({
             let obj = res.data.UnitList[i]
             obj.amount = 0
             arr.push(obj)
-            allCost = parseInt(res.data.UnitList[i].Money) + allCost
+            allCost += Number(res.data.UnitList[i].Money) * obj.amount
             costList.push(res.data.UnitList[i].Money)
             unitList.push(res.data.UnitList[i].UnitNo)
           }
@@ -77,6 +81,8 @@ Page({
             unitList: unitList,
             allCost
           })
+          console.log(this.data.);
+          
           costList = arr
         // }
     })

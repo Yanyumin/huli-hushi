@@ -1,6 +1,7 @@
 // pages/myoder/myoder.js
 const {
-    request, pullDownrequest
+    request,
+    pullDownrequest
 } = require("../../utils/request")
 Page({
 
@@ -8,69 +9,67 @@ Page({
      * 页面的初始数据
      */
     data: {
-        canOrderId:'',
-        remark:'',
-        showRemark:'',
+        canOrderId: '',
+        remark: '',
+        showRemark: false,
         oderList: [],
         oderList1: [],
         oderList2: [],
         oderList3: [],
         oderList4: [],
         oderList5: [],
+        oderList6: []
     },
-        sureCancel() {
-            let that = this
-            if (!that.data.remark) {
-                wx.showToast({
-                    title: '请填写原因',
-                    icon: 'error',
-                    duration: 2000
-                })
-                return
+    sureCancel() {
+        let that = this
+        // if (!that.data.remark) {
+        //     wx.showToast({
+        //         title: '请填写原因',
+        //         icon: 'error',
+        //         duration: 2000
+        //     })
+        //     return
+        // }
+        request({
+            url: 'NurseOrder/ReceiveFailed',
+            data: {
+                orderId: that.data.canOrderId,
+                remark: that.data.remark
             }
-            request({
-                url: 'NurseOrder/ReceiveFailed',
-                data: {
-                    orderId: that.data.canOrderId,
-                    remark: that.data.remark
-                }
-            }).then(res => {
-                if (res.data.ResultCode === '0') {
-                    that.setData({
-                        show: false
-                    })
-                    wx.showToast({
-                        title: '成功退回',
-                        icon: 'success',
-                        duration: 2000,
-                       success:function () {
-                       that.initPage()
-                           
-                       }
-                    })
-                }
-            })
-        },
-      falseCancel() {
-          this.setData({
-              showRemark: false
-          })
-      },
-      remarkChange: function (e) {
-          this.setData({
-              remark: e.detail.value
-          })
-          console.log(this.data.remark);
+        }).then(res => {
+            if (res.data.ResultCode === '0') {
+                wx.showToast({
+                    title: '成功退回',
+                    icon: 'success',
+                    duration: 2000,
+                    success: function () {
+                        that.initPage()
 
-      },
+                    }
+                })
+            }
+        })
+    },
+    falseCancel() {
+        this.setData({
+            showRemark: false
+        })
+    },
+    remarkChange: function (e) {
+        this.setData({
+            remark: e.detail.value
+        })
+        console.log(this.data.remark);
+
+    },
     toAppraise(e) {
         wx.navigateTo({
             url: '../pingjia/pingjia?id=' + e.detail.value
-          })
+        })
 
     },
     cancelService(e) {
-        console.log(e , "拒绝");
+        console.log(e, "拒绝");
         this.setData({
             showRemark: true,
             canOrderId: e.detail.value
@@ -81,8 +80,8 @@ Page({
         let that = this
         request({
             url: 'NurseOrder/ReceiveSuccess',
-            data:{
-                orderId:e.detail.value
+            data: {
+                orderId: e.detail.value
             }
         }).then(res => {
             if (res.data.ResultCode === '0') {
@@ -95,6 +94,8 @@ Page({
                         that.initPage()
                     }
                 })
+                that.initPage()
+
             }
 
         })
@@ -104,8 +105,8 @@ Page({
         let that = this
         request({
             url: 'NurseOrder/BillOrderFailed',
-            data:{
-                orderId:e.detail.value
+            data: {
+                orderId: e.detail.value
             }
         }).then(res => {
             if (res.data.ResultCode === '0') {
@@ -140,21 +141,24 @@ Page({
         wx.navigateTo({
             url: '../order_details/order_details?id=' + e.detail.value,
         })
-         this.initPage()
+        this.initPage()
     },
     onChange(event) {
+        console.log("ddd");
+
         this.initPage()
     },
     toAppraise(e) {
         wx.navigateTo({
-          url: '../pingjia/pingjia?id=' + e.detail.value
+            url: '../pingjia/pingjia?id=' + e.detail.value
         })
     },
-    initPage (){
+    initPage() {
         request({
             url: 'NurseOrder/GetNurseList',
-            data:{
-                type: '', nurseId: wx.getStorageSync('userInfo').Id
+            data: {
+                type: '',
+                nurseId: wx.getStorageSync('userInfo').Id
             }
         }).then(res => {
             let {
@@ -169,35 +173,35 @@ Page({
                 let obj = NurseList[i]
                 obj.status = obj.OrderStatus
                 obj.Price = obj.ItemMoney
-                if (NurseList[i].OrderStatus == 0 ) {
+                if (NurseList[i].OrderStatus == 0) {
                     list1.push(obj)
                     this.setData({
-                        oderList1: list1 
+                        oderList1: list1
                     })
-                } else if (NurseList[i].OrderStatus ==2 ) {
+                } else if (NurseList[i].OrderStatus == 2) {
                     list2.push(obj)
                     this.setData({
-                        oderList2: list2 
+                        oderList2: list2
                     })
                 } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8 || NurseList[i].OrderStatus == 9) {
                     list3.push(obj)
                     this.setData({
-                        oderList3: list3 
+                        oderList3: list3
                     })
                 } else if (NurseList[i].OrderStatus == 11) {
                     list4.push(obj)
                     this.setData({
-                        oderList4: list4 
+                        oderList4: list4
                     })
                 } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
                     list5.push(obj)
                     this.setData({
-                        oderList5: list5 
+                        oderList5: list5
                     })
                 } else if (NurseList[i].OrderStatus == 0 || NurseList[i].OrderStatus == 1 || NurseList[i].OrderStatus == 3) {
                     list3.push(obj)
                     this.setData({
-                        oderList6: list3 
+                        oderList6: list3
                     })
                 }
             }
@@ -205,7 +209,7 @@ Page({
                 oderList: NurseList
             })
             console.log(this.data.oderList);
-            
+
         })
     },
     /**
@@ -213,7 +217,6 @@ Page({
      */
     onLoad: function (options) {
         this.initPage()
-console.log(this.data.oderList1);
 
     },
 
@@ -223,12 +226,12 @@ console.log(this.data.oderList1);
     onReady: function () {
 
     },
- 
+
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        this.initPage()
+        // this.initPage()
     },
 
     /**
@@ -253,8 +256,9 @@ console.log(this.data.oderList1);
         wx.showNavigationBarLoading(); //在标题栏中显示加载图标
         pullDownrequest({
             url: 'NurseOrder/GetNurseList',
-            data:{
-                type: '', nurseId: wx.getStorageSync('userInfo').Id
+            data: {
+                type: '',
+                nurseId: wx.getStorageSync('userInfo').Id
             }
         }).then(res => {
             let {
@@ -269,35 +273,35 @@ console.log(this.data.oderList1);
                 let obj = NurseList[i]
                 obj.status = obj.OrderStatus
                 obj.Price = obj.ItemMoney
-                if (NurseList[i].OrderStatus == 0 ) {
+                if (NurseList[i].OrderStatus == 0) {
                     list1.push(obj)
                     that.setData({
-                        oderList1: list1 
+                        oderList1: list1
                     })
-                } else if (NurseList[i].OrderStatus ==2 ) {
+                } else if (NurseList[i].OrderStatus == 2) {
                     list2.push(obj)
                     that.setData({
-                        oderList2: list2 
+                        oderList2: list2
                     })
                 } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8 || NurseList[i].OrderStatus == 9) {
                     list3.push(obj)
                     that.setData({
-                        oderList3: list3 
+                        oderList3: list3
                     })
                 } else if (NurseList[i].OrderStatus == 11) {
                     list4.push(obj)
                     that.setData({
-                        oderList4: list4 
+                        oderList4: list4
                     })
                 } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
                     list5.push(obj)
                     that.setData({
-                        oderList5: list5 
+                        oderList5: list5
                     })
                 } else if (NurseList[i].OrderStatus == 0 || NurseList[i].OrderStatus == 1 || NurseList[i].OrderStatus == 3) {
                     list3.push(obj)
                     that.setData({
-                        oderList6: list3 
+                        oderList6: list3
                     })
                 }
             }
@@ -305,7 +309,7 @@ console.log(this.data.oderList1);
                 oderList: NurseList
             })
             console.log(that.data.oderList);
-            
+
         })
     },
 

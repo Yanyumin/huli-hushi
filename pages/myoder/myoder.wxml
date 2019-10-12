@@ -46,6 +46,7 @@
             bindchange="clickOrder"
             bind:cancelService='sureCancel'
             bind:toAppraise='toAppraise'
+            bind:toquxiao='toquxiao'
             data-status="{{oderList3[0].status}}">
         </orderItem>
         <none wx:if="{{oderList3.length == 0}}"></none>

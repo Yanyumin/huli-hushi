@@ -21,7 +21,7 @@ Page({
         let costList = wx.getStorageSync('UnitList')
         let price = 0
         for (let i in costList) {
-            price = parseInt(costList[i].Money) + price
+            price = Number(costList[i].Money) + price
         }
         this.setData({
             costList: costList,

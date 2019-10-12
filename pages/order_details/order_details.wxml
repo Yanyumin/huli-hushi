@@ -119,7 +119,7 @@
                         </view>
                     </view>
                 </view>
-                <view class="arrive_btn" wx:if="{{!isArrive}}">
+                <view class="arrive_btn" wx:if="{{!allDetails.TwoImg}}">
                     <button type="primary" bindtap="onOderderOff">取消订单</button>
                     <button type="primary" bindtap="onNextStep">下一步</button>
                 </view>
