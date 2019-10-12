@@ -224,12 +224,12 @@ console.log(this.data.oderList1);
     onReady: function () {
 
     },
-
+ 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+    this.initPage()
     },
 
     /**
