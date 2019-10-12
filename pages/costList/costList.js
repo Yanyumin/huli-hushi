@@ -81,7 +81,7 @@ Page({
             unitList: unitList,
             allCost
           })
-          console.log(this.data.);
+          // console.log(this.data.);
           
           costList = arr
         // }
