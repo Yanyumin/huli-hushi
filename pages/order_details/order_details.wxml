@@ -41,7 +41,7 @@
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
                             <block>
-                             <image wx:if="{{ goOutImg||allDetails.OneImg }}" mode="widthFix" src="{{goOutImg||allDetails.OneImg}}"></image>
+                             <image wx:if="{{ allDetails.OneImg||goOutImg }}" mode="widthFix" src="{{goOutImg||allDetails.OneImg}}"></image>
                                 <text wx:else>请拍照记录</text>
                                
                             </block>
