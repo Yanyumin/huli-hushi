@@ -188,6 +188,7 @@ Page({
                 oderList: NurseList
             })
             console.log(this.data.oderList);
+            
       wx.hideNavigationBarLoading(); //完成停止加载图标
       wx.stopPullDownRefresh();
         })

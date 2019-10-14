@@ -31,7 +31,7 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             出门打卡
-                            <text>{{goOuttime ||myOneClok.goOuttime || ''}}</text>
+                            <text>{{goOuttime ||allDetails.OneConfirmTime || ''}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />

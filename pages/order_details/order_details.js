@@ -157,157 +157,174 @@ Page({
     //到达安全地点打卡
     onSafety() {
         let that = this
-        wx.chooseImage({
-            count: 1,
-            sizeType: ['original', 'compressed'],
-            sourceType: ['album', 'camera'],
-            success(res) {
-                var time = util.formatHour(new Date());
-                const tempFilePaths = res.tempFilePaths
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        let data = JSON.parse(res.data)
-                        if (res.statusCode == 200) {
-                            that.setData({
-                                safetyTime: time,
-                                safetyImg: data.ResultMsg
-                            })
-                        }
-                    }
-                })
-                //    用微信提供的api获取经纬度
-                wx.getLocation({
-                    type: 'wgs84',
-                    success: function (res) {
-                        that.setData({
-                            myLatitude: res.latitude,
-                            myLongitude: res.longitude
-                        })
-                        //用腾讯地图的api，根据经纬度获取城市
-                        qqmapsdk.reverseGeocoder({
-                            location: {
-                                latitude: that.data.myLatitude,
-                                longitude: that.data.myLongitude
-                            },
-                            success: function (res) {
-                                that.setData({
-                                    safetyAddress: res.result.address
-                                })
-                            }
-                        })
-                    }
-                })
-            }
-        })
+        if (that.data.isNurseEnd || that.data.allDetails.ThreeConfirmTime) {
+              wx.chooseImage({
+                  count: 1,
+                  sizeType: ['original', 'compressed'],
+                  sourceType: ['album', 'camera'],
+                  success(res) {
+                      var time = util.formatHour(new Date());
+                      const tempFilePaths = res.tempFilePaths
+                      wx.uploadFile({
+                          method: "POST",
+                          url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                          filePath: tempFilePaths[0],
+                          name: 'file',
+                          success: function (res) {
+                              let data = JSON.parse(res.data)
+                              if (res.statusCode == 200) {
+                                  that.setData({
+                                      safetyTime: time,
+                                      safetyImg: data.ResultMsg
+                                  })
+                              }
+                          }
+                      })
+                      //    用微信提供的api获取经纬度
+                      wx.getLocation({
+                          type: 'wgs84',
+                          success: function (res) {
+                              that.setData({
+                                  myLatitude: res.latitude,
+                                  myLongitude: res.longitude
+                              })
+                              //用腾讯地图的api，根据经纬度获取城市
+                              qqmapsdk.reverseGeocoder({
+                                  location: {
+                                      latitude: that.data.myLatitude,
+                                      longitude: that.data.myLongitude
+                                  },
+                                  success: function (res) {
+                                      that.setData({
+                                          safetyAddress: res.result.address
+                                      })
+                                  }
+                              })
+                          }
+                      })
+                  }
+              })
+        }else{
+             Toast.fail('上一步未操作');
+        }
+      
     },
     // 护理结束打卡
     NurseEnd() {
         let that = this
-        wx.chooseImage({
-            count: 1,
-            sizeType: ['original', 'compressed'],
-            sourceType: ['album', 'camera'],
-            success(res) {
-                const tempFilePaths = res.tempFilePaths
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        let data = JSON.parse(res.data)
-                        console.log(res);
-                        var time = util.formatHour(new Date());
+        if (that.data.isPinggu || that.data.allDetails.hldj >= 1) {
+             wx.chooseImage({
+                 count: 1,
+                 sizeType: ['original', 'compressed'],
+                 sourceType: ['album', 'camera'],
+                 success(res) {
+                     const tempFilePaths = res.tempFilePaths
+                     wx.uploadFile({
+                         method: "POST",
+                         url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                         filePath: tempFilePaths[0],
+                         name: 'file',
+                         success: function (res) {
+                             let data = JSON.parse(res.data)
+                             console.log(res);
+                             var time = util.formatHour(new Date());
 
-                        if (data.ResultCode == 0) {
-                            that.setData({
-                                nurseEndImg: data.ResultMsg,
-                                nurseEndTime: time
-                            })
-                        }
-                    }
-                }) //    用微信提供的api获取经纬度
-                wx.getLocation({
-                    type: 'wgs84',
-                    success: function (res) {
-                        that.setData({
-                            myLatitude: res.latitude,
-                            myLongitude: res.longitude
-                        })
-                        //用腾讯地图的api，根据经纬度获取城市
-                        qqmapsdk.reverseGeocoder({
-                            location: {
-                                latitude: that.data.myLatitude,
-                                longitude: that.data.myLongitude
-                            },
-                            success: function (res) {
-                                that.setData({
-                                    nurseEndAddress: res.result.address,
-                                    nurseEndClock: true
-                                })
-                            }
-                        })
-                    }
-                })
-            }
-        })
+                             if (data.ResultCode == 0) {
+                                 that.setData({
+                                     nurseEndImg: data.ResultMsg,
+                                     nurseEndTime: time
+                                 })
+                             }
+                         }
+                     }) //    用微信提供的api获取经纬度
+                     wx.getLocation({
+                         type: 'wgs84',
+                         success: function (res) {
+                             that.setData({
+                                 myLatitude: res.latitude,
+                                 myLongitude: res.longitude
+                             })
+                             //用腾讯地图的api，根据经纬度获取城市
+                             qqmapsdk.reverseGeocoder({
+                                 location: {
+                                     latitude: that.data.myLatitude,
+                                     longitude: that.data.myLongitude
+                                 },
+                                 success: function (res) {
+                                     that.setData({
+                                         nurseEndAddress: res.result.address,
+                                         nurseEndClock: true
+                                     })
+                                 }
+                             })
+                         }
+                     })
+                 }
+             })
 
+        } else {
+            Toast.fail('上一步未操作');
+        }
+       
     },
     //护理前打卡
     NurseBefore() {
+        console.log("好好");
+
         let that = this
-        wx.chooseImage({
-            count: 1,
-            sizeType: ['original', 'compressed'],
-            sourceType: ['album', 'camera'],
-            success(res) {
-                var time = util.formatHour(new Date());
-                const tempFilePaths = res.tempFilePaths
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        let data = JSON.parse(res.data)
-                        if (res.statusCode == 200) {
-                            that.setData({
-                                nurseTime: time,
-                                nurseBeforeImg: data.ResultMsg
-                            })
-                        }
-                    }
-                })
-                //    用微信提供的api获取经纬度
-                wx.getLocation({
-                    type: 'wgs84',
-                    success: function (res) {
-                        that.setData({
-                            myLatitude: res.latitude,
-                            myLongitude: res.longitude
-                        })
-                        //用腾讯地图的api，根据经纬度获取城市
-                        qqmapsdk.reverseGeocoder({
-                            location: {
-                                latitude: that.data.myLatitude,
-                                longitude: that.data.myLongitude
-                            },
-                            success: function (res) {
+        if (that.data.isPinggu || that.data.allDetails.hldj >= 1) {
+            wx.chooseImage({
+                count: 1,
+                sizeType: ['original', 'compressed'],
+                sourceType: ['album', 'camera'],
+                success(res) {
+                    var time = util.formatHour(new Date());
+                    const tempFilePaths = res.tempFilePaths
+                    wx.uploadFile({
+                        method: "POST",
+                        url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                        filePath: tempFilePaths[0],
+                        name: 'file',
+                        success: function (res) {
+                            let data = JSON.parse(res.data)
+                            if (res.statusCode == 200) {
                                 that.setData({
-                                    nurseAddress: res.result.address,
-                                    nurseBeforeClock: true
+                                    nurseTime: time,
+                                    nurseBeforeImg: data.ResultMsg
                                 })
                             }
-                        })
-                    }
-                })
+                        }
+                    })
+                    //    用微信提供的api获取经纬度
+                    wx.getLocation({
+                        type: 'wgs84',
+                        success: function (res) {
+                            that.setData({
+                                myLatitude: res.latitude,
+                                myLongitude: res.longitude
+                            })
+                            //用腾讯地图的api，根据经纬度获取城市
+                            qqmapsdk.reverseGeocoder({
+                                location: {
+                                    latitude: that.data.myLatitude,
+                                    longitude: that.data.myLongitude
+                                },
+                                success: function (res) {
+                                    that.setData({
+                                        nurseAddress: res.result.address,
+                                        nurseBeforeClock: true
+                                    })
+                                }
+                            })
+                        }
+                    })
 
-            }
-        })
+                }
+            })
+        } else {
+            Toast.fail('上一步未操作');
+        }
+
 
     },
     // 出门打卡
@@ -327,7 +344,7 @@ Page({
                     name: 'file',
                     success: function (res) {
                         console.log(res);
-                        
+
                         let data = JSON.parse(res.data)
                         if (res.statusCode == 200) {
                             that.setData({
@@ -369,7 +386,7 @@ Page({
     },
     // 准备完成
     onPrepare() {
-        let that =this
+        let that = this
         let {
             tabs
         } = this.data;
@@ -408,60 +425,66 @@ Page({
     // 到达打卡
     onarriveClock() {
         let that = this
-        wx.chooseImage({
-            count: 1,
-            sizeType: ['original', 'compressed'],
-            sourceType: ['album', 'camera'],
-            success(res) {
-                var time2 = util.formatHour(new Date());
-                const tempFilePaths = res.tempFilePaths
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        let data = JSON.parse(res.data)
-                        if (res.statusCode == 200) {
 
-                            that.setData({
-                                arriveClock: true,
-                                arriveTime: time2,
-                                arriveImg: data.ResultMsg
-                            })
-                            // let myOneClok = wx.getStorageSync('myOneClok')
-                            //         myOneClok.arriveClock = that.arriveClock,
-                            //         myOneClok.goOuttime =that.goOuttime,
-                            //         myOneClok.arriveTime = that.goOutAddress,
-                            //         myOneClok.arriveImg = that.goOutImg
+        if (that.goOutClock || that.data.allDetails.OneConfirmTime) {
+            wx.chooseImage({
+                count: 1,
+                sizeType: ['original', 'compressed'],
+                sourceType: ['album', 'camera'],
+                success(res) {
+                    var time2 = util.formatHour(new Date());
+                    const tempFilePaths = res.tempFilePaths
+                    wx.uploadFile({
+                        method: "POST",
+                        url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                        filePath: tempFilePaths[0],
+                        name: 'file',
+                        success: function (res) {
+                            let data = JSON.parse(res.data)
+                            if (res.statusCode == 200) {
 
-                        }
-                    }
-                })
-                //    用微信提供的api获取经纬度
-                wx.getLocation({
-                    type: 'wgs84',
-                    success: function (res) {
-                        that.setData({
-                            myLatitude: res.latitude,
-                            myLongitude: res.longitude
-                        })
-                        //用腾讯地图的api，根据经纬度获取城市
-                        qqmapsdk.reverseGeocoder({
-                            location: {
-                                latitude: that.data.myLatitude,
-                                longitude: that.data.myLongitude
-                            },
-                            success: function (res) {
                                 that.setData({
-                                    arriveAddress: res.result.address
+                                    arriveClock: true,
+                                    arriveTime: time2,
+                                    arriveImg: data.ResultMsg
                                 })
+                                // let myOneClok = wx.getStorageSync('myOneClok')
+                                //         myOneClok.arriveClock = that.arriveClock,
+                                //         myOneClok.goOuttime =that.goOuttime,
+                                //         myOneClok.arriveTime = that.goOutAddress,
+                                //         myOneClok.arriveImg = that.goOutImg
+
                             }
-                        })
-                    }
-                })
-            }
-        })
+                        }
+                    })
+                    //    用微信提供的api获取经纬度
+                    wx.getLocation({
+                        type: 'wgs84',
+                        success: function (res) {
+                            that.setData({
+                                myLatitude: res.latitude,
+                                myLongitude: res.longitude
+                            })
+                            //用腾讯地图的api，根据经纬度获取城市
+                            qqmapsdk.reverseGeocoder({
+                                location: {
+                                    latitude: that.data.myLatitude,
+                                    longitude: that.data.myLongitude
+                                },
+                                success: function (res) {
+                                    that.setData({
+                                        arriveAddress: res.result.address
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+
+        } else {
+            Toast.fail('上一步未操作');
+        }
 
 
     },
@@ -490,33 +513,33 @@ Page({
                                 that.setData({
                                     patientImg: data.ResultMsg,
                                     attestation: true
-                                }) 
+                                })
 
-                                  let patientImg = that.data.patientImg
-                                         let imgsArr = []
-                                         imgsArr.push(arriveImg)
-                                         imgsArr.push(patientImg)
-                                         request({
-                                             method: 'POST',
-                                             url: 'NurseOrder/TwoConfirm',
-                                             data: {
-                                                 orderId: that.data.orderId,
-                                                 location: that.data.arriveAddress,
-                                                 baseImg: imgsArr.join(','),
-                                                 patientName: that.data.patientName,
-                                                 idenNo: that.data.idenNo,
-                                                 Score: '',
-                                             }
-                                         }).then(res => {
-                                             console.log(res);
-                                             if (res.data.ResultCode == '0') {
-                                                 that.setData({
-                                                     isArrive: true,
-                                                 })
-                                             } else {
-                                                 Toast.fail(res.data.ResultMsg);
-                                             }
-                                         })
+                                let patientImg = that.data.patientImg
+                                let imgsArr = []
+                                imgsArr.push(arriveImg)
+                                imgsArr.push(patientImg)
+                                request({
+                                    method: 'POST',
+                                    url: 'NurseOrder/TwoConfirm',
+                                    data: {
+                                        orderId: that.data.orderId,
+                                        location: that.data.arriveAddress,
+                                        baseImg: imgsArr.join(','),
+                                        patientName: that.data.patientName,
+                                        idenNo: that.data.idenNo,
+                                        Score: '',
+                                    }
+                                }).then(res => {
+                                    console.log(res);
+                                    if (res.data.ResultCode == '0') {
+                                        that.setData({
+                                            isArrive: true,
+                                        })
+                                    } else {
+                                        Toast.fail(res.data.ResultMsg);
+                                    }
+                                })
                             }
                         }
                     })
@@ -536,34 +559,34 @@ Page({
             }
         }).then(res => {
             console.log(res);
-     if (res.data.ResultCode == '0') {
-        
-     } else {
-         Toast.fail(res.data.ResultMsg);
-     }
+            if (res.data.ResultCode == '0') {
+
+            } else {
+                Toast.fail(res.data.ResultMsg);
+            }
         })
     },
 
     // 下一步
     onNextStep() {
         let that = this
-       
+
         let {
             tabs
         } = this.data;
         if (!this.data.arriveClock) {
             Toast.fail('请先打卡');
-            } else if (!this.data.isArrive) {
-                Toast.fail('请先实名认证');
+        } else if (!this.data.isArrive) {
+            Toast.fail('请先实名认证');
         } else {
-           
-                    tabs[2].isShow = false
-                    tabs[3].isActive = true
-                    tabs[3].isShow = true
-                    that.setData({
-                        tabs
-                    })
-                }
+
+            tabs[2].isShow = false
+            tabs[3].isActive = true
+            tabs[3].isShow = true
+            that.setData({
+                tabs
+            })
+        }
     },
     radioChangeGmyw: function (e) {
         this.setData({
@@ -762,7 +785,7 @@ Page({
             Toast.fail('请选择评估等级');
         } else if (!this.data.hldj) {
             Toast.fail('请选择护理等级');
-        } else {
+        } else if (this.data.arriveClock || this.data.allDetails.TwoConfirmTime) {
             request({
                 url: 'NurseOrder/NurseAssessment',
                 data: {
@@ -794,6 +817,9 @@ Page({
                     Toast.fail(res.data.ResultMsg);
                 }
             })
+        } else {
+            Toast.fail('上一步未操作');
+
         }
 
     },
@@ -981,7 +1007,7 @@ Page({
             Toast.fail('请选择评估等级');
         } else if (!this.data.hldj) {
             Toast.fail('请选择护理等级');
-        } else {
+        } else if (this.data.arriveClock || this.data.allDetails.TwoConfirmTime) {
             request({
                 url: 'NurseOrder/NurseAssessment',
                 data: {
@@ -1007,6 +1033,8 @@ Page({
                     Toast.fail(res.data.ResultMsg);
                 }
             })
+        } else {
+            Toast.fail('上一步未操作');
         }
     },
     /**
