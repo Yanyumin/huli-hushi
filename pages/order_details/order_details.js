@@ -249,7 +249,7 @@ Page({
                                  location: {
                                      latitude: that.data.myLatitude,
                                      longitude: that.data.myLongitude
-                                 },
+                                 },  
                                  success: function (res) {
                                      that.setData({
                                          nurseEndAddress: res.result.address,
