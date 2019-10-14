@@ -46,14 +46,17 @@ Page({
             wx.showToast({
                 title: '提交成功',
                 icon: 'success',
-                duration: 2000
+                duration: 2000,
+                success: function () {
+                  wx.switchTab({
+                    url: '../myoder/myoder'
+                  })
+                }
             })
-            wx.switchTab({
-              url: '../myoder/myoder'
-          })
         } else {
           wx.showToast({
             title: '提交失败',
+            icon: 'none',
             duration: 2000
         })
         }

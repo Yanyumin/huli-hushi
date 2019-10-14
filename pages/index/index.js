@@ -62,7 +62,7 @@ Page({
           type: '',
           nurseId: wx.getStorageSync('userInfo').Id
       }
-  }).then(res => {
+    }).then(res => {
       let { NurseList } = res.data
       let arr = []
       for (let i in NurseList) {
@@ -77,6 +77,9 @@ Page({
       this.setData({
           oderList: arr
       })
+            
+      wx.hideNavigationBarLoading(); //完成停止加载图标
+      wx.stopPullDownRefresh();
     })
   },
   clickOrder(e) {
@@ -166,8 +169,6 @@ Page({
             url: '/pages/login/login',
         });
     }
-    this.getList()
-    this.getTodayList()
   },
 
   /**
@@ -181,7 +182,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getList()
+    this.getTodayList()
+    this.getTodayList()
   },
 
   /**
@@ -202,33 +205,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    let that = this
     wx.showNavigationBarLoading(); //在标题栏中显示加载图标
-    pullDownrequest({
-      url: 'NurseOrder/GetNurseList',
-      data: {
-          type: '',
-          nurseId: wx.getStorageSync('userInfo').Id
-      }
-  }).then(res => {
-      let { NurseList } = res.data
-      let arr = []
-      for (let i in NurseList) {
-        let obj = {}
-        if (NurseList[i].OrderStatus == 0) {
-          NurseList[i].status = NurseList[i].OrderStatus
-          NurseList[i].Price = NurseList[i].ItemMoney
-          obj = NurseList[i]
-          arr.push(obj)
-        }
-      }
-      console.log(NurseList)
-      that.setData({
-          oderList: arr
-      })
-      
-      that.getTodayList()
-    })
+    this.getList()
   },
 
   /**

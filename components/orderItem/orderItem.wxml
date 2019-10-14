@@ -34,8 +34,8 @@
                 </view>
             </view>
         </view>
-        <view class="orderHandle" wx:if="{{item.status != 5 && item.status != 1 && item.status != 3 && item.status != 10 &&  item.status != 9}}">
-            <button wx:if="{{item.status == 2 || item.status == 12}}" data-index="{{item.status}}" bindtap="startService"  data-id="{{ item.OrderId }}">
+        <view class="orderHandle" wx:if="{{item.IsStart && item.status != 5 && item.status != 1 && item.status != 3 && item.status != 10 &&  item.status != 9}}">
+            <button wx:if="{{item.IsStart && (item.status == 2 || item.status == 12)}}" data-index="{{item.status}}" bindtap="startService"  data-id="{{ item.OrderId }}">
                 开始服务
             </button>
             <block wx:if="{{item.status == 0}}">

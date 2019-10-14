@@ -99,6 +99,9 @@ Page({
               }
           }).then(res => {
               if (res.data.ResultCode == 1) {
+                wx.setStorageSync('token', res.data.row.token)
+                wx.setStorageSync('userInfo', res.data.row)
+                wx.setStorageSync('haveInfo', res.data.Result)
                   wx.showToast({
                       title: '登录成功',
                       icon: 'success',
@@ -187,7 +190,7 @@ Page({
   onLoad: function (options) {
       this.GetHospitallName()
       // 页面初始化 options为页面跳转所带来的参数
-      //   wx.clearStorageSync(); //清除缓存
+        wx.clearStorageSync(); //清除缓存
       wx.login({
           success(res) {
               if (res.code) {

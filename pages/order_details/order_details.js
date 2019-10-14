@@ -560,7 +560,17 @@ Page({
         }).then(res => {
             console.log(res);
             if (res.data.ResultCode == '0') {
-
+                
+                wx.showToast({
+                    title: '取消订单成功',
+                    icon: 'success',
+                    duration: 2000,
+                    success: function () {
+                        wx.switchTab({
+                            url: '../myoder/myoder'
+                        })
+                    }
+                })
             } else {
                 Toast.fail(res.data.ResultMsg);
             }
@@ -895,7 +905,8 @@ Page({
                     servetime: nurse.RegDate + ' ' + nurse.RegTime,
                     history: caseImgs,
                     pricelist: nurse.ItemMoney,
-                    remark: nurse.Remark
+                    remark: nurse.Remark,
+                    IsStart: nurse.IsStart
                 }
                 let serviceDataObj = {
                     id: nurse.OrderId,

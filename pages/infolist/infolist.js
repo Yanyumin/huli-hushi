@@ -98,7 +98,8 @@ Page({
                     history: caseImgs,
                     pricelist: details[0].ItemMoney,
                     remark: details[0].Remark,
-                    id: details[0].OrderId
+                    id: details[0].OrderId,
+                    IsStart: details[0].IsStart
                 }
                 this.setData({
                     datas: datasArr,

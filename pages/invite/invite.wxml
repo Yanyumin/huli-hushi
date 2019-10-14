@@ -12,5 +12,6 @@
       <text>{{item.PatientName}}</text>
       <van-icon name="arrow" />
     </view>
+    <none wx:if="{{list.length == 0}}"></none>
   </view>
 </view>

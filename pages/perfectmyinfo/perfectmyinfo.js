@@ -106,42 +106,42 @@ Page({
         if (this.data.workUnit == '') {
             wx.showToast({
                 title: '请填写医院名',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (this.data.userName == '') {
             wx.showToast({
                 title: '请填写姓名',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (this.data.cardNo == '') {
             wx.showToast({
                 title: '请填写身份证号',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (!checkIDCard(this.data.cardNo)) {
             wx.showToast({
                 title: '身份证号格式不正确',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (this.data.phone == '') {
             wx.showToast({
                 title: '请填写手机号码',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (!phoneRes.test(this.data.phone)) {
             wx.showToast({
                 title: '手机号码格式不正确',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return

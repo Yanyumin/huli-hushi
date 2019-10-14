@@ -139,7 +139,7 @@ Page({
               } else {
                 wx.showToast({
                   title: '提交失败',
-                  icon: 'error',
+                  icon: 'none',
                   duration: 2000
                 })
               }
@@ -147,6 +147,7 @@ Page({
         } else {
           wx.showToast({
             title: '提交失败',
+            icon: 'none',
             duration: 2000
           })
         }

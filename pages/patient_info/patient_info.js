@@ -48,6 +48,7 @@ Page({
           
           wx.showToast({
             title: '保存失败',
+            icon: 'none',
             duration: 2000
         })
         }

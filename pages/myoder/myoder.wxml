@@ -7,6 +7,7 @@
             bindchange="clickOrder"
             bind:cancelService='sureCancel'
             bind:toAppraise='toAppraise'
+            bind:toquxiao='toquxiao'
             datas="{{oderList}}"
             data-index="{{index}}">
         </orderItem>

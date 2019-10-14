@@ -410,7 +410,7 @@
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
                             <text wx:if="{{!safetyImg}}">请拍照记录</text>
-                            {{goOutAddress}}
+                            {{safetyAddress}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
@@ -421,8 +421,8 @@
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                               <text wx:if="{{safetyClock}}">已打卡</text>
-                                <text wx:else="{{!safetyClock}}" style="background-color: red;">未打卡</text>
+                               <text wx:if="{{safetyClock || safetyAddress}}">已打卡</text>
+                                <text wx:else="{{!safetyClock || !safetyAddress}}" style="background-color: red;">未打卡</text>
                             </view>
                             <image bindtap="onSafety" mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>

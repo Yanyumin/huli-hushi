@@ -135,56 +135,56 @@ Page({
         if (this.data.userInfo.IDCard == '') {
             wx.showToast({
                 title: '请填写身份证号',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (!checkIDCard(this.data.userInfo.IDCard)) {
             wx.showToast({
                 title: '身份证号格式不正确',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (this.data.userInfo.ContactPhone == '') {
             wx.showToast({
                 title: '请填写手机号码',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (!phoneRes.test(this.data.userInfo.ContactPhone)) {
             wx.showToast({
                 title: '手机号码格式不正确',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (this.data.userInfo.ContactAddress == '') {
             wx.showToast({
                 title: '请输入联系地址',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (this.data.userInfo.IDCardImage == '') {
             wx.showToast({
                 title: '请上传身份证正面照片',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return
         } else if (this.data.userInfo.IDCardImage2 == '') {
           wx.showToast({
               title: '请上传身份证背面照片',
-              icon: 'error',
+              icon: 'none',
               duration: 2000
           })
           return
         } else if (this.data.userInfo.OtherImages.length == 0) {
             wx.showToast({
                 title: '请上传至少一张证书照片',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return

@@ -46,6 +46,7 @@ Page({
         } else {
           wx.showToast({
             title: '无数据',
+            icon: 'none',
             duration: 2000
           })
         }
@@ -139,6 +140,7 @@ Page({
         } else {
           wx.showToast({
             title: '保存失败',
+            icon: 'none',
             duration: 2000
           })
         }

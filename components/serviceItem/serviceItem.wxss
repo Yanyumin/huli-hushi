@@ -1,7 +1,7 @@
 /* components/serviceItem/serviceItem.wxss */
 .thisProject {
  margin-top: 15rpx;
-  padding: 0rpx 10rpx;
+  padding: 20rpx 10rpx;
   font-size: 30rpx;
   display: flex;
   border-bottom: 1px solid #e5e5e5;
