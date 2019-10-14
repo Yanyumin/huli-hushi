@@ -51,8 +51,6 @@ Page({
                     Password
                 }
             }).then(res => {
-                console.log(res);
-
                 if (res.data.ResultCode == 1) {
                     wx.showToast({
                         title: '登录成功',
@@ -100,8 +98,6 @@ Page({
                     HospitalId:that.data.hospitaNo
                 }
             }).then(res => {
-                console.log(res);
-
                 if (res.data.ResultCode == 1) {
                     wx.showToast({
                         title: '登录成功',
@@ -154,8 +150,6 @@ Page({
         });
     },
     handleGetUserInfo(e) {
-        console.log(e.detail.userInfo);
-
         wx.setStorageSync("userinfo", e.detail.userInfo);
         // 1 跳转回上一页
         //   wx.navigateBack({
@@ -196,8 +190,6 @@ Page({
         //   wx.clearStorageSync(); //清除缓存
         wx.login({
             success(res) {
-                console.log();
-
                 if (res.code) {
                     wx.request({
                         url: 'https://api.gdbkyz.com/AppUser/api/Auth/Login',
@@ -208,7 +200,6 @@ Page({
                         success(res) {
                             wx.hideLoading()
                             if (res.statusCode == "200") {
-                                console.log(res)
                                 wx.setStorageSync('cookies', res.header['Set-Cookie'])
                             } else {}
                         }

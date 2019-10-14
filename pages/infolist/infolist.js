@@ -20,7 +20,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log(options);
         let id = options.id
         let infolist = this.data.infolist
         this.setData({
@@ -61,8 +60,6 @@ Page({
         this.setData({
             remark: e.detail.value
         })
-        console.log(this.data.remark);
-
     },
     getOrderDetail() {
         request({
@@ -71,8 +68,6 @@ Page({
                 orderId: this.data.orderId
             }
         }).then(res => {
-            console.log(res);
-            
             if (res.data.ResultCode == '0') {
                 let details = res.data.NurseList
                 let caseImgs = ''
@@ -109,8 +104,6 @@ Page({
                     datas: datasArr,
                     infolist: patientObj
                 })
-                console.log(this.data.datas);
-
             }
         })
     },
@@ -125,7 +118,6 @@ Page({
         })
     },
     acceptService(e) {
-        console.log(e.detail.value)
         request({
             url: 'NurseOrder/ReceiveSuccess',
             data: {
@@ -147,8 +139,6 @@ Page({
         })
     },
     cancelService(e) {
-        console.log(e);
-
         this.setData({
             show: true,
             canOrderId: e.detail.value
@@ -208,7 +198,6 @@ Page({
                 Score: '',
             }
         }).then(res => {
-            console.log(res);
             if (res.data.ResultCode == '0') {
                 wx.showToast({
                     title: '成功结束服务',

@@ -52,7 +52,6 @@ Page({
         })
     },
     sexBindChange(e) {
-        console.log(e);
         if (e.detail.value == '0') {
             this.setData({
                 sex: true

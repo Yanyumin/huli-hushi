@@ -76,8 +76,6 @@ Page({
         url: 'NurseOrder/GetUnitList',
         data: {orderId:  this.data.orderId}
     }).then(res => {
-        console.log(res.data.UnitList);
-        
         // if (res.data.ResultCode === '0') {
           let arr = []
           let unitList = []

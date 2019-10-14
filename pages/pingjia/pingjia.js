@@ -22,7 +22,6 @@ Page({
     orderId: ''
   },
   textareaChange (e) {
-    console.log(e)
     this.setData({
       opinion: e.detail.value
     })

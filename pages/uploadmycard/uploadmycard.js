@@ -58,7 +58,6 @@ Page({
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-                console.log(res)
                 // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                 let tempFilePaths = res.tempFilePaths;
                 let uploaderList = that.data.uploaderList.concat(tempFilePaths);
@@ -121,7 +120,6 @@ Page({
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-                console.log(res)
                 // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                 let tempFilePaths = res.tempFilePaths;
                 let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
@@ -195,7 +193,6 @@ Page({
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-                console.log(res)
                 // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                 let tempFilePaths = res.tempFilePaths;
                 let uploaderList = that.data.certificateList.concat(tempFilePaths);
@@ -211,7 +208,6 @@ Page({
                             that.setData({
                                 certificateImages: certy
                             })
-                            console.log(that.data.certificateImages)
                         }
                     }
                 })
@@ -249,16 +245,12 @@ Page({
         let userId = wx.getStorageSync('userInfo').Id
 
         var user_info = wx.getStorageSync("user_info")
-        console.log(user_info);
         
         user_info.IDCardImage = this.data.img1
         user_info.IDCardImage2 = this.data.img2
         user_info.OtherImages = this.data.certificateImages.join(';')
         user_info.HospitalId = wx.getStorageSync('userInfo').HospitalId
-        console.log(wx.getStorageSync('userInfo'))
         user_info.Id = userId
-        console.log(user_info);
-
         request({
             url: 'NurseRegister/Update',
             method: 'POST',

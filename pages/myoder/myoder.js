@@ -59,24 +59,15 @@ Page({
         this.setData({
             remark: e.detail.value
         })
-        console.log(this.data.remark);
-
     },
-    toAppraise(e) {
-        wx.navigateTo({
-            url: '../pingjia/pingjia?id=' + e.detail.value
-        })
-
-    },
+ 
     cancelService(e) {
-        console.log(e, "拒绝");
         this.setData({
             showRemark: true,
             canOrderId: e.detail.value
         })
     },
     acceptService(e) {
-        console.log("接受");
         let that = this
         request({
             url: 'NurseOrder/ReceiveSuccess',
@@ -85,16 +76,14 @@ Page({
             }
         }).then(res => {
             if (res.data.ResultCode === '0') {
-                wx.showToast({
-                    title: '成功接受',
-                    icon: 'success',
-                    duration: 2000,
-                    success: function () {
-                        console.log('lalalalal')
-                        that.initPage()
-                    }
-                })
-                that.initPage()
+                  wx.showToast({
+                      title: '成功取消',
+                      icon: 'success',
+                      duration: 2000,
+                      success: function () {
+                          that.initPage()
+                      }
+                  })
 
             }
 
@@ -124,32 +113,22 @@ Page({
 
     },
     clickOrder(e) {
-        console.log(e);
         let id = e.detail.value
-        console.log(id);
-
-        console.log("点击查看详情--待确认");
         wx.navigateTo({
             url: '../infolist/infolist?id=' + id,
         })
-
     },
     startService(e) {
-        console.log("开始服务");
-
-        // console.log(e);
         wx.navigateTo({
             url: '../order_details/order_details?id=' + e.detail.value,
         })
         this.initPage()
     },
     onChange(event) {
-        console.log("ddd");
-
         this.initPage()
     },
     toAppraise(e) {
-        wx.navigateTo({
+        wx.redirectTo({
             url: '../pingjia/pingjia?id=' + e.detail.value
         })
     },
@@ -209,7 +188,8 @@ Page({
                 oderList: NurseList
             })
             console.log(this.data.oderList);
-
+      wx.hideNavigationBarLoading(); //完成停止加载图标
+      wx.stopPullDownRefresh();
         })
     },
     /**
@@ -217,7 +197,6 @@ Page({
      */
     onLoad: function (options) {
         this.initPage()
-
     },
 
     /**
@@ -254,63 +233,64 @@ Page({
     onPullDownRefresh: function () {
         let that = this
         wx.showNavigationBarLoading(); //在标题栏中显示加载图标
-        pullDownrequest({
-            url: 'NurseOrder/GetNurseList',
-            data: {
-                type: '',
-                nurseId: wx.getStorageSync('userInfo').Id
-            }
-        }).then(res => {
-            let {
-                NurseList
-            } = res.data
-            let list1 = []
-            let list2 = []
-            let list3 = []
-            let list4 = []
-            let list5 = []
-            for (let i in NurseList) {
-                let obj = NurseList[i]
-                obj.status = obj.OrderStatus
-                obj.Price = obj.ItemMoney
-                if (NurseList[i].OrderStatus == 0) {
-                    list1.push(obj)
-                    that.setData({
-                        oderList1: list1
-                    })
-                } else if (NurseList[i].OrderStatus == 2) {
-                    list2.push(obj)
-                    that.setData({
-                        oderList2: list2
-                    })
-                } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8 || NurseList[i].OrderStatus == 9) {
-                    list3.push(obj)
-                    that.setData({
-                        oderList3: list3
-                    })
-                } else if (NurseList[i].OrderStatus == 11) {
-                    list4.push(obj)
-                    that.setData({
-                        oderList4: list4
-                    })
-                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
-                    list5.push(obj)
-                    that.setData({
-                        oderList5: list5
-                    })
-                } else if (NurseList[i].OrderStatus == 0 || NurseList[i].OrderStatus == 1 || NurseList[i].OrderStatus == 3) {
-                    list3.push(obj)
-                    that.setData({
-                        oderList6: list3
-                    })
-                }
-            }
-            that.setData({
-                oderList: NurseList
-            })
-            console.log(that.data.oderList);
+        this.initPage()
+        // pullDownrequest({
+        //     url: 'NurseOrder/GetNurseList',
+        //     data: {
+        //         type: '',
+        //         nurseId: wx.getStorageSync('userInfo').Id
+        //     }
+        // }).then(res => {
+        //     let {
+        //         NurseList
+        //     } = res.data
+        //     let list1 = []
+        //     let list2 = []
+        //     let list3 = []
+        //     let list4 = []
+        //     let list5 = []
+        //     for (let i in NurseList) {
+        //         let obj = NurseList[i]
+        //         obj.status = obj.OrderStatus
+        //         obj.Price = obj.ItemMoney
+        //         if (NurseList[i].OrderStatus == 0) {
+        //             list1.push(obj)
+        //             this.setData({
+        //                 oderList1: list1
+        //             })
+        //         } else if (NurseList[i].OrderStatus == 2) {
+        //             list2.push(obj)
+        //             this.setData({
+        //                 oderList2: list2
+        //             })
+        //         } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8 || NurseList[i].OrderStatus == 9) {
+        //             list3.push(obj)
+        //             this.setData({
+        //                 oderList3: list3
+        //             })
+        //         } else if (NurseList[i].OrderStatus == 11) {
+        //             list4.push(obj)
+        //             this.setData({
+        //                 oderList4: list4
+        //             })
+        //         } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
+        //             list5.push(obj)
+        //             this.setData({
+        //                 oderList5: list5
+        //             })
+        //         } else if (NurseList[i].OrderStatus == 0 || NurseList[i].OrderStatus == 1 || NurseList[i].OrderStatus == 3) {
+        //             list3.push(obj)
+        //             this.setData({
+        //                 oderList6: list3
+        //             })
+        //         }
+        //     }
+        //     this.setData({
+        //         oderList: NurseList
+        //     })
+        //     console.log(this.data.oderList);
 
-        })
+        // })
     },
 
     /**

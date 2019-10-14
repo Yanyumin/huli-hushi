@@ -63,7 +63,6 @@ Page({
           nurseId: wx.getStorageSync('userInfo').Id
       }
   }).then(res => {
-      console.log(res);
       let { NurseList } = res.data
       let arr = []
       for (let i in NurseList) {
@@ -75,7 +74,6 @@ Page({
           arr.push(obj)
         }
       }
-      console.log(NurseList)
       this.setData({
           oderList: arr
       })
@@ -207,7 +205,6 @@ Page({
           nurseId: wx.getStorageSync('userInfo').Id
       }
   }).then(res => {
-      console.log(res);
       let { NurseList } = res.data
       let arr = []
       for (let i in NurseList) {

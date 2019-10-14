@@ -23,7 +23,6 @@ Page({
         sms: ''
     },
     formSubmit() {
-        console.log("注册");
         let that = this
         let phoneRes = /^1(3|4|5|6|7|8|9)\d{9}$/
         let passwordRes = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{6,16}$/
@@ -88,8 +87,6 @@ Page({
         return true;
     },
     hospitaBindChange(e) {
-        console.log(e);
-
          const {
              value,
          } = e.detail;
@@ -125,7 +122,6 @@ Page({
         });
     },
     codeSubmit() {
-        console.log("发送一个验证码");
         //  this.setData({
         //      userName: e.detail
         //  });

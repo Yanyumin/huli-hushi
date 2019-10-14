@@ -69,7 +69,6 @@ Page({
         })
     },
     sexBindChange(e) {
-        console.log(e);
         let userInfo = this.data.userInfo
         if (e.detail.value == '0') {
             userInfo.Sex = true
@@ -195,7 +194,6 @@ Page({
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-                console.log(res)
                 // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                 let tempFilePaths = res.tempFilePaths;
                 wx.uploadFile({
@@ -273,7 +271,6 @@ Page({
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
-              console.log(res)
               // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
               let tempFilePaths = res.tempFilePaths;
               let uploaderList = that.data.uploaderList.concat(tempFilePaths);
@@ -338,7 +335,6 @@ Page({
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
-              console.log(res)
               // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
               let tempFilePaths = res.tempFilePaths;
               let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
@@ -430,7 +426,6 @@ Page({
                           that.setData({
                               certificateImages: certy
                           })
-                          console.log(that.data.certificateImages)
                       }
                   }
               })
