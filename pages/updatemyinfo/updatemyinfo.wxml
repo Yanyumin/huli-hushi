@@ -2,8 +2,8 @@
 <view class="pageContainer">
   <view class="headerBox cell">
     <text>头像</text>
-    <view class="logoBox inputBox" bindtap="certificateUpload">
-      <image src="{{userInfo.Logo || '../../img/userNo.png'}}}}" />
+    <view class="logoBox inputBox" bindtap="logoUpload">
+      <image src="{{userInfo.Logo || '../../img/userNo.png'}}" />
       <van-icon name="arrow" />
     </view>
   </view>
@@ -71,13 +71,13 @@
   <view class="cell">
     <text>手机号码</text>
     <view class="inputBox">
-       <!-- <van-field
-        value="{{ phone }}"
+       <van-field
+        value="{{ userInfo.ContactPhone }}"
         placeholder="请输入手机号"
         border="{{ false }}"
         bind:change="phoneChange"
-      /> -->
-      <text class="phoneText">{{userInfo.ContactPhone}}</text>
+      />
+      <!-- <text class="phoneText">{{userInfo.ContactPhone}}</text> -->
     </view>
   </view>
   <view class="cell">
@@ -114,28 +114,28 @@
     </view>
     <view class='ui_uploader_cell'>
       <!-- 根据已选择的图片临时路径数组展示图片-->
-      <view class='ui_uploader_item' wx:if="{{!userInfo.IDCardImage}}">
+      <view class='ui_uploader_item' wx:if="{{userInfo.IDCardImage}}">
         <!-- 删除-->
         <van-icon name="clear"  bindtap='clearImg' type="clear"/>
         <!-- 图片-->
         <image bindtap='showImg' src='{{userInfo.IDCardImage}}'></image>
       </view>
       <!-- 上传按钮+框 -->
-      <view class='ui_uploader' bindtap='upload' wx:if="{{showUpload}}">
+      <view class='ui_uploader' bindtap='upload' wx:if="{{!userInfo.IDCardImage}}">
         <van-icon name="plus" />
         <view class='uploadTip'>上传身份证正面</view>
       </view>
     </view>
     <view class='ui_uploader_cell'>
       <!-- 根据已选择的图片临时路径数组展示图片-->
-      <view class='ui_uploader_item' wx:if="{{!userInfo.IDCardImage2}}">
+      <view class='ui_uploader_item' wx:if="{{userInfo.IDCardImage2}}">
         <!-- 删除-->
         <van-icon name="clear"  bindtap='clearImg1' type="clear"/>
         <!-- 图片-->
         <image bindtap='showImg1' src='{{userInfo.IDCardImage2}}'></image>
       </view>
       <!-- 上传按钮+框 -->
-      <view class='ui_uploader' bindtap='upload1' wx:if="{{showUpload1}}">
+      <view class='ui_uploader' bindtap='upload1' wx:if="{{!userInfo.IDCardImage2}}">
         <van-icon name="plus" />
         <view class='uploadTip'>上传身份证反面</view>
       </view>
@@ -155,14 +155,14 @@
     </view>
     <view class='ui_uploader_cell'>
       <!-- 根据已选择的图片临时路径数组展示图片-->
-      <view class='ui_uploader_item' wx:for="{{certificateList}}" wx:key="{{index}}">
+      <view class='ui_uploader_item' wx:for="{{userInfo.OtherImages}}" wx:key="{{index}}">
         <!-- 删除-->
         <van-icon name="clear"  bindtap='certificateClearImg' data-index="{{index}}" type="clear"/>
         <!-- 图片-->
         <image bindtap='certificateShowImg' data-index="{{index}}" src='{{item}}'></image>
       </view>
       <!-- 上传按钮+框 -->
-      <view class='ui_uploader' bindtap='certificateUpload' wx:if="{{certificateShowUpload}}">
+      <view class='ui_uploader' bindtap='certificateUpload' wx:if="{{!userInfo.OtherImages || certificateShowUpload}}">
         <van-icon name="plus" />
         <view class='uploadTip'>上传证书正面</view>
       </view>

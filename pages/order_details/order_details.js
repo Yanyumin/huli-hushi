@@ -789,6 +789,7 @@ Page({
                         tabs,
                         isPinggu: true
                     })
+                    this.getdetails()
                 } else {
                     Toast.fail(res.data.ResultMsg);
                 }
@@ -918,7 +919,7 @@ Page({
                     })
                 } else if (infolist.status == 5) {
 
-                } else if (infolist.status == 7) {
+                } else if (infolist.status == 7 || infolist.status == 12) {
                     tabs[0].isShow = false
                     tabs[1].isShow = false
                     tabs[3].isShow = false
@@ -965,9 +966,48 @@ Page({
         })
     },
     goPay() {
-        wx.navigateTo({
-            url: '../costList/costList?id=' + this.data.orderId
-        })
+        let that = this
+        if (!this.data.gmywsw) {
+            Toast.fail('请选择过敏药物食物');
+        } else if (!this.data.xlzt) {
+            Toast.fail('请选择心理状态');
+        } else if (!this.data.xy || !this.data.yj || !this.data.dxb) {
+            Toast.fail('请先勾选');
+        } else if (!this.data.yszt) {
+            Toast.fail('请选择意识状态');
+        } else if (!this.data.zznl) {
+            Toast.fail('请选择自主能力');
+        } else if (!this.data.pgdj) {
+            Toast.fail('请选择评估等级');
+        } else if (!this.data.hldj) {
+            Toast.fail('请选择护理等级');
+        } else {
+            request({
+                url: 'NurseOrder/NurseAssessment',
+                data: {
+                    orderId: that.data.orderId,
+                    gmywsw: that.data.gmywsw,
+                    xlzt: that.data.xlzt,
+                    xy: that.data.xy,
+                    yj: that.data.yj,
+                    dxb: that.data.dxb,
+                    yszt: that.data.yszt,
+                    zznl: that.data.zznl,
+                    pgdj: that.data.pgdj,
+                    hldj: that.data.hldj
+                }
+            }).then(res => {
+                console.log(res);
+
+                if (res.data.ResultCode === '0') {
+                    wx.navigateTo({
+                        url: '../costList/costList?id=' + this.data.orderId
+                    })
+                } else {
+                    Toast.fail(res.data.ResultMsg);
+                }
+            })
+        }
     },
     /**
      * 生命周期函数--监听页面加载

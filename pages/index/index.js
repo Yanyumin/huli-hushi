@@ -98,6 +98,7 @@ Page({
                 duration: 2000,
                 success: function () {
                   that.getList()
+                  that.getTodayList()
                 }
             })
         }

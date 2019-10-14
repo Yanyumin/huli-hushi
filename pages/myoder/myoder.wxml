@@ -60,7 +60,7 @@
             bind:toquxiao='toquxiao'
             data-status="{{oderList6[0].status}}">
         </orderItem>
-        <none wx:if="{{oderList3.length == 0}}"></none>
+        <none wx:if="{{oderList6.length == 0}}"></none>
     </van-tab>
     <van-tab title="待评价">
         <orderItem 
