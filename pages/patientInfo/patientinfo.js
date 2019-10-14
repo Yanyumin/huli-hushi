@@ -84,7 +84,6 @@ Page({
           
           wx.showToast({
             title: '保存失败',
-            icon: 'error',
             duration: 2000
         })
         }
