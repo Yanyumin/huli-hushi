@@ -562,7 +562,7 @@ Page({
             if (res.data.ResultCode == '0') {
 
             } else {
-                Toast.fail(res.data.ResultMsg);
+                Toast.fail(res.data.ResultMsg); 
             }
         })
     },
