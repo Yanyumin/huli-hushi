@@ -426,7 +426,7 @@ Page({
     onarriveClock() {
         let that = this
 
-        if (that.goOutClock || that.data.allDetails.OneConfirmTime) {
+        if (that.data.goOutClock || that.data.allDetails.OneConfirmTime) {
             wx.chooseImage({
                 count: 1,
                 sizeType: ['original', 'compressed'],
