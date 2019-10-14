@@ -147,7 +147,6 @@ Page({
         } else {
           wx.showToast({
             title: '提交失败',
-            icon: 'error',
             duration: 2000
           })
         }

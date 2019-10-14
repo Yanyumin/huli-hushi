@@ -77,7 +77,7 @@ Page({
         }).then(res => {
             if (res.data.ResultCode === '0') {
                   wx.showToast({
-                      title: '成功取消',
+                      title: '成功接受',
                       icon: 'success',
                       duration: 2000,
                       success: function () {
@@ -149,11 +149,18 @@ Page({
             let list4 = []
             let list5 = []
             let list6 = []
+            this.setData({
+                oderList1: list1,
+                oderList2: list2,
+                oderList3: list3,
+                oderList4: list4,
+                oderList5: list5,
+                oderList6: list6
+            })
             for (let i in NurseList) {
                 let obj = NurseList[i]
                 obj.status = obj.OrderStatus
                 obj.Price = obj.ItemMoney
-                debugger
                 if (NurseList[i].OrderStatus == 0) {
                     list1.push(obj)
                     this.setData({
