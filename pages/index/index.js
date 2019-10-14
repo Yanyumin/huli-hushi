@@ -128,6 +128,10 @@ Page({
   },
   sureCancel () {
     let that = this
+    
+    wx.showLoading({
+      title: '加载中',
+    })
     request({
         url: 'NurseOrder/ReceiveFailed',
         data: {orderId: e.detail.value, remark: ''}
@@ -142,6 +146,7 @@ Page({
                 }
             })
         }
+        wx.hideLoading()
     })
   },
   toAppraise(e) {

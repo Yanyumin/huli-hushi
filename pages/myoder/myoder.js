@@ -148,10 +148,12 @@ Page({
             let list3 = []
             let list4 = []
             let list5 = []
+            let list6 = []
             for (let i in NurseList) {
                 let obj = NurseList[i]
                 obj.status = obj.OrderStatus
                 obj.Price = obj.ItemMoney
+                debugger
                 if (NurseList[i].OrderStatus == 0) {
                     list1.push(obj)
                     this.setData({
@@ -162,7 +164,7 @@ Page({
                     this.setData({
                         oderList2: list2
                     })
-                } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 7 || NurseList[i].OrderStatus == 8 || NurseList[i].OrderStatus == 9) {
+                } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 8 || NurseList[i].OrderStatus == 9) {
                     list3.push(obj)
                     this.setData({
                         oderList3: list3
@@ -177,10 +179,10 @@ Page({
                     this.setData({
                         oderList5: list5
                     })
-                } else if (NurseList[i].OrderStatus == 0 || NurseList[i].OrderStatus == 1 || NurseList[i].OrderStatus == 3) {
-                    list3.push(obj)
+                } else if (NurseList[i].OrderStatus == 7) {
+                    list6.push(obj)
                     this.setData({
-                        oderList6: list3
+                        oderList6: list6
                     })
                 }
             }
