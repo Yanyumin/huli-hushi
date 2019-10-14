@@ -30,15 +30,24 @@ Page({
     let amount = e.currentTarget.dataset['amount']
     let index = e.currentTarget.dataset['index']
     let list1 = this.data.list
+      
     let saveCost1 = costList[index].Money
     list1[index].amount = amount+1
     let cost = Number(price) + Number(saveCost1)
+     let allCost = 0
+     for (let i in list1) {
+         allCost += Number(list1[i].Money) * list1[i].amount
+     }
     // list1[index].Money = cost
     // costList = list1
+    
     this.setData({
       cost1: cost,
-      list: list1
+      list: list1,
+      allCost
     })
+    console.log(allCost);
+    
     console.log(this.data.list);
     // this.getUnitList()
   },
@@ -50,11 +59,16 @@ Page({
     let list1 = this.data.list
     list1[index].amount = amount-1
     let cost = Number(price) - Number(saveCost1)
+        let allCost = 0
+        for (let i in list1) {
+            allCost += Number(list1[i].Money) * list1[i].amount
+        }
     // list1[index].Money = cost
     // costList = list1
     this.setData({
       cost1: cost,
-      list: list1
+      list: list1,
+      allCost
     })
   },
   getUnitList () {
@@ -81,7 +95,7 @@ Page({
             unitList: unitList,
             allCost
           })
-          // console.log(this.data.);
+          console.log(this.data.allCost);
           
           costList = arr
         // }

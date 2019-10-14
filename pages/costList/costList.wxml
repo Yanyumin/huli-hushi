@@ -29,7 +29,7 @@
         <view class="item">
           <text class='text firstView'></text>
           <view class='text firstView'>
-            单价总计
+            总计
           </view>
           <text class='text'>{{allCost}}</text>
         </view>
