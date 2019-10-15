@@ -46,6 +46,12 @@ Page({
           otherImgs: imgs,
           birthday: Birth
         })
+      } else if (res.data.ResultCode === 2) {
+          wx.showToast({
+              title: '很抱歉,您的审核未通过,请重新提交',
+              icon: '',
+              duration: 2000
+          })
       }
     })
   },

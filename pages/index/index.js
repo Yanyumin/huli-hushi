@@ -2,6 +2,7 @@
 const {
   request, pullDownrequest
 } = require("../../utils/request")
+import Dialog from 'vant-weapp/dialog/dialog';
 //获取应用实例
 Page({
 
@@ -169,6 +170,47 @@ Page({
             url: '/pages/login/login',
         });
     }
+
+
+    let userId = wx.getStorageSync('userInfo').Id
+    let params = {
+        Id: userId
+    }
+     request({
+         url: 'NurseRegister/Detail',
+         data: params,
+         method: 'GET'
+     }).then(res => {
+         console.log(res);
+
+         if (res.data.ResultCode === 1) {
+             wx.setStorageSync('userInfo', res.data.row)
+             if (res.data.row.AuditStatus === 1) {
+                 console.log('通过');
+
+                 // wx.showToast({
+                 //     title: '您的审核已通过!',
+                 //     icon: 'none',
+                 //     duration: 2000
+                 // })
+             } else if (res.data.row.AuditStatus === 2) {
+                 console.log('不通过')
+
+                 Dialog.confirm({
+                     title: '您的审核未通过',
+                     message: '原因: ' + res.data.row.RejectReason + ' \n 去重新提交'
+                 }).then(() => {
+                     wx.navigateTo({
+                         url: '../../perfectmyinfo/perfectmyinfo'
+                     })
+                 }).catch(() => {
+                     // on cancel
+                 });
+             }
+
+
+         }
+     })
   },
 
   /**
@@ -185,6 +227,8 @@ Page({
     this.getList()
     this.getTodayList()
     this.getTodayList()
+    
+   
   },
 
   /**

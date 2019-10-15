@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/updatemyinfo/updatemyinfo",
     "pages/costList/costList",
     "pages/order_details/order_details",
     "pages/login/login",
@@ -22,8 +23,7 @@
     "pages/myinfo/myinfo",
     "pages/infolist/infolist",
     "pages/schedule/schedule",
-    "pages/pingjia/pingjia",
-    "pages/updatemyinfo/updatemyinfo"
+    "pages/pingjia/pingjia"
   ],
   "tabBar": {
     "color": "#a9b7b7",
@@ -82,7 +82,8 @@
     "van-stepper": "vant-weapp/stepper",
     "van-rate": "vant-weapp/rate",
     "van-search": "vant-weapp/search",
-    "van-popup": "vant-weapp/popup"
+    "van-popup": "vant-weapp/popup",
+      "van-dialog": "vant-weapp/dialog"
   },
   "permission": {
     "scope.userLocation": {
