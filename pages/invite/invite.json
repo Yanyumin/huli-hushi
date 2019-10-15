@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "我的邀请",
-  "none": "../../components/none/none"
+  "usingComponents": {
+    "none": "../../components/none/none"
+  }
 }

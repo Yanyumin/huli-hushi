@@ -99,7 +99,9 @@ Page({
                     pricelist: details[0].ItemMoney,
                     remark: details[0].Remark,
                     id: details[0].OrderId,
-                    IsStart: details[0].IsStart
+                    IsStart: details[0].IsStart,
+                    Score: details[0].Score,
+                    EvaluateContent: details[0].EvaluateContent
                 }
                 this.setData({
                     datas: datasArr,
@@ -148,7 +150,7 @@ Page({
     },
     sureCancel() {
         let that = this
-        if (!this.data.remark) {
+        if (!that.data.remark) {
             wx.showToast({
                 title: '请填写原因',
                 icon: 'error',
@@ -159,19 +161,20 @@ Page({
         request({
             url: 'NurseOrder/ReceiveFailed',
             data: {
-                orderId: this.data.canOrderId,
-                remark: this.data.remark
+                orderId: that.data.canOrderId,
+                remark: that.data.remark
             }
         }).then(res => {
             if (res.data.ResultCode === '0') {
-                that.setData({
-                    show: false
-                })
                 wx.showToast({
                     title: '成功退回',
                     icon: 'success',
                     duration: 2000,
                     success:function () {
+                        that.setData({
+                            show: false,
+                            remark: ''
+                        })
                          wx.switchTab({
                              url: '../index/index'
                          })
@@ -182,7 +185,8 @@ Page({
     },
     falseCancel() {
         this.setData({
-            show: false
+            show: false, 
+            remark: ''
         })
     },
     successService(e) {

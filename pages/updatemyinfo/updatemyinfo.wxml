@@ -155,7 +155,7 @@
     </view>
     <view class='ui_uploader_cell'>
       <!-- 根据已选择的图片临时路径数组展示图片-->
-      <view class='ui_uploader_item' wx:for="{{userInfo.OtherImages}}" wx:key="{{index}}">
+      <view class='ui_uploader_item' wx:for="{{userInfo.cardImages}}" wx:key="{{index}}">
         <!-- 删除-->
         <van-icon name="clear"  bindtap='certificateClearImg' data-index="{{index}}" type="clear"/>
         <!-- 图片-->

@@ -1,7 +1,7 @@
 // pages/perfectmyinfo/perfectmyinfo.js
 import Toast from 'vant-weapp/toast/toast';
 import {
-    checkIDCard
+    checkIDCard,IdCardBirthday
 } from '../../utils/util'
 const {
     request
@@ -151,7 +151,7 @@ Page({
             Name: this.data.userName,
             Sex: this.data.sex,
             HospitalName: this.data.workUnit,
-            Birthday: this.data.birthday,
+            Birthday: IdCardBirthday(this.data.cardNo),
             ContactPhone: this.data.phone,
             ContactAddress: this.data.address,
             DepartmentName: this.data.depart,

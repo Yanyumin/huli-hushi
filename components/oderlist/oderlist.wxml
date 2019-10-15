@@ -58,6 +58,16 @@
             <view class="info_title">备注</view>
             <view class="info_name">{{item.remark?item.remark:'无'}}</view>
         </view>
+        <view class="info_list" wx:if="{{item.Score}}">
+            <view class="info_title">我的评分</view>
+            <view class="info_name">
+                <van-rate readonly value="{{ item.Score }}" />
+            </view>
+        </view>
+        <view class="info_list" wx:if="{{item.EvaluateContent}}">
+            <view class="info_title">我的评价</view>
+            <view class="info_name">{{item.EvaluateContent?item.EvaluateContent:'无'}}</view>
+        </view>
     </view>
     <view class="service_btn">
         <block wx:if="{{item.IsStart}}">

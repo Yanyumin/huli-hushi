@@ -152,7 +152,9 @@ Page({
             Zznl: ['正常', '全瘫', '截瘫', '偏瘫'],
             Pgdj: ['一般', '病重', '病危'],
             Hldj: ['一级', '二级', '三级', '特级'],
-        }
+        },
+        showCancel: false,
+        Cancelremark: ''
     },
     //到达安全地点打卡
     onSafety() {
@@ -549,22 +551,46 @@ Page({
         return true;
 
     },
-    //取消订单
-    onOderderOff() {
-
+    
+    falseCancel() {
+        this.setData({
+            Cancelremark: '',
+            showCancel: false
+        })
+    },
+    remarkChange: function (e) {
+        this.setData({
+            Cancelremark: e.detail.value
+        })
+    },
+    
+    sureCancel() {
+        let that = this
+        if (!that.data.Cancelremark) {
+            wx.showToast({
+                title: '请填写原因',
+                icon: 'error',
+                duration: 2000
+            })
+            return
+        }
         request({
-            url: 'NurseOrder/BillOrderFailed',
+            url: 'NurseOrder/ReceiveFailed',
             data: {
-                orderId: this.data.orderId,
+                orderId: that.data.orderId,
+                remark: that.data.Cancelremark
             }
         }).then(res => {
-            console.log(res);
-            if (res.data.ResultCode == '0') {
+            if (res.data.ResultCode === '0') {
                 wx.showToast({
                     title: '取消订单成功',
                     icon: 'success',
                     duration: 2000,
                     success: function () {
+                        that.setData({
+                            Cancelremark: '',
+                            showCancel: false
+                        })
                         wx.switchTab({
                             url: '../myoder/myoder'
                         })
@@ -573,6 +599,12 @@ Page({
             } else {
                 Toast.fail(res.data.ResultMsg); 
             }
+        })
+    },
+    //取消订单
+    onOderderOff() {
+        this.setData({
+            showCancel: true
         })
     },
 

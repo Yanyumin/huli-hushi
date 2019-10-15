@@ -79,9 +79,16 @@ const checkIDCard = (idcode) => {
   return !!(last === lastNo && format)
 }
 
+// 根据身份证号获取出生日期
+const IdCardBirthday = (UUserCard) => {
+  let birth = UUserCard.substring(6, 10) + "-" + UUserCard.substring(10, 12) + "-" + UUserCard.substring(12, 14);
+  return birth;
+}
+
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
   checkIDCard: checkIDCard,
-  formatHour: formatHour
+  formatHour: formatHour,
+  IdCardBirthday: IdCardBirthday
 }

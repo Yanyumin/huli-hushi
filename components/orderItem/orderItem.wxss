@@ -26,15 +26,14 @@
   border-bottom: 1px solid #ededed;
 }
 .orderInfo .imgBox {
-  height: 144rpx;
-  width: 144rpx;
+  flex: 2;
 }
 .orderInfo .imgBox image {
   height: 100%;
   width: 100%;
 }
 .info {
-  flex: 1;
+  flex: 7;
   margin-left: 28rpx;
 }
 .info .name {

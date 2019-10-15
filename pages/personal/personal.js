@@ -34,6 +34,11 @@ Page({
             url: '../schedule/schedule',
         })
     },
+    toUpdateInfo () {
+        wx.navigateTo({
+            url: '../updatemyinfo/updatemyinfo',
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
