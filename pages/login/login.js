@@ -94,8 +94,8 @@ Page({
               method: 'POST',
               url: 'NurseRegister/SignInByPhone',
               data: {
-                  phone,
-                  HospitalId:that.data.hospitaNo
+                  Phone:phone,
+                  HospitalId: that.data.hospitaNo
               }
           }).then(res => {
               if (res.data.ResultCode == 1) {
