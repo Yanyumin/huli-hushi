@@ -31,5 +31,13 @@
         <view class="van-cell-text">排班管理</view>
       </view>
     </van-cell>
+    <van-cell value='' bindtap="toUpdateInfo">
+      <view slot="title">
+        <view class="iconBox update">
+          <image src="../../img/edit1.png" />
+        </view>
+        <view class="van-cell-text">修改个人资料</view>
+      </view>
+    </van-cell>
   </view>
 </view>

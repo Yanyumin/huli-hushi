@@ -22,14 +22,14 @@ Page({
     },
     sureCancel() {
         let that = this
-        // if (!that.data.remark) {
-        //     wx.showToast({
-        //         title: '请填写原因',
-        //         icon: 'error',
-        //         duration: 2000
-        //     })
-        //     return
-        // }
+        if (!that.data.remark) {
+            wx.showToast({
+                title: '请填写原因',
+                icon: 'error',
+                duration: 2000
+            })
+            return
+        }
         request({
             url: 'NurseOrder/ReceiveFailed',
             data: {
@@ -43,6 +43,10 @@ Page({
                     icon: 'success',
                     duration: 2000,
                     success: function () {
+                        that.setData({
+                            showRemark: false,
+                            remark: ''
+                        })
                         that.initPage()
 
                     }
@@ -52,7 +56,8 @@ Page({
     },
     falseCancel() {
         this.setData({
-            showRemark: false
+            showRemark: false,
+            remark: ''
         })
     },
     remarkChange: function (e) {

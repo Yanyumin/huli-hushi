@@ -37,6 +37,9 @@
 .schedule {
   background: skyblue;
 }
+.update {
+  background: rgba(168, 227, 223, 1);
+}
 .iconBox image {
   width: 50rpx;
   height: 50rpx;

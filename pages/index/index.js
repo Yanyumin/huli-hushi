@@ -226,7 +226,6 @@ Page({
   onShow: function () {
     this.getList()
     this.getTodayList()
-    this.getTodayList()
     
    
   },

@@ -1,7 +1,7 @@
 // pages/perfectmyinfo/perfectmyinfo.js
 import Toast from 'vant-weapp/toast/toast';
 import {
-    checkIDCard
+    checkIDCard, IdCardBirthday
 } from '../../utils/util'
 const {
     request
@@ -189,9 +189,10 @@ Page({
             })
             return
           }
-          let otherImgs = this.data.userInfo.OtherImages.join(',')
+          let otherImgs = this.data.userInfo.cardImages.join(',')
           let userInfo = this.data.userInfo
           userInfo.OtherImages = otherImgs
+          userInfo.Birthday = IdCardBirthday(this.data.userInfo.IDCard),
           this.setData({
               userInfo
           })
@@ -199,6 +200,7 @@ Page({
             title: '正在提交',
             mask: 'true'
           })
+          delete this.data.userInfo.cardImages
         let params = this.data.userInfo
         request({
             url: 'NurseRegister/Update',
@@ -411,7 +413,7 @@ Page({
   // 删除证书图片
   certificateClearImg: function (e) {
       var nowList = []; //新数据
-      var uploaderList = this.data.userInfo.OtherImages; //原数据
+      var uploaderList = this.data.userInfo.cardImages; //原数据
       let index = ''
       for (let i = 0; i < uploaderList.length; i++) {
           if (i == e.currentTarget.dataset.index) {
@@ -423,7 +425,7 @@ Page({
           }
       }
       let userInfo = this.data.userInfo
-      userInfo.OtherImages = nowList
+      userInfo.cardImages = nowList
       this.setData({
           certificateNum: this.data.certificateNum - 1,
           certificateList: nowList,
@@ -460,9 +462,9 @@ Page({
               let uploaderList = that.data.certificateList.concat(tempFilePaths);
               let userInfo = that.data.userInfo
               let otherImgs = ''
-              if (userInfo.OtherImages) {
+              if (userInfo.cardImages) {
 
-                otherImgs = userInfo.OtherImages
+                otherImgs = userInfo.cardImages
               } else {
                   
                 otherImgs = []
@@ -538,7 +540,8 @@ Page({
                 } else {
                     Birth = res.data.row.Birthday.slice(0, 10)
                 }
-                userInfo.OtherImages = imgs
+                // userInfo.OtherImages = imgs
+                userInfo.cardImages = imgs
                 this.setData({
                     userInfo: userInfo,
                     otherImgs: imgs,
