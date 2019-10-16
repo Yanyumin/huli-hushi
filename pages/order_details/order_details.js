@@ -394,6 +394,7 @@ Page({
         } = this.data;
         if (!this.data.goOutClock) {
             Toast.fail('请先打卡');
+            return
         } else {
             request({
                 method: 'POST',
@@ -497,6 +498,7 @@ Page({
 
         if (that.data.patientName == '' || that.data.idenNo == '') {
             Toast.fail('请输入患者姓名或身份证号');
+            return
         } else {
             wx.chooseImage({
                 count: 1,
@@ -617,8 +619,10 @@ Page({
         } = this.data;
         if (!this.data.arriveClock) {
             Toast.fail('请先打卡');
+            return
         } else if (!this.data.isArrive) {
             Toast.fail('请先实名认证');
+            return
         } else {
 
             tabs[2].isShow = false
@@ -753,8 +757,10 @@ Page({
         } = this.data;
         if (!this.data.nurseBeforeClock || !this.data.nurseEndClock) {
             Toast.fail('请先打卡');
+            return
         } else if (this.data.measures == '' || this.data.evaluate == '') {
             Toast.fail('请填写护理记录');
+            return
         } else {
             tabs[4].isShow = false
             tabs[5].isActive = true
@@ -814,18 +820,25 @@ Page({
         } = that.data;
         if (!this.data.gmywsw) {
             Toast.fail('请选择过敏药物食物');
+            return
         } else if (!this.data.xlzt) {
             Toast.fail('请选择心理状态');
+            return
         } else if (!this.data.xy || !this.data.yj || !this.data.dxb) {
             Toast.fail('请先勾选');
+            return
         } else if (!this.data.yszt) {
             Toast.fail('请选择意识状态');
+            return
         } else if (!this.data.zznl) {
             Toast.fail('请选择自主能力');
+            return
         } else if (!this.data.pgdj) {
             Toast.fail('请选择评估等级');
+            return
         } else if (!this.data.hldj) {
             Toast.fail('请选择护理等级');
+            return
         } else if (this.data.arriveClock || this.data.allDetails.TwoConfirmTime) {
             request({
                 url: 'NurseOrder/NurseAssessment',
@@ -1037,18 +1050,25 @@ Page({
         let that = this
         if (!this.data.gmywsw) {
             Toast.fail('请选择过敏药物食物');
+            return
         } else if (!this.data.xlzt) {
             Toast.fail('请选择心理状态');
+            return
         } else if (!this.data.xy || !this.data.yj || !this.data.dxb) {
             Toast.fail('请先勾选');
+            return
         } else if (!this.data.yszt) {
             Toast.fail('请选择意识状态');
+            return
         } else if (!this.data.zznl) {
             Toast.fail('请选择自主能力');
+            return
         } else if (!this.data.pgdj) {
             Toast.fail('请选择评估等级');
+            return
         } else if (!this.data.hldj) {
             Toast.fail('请选择护理等级');
+            return
         } else if (this.data.arriveClock || this.data.allDetails.TwoConfirmTime) {
             request({
                 url: 'NurseOrder/NurseAssessment',
