@@ -71,7 +71,7 @@
     </view>
     <view class="service_btn">
         <block wx:if="{{item.IsStart}}">
-            <button class="btn" bindtap="onStartService" wx:if="{{item.status == 12 ||item.status == 9 ||item.status == 2 || item.status == 3 || item.status == 4 }}" data-index="{{item.id}}">
+            <button class="btn" bindtap="onStartService" wx:if="{{item.status == 5 || item.status == 12 ||item.status == 9 ||item.status == 2 || item.status == 3 || item.status == 4 }}" data-index="{{item.id}}">
                 开始服务
             </button>
         </block>
@@ -83,9 +83,9 @@
                 退回
             </button>
         </view>
-        <view wx:if="{{item.status == 5}}" class="arrive_btn">
+        <!-- <view wx:if="{{item.status == 5}}" class="arrive_btn">
             <button data-index="{{item.id}}" bindtap="successService"> 结束服务</button>
-        </view>
+        </view> -->
         <view wx:if="{{ item.status == 11}}" class="arrive_btn">
             <button data-index="{{item.id}}" bindtap="toAppraise"> 评价</button>
         </view>
