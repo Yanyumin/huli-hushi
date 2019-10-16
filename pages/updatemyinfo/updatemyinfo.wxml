@@ -141,6 +141,30 @@
       </view>
     </view>
   </view>
+      <view class="topic">工作证</view>
+    <view class="contentBox">
+        <view class="uploadTopic">
+            <view>1、请上传您工作证的正面清晰图片</view>
+            <view>2、照片支持jpg/png/jpeg格式，最大不超过4M</view>
+        </view>
+        <view class='ui_uploader_cell'>
+            <!-- 根据已选择的图片临时路径数组展示图片 -->
+            <view class='ui_uploader_item' wx:for="{{userInfo.cardImages}}" wx:key="{{index}}">
+                <!-- 删除 -->
+                <van-icon name="clear" bindtap='workCertificateClearImg' data-index="{{index}}" type="clear" />
+                <!-- 图片 -->
+                <image bindtap='workCertificateShowImg' data-index="{{index}}" src='{{item}}'></image>
+            </view>
+            <!-- 上传按钮+框 -->
+            <view class='ui_uploader' bindtap='workCertificateUpload' wx:if="{{!userInfo.CardImages ||  workCertificateShowUpload}}">
+                <van-icon name="plus" />
+                <view class='uploadTip'>上传证书正面</view>
+            </view>
+        </view>
+    </view>
+    <view class="handleBox">
+        <van-button round color="#ffa500" bindtap="certificateAdd">+增加一张</van-button>
+    </view>
   <view class="topic">
     证书
   </view>
@@ -155,7 +179,7 @@
     </view>
     <view class='ui_uploader_cell'>
       <!-- 根据已选择的图片临时路径数组展示图片-->
-      <view class='ui_uploader_item' wx:for="{{userInfo.cardImages}}" wx:key="{{index}}">
+      <view class='ui_uploader_item' wx:for="{{userInfo.otherImages}}" wx:key="{{index}}">
         <!-- 删除-->
         <van-icon name="clear"  bindtap='certificateClearImg' data-index="{{index}}" type="clear"/>
         <!-- 图片-->

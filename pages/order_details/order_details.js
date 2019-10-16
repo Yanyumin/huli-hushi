@@ -49,7 +49,7 @@ Page({
         gmywsw: '',
         isPinggu: false,
         hldj: '',
-
+        add:'',
         //到达打卡
         arriveClock: false,
         arriveTime: '',
@@ -541,7 +541,10 @@ Page({
                                             isArrive: true,
                                         })
                                     } else {
-                                        Toast.fail(res.data.ResultMsg);
+                                        Toast.fail(res.data.ResultMsg+ ' 重新确认并拍照');
+                                        //   that.setData({
+                                        //       patientImg: '',
+                                        //   })
                                     }
                                 })
                             }
@@ -677,6 +680,11 @@ Page({
         this.setData({
             hldj: e.detail.value
         })
+    },
+    radioChangeAdd(e){
+ this.setData({
+     add: e.detail.value
+ })
     },
     //验证 患者姓名
     onChangeName(e) {

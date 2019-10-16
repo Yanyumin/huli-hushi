@@ -181,8 +181,7 @@ Page({
          data: params,
          method: 'GET'
      }).then(res => {
-         console.log(res);
-
+         console.log(res); 
          if (res.data.ResultCode === 1) {
              wx.setStorageSync('userInfo', res.data.row)
              if (res.data.row.AuditStatus === 1) {

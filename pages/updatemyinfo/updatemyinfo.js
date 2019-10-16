@@ -31,7 +31,7 @@ Page({
         ScheduleNo: '',
         ScheduleNoArr: [],
         userInfo: '',
-
+   
         uploaderList: [],
         uploaderNum: 0,
         showUpload: true,
@@ -45,6 +45,11 @@ Page({
         img1: '',
         img2: '',
         img3: '',
+        workCertificateList: [],
+        workCertificateNum: 0,
+        workCertificateShowUpload: false,
+        workCertificateImages: [],
+
     },
     onChange(event) {
         // event.detail 为当前输入的值
@@ -188,10 +193,21 @@ Page({
                 duration: 2000
             })
             return
+          } else if (this.data.userInfo.CardImages.length == 0) {
+              wx.showToast({
+                  title: '请上传至少一张工作证照片',
+                  icon: 'none',
+                  duration: 2000
+              })
+              return
           }
-          let otherImgs = this.data.userInfo.cardImages.join(',')
+          let otherImgs = this.data.userInfo.otherImages.join(';')
+          let cardImgs = this.data.userInfo.cardImages.join(';')
+
           let userInfo = this.data.userInfo
           userInfo.OtherImages = otherImgs
+          userInfo.CardImages = cardImgs
+
           userInfo.Birthday = IdCardBirthday(this.data.userInfo.IDCard),
           this.setData({
               userInfo
@@ -200,7 +216,9 @@ Page({
             title: '正在提交',
             mask: 'true'
           })
+          delete this.data.userInfo.otherImages
           delete this.data.userInfo.cardImages
+
         let params = this.data.userInfo
         request({
             url: 'NurseRegister/Update',
@@ -413,7 +431,7 @@ Page({
   // 删除证书图片
   certificateClearImg: function (e) {
       var nowList = []; //新数据
-      var uploaderList = this.data.userInfo.cardImages; //原数据
+      var uploaderList = this.data.userInfo.otherImages; //原数据
       let index = ''
       for (let i = 0; i < uploaderList.length; i++) {
           if (i == e.currentTarget.dataset.index) {
@@ -425,7 +443,7 @@ Page({
           }
       }
       let userInfo = this.data.userInfo
-      userInfo.cardImages = nowList
+      userInfo.otherImages = nowList
       this.setData({
           certificateNum: this.data.certificateNum - 1,
           certificateList: nowList,
@@ -440,6 +458,36 @@ Page({
           certificateShowUpload: isShow
       })
   },
+    // 删除工作证图片
+    workCertificateClearImg: function (e) {
+        var nowList = []; //新数据
+        var uploaderList = this.data.userInfo.cardImages; //原数据
+        let index = ''
+        for (let i = 0; i < uploaderList.length; i++) {
+            if (i == e.currentTarget.dataset.index) {
+                index = i
+                uploaderList.splice(index, 1)
+                continue;
+            } else {
+                nowList.push(uploaderList[i])
+            }
+        }
+        let userInfo = this.data.userInfo
+        userInfo.cardImages = nowList
+        this.setData({
+            workCertificateNum: this.data.workCertificateNum - 1,
+            workCertificateList: nowList,
+            workCertificateShowUpload: true,
+            userInfo
+        })
+        let isShow = true
+        if (uploaderList.length >= 1) {
+            isShow = false
+        }
+        this.setData({
+            workCertificateShowUpload: isShow
+        })
+    },
   //展示证书图片
   certificateShowImg: function (e) {
       var that = this;
@@ -448,6 +496,13 @@ Page({
           current: that.data.uploaderList1[e.currentTarget.dataset.index]
       })
   },
+   workCertificateShowImg: function (e) {
+       var that = this;
+       wx.previewImage({
+           urls: that.data.uploaderList1,
+           current: that.data.uploaderList1[e.currentTarget.dataset.index]
+       })
+   },
   //上传证书图片
   certificateUpload: function (e) {
       var that = this;
@@ -462,9 +517,10 @@ Page({
               let uploaderList = that.data.certificateList.concat(tempFilePaths);
               let userInfo = that.data.userInfo
               let otherImgs = ''
-              if (userInfo.cardImages) {
+              if (userInfo.otherImages) {
+                  
 
-                otherImgs = userInfo.cardImages
+                otherImgs = userInfo.otherImages
               } else {
                   
                 otherImgs = []
@@ -494,13 +550,64 @@ Page({
           }
       })
   },
+   workCertificateUpload: function (e) {
+       var that = this;
+       wx.chooseImage({
+           count: 1 - that.data.workCertificateNum, // 默认1
+           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+           success: function (res) {
+               console.log(res)
+               // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+               let tempFilePaths = res.tempFilePaths;
+               let uploaderList = that.data.workCertificateList.concat(tempFilePaths);
+               let userInfo = that.data.userInfo
+               let cardImg = ''
+               if (userInfo.cardImages) {
+
+
+                   cardImgs = userInfo.cardImages
+               } else {
+
+                   cardImgs = []
+               }
+               wx.uploadFile({
+                   method: "POST",
+                   url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                   filePath: tempFilePaths[0],
+                   name: 'file',
+                   success: function (res) {
+                       let data = JSON.parse(res.data)
+                       if (res.statusCode == 200) {
+                           otherImgs.push(data.ResultMsg)
+                           that.setData({
+                               workCertificateImages: cardImgs,
+                               userInfo
+                           })
+                           console.log(that.data.workCertificateImages)
+                       }
+                   }
+               })
+               that.setData({
+                   workCertificateList: uploaderList,
+                   workCertificateNum: uploaderList.length,
+                   workCertificateShowUpload: false
+               })
+           }
+       })
+   },
   //点击按钮增加上传证书
   certificateAdd: function (e) {
       this.setData({
           certificateShowUpload: true
       })
   },
-
+//点击按钮增加上传证书
+workCertificateAdd: function (e) {
+    this.setData({
+        workCertificateShowUpload: true
+    })
+},
     /**
      * 生命周期函数--监听页面加载
      */
@@ -532,8 +639,14 @@ Page({
                 if (!res.data.row.OtherImages) {
                     imgs = ''
                 } else {
-                    imgs = res.data.row.OtherImages.split(",")
+                    imgs = res.data.row.OtherImages.split(";")
                 }
+                 let imgs1 = ''
+                 if (!res.data.row. CardImages) {
+                     imgs1 = ''
+                 } else {
+                     imgs1 = res.data.row. CardImages.split(";")
+                 }
                 let Birth = ''
                 if (!res.data.row.Birthday) {
                     Birth = ''
@@ -541,10 +654,12 @@ Page({
                     Birth = res.data.row.Birthday.slice(0, 10)
                 }
                 // userInfo.OtherImages = imgs
-                userInfo.cardImages = imgs
+                userInfo.otherImages = imgs
+                userInfo.cardImages = imgs1
                 this.setData({
                     userInfo: userInfo,
                     otherImgs: imgs,
+                    
                     birthday: Birth
                 })
             }

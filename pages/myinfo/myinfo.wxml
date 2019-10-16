@@ -70,12 +70,20 @@
       <image src="{{userInfo.IDCardImage2}}" />
     </view>
   </view>
+     <view class="cell">
+       <text>工作证</text>
+   </view>
+   <view class="cell">
+       <view class="inputBox">
+           <image wx:for="{{otherImgs}}" wx:key="{{item}}" src="{{item}}" />
+       </view>
+   </view>
   <view class="cell">
     <text>证件</text>
   </view>
   <view class="cell">
     <view class="inputBox">
-      <image wx:for="{{otherImgs}}" wx:key="{{item}}" src="{{item}}" />
+      <image wx:for="{{CardImages}}" wx:key="{{item}}" src="{{item}}" />
     </view>
   </view>
 </view>

@@ -10,6 +10,7 @@ Page({
   data: {
     userInfo: '',
     otherImgs: [],
+    CardImages:[],
     birthday: ''
   },
 
@@ -33,8 +34,14 @@ Page({
           if (!res.data.row.OtherImages) {
             imgs = ''
           } else {
-            imgs = res.data.row.OtherImages.split(",")
+            imgs = res.data.row.OtherImages.split(";")
           }
+           let imgs1 = ''
+           if (!res.data.row.CardImages) {
+               imgs1 = ''
+           } else {
+               imgs1 = res.data.row.CardImages.split(";")
+           }
           let Birth = ''
           if (!res.data.row.Birthday) {
             Birth = ''
@@ -44,6 +51,7 @@ Page({
         this.setData({
           userInfo: res.data.row,
           otherImgs: imgs,
+          CardImages: imgs1,
           birthday: Birth
         })
       } else if (res.data.ResultCode === 2) {

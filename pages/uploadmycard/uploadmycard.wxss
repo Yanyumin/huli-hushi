@@ -61,3 +61,6 @@
 .nextTip {
   margin-bottom: 40rpx;
 }
+.work{
+    padding-bottom: 20rpx;
+}
