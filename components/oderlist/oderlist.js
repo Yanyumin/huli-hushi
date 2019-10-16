@@ -56,7 +56,7 @@ Component({
     },
      toAppraise(e) {
          this.triggerEvent('toAppraise', {
-             value: e.currentTarget.dataset['id']
+             value: e.currentTarget.dataset['index']
          });
      }
   }
