@@ -153,7 +153,7 @@ Page({
         if (!that.data.remark) {
             wx.showToast({
                 title: '请填写原因',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
             })
             return

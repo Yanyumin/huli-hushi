@@ -17,6 +17,7 @@
 }
 .orderNum .status {
   color: #03bf72;
+  font-size: 24rpx;
 }
 .orderInfo {
   display: flex;

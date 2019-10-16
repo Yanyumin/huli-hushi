@@ -37,10 +37,13 @@ Page({
       let Password = this.data.password
       if (!UserName) {
           Toast.fail('请输入用户名/手机号');
+          return
       } else if (!Password) {
           Toast.fail('请输入密码');
+          return
       } else if (!this.data.checked) {
           Toast.fail('请勾选同意下方使用协议');
+          return
       } else {
 
           request({
@@ -83,12 +86,15 @@ Page({
       let phoneRes = /^1(3|4|5|6|7|8|9)\d{9}$/
       if (phone == '' || phone == undefined) {
           Toast.fail('请输入手机号');
+          return
       } else if (!phoneRes.test(phone)) {
           Toast.fail('手机号码格式不正确');
+          return
           // } else if (this.data.sms == '' || this.data.sms == undefined) {
           //     Toast.fail('请输入验证码');
       } else if (!that.data.checked) {
           Toast.fail('请勾选同意下方使用协议');
+          return
       } else {
           request({
               method: 'POST',
