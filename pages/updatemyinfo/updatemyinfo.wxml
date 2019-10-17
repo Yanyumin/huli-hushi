@@ -175,7 +175,7 @@
       </view>
       <view>
         2、照片支持jpg/png/jpeg格式，最大不超过4M
-      </view>
+      </view>   
     </view>
     <view class='ui_uploader_cell'>
       <!-- 根据已选择的图片临时路径数组展示图片-->
