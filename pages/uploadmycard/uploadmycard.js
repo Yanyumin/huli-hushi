@@ -316,7 +316,7 @@ Page({
             Toast.fail('请上传身份证背面照片');
             return
         } else if (this.data.certificateImages.length == 0) {
-            Toast.fail('请上传证书照片');
+            Toast.fail('请上传职业证书照片');
             return
         } else if (this.data.workCertificateImages.length == 0) {
             Toast.fail('请上传工作证照片');

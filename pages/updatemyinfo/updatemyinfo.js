@@ -193,14 +193,14 @@ Page({
               duration: 2000
           })
           return
-        } else if (this.data.userInfo.OtherImages.length == 0) {
+        } else if (this.data.userInfo.otherImages.length == 0) {
             wx.showToast({
-                title: '请上传至少一张证书照片',
+                title: '请上传至少一张职业证书照片',
                 icon: 'none',
                 duration: 2000
             })
             return
-          } else if (this.data.userInfo.CardImages.length == 0) {
+          } else if (this.data.userInfo.cardImages.length == 0) {
               wx.showToast({
                   title: '请上传至少一张工作证照片',
                   icon: 'none',
@@ -467,7 +467,6 @@ Page({
   },
     // 删除工作证图片
     workCertificateClearImg: function (e) {
-        var nowList = []; //新数据
         var uploaderList = this.data.userInfo.cardImages; //原数据
         let index = ''
         for (let i = 0; i < uploaderList.length; i++) {
@@ -475,16 +474,13 @@ Page({
                 index = i
                 uploaderList.splice(index, 1)
                 continue;
-            } else {
-                nowList.push(uploaderList[i])
             }
         }
         let userInfo = this.data.userInfo
-        userInfo.cardImages = nowList
+        userInfo.cardImages = uploaderList
         this.setData({
             workCertificateNum: this.data.workCertificateNum - 1,
-            workCertificateList: nowList,
-            workCertificateShowUpload: true,
+            workCertificateList: uploaderList,
             userInfo
         })
         let isShow = true
@@ -569,7 +565,7 @@ Page({
                let tempFilePaths = res.tempFilePaths;
                let uploaderList = that.data.workCertificateList.concat(tempFilePaths);
                let userInfo = that.data.userInfo
-               let cardImg = ''
+               let cardImgs = ''
                if (userInfo.cardImages) {
 
 
@@ -586,7 +582,8 @@ Page({
                    success: function (res) {
                        let data = JSON.parse(res.data)
                        if (res.statusCode == 200) {
-                           otherImgs.push(data.ResultMsg)
+                           cardImgs.push(data.ResultMsg)
+                           userInfo.cardImages = cardImgs
                            that.setData({
                                workCertificateImages: cardImgs,
                                userInfo
@@ -699,7 +696,7 @@ GetNurseDepart() {
                 this.setData({
                     userInfo: userInfo,
                     otherImgs: imgs,
-                    
+                    cardImages: imgs1,
                     birthday: Birth
                 })
             }
