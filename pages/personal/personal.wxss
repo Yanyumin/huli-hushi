@@ -7,13 +7,17 @@
   padding-top: 120rpx;
   color: #fff;
 }
-.headerBox image {
+.headerBox .imgBox {
   height: 100rpx;
   width: 100rpx;
   border-radius: 50%;
-  margin-bottom: 20rpx;
-  background: #ffffff;
-  padding: 4rpx;
+  background: #03c173;
+  margin: 0 auto 20rpx auto;
+  overflow: hidden;
+}
+.headerBox image {
+  height: 100%;
+  width: 100%;
 }
 .contentBox {
   padding: 0 20rpx;

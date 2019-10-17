@@ -1,7 +1,7 @@
 <!--pages/personal/personal.wxml-->
 <view class="personalContainer">
   <view class="headerBox">
-    <image src="{{userInfo.Logo || '../../img/userNo.png'}}" bindtap="toPersonalInfo" />
+    <view class='imgBox'><image src="{{userInfo.Logo || '../../img/userNo.png'}}" bindtap="toPersonalInfo" /></view>
     <view class="userName">
       {{userInfo.Name?userInfo.Name:userInfo.UserName}}
     </view>
