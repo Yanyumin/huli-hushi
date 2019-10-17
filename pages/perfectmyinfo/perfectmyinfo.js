@@ -29,7 +29,9 @@ Page({
         myId: '',
         logo: '../../img/userNo.png',
         ScheduleNo: '',
-        ScheduleNoArr: []
+        ScheduleNoArr: [],
+        DepartmentId: '',
+        DepartmentArr: []
     },
     onChange(event) {
         // event.detail 为当前输入的值
@@ -46,9 +48,15 @@ Page({
         })
     },
     departBindChange(e) {
+        
+        const {
+            picker,
+            value,
+            index
+        } = e.detail;
         this.setData({
-            depart: this.data.columns[e.detail.value],
-            index: e.detail.value
+            depart: this.data.columns[value],
+            DepartmentId: this.data.DepartmentArr[value]
         })
     },
     sexBindChange(e) {
@@ -155,6 +163,7 @@ Page({
             ContactPhone: this.data.phone,
             ContactAddress: this.data.address,
             DepartmentName: this.data.depart,
+            DepartmentId: this.data.DepartmentId,
             RankName: this.data.title,
             IDCard: this.data.cardNo,
             ScheduleNo: this.data.ScheduleNo
@@ -216,11 +225,34 @@ Page({
 
         })
     },
+    GetNurseDepart() {
+        request({
+            url: 'NurseOrder/DeptList',
+            method: 'GET',
+            data: {hospitalId: wx.getStorageSync('userInfo').HospitalId}
+        }).then(res => {
+            if (res.data.ResultCode == 0) {
+                let names = []
+                let Nos = []
+                for (let i in res.data.DeptList) {
+                    names.push(res.data.DeptList[i].DeptName)
+                    Nos.push(res.data.DeptList[i].DeptNo)
+                }
+                this.setData({
+                    columns: names,
+                    DepartmentArr: Nos,
+                    DepartmentId: Nos[0]
+                })
+            }
+
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
         this.GetNurseSchedule()
+        this.GetNurseDepart()
         this.setData({
             phone: wx.getStorageSync('userInfo').ContactPhone,
             workUnit: wx.getStorageSync('userInfo').HospitalName,

@@ -31,6 +31,8 @@ Page({
         ScheduleNo: '',
         ScheduleNoArr: [],
         userInfo: '',
+        DepartmentId: '',
+        DepartmentArr: [],
    
         uploaderList: [],
         uploaderNum: 0,
@@ -66,11 +68,16 @@ Page({
         })
     },
     departBindChange(e) {
+        const {
+            picker,
+            value,
+            index
+        } = e.detail;
       let userInfo = this.data.userInfo
-      userInfo.DepartmentName = this.data.columns[e.detail.value]
+      userInfo.DepartmentName = this.data.columns[value]
+      userInfo.DepartmentId = this.data.DepartmentArr[value]
         this.setData({
-            userInfo: userInfo,
-            index: e.detail.value
+            userInfo
         })
     },
     sexBindChange(e) {
@@ -608,11 +615,44 @@ workCertificateAdd: function (e) {
         workCertificateShowUpload: true
     })
 },
+GetNurseDepart() {
+    let that = this
+    request({
+        url: 'NurseOrder/DeptList',
+        method: 'GET',
+        data: {hospitalId: wx.getStorageSync('userInfo').HospitalId}
+    }).then(res => {
+        if (res.data.ResultCode == 0) {
+            let names = []
+            let Nos = []
+            for (let i in res.data.DeptList) {
+                names.push(res.data.DeptList[i].DeptName)
+                Nos.push(res.data.DeptList[i].DeptNo)
+            }
+            let item = res.data.DeptList.filter(function (elem, index, arr) {
+                return elem.DeptName === that.data.userInfo.DepartmentName
+              })
+              console.log(item)
+              let userInfo = that.data.userInfo
+              if (item.length > 0) {
+                userInfo.DepartmentId = item[0].DeptNo
+              }
+              that.setData({
+                columns: names,
+                DepartmentArr: Nos,
+                DepartmentId: Nos[0],
+                userInfo
+            })
+        }
+
+    })
+},
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
         // this.GetNurseSchedule()
+        this.GetNurseDepart()
         this.setData({
             phone: wx.getStorageSync('userInfo').ContactPhone,
             workUnit: wx.getStorageSync('userInfo').HospitalName,
