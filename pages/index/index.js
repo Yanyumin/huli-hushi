@@ -11,9 +11,8 @@ Page({
    */
   data: {
     imgUrls: [
-      '../../img/cvr.png',
-      '../../img/dingdan.png',
-      '../../img/photos.jpg'
+      '../../img/swiper1.jpg',
+      '../../img/swiper2.jpg'
     ],
     oderList: [],
     todayOderList: [],
@@ -46,14 +45,16 @@ Page({
           type: 'today', nurseId:wx.getStorageSync('userInfo').Id
       }
   }).then(res => {
-      let { NurseList } = res.data
-      for (let i in NurseList) {
-        NurseList[i].status = NurseList[i].OrderStatus
-        NurseList[i].Price = NurseList[i].ItemMoney
+      if (res.data.ResultCode === '0') {
+        let { NurseList } = res.data
+        for (let i in NurseList) {
+          NurseList[i].status = NurseList[i].OrderStatus
+          NurseList[i].Price = NurseList[i].ItemMoney
+        }
+        this.setData({
+          todayOderList: NurseList
+        })
       }
-      this.setData({
-        todayOderList: NurseList
-      })
     })
   },
   getList () {
@@ -64,21 +65,22 @@ Page({
           nurseId: wx.getStorageSync('userInfo').Id
       }
     }).then(res => {
-      let { NurseList } = res.data
-      let arr = []
-      for (let i in NurseList) {
-        let obj = {}
-        if (NurseList[i].OrderStatus == 0) {
-          NurseList[i].status = NurseList[i].OrderStatus
-          NurseList[i].Price = NurseList[i].ItemMoney
-          obj = NurseList[i]
-          arr.push(obj)
+      if (res.data.ResultCode === '0') {
+        let { NurseList } = res.data
+        let arr = []
+        for (let i in NurseList) {
+          let obj = {}
+          if (NurseList[i].OrderStatus == 0) {
+            NurseList[i].status = NurseList[i].OrderStatus
+            NurseList[i].Price = NurseList[i].ItemMoney
+            obj = NurseList[i]
+            arr.push(obj)
+          }
         }
-      }
-      this.setData({
-          oderList: arr
-      })
-            
+        this.setData({
+            oderList: arr
+        })
+      }  
       wx.hideNavigationBarLoading(); //完成停止加载图标
       wx.stopPullDownRefresh();
     })

@@ -79,7 +79,7 @@
        </view>
    </view>
   <view class="cell">
-    <text>证件</text>
+    <text>职业证书</text>
   </view>
   <view class="cell">
     <view class="inputBox">

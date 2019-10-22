@@ -30,12 +30,16 @@ setCanvasSize: function() {
   return size;
 },
 getUrl(e) {
+  wx.showLoading({
+    title: '加载中',
+  })
   request({
       url: 'Auth/GetAppNurseUrl',
       data: {
         nurseId: wx.getStorageSync('userInfo').Id
       }
   }).then(res => {
+    wx.hideLoading()
       this.setData({
         url: res.data
       })
