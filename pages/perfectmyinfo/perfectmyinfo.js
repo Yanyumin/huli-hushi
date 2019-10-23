@@ -157,7 +157,7 @@ Page({
         }
         let params = {
             Logo: this.data.logo,
-            Name: this.data.userName,
+            UserName: this.data.userName,
             Sex: this.data.sex,
             HospitalName: this.data.workUnit,
             Birthday: IdCardBirthday(this.data.cardNo),
