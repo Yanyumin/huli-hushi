@@ -50,7 +50,8 @@ Page({
         this.setData({
             uploaderNum: this.data.uploaderNum - 1,
             uploaderList: nowList,
-            showUpload: true
+            showUpload: true,
+            img1: ''
         })
     },
     //展示身份证正面图片
@@ -122,7 +123,8 @@ Page({
         this.setData({
             uploaderNum1: this.data.uploaderNum1 - 1,
             uploaderList1: nowList,
-            showUpload1: true
+            showUpload1: true,
+            img2: ''
         })
     },
     //展示身份证反面图片
@@ -187,10 +189,11 @@ Page({
     certificateClearImg: function (e) {
         var nowList = []; //新数据
         var uploaderList = this.data.certificateList; //原数据
+        var certificateImages = this.data.certificateImages; //原数据
         for (let i = 0; i < uploaderList.length; i++) {
             if (i == e.currentTarget.dataset.index) {
                 index = i
-                certy.splice(index, 1)
+                certificateImages.splice(index, 1)
                 continue;
             } else {
                 nowList.push(uploaderList[i])
@@ -199,7 +202,8 @@ Page({
         this.setData({
             certificateNum: this.data.certificateNum - 1,
             certificateList: nowList,
-            certificateShowUpload: true
+            certificateShowUpload: true,
+            certificateImages: certificateImages
         })
         let isShow = true
         if (this.data.certificateNum >= 1) {
@@ -213,10 +217,12 @@ Page({
        workCertificateClearImg: function (e) {
            var nowList = []; //新数据
            var uploaderList = this.data.workCertificateList; //原数据
+           var workCertificateImages = this.data.workCertificateImages; //原数据
            for (let i = 0; i < uploaderList.length; i++) {
                if (i == e.currentTarget.dataset.index) {
                    index = i
-                   workCerty.splice(index, 1)
+                  //  workCerty.splice(index, 1)
+                   workCertificateImages.splice(index, 1)
                    continue;
                } else {
                    nowList.push(uploaderList[i])
@@ -225,7 +231,8 @@ Page({
            this.setData({
                workCertificateNum: this.data.workCertificateNum - 1,
                workCertificateList: nowList,
-               workCertificateShowUpload: true
+               workCertificateShowUpload: true,
+               workCertificateImages: workCertificateImages
            })
            let isShow = true
            if (this.data.workCertificateNum >= 1) {

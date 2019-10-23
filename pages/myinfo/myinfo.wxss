@@ -6,6 +6,9 @@
   line-height: 90rpx;
   padding-left: 30rpx;
 }
+.cell image{
+  width: 100%;
+}
 .headerBox {
   height: 100rpx;
   line-height: 100rpx;
