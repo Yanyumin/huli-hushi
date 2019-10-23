@@ -102,3 +102,4 @@
     <van-button round type="primary" bindtap="certificateAdd" bindtap="submitThis">提交审核</van-button>
   </view>
 </view>
+  <van-toast id="van-toast" />

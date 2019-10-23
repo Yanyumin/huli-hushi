@@ -18,14 +18,14 @@ Page({
         titleClumns: [],
         index: 0,
         workUnit: '',
-        depart: '外科',
+        depart: '',
         userName: '',
         sex: false,
         birthday: '1999-01-01',
         cardNo: '',
         phone: '',
         address: '',
-        title: '护士',
+        title: '',
         myId: '',
         logo: '../../img/userNo.png',
         ScheduleNo: '',
@@ -51,6 +51,9 @@ Page({
         workCertificateNum: 0,
         workCertificateShowUpload: false,
         workCertificateImages: [],
+        logoFlag: true,
+        img1Flag: true,
+        img2Flag: true
 
     },
     onChange(event) {
@@ -245,32 +248,42 @@ Page({
     }, //上传头像
     logoUpload: function (e) {
         var that = this;
-        wx.chooseImage({
-            count: 1, // 默认1
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-                console.log(res)
-                // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                let tempFilePaths = res.tempFilePaths;
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        let data = JSON.parse(res.data)
-                        let userInfo = that.data.userInfo
-                        userInfo.Logo = data.ResultMsg
-                        if (res.statusCode == 200) {
-                            that.setData({
-                                userInfo
-                            })
-                        }
-                    }
-                })
-            }
-        })
+        if (that.data.logoFlag) {
+          that.setData({
+            logoFlag: false
+          })
+          setTimeout(function () {
+            that.setData({
+                logoFlag: true
+            })
+          }, 2000)
+          wx.chooseImage({
+              count: 1, // 默认1
+              sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+              success: function (res) {
+                  console.log(res)
+                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                  let tempFilePaths = res.tempFilePaths;
+                  wx.uploadFile({
+                      method: "POST",
+                      url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                      filePath: tempFilePaths[0],
+                      name: 'file',
+                      success: function (res) {
+                          let data = JSON.parse(res.data)
+                          let userInfo = that.data.userInfo
+                          userInfo.Logo = data.ResultMsg
+                          if (res.statusCode == 200) {
+                              that.setData({
+                                  userInfo
+                              })
+                          }
+                      }
+                  })
+              }
+          })
+        }
     },
     GetNurseSchedule() {
         request({
@@ -291,7 +304,8 @@ Page({
                 this.setData({
                     titleClumns: names,
                     ScheduleNoArr: Nos,
-                    ScheduleNo: Nos[0]
+                    ScheduleNo: Nos[0] ? Nos[0] : '',
+                    title: names[0] ? names[0] :''
                 })
             }
 
@@ -328,42 +342,52 @@ Page({
   //上传身份证正面图片
   upload: function (e) {
       var that = this;
-      wx.chooseImage({
-          count: 1 - that.data.uploaderNum, // 默认1
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-              console.log(res)
-              // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-              let tempFilePaths = res.tempFilePaths;
-              let uploaderList = that.data.uploaderList.concat(tempFilePaths);
-              wx.uploadFile({
-                  method: "POST",
-                  url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                  filePath: tempFilePaths[0],
-                  name: 'file',
-                  success: function (res) {
-                      let data = JSON.parse(res.data)
-                      if (res.statusCode == 200) {
-                        let userInfo = that.data.userInfo
-                        userInfo.IDCardImage = data.ResultMsg
-                          that.setData({
-                            userInfo
-                          })
+      if (that.data.img1Flag) {
+        that.setData({
+          img1Flag: false
+        })
+        setTimeout(function () {
+          that.setData({
+            img1Flag: true
+          })
+          wx.chooseImage({
+              count: 1 - that.data.uploaderNum, // 默认1
+              sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+              success: function (res) {
+                  console.log(res)
+                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                  let tempFilePaths = res.tempFilePaths;
+                  let uploaderList = that.data.uploaderList.concat(tempFilePaths);
+                  wx.uploadFile({
+                      method: "POST",
+                      url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                      filePath: tempFilePaths[0],
+                      name: 'file',
+                      success: function (res) {
+                          let data = JSON.parse(res.data)
+                          if (res.statusCode == 200) {
+                            let userInfo = that.data.userInfo
+                            userInfo.IDCardImage = data.ResultMsg
+                              that.setData({
+                                userInfo
+                              })
+                          }
                       }
+                  })
+                  if (uploaderList.length == 1) {
+                      that.setData({
+                          showUpload: false
+                      })
                   }
-              })
-              if (uploaderList.length == 1) {
                   that.setData({
-                      showUpload: false
+                      uploaderList: uploaderList,
+                      uploaderNum: uploaderList.length,
                   })
               }
-              that.setData({
-                  uploaderList: uploaderList,
-                  uploaderNum: uploaderList.length,
-              })
-          }
-      })
+          })
+        }, 2000)
+      }
   },
   // 删除身份证反面图片
   clearImg1: function (e) {
@@ -396,44 +420,54 @@ Page({
   //上传身份证反面图片
   upload1: function (e) {
       var that = this;
-      wx.chooseImage({
-          count: 1 - that.data.uploaderNum1, // 默认1
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-              console.log(res)
-              // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-              let tempFilePaths = res.tempFilePaths;
-              let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
-              wx.showLoading({title: '加载中…'})
-              wx.uploadFile({
-                  method: "POST",
-                  url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                  filePath: tempFilePaths[0],
-                  name: 'file',
-                  success: function (res) {
-                      wx.hideLoading()
-                      let data = JSON.parse(res.data)
-                      if (res.statusCode == 200) {
-                        let userInfo = that.data.userInfo
-                        userInfo.IDCardImage2 = data.ResultMsg
-                          that.setData({
-                            userInfo
-                          })
+      if (that.data.img2Flag) {
+        that.setData({
+          img2Flag: false
+        })
+        setTimeout(function () {
+          that.setData({
+            img2Flag: true
+          })
+          wx.chooseImage({
+              count: 1 - that.data.uploaderNum1, // 默认1
+              sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+              success: function (res) {
+                  console.log(res)
+                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                  let tempFilePaths = res.tempFilePaths;
+                  let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
+                  wx.showLoading({title: '加载中…'})
+                  wx.uploadFile({
+                      method: "POST",
+                      url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                      filePath: tempFilePaths[0],
+                      name: 'file',
+                      success: function (res) {
+                          wx.hideLoading()
+                          let data = JSON.parse(res.data)
+                          if (res.statusCode == 200) {
+                            let userInfo = that.data.userInfo
+                            userInfo.IDCardImage2 = data.ResultMsg
+                              that.setData({
+                                userInfo
+                              })
+                          }
                       }
+                  })
+                  if (uploaderList.length == 1) {
+                      that.setData({
+                          showUpload1: false
+                      })
                   }
-              })
-              if (uploaderList.length == 1) {
                   that.setData({
-                      showUpload1: false
+                      uploaderList1: uploaderList,
+                      uploaderNum1: uploaderList.length,
                   })
               }
-              that.setData({
-                  uploaderList1: uploaderList,
-                  uploaderNum1: uploaderList.length,
-              })
-          }
-      })
+          })
+        }, 2000)
+      }
   },
   // 删除证书图片
   certificateClearImg: function (e) {
@@ -637,7 +671,8 @@ GetNurseDepart() {
               that.setData({
                 columns: names,
                 DepartmentArr: Nos,
-                DepartmentId: Nos[0],
+                DepartmentId: Nos[0] ? Nos[0] : '',
+                depart: names[0] ? names[0] : '',
                 userInfo
             })
         }

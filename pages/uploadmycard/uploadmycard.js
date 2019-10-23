@@ -1,4 +1,5 @@
 // pages/uploadmycard/uploadmycard.js
+import Toast from 'vant-weapp/toast/toast';
 const {
     request
 } = require("../../utils/request")
@@ -31,7 +32,9 @@ Page({
         img1: '',
         img2: '',
         img3: '',
-        pId: ''
+        pId: '',
+        uploadFlag: true,
+        upload1Flag: true
     },
     // 删除身份证正面图片
     clearImg: function (e) {
@@ -61,39 +64,49 @@ Page({
     //上传身份证正面图片
     upload: function (e) {
         var that = this;
-        wx.chooseImage({
-            count: 1 - that.data.uploaderNum, // 默认1
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-                // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                let tempFilePaths = res.tempFilePaths;
-                let uploaderList = that.data.uploaderList.concat(tempFilePaths);
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        let data = JSON.parse(res.data)
-                        if (res.statusCode == 200) {
-                            that.setData({
-                                img1: data.ResultMsg
-                            })
+        if (that.data.uploadFlag) {
+          that.setData({
+            uploadFlag: false
+          })
+          setTimeout(function () {
+            that.setData({
+              uploadFlag: true
+            })
+            wx.chooseImage({
+                count: 1 - that.data.uploaderNum, // 默认1
+                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function (res) {
+                    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                    let tempFilePaths = res.tempFilePaths;
+                    let uploaderList = that.data.uploaderList.concat(tempFilePaths);
+                    wx.uploadFile({
+                        method: "POST",
+                        url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                        filePath: tempFilePaths[0],
+                        name: 'file',
+                        success: function (res) {
+                            let data = JSON.parse(res.data)
+                            if (res.statusCode == 200) {
+                                that.setData({
+                                    img1: data.ResultMsg
+                                })
+                            }
                         }
+                    })
+                    if (uploaderList.length == 1) {
+                        that.setData({
+                            showUpload: false
+                        })
                     }
-                })
-                if (uploaderList.length == 1) {
                     that.setData({
-                        showUpload: false
+                        uploaderList: uploaderList,
+                        uploaderNum: uploaderList.length,
                     })
                 }
-                that.setData({
-                    uploaderList: uploaderList,
-                    uploaderNum: uploaderList.length,
-                })
-            }
-        })
+            })
+          }, 2000)
+        }
     },
     // 删除身份证反面图片
     clearImg1: function (e) {
@@ -123,41 +136,52 @@ Page({
     //上传身份证反面图片
     upload1: function (e) {
         var that = this;
-        wx.chooseImage({
-            count: 1 - that.data.uploaderNum1, // 默认1
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-                // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                let tempFilePaths = res.tempFilePaths;
-                let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
-                wx.showLoading({title: '加载中…'})
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        wx.hideLoading()
-                        let data = JSON.parse(res.data)
-                        if (res.statusCode == 200) {
-                            that.setData({
-                                img2: data.ResultMsg
-                            })
-                        }
-                    }
-                })
-                if (uploaderList.length == 1) {
-                    that.setData({
-                        showUpload1: false
-                    })
+        if (that.data.upload1Flag) {
+          that.setData({
+            upload1Flag: false
+          })
+          setTimeout(function () {
+            that.setData({
+              upload1Flag: true
+            })
+            wx.chooseImage({
+              count: 1 - that.data.uploaderNum1, // 默认1
+              sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+              success: function (res) {
+                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                  let tempFilePaths = res.tempFilePaths;
+                  let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
+                  wx.showLoading({title: '加载中…'})
+                  wx.uploadFile({
+                      method: "POST",
+                      url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                      filePath: tempFilePaths[0],
+                      name: 'file',
+                      success: function (res) {
+                          wx.hideLoading()
+                          let data = JSON.parse(res.data)
+                          if (res.statusCode == 200) {
+                              that.setData({
+                                  img2: data.ResultMsg
+                              })
+                          }
+                      }
+                  })
+                  if (uploaderList.length == 1) {
+                      that.setData({
+                          showUpload1: false
+                      })
+                  }
+                  that.setData({
+                      uploaderList1: uploaderList,
+                      uploaderNum1: uploaderList.length,
+                  })
                 }
-                that.setData({
-                    uploaderList1: uploaderList,
-                    uploaderNum1: uploaderList.length,
-                })
-            }
-        })
+            })
+          }, 2000)
+        }
+        
     },
     // 删除证书图片
     certificateClearImg: function (e) {
@@ -315,11 +339,11 @@ Page({
         } else if (!this.data.img2) {
             Toast.fail('请上传身份证背面照片');
             return
-        } else if (this.data.certificateImages.length == 0) {
-            Toast.fail('请上传职业证书照片');
-            return
         } else if (this.data.workCertificateImages.length == 0) {
             Toast.fail('请上传工作证照片');
+            return
+        } else if (this.data.certificateImages.length == 0) {
+            Toast.fail('请上传职业证书照片');
             return
         }
         let params = {
