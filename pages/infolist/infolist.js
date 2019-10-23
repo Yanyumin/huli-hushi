@@ -62,12 +62,16 @@ Page({
         })
     },
     getOrderDetail() {
+        wx.showLoading({
+            title: '加载中',
+          })
         request({
             url: 'NurseOrder/GetNurseDetail',
             data: {
                 orderId: this.data.orderId
             }
         }).then(res => {
+            wx.hideLoading()
             if (res.data.ResultCode == '0') {
                 let details = res.data.NurseList
                 let caseImgs = ''

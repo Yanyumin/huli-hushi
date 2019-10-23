@@ -703,8 +703,8 @@ GetNurseDepart() {
             data: params,
             method: 'GET'
         }).then(res => {
-            if (res.data.ResultCode === 1) {
                 wx.hideLoading()
+            if (res.data.ResultCode === 1) {
                 // wx.setStorageSync('userInfo', res.data.row)
                 // console.log(res);
                 let userInfo = res.data.row

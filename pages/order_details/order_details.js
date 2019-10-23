@@ -915,6 +915,9 @@ Page({
         });
     },
     getdetails() {
+        wx.showLoading({
+            title: '加载中',
+          })
         request({
             method: 'GET',
             url: 'NurseOrder/GetNurseDetail',
@@ -923,6 +926,7 @@ Page({
             }
         }).then(res => {
             console.log(res);
+            wx.hideLoading()
 
             if (res.data.ResultCode == '0') {
                 let caseImgs = ''
@@ -1007,6 +1011,19 @@ Page({
                         tabs
                     })
                 } else if (infolist.status == 5) {
+                    tabs[0].isShow = false
+                    tabs[1].isShow = false
+                    tabs[2].isShow = false
+                    tabs[3].isActive = true
+                    tabs[1].isActive = true
+                    tabs[2].isActive = true
+                    tabs[3].isShow = false
+                    tabs[4].isActive = true
+                    tabs[4].isShow = true
+                    this.setData({
+                        isArrive: true,
+                        tabs
+                    })
 
                 } else if (infolist.status == 7 || infolist.status == 12) {
                     tabs[0].isShow = false
