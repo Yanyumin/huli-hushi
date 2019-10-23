@@ -211,6 +211,7 @@ Page({
               })
               return
           }
+          this.data.userInfo.Name = this.data.userInfo.UserName
           let otherImgs = this.data.userInfo.otherImages.join(';')
           let cardImgs = this.data.userInfo.cardImages.join(';')
 

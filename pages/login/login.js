@@ -188,7 +188,8 @@ Page({
                   this.setData({
                       hospitalArray: names,
                       hospitaNoArr: Nos,
-                      hospitaNo: Nos[0]
+                      hospitaNo: Nos[0] ? Nos[0] : '',
+                      hospitalName: names[0] ? names[0] : ''
                   })
               }
           })

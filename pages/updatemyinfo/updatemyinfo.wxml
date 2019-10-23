@@ -36,7 +36,7 @@
         border="{{ false }}"
         bind:change="userNameChange"
       /> -->
-      <text class="phoneText">{{userInfo.UserName}}</text>
+      <text class="phoneText">{{userInfo.UserName ? userInfo.UserName : userInfo.Name}}</text>
     </view>
   </view>
   <view class="cell">

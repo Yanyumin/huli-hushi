@@ -22,7 +22,7 @@
   <view class="cell">
     <text>姓名</text>
     <view class="inputBox">
-      {{userInfo.Name}}
+      {{userInfo.Name ? userInfo.Name : userInfo.UserName}}
     </view>
   </view>
   <view class="cell">
