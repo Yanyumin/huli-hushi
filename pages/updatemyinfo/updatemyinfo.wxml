@@ -166,12 +166,12 @@
         <van-button round color="#ffa500" bindtap="certificateAdd">+增加一张</van-button>
     </view>
   <view class="topic">
-    职业证书
+    护士执业证书
   </view>
   <view class="contentBox">
     <view class="uploadTopic">
       <view>
-        1、请上传您职业证书的正面清晰图片
+        1、请上传您护士执业证书的正面清晰图片
       </view>
       <view>
         2、照片支持jpg/png/jpeg格式，最大不超过4M
@@ -188,7 +188,7 @@
       <!-- 上传按钮+框 -->
       <view class='ui_uploader' bindtap='certificateUpload' wx:if="{{!userInfo.OtherImages || certificateShowUpload}}">
         <van-icon name="plus" />
-        <view class='uploadTip'>上传职业证书正面</view>
+        <view class='uploadTip'>上传护士执业证书正面</view>
       </view>
     </view>
   </view>

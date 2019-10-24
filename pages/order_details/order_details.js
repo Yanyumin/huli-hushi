@@ -1025,7 +1025,7 @@ Page({
                         tabs
                     })
 
-                } else if (infolist.status == 7 || infolist.status == 12) {
+                } else if (infolist.status == 7 || infolist.status == 12 || infolist.status == 8) {
                     tabs[0].isShow = false
                     tabs[1].isShow = false
                     tabs[3].isShow = false

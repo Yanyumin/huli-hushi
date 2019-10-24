@@ -198,7 +198,7 @@ Page({
           return
         } else if (this.data.userInfo.otherImages.length == 0) {
             wx.showToast({
-                title: '请上传至少一张职业证书照片',
+                title: '请上传至少一张护士执业证书照片',
                 icon: 'none',
                 duration: 2000
             })
