@@ -36,13 +36,17 @@ getUrl(e) {
   request({
       url: 'Auth/GetAppNurseUrl',
       data: {
-        nurseId: wx.getStorageSync('userInfo').Id
+        nurseId: wx.getStorageSync('userInfo').Id,
+        hospitalId: wx.getStorageSync('userInfo').HospitalId
       }
   }).then(res => {
     wx.hideLoading()
       this.setData({
         url: res.data
+        // url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc5f26065c6471bcf&redirect_uri=http%3a%2f%2fapi.gdbkyz.com%2fGzhUser%2fapi%2fAuth%2fWxOauth2%3fhospId%3dHP2019092036242401%26url%3dhttp%253a%252f%252ftest.gdbkyz.com%252fGzhUser%252f%2523%252fhome&response_type=code&scope=snsapi_userinfo&state=GbkYin666 '
       })
+    var size = this.setCanvasSize(); //动态设置画布大小 
+    this.createQrCode(this.data.url, "mycanvas", size.w, size.h);
   })
 },
 /**
@@ -92,13 +96,13 @@ previewImg: function (e) {
   onLoad: function (options) {
     this.getUrl()
     //option为上个页面传递过来的参数
-    var jiaoyanCode = 'sorry,jiaoyanCode is loss';
-    if (options) {
-      jiaoyanCode = this.data.url;
-    }
-    console.log(jiaoyanCode);
-    var size = this.setCanvasSize(); //动态设置画布大小 
-    this.createQrCode(jiaoyanCode, "mycanvas", size.w, size.h);
+    // var jiaoyanCode = 'sorry,jiaoyanCode is loss';
+    // // if (options) {
+    //   jiaoyanCode = this.data.url;
+    // // }
+    // console.log(jiaoyanCode);
+    // var size = this.setCanvasSize(); //动态设置画布大小 
+    // this.createQrCode(jiaoyanCode, "mycanvas", size.w, size.h);
   },
 
   /**

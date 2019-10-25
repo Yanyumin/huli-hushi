@@ -1,4 +1,5 @@
 import Toast from 'vant-weapp/toast/toast';
+import Dialog from 'vant-weapp/dialog/dialog';
 const QQMapWX = require('../../lib/qqmap/qqmap-wx-jssdk.js');
 const {
     request
@@ -541,10 +542,15 @@ Page({
                                             isArrive: true,
                                         })
                                     } else {
-                                        Toast.fail(res.data.ResultMsg+ ' 重新确认并拍照');
-                                        //   that.setData({
-                                        //       patientImg: '',
-                                        //   })
+                                        // Toast.fail(res.data.ResultMsg+ '，请重新确认并拍照');
+                                        Dialog.alert({
+                                            message: res.data.ResultMsg+ '，请重新确认并拍照签到'
+                                        }).then(() => {
+                                        // on close
+                                        });
+                                        that.setData({
+                                            patientImg: '',
+                                        })
                                     }
                                 })
                             }
@@ -624,7 +630,10 @@ Page({
             Toast.fail('请先打卡');
             return
         } else if (!this.data.isArrive) {
-            Toast.fail('请先实名认证');
+            Toast.fail('可能认证失败，请先实名认证');
+            return
+        } else if (!this.data.patientImg) {
+            Toast.fail('请拍照记录');
             return
         } else {
 
@@ -805,7 +814,7 @@ Page({
             request({
                 url: 'NurseOrder/OrderRecord',
                 data: {
-                    orderId: 2,
+                    orderId: this.data.orderId,
                     Measures: that.data.measures,
                     Record: that.data.evaluate,
                 }
@@ -1095,31 +1104,47 @@ Page({
             Toast.fail('请选择护理等级');
             return
         } else if (this.data.arriveClock || this.data.allDetails.TwoConfirmTime) {
-            request({
-                url: 'NurseOrder/NurseAssessment',
-                data: {
-                    orderId: that.data.orderId,
-                    gmywsw: that.data.gmywsw,
-                    xlzt: that.data.xlzt,
-                    xy: that.data.xy,
-                    yj: that.data.yj,
-                    dxb: that.data.dxb,
-                    yszt: that.data.yszt,
-                    zznl: that.data.zznl,
-                    pgdj: that.data.pgdj,
-                    hldj: that.data.hldj
-                }
-            }).then(res => {
-                console.log(res);
-
-                if (res.data.ResultCode === '0') {
-                    wx.navigateTo({
-                        url: '../costList/costList?id=' + this.data.orderId
-                    })
-                } else {
-                    Toast.fail(res.data.ResultMsg);
-                }
+            let huliParams = {
+                orderId: that.data.orderId,
+                gmywsw: that.data.gmywsw,
+                xlzt: that.data.xlzt,
+                xy: that.data.xy,
+                yj: that.data.yj,
+                dxb: that.data.dxb,
+                yszt: that.data.yszt,
+                zznl: that.data.zznl,
+                pgdj: that.data.pgdj,
+                hldj: that.data.hldj
+            }
+            wx.setStorageSync('hlpinggu', huliParams);
+            wx.navigateTo({
+                url: '../costList/costList?id=' + this.data.orderId
             })
+            // request({
+            //     url: 'NurseOrder/NurseAssessment',
+            //     data: {
+            //         orderId: that.data.orderId,
+            //         gmywsw: that.data.gmywsw,
+            //         xlzt: that.data.xlzt,
+            //         xy: that.data.xy,
+            //         yj: that.data.yj,
+            //         dxb: that.data.dxb,
+            //         yszt: that.data.yszt,
+            //         zznl: that.data.zznl,
+            //         pgdj: that.data.pgdj,
+            //         hldj: that.data.hldj
+            //     }
+            // }).then(res => {
+            //     console.log(res);
+
+            //     if (res.data.ResultCode === '0') {
+            //         wx.navigateTo({
+            //             url: '../costList/costList?id=' + this.data.orderId
+            //         })
+            //     } else {
+            //         Toast.fail(res.data.ResultMsg);
+            //     }
+            // })
         } else {
             Toast.fail('上一步未操作');
         }

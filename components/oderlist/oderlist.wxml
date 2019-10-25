@@ -74,6 +74,9 @@
             <button class="btn" bindtap="onStartService" wx:if="{{item.status == 5 || item.status == 12 ||item.status == 9 ||item.status == 2 || item.status == 3 || item.status == 4 || item.status == 8 }}" data-index="{{item.id}}">
                 开始服务
             </button>
+            <button class="btn" bindtap="onStartService" wx:if="{{item.status == 8 }}" data-index="{{item.id}}">
+                继续服务
+            </button>
         </block>
         <view wx:if="{{item.status == 0}}" class="arrive_btn">
             <button data-index="{{item.id}}" bindtap="acceptService">

@@ -684,7 +684,7 @@ GetNurseDepart() {
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        // this.GetNurseSchedule()
+        this.GetNurseSchedule()
         this.GetNurseDepart()
         this.setData({
             phone: wx.getStorageSync('userInfo').ContactPhone,
