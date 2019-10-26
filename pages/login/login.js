@@ -195,9 +195,9 @@ Page({
           })
       },
   onLoad: function (options) {
-      this.GetHospitallName()
       // 页面初始化 options为页面跳转所带来的参数
         wx.clearStorageSync(); //清除缓存
+        let that = this
       wx.login({
           success(res) {
               if (res.code) {
@@ -211,6 +211,7 @@ Page({
                           wx.hideLoading()
                           if (res.statusCode == "200") {
                               wx.setStorageSync('cookies', res.header['Set-Cookie'])
+                              that.GetHospitallName()
                           } else {}
                       }
                   })
