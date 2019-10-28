@@ -132,7 +132,7 @@ Page({
       })
 
   },
-  sureCancel () {
+  sureCancel (e) {
     let that = this
     
     wx.showLoading({

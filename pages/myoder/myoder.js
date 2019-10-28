@@ -138,6 +138,9 @@ Page({
         })
     },
     initPage() {
+        wx.showLoading({
+          title: '加载中',
+        })
         request({
             url: 'NurseOrder/GetNurseList',
             data: {
@@ -204,6 +207,7 @@ Page({
                 })
                 console.log(this.data.oderList);
             }
+            wx.hideLoading()
             wx.hideNavigationBarLoading(); //完成停止加载图标
             wx.stopPullDownRefresh();
         })

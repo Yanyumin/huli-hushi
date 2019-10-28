@@ -1,5 +1,5 @@
 <van-search value="{{ value }}" placeholder="请输入搜索关键词" />
-<van-tabs active="{{ active }}" bind:change="onChange"  color="#03bf72">
+<van-tabs active="{{ active }}" sticky="true" swipeable="true" animated="true"  color="#03bf72">
     <van-tab title="全部">
         <orderItem
             bindstartService="startService"
@@ -44,6 +44,7 @@
     <van-tab title="服务中">
         <orderItem
             datas="{{oderList3}}"
+             bindstartService="startService"
             bindchange="clickOrder"
             bind:cancelService='sureCancel'
             bind:toAppraise='toAppraise'

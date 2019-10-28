@@ -43,3 +43,4 @@
         <van-button round type="primary" bindtap="submit">生成支付订单</van-button>
       </view>
     </view>
+    <van-dialog id="van-dialog" />
