@@ -1,8 +1,8 @@
 <!--components/recommendItem/recommendItem.wxml-->
-<view class='serviceItemContainer'> 
+<view class='recommendItemContainer'> 
   <view class='thisProject haveBorderBottom' wx:for-items="{{datas}}" wx:key="index" data-index="{{item.id}}" bindtap="clickService">
     <view class='imgBox'>
-      <image src="{{item.proLogo}}" />
+      <image src="../../img/dingdan.png" />
     </view>
     <view class="projectInfo">
       <view class='projectName'>{{item.proName}}</view>

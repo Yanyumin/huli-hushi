@@ -20,6 +20,9 @@
 .cell .inputBox {
   flex: 1;
 }
+.cell .inputBox image {
+  margin-top: 20rpx;
+}
 .logoBox {
   text-align: right;
   color: #666;

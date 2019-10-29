@@ -90,12 +90,14 @@
   </view>
   <view class="cell">
     <text>病历</text>
-    <view class="inputBox">
+    <view class="inputBox"  wx:if="{{detailInfo.PatientCaseImg.length == 0}}">
+      无
     </view>
   </view>
-  <view class="cell">
+  <view class="cell" wx:if="{{detailInfo.PatientCaseImg.length > 0}}">
     <text></text>
     <view class="inputBox">
+      <image bindlongtap="viewImage" bindtap='previewImg' wx:for="{{detailInfo.PatientCaseImg}}" src="{{item}}" />
     </view>
   </view>
   <view class="cell">

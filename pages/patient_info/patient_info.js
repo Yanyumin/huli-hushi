@@ -34,12 +34,13 @@ Page({
     }).then(res => {
         if (res.data.ResultCode === '0') {
           let obj = {
-            proLogo: '../../img/cvr.png',
             proName: res.data.NurseList[0].ItemName,
             proDesc: res.data.NurseList[0].ItemIntroduce,
             id: ''
           }
           let arr = [obj]
+          let caseImgs = res.data.NurseList[0].PatientCaseImg.split(',')
+          res.data.NurseList[0].PatientCaseImg = caseImgs
           this.setData({
             detailInfo: res.data.NurseList[0],
             recommendList: arr
@@ -55,6 +56,22 @@ Page({
     })
   },
  
+  previewImg: function () {
+    var img = this.data.detailInfo.PatientCaseImg
+    wx.previewImage({
+      current: img[0],     //当前图片地址
+      urls: img,               //所有要预览的图片的地址集合 数组形式
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+  viewImage() {
+    var urls = this.data.detailInfo.PatientCaseImg;
+    wx.previewImage({
+      url: urls,
+    });
+  },
  
   /**
    * 生命周期函数--监听页面加载
