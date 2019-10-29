@@ -1127,6 +1127,12 @@ Page({
                 if (nurse.FourConfirmTime) {
                     nurse.FourConfirmTime = nurse.FourConfirmTime.substring(11, 16)
                 }
+                 if (nurse.FiveConfirmTime) {
+                     nurse.FiveConfirmTime = nurse.FiveConfirmTime.substring(11, 16)
+                 }
+                   if (nurse.EndConfirmTime) {
+                       nurse.EndConfirmTime = nurse.EndConfirmTime.substring(11, 16)
+                   }
                 let listObj = {
                     status: nurse.OrderStatus,
                     buycount: "1",
