@@ -189,8 +189,8 @@ Page({
                                 let data = JSON.parse(res.data)
                                 if (res.statusCode == 200) {
                                     that.setData({
-                                        safetyTime: time,
-                                        safetyImg: data.ResultMsg
+                                       overTime: time,
+                                        overImg: data.ResultMsg
                                     })
                                 }
                             }
@@ -211,7 +211,8 @@ Page({
                                     },
                                     success: function (res) {
                                         that.setData({
-                                            safetyAddress: res.result.address
+                                            overAddress: res.result.address,
+                                            overClock:true
                                         })
                                     }
                                 })
@@ -234,6 +235,7 @@ Page({
                 return
             } else if (that.data.nurseEndClock || that.data.allDetails.FourImg) {
                 request({
+                    method: "POST",
                     url: 'NurseOrder/FiveConfirm',
                     data: {
                         orderId: this.data.orderId,
@@ -244,11 +246,13 @@ Page({
                              Score: '',
                     }
                 }).then(res => {
+                    console.log(res);
+                    
                     if (res.data.ResultCode === '0') {
 
-                        tabs[4].isShow = false
-                        tabs[5].isActive = true
-                        tabs[5].isShow = true
+                        tabs[5].isShow = false
+                        tabs[6].isActive = true
+                        tabs[6].isShow = true
                         that.setData({
                             tabs,
                             isOver: true
@@ -470,66 +474,66 @@ Page({
 
 
     },
-    // 出门打卡
-    takePhoto() {
-        let that = this
-        wx.chooseImage({
-            count: 1,
-            sizeType: ['original', 'compressed'],
-            sourceType: ['album', 'camera'],
-            success(res) {
-                var time = util.formatHour(new Date());
-                const tempFilePaths = res.tempFilePaths
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        console.log(res);
+   // 出门打卡
+   takePhoto() {
+       let that = this
+       wx.chooseImage({
+           count: 1,
+           sizeType: ['original', 'compressed'],
+           sourceType: ['album', 'camera'],
+           success(res) {
+               var time = util.formatHour(new Date());
+               const tempFilePaths = res.tempFilePaths
+               wx.uploadFile({
+                   method: "POST",
+                   url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                   filePath: tempFilePaths[0],
+                   name: 'file',
+                   success: function (res) {
+                       console.log(res);
 
-                        let data = JSON.parse(res.data)
-                        if (res.statusCode == 200) {
-                            that.setData({
-                                goOuttime: time,
-                                goOutImg: data.ResultMsg
-                            })
-                            wx.getLocation({
-                                type: 'wgs84',
-                                success: function (res) {
-                                    that.setData({
-                                        myLatitude: res.latitude,
-                                        myLongitude: res.longitude
-                                    })
-                                    //用腾讯地图的api，根据经纬度获取城市
-                                    qqmapsdk.reverseGeocoder({
-                                        location: {
-                                            latitude: that.data.myLatitude,
-                                            longitude: that.data.myLongitude
-                                        },
-                                        success: function (res) {
-                                            console.log(res.result.address);
-                                            
-                                            that.setData({
-                                                goOutAddress: res.result.address,
-                                                goOutClock: true,
-            
-                                            })
-            
-                                        }
-            
-                                    })
-                                }
-                            })
-                        }
-                    }
-                })
-                
-            }
-        })
+                       let data = JSON.parse(res.data)
+                       if (res.statusCode == 200) {
+                           that.setData({
+                               goOuttime: time,
+                               goOutImg: data.ResultMsg
+                           })
+                           wx.getLocation({
+                               type: 'wgs84',
+                               success: function (res) {
+                                   that.setData({
+                                       myLatitude: res.latitude,
+                                       myLongitude: res.longitude
+                                   })
+                                   //用腾讯地图的api，根据经纬度获取城市
+                                   qqmapsdk.reverseGeocoder({
+                                       location: {
+                                           latitude: that.data.myLatitude,
+                                           longitude: that.data.myLongitude
+                                       },
+                                       success: function (res) {
+                                           console.log(res.result.address);
+
+                                           that.setData({
+                                               goOutAddress: res.result.address,
+                                               goOutClock: true,
+
+                                           })
+
+                                       }
+
+                                   })
+                               }
+                           })
+                       }
+                   }
+               })
+
+           }
+       })
 
 
-    },
+   },
     // 准备完成
     onPrepare() {
         let that = this

@@ -410,7 +410,7 @@
                     </view>
                 </view>
             </view>
-            <button wx:if="{{!isNurseEnd}}" type="primary" bindtap="onNurseEnd" class="btn">完成</button>
+            <button wx:if="{{!allDetails.FourImg}}" type="primary" bindtap="onNurseEnd" class="btn">完成</button>
         </block>
         <!-- 结束打卡 -->
         <block wx:elif="{{tabs[5].isShow}}">
@@ -420,30 +420,29 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             结束打卡
-                            <text>{{overTime}}</text>
+                            <text>{{overTime || allDetails.FiveConfirmTime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            <text wx:if="{{!overImg}}">请拍照记录</text>
-                            {{overAddress}}
+                            {{overAddress ||  allDetails.FiveLocation}}
                         </view>
-                        <view class="card_img">
-                            <van-icon name="location-o" class="card_icon" />
-                            <text wx:if="{{!overImg}}"></text>
-                            <image wx:else mode="widthFix" src="{{overImg}}"></image>
-                        </view>
+                                                    <view class="card_img">
+                                <van-icon name="location-o" class="card_icon" />
+                                <image wx:if="{{allDetails.FiveImg ||  overImg}}" mode="widthFix" src="{{allDetails.FiveImg ||  overImg}}"></image>
+                                <text wx:else>请拍照记录</text>
+                            </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                                <text wx:if="{{overClock || overAddress}}">已打卡</text>
+                                <text wx:if="{{overClock ||  allDetails.FiveConfirmTime}}">已打卡</text>
                                 <text wx:else="{{!overClock || !overAddress}}" style="background-color: red;">未打卡</text>
                             </view>
                             <image bindtap="onOver" mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
-                <button wx:if="{{!isOver}}" type="primary" bindtap="onOverBtn" class="btn">
+                <button wx:if="{{!allDetails.FiveConfirmTime}}" type="primary" bindtap="onOverBtn" class="btn">
                     提交
                 </button>
             </view>
@@ -456,23 +455,23 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             到达安全地点
-                            <text>{{safetyTime}}</text>
+                            <text>{{safetyTime||allDetails.EndConfirmTime}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            <text wx:if="{{!safetyImg}}">请拍照记录</text>
-                            {{safetyAddress}}
+                            {{safetyAddress || allDetails.EndLocation}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
                            <text wx:if="{{!safetyImg}}"></text>
-                            <image wx:else mode="widthFix" src="{{safetyImg}}"></image>
+                              <image wx:if="{{allDetails.EndImg ||  overImg}}" mode="widthFix" src="{{allDetails.EndImg ||  overImg}}"></image>
+                                <text wx:else>请拍照记录</text>
                         </view>
                     </view>
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                               <text wx:if="{{safetyClock || safetyAddress}}">已打卡</text>
+                               <text wx:if="{{safetyClock ||allDetails.EndImg}}">已打卡</text>
                                 <text wx:else="{{!safetyClock || !safetyAddress}}" style="background-color: red;">未打卡</text>
                             </view>
                             <image bindtap="onSafety" mode="widthFix" src="../../img/qiandao.png"></image>
