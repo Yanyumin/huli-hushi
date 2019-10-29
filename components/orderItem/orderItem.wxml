@@ -15,6 +15,7 @@
             <view class="status" wx:if="{{item.status == 6}}">下单中</view>
             <view class="status" wx:if="{{item.status == 7}}">下单成功</view>
             <view class="status" wx:if="{{item.status == 8}}">取消下单</view>
+            <view class="status" wx:if="{{item.status == 14}}">已离开</view>
             <!-- <view class="status" wx:if="{{item.status == 9}}">已结束</view> -->
             <view class="status" wx:if="{{item.status == 12}}">二次支付成功</view>
             <view class="status" wx:if="{{item.status == 10}}">完成</view>
