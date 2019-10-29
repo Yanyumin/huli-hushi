@@ -22,11 +22,15 @@ Page({
     let params = {
       Id: userId
     }
+    wx.showLoading({
+      title: '加载中',
+    })
     request({
       url: 'NurseRegister/Detail',
       data: params,
       method: 'GET'
     }).then(res => {
+      wx.hideLoading()
       if (res.data.ResultCode === 1) {
          wx.setStorageSync('userInfo', res.data.row)
           console.log(res);

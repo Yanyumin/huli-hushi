@@ -4,7 +4,7 @@
   text-align: center;
   color: gray;
 }
-image {
+.noneContainer image {
   width: 500rpx;
   height: 390rpx;
 }

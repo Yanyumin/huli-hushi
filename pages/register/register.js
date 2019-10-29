@@ -13,7 +13,7 @@ Page({
         hospitalArray: [],
         hospitaNoArr: [],
         hospitaNo: '',
-        hospitalName: '花都妇幼',
+        hospitalName: '',
         userName: '',
         checked: false,
         user_pro: "<<用户使用协议>>",
@@ -148,7 +148,8 @@ Page({
                 this.setData({
                     hospitalArray: names,
                     hospitaNoArr: Nos,
-                    hospitaNo: Nos[0]
+                    hospitaNo: Nos[0] ? Nos[0] : '',
+                    hospitalName: names[0] ? names[0] : ''
                 })
             }
         })

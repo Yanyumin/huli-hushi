@@ -23,7 +23,8 @@
     "pages/myinfo/myinfo",
     "pages/infolist/infolist",
     "pages/schedule/schedule",
-    "pages/pingjia/pingjia"
+    "pages/pingjia/pingjia",
+    "pages/forgetPwdO/forgetPwdO"
   ],
   "tabBar": {
     "color": "#a9b7b7",
@@ -83,7 +84,7 @@
     "van-rate": "vant-weapp/rate",
     "van-search": "vant-weapp/search",
     "van-popup": "vant-weapp/popup",
-      "van-dialog": "vant-weapp/dialog"
+    "van-dialog": "vant-weapp/dialog"
   },
   "permission": {
     "scope.userLocation": {

@@ -54,7 +54,7 @@
                                 <text wx:else="{{!goOutClock}}" style="background-color: red;">未打卡</text>
 
                             </view>
-                            <view bindtap="takePhoto" wx:if="{{!allDetails.OneConfirmTime}}">
+                            <view bindtap="takePhoto" wx:if="{{!goOutClock && !allDetails.OneConfirmTime}}">
                                 <image mode="widthFix" src="../../img/qiandao.png"></image>
                             </view>
                         </view>
@@ -90,7 +90,7 @@
                                <text wx:if="{{arriveClock ||  allDetails.TwoConfirmTime}}">已打卡</text>
                                 <text wx:else="{{!arriveClock}}" style="background-color: red;">未打卡</text>
                             </view>
-                            <view bindtap="onarriveClock"  wx:if="{{!allDetails.TwoConfirmTime}}">
+                            <view bindtap="onarriveClock"  wx:if="{{!arriveClock && !allDetails.TwoConfirmTime}}">
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
                             </view>
                         </view>
@@ -104,8 +104,8 @@
                     </view> 
                     <view   wx:if="{{!allDetails.TwoConfirmTime}}" class="info_input">
                         <van-cell-group>
-                            <van-field value="{{ patientName }}" label="患者姓名:" placeholder="请输入患者姓名" border="{{ false }}" bind:change="onChangeName" />
-                            <van-field value="{{ idenNo }}" label="身份证号码:" placeholder="请输入患者姓身份证号码" border="{{ false }}" bind:change="onChangeCode" />
+                            <van-field value="{{ patientName }}" disabled="{{isArrive ? true : false}}" label="患者姓名:" placeholder="请输入患者姓名" border="{{ false }}" bind:change="onChangeName" />
+                            <van-field value="{{ idenNo }}" disabled="{{isArrive ? true : false}}" label="身份证号码:" placeholder="请输入患者姓身份证号码" border="{{ false }}" bind:change="onChangeCode" />
                         </van-cell-group>
                     </view>
                     <view class="photos">
@@ -114,7 +114,7 @@
                             <image  wx:if="{{patientImg||allDetails.TwoImg}}" mode="widthFix" src="{{patientImg ||  allDetails.TwoImg[1]}}"></image>
                              <text wx:else style="font-size: 30rpx;;">　请拍照记录</text>
                         </view>
-                        <view wx:if="{{!allDetails.TwoConfirmTime}}" class="photos_btn" bindtap="attestationClock">
+                        <view wx:if="{{!isArrive && !allDetails.TwoConfirmTime}}" class="photos_btn" bindtap="attestationClock">
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
@@ -354,7 +354,7 @@
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                               <image wx:if="{{nurseBeforeImg|| allDetails.ThreeImg}}" mode="widthFix" src="{{nurseBeforeImg || allDetails.ThreeImg[0]}}"></image>
+                               <image wx:if="{{nurseBeforeImg|| allDetails.ThreeImg}}" mode="widthFix" src="{{nurseBeforeImg || allDetails.ThreeImg}}"></image>
                              <text wx:else>请拍照记录</text>
                         </view>
                     </view>
@@ -364,7 +364,7 @@
                                 <text wx:if="{{nurseBeforeClock ||  allDetails.ThreeImg}}">已完成</text>
                                 <text wx:else="{{!nurseBeforeClock}}" style="background-color: red;">未完成</text>
                             </view>
-                            <image  wx:if="{{!allDetails.ThreeImg}}" bindtap='NurseBefore' mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image  wx:if="{{!nurseBeforeClock && !allDetails.ThreeImg}}" bindtap='NurseBefore' mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -372,12 +372,12 @@
             <view class="record">护理记录</view>
             <view class="comment">
                 <van-cell-group>
-                    <van-field input-class="comment_inp" value="{{ measures }}" placeholder="病情观察及护理措施" border="{{ false }}" bind:change="onChangeMeasures" />
+                    <van-field input-class="comment_inp" value="{{ measures || allDetails.Measures }}" placeholder="病情观察及护理措施" border="{{ false }}" bind:change="onChangeMeasures" />
                 </van-cell-group>
             </view>
             <view class="comment">
                 <van-cell-group>
-                    <van-field input-class="comment_inp" value="{{ value }}" placeholder="护理效果评价" border="{{ evaluate }}" bind:change="onChangeEvaluate" />
+                    <van-field input-class="comment_inp" value="{{ evaluate || allDetails.Record }}" placeholder="护理效果评价" border="{{ evaluate }}" bind:change="onChangeEvaluate" />
                 </van-cell-group>
             </view>
             <view class="goout_content">
@@ -386,15 +386,15 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             护理完请拍照
-                            <text>{{nurseEndTime || allDetails.ThreeConfirmTime || ''}}</text>
+                            <text>{{nurseEndTime || allDetails.FourConfirmTime || ''}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            {{nurseEndAddress ||  allDetails.ThreeLocation ||''}}
+                            {{nurseEndAddress ||  allDetails.FourLocation ||''}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
-                            <image wx:if="{{nurseEndImg|| allDetails.ThreeImg}}" mode="widthFix" src="{{nurseEndImg || allDetails.ThreeImg[1]}}"></image>
+                            <image wx:if="{{nurseEndImg|| allDetails.FourImg}}" mode="widthFix" src="{{nurseEndImg || allDetails.FourImg}}"></image>
                              <text wx:else></text>
 
                         </view>
@@ -402,10 +402,10 @@
                     <view class="card_right">
                         <view class="qiandao">
                             <view class="itme_bin">
-                               <text wx:if="{{nurseEndClock||allDetails.ThreeImg}}">已完成</text>
+                               <text wx:if="{{nurseEndClock||allDetails.FourImg}}">已完成</text>
                                 <text wx:else="{{!nurseEndClock}}" style="background-color: red;">未完成</text>
                             </view>
-                            <image  wx:if="{{!allDetails.ThreeImg}}" bindtap="NurseEnd" mode="widthFix" src="../../img/qiandao.png"></image>
+                            <image  wx:if="{{!nurseEndClock && !allDetails.FourImg}}" bindtap="NurseEnd" mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
@@ -503,3 +503,4 @@
     <van-button class="falseCancel" color="gray" bindtap='falseCancel'>取消</van-button>
 </van-popup>
   <van-toast id="van-toast" />
+  <van-dialog id="van-dialog" />

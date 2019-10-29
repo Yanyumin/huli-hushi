@@ -138,6 +138,9 @@ Page({
         })
     },
     initPage() {
+        wx.showLoading({
+          title: '加载中',
+        })
         request({
             url: 'NurseOrder/GetNurseList',
             data: {
@@ -145,66 +148,68 @@ Page({
                 nurseId: wx.getStorageSync('userInfo').Id
             }
         }).then(res => {
-            let {
-                NurseList
-            } = res.data
-            let list1 = []
-            let list2 = []
-            let list3 = []
-            let list4 = []
-            let list5 = []
-            let list6 = []
-            this.setData({
-                oderList1: list1,
-                oderList2: list2,
-                oderList3: list3,
-                oderList4: list4,
-                oderList5: list5,
-                oderList6: list6
-            })
-            for (let i in NurseList) {
-                let obj = NurseList[i]
-                obj.status = obj.OrderStatus
-                obj.Price = obj.ItemMoney
-                if (NurseList[i].OrderStatus == 0) {
-                    list1.push(obj)
-                    this.setData({
-                        oderList1: list1
-                    })
-                } else if (NurseList[i].OrderStatus == 2) {
-                    list2.push(obj)
-                    this.setData({
-                        oderList2: list2
-                    })
-                } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 12 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 8 || NurseList[i].OrderStatus == 9) {
-                    list3.push(obj)
-                    this.setData({
-                        oderList3: list3
-                    })
-                } else if (NurseList[i].OrderStatus == 11) {
-                    list4.push(obj)
-                    this.setData({
-                        oderList4: list4
-                    })
-                } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
-                    list5.push(obj)
-                    this.setData({
-                        oderList5: list5
-                    })
-                } else if (NurseList[i].OrderStatus == 7) {
-                    list6.push(obj)
-                    this.setData({
-                        oderList6: list6
-                    })
+            if (res.data.ResultCode === '0' ) {
+                let {
+                    NurseList
+                } = res.data
+                let list1 = []
+                let list2 = []
+                let list3 = []
+                let list4 = []
+                let list5 = []
+                let list6 = []
+                this.setData({
+                    oderList1: list1,
+                    oderList2: list2,
+                    oderList3: list3,
+                    oderList4: list4,
+                    oderList5: list5,
+                    oderList6: list6
+                })
+                for (let i in NurseList) {
+                    let obj = NurseList[i]
+                    obj.status = obj.OrderStatus
+                    obj.Price = obj.ItemMoney
+                    if (NurseList[i].OrderStatus == 0) {
+                        list1.push(obj)
+                        this.setData({
+                            oderList1: list1
+                        })
+                    } else if (NurseList[i].OrderStatus == 2) {
+                        list2.push(obj)
+                        this.setData({
+                            oderList2: list2
+                        })
+                    } else if (NurseList[i].OrderStatus == 3 || NurseList[i].OrderStatus == 12 || NurseList[i].OrderStatus == 4 || NurseList[i].OrderStatus == 5 || NurseList[i].OrderStatus == 6 || NurseList[i].OrderStatus == 8 || NurseList[i].OrderStatus == 9) {
+                        list3.push(obj)
+                        this.setData({
+                            oderList3: list3
+                        })
+                    } else if (NurseList[i].OrderStatus == 11) {
+                        list4.push(obj)
+                        this.setData({
+                            oderList4: list4
+                        })
+                    } else if (NurseList[i].OrderStatus == 10 || NurseList[i].OrderStatus == 9) {
+                        list5.push(obj)
+                        this.setData({
+                            oderList5: list5
+                        })
+                    } else if (NurseList[i].OrderStatus == 7) {
+                        list6.push(obj)
+                        this.setData({
+                            oderList6: list6
+                        })
+                    }
                 }
+                this.setData({
+                    oderList: NurseList
+                })
+                console.log(this.data.oderList);
             }
-            this.setData({
-                oderList: NurseList
-            })
-            console.log(this.data.oderList);
-            
-      wx.hideNavigationBarLoading(); //完成停止加载图标
-      wx.stopPullDownRefresh();
+            wx.hideLoading()
+            wx.hideNavigationBarLoading(); //完成停止加载图标
+            wx.stopPullDownRefresh();
         })
     },
     /**

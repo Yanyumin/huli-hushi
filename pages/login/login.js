@@ -188,15 +188,16 @@ Page({
                   this.setData({
                       hospitalArray: names,
                       hospitaNoArr: Nos,
-                      hospitaNo: Nos[0]
+                      hospitaNo: Nos[0] ? Nos[0] : '',
+                      hospitalName: names[0] ? names[0] : ''
                   })
               }
           })
       },
   onLoad: function (options) {
-      this.GetHospitallName()
       // 页面初始化 options为页面跳转所带来的参数
         wx.clearStorageSync(); //清除缓存
+        let that = this
       wx.login({
           success(res) {
               if (res.code) {
@@ -210,6 +211,7 @@ Page({
                           wx.hideLoading()
                           if (res.statusCode == "200") {
                               wx.setStorageSync('cookies', res.header['Set-Cookie'])
+                              that.GetHospitallName()
                           } else {}
                       }
                   })

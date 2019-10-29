@@ -13,25 +13,26 @@ Page({
      */
     data: {
         value: '',
-        columns: ['外科', '骨科', '神经科'],
+        columns: [],
         sexClumn: ['男', '女'],
         titleClumns: [],
         index: 0,
         workUnit: '',
-        depart: '外科',
+        depart: '',
         userName: '',
         sex: false,
         birthday: '1999-01-01',
         cardNo: '',
         phone: '',
         address: '',
-        title: '护士',
+        title: '',
         myId: '',
         logo: '../../img/userNo.png',
         ScheduleNo: '',
         ScheduleNoArr: [],
         DepartmentId: '',
-        DepartmentArr: []
+        DepartmentArr: [],
+        logoFlag: true
     },
     onChange(event) {
         // event.detail 为当前输入的值
@@ -156,6 +157,7 @@ Page({
         }
         let params = {
             Logo: this.data.logo,
+            UserName: this.data.userName,
             Name: this.data.userName,
             Sex: this.data.sex,
             HospitalName: this.data.workUnit,
@@ -175,30 +177,40 @@ Page({
     }, //上传头像
     certificateUpload: function (e) {
         var that = this;
-        wx.chooseImage({
-            count: 1, // 默认1
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-                console.log(res)
-                // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                let tempFilePaths = res.tempFilePaths;
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        let data = JSON.parse(res.data)
-                        if (res.statusCode == 200) {
-                            that.setData({
-                                logo: data.ResultMsg
-                            })
+        if (that.data.logoFlag) {
+          that.setData({
+            logoFlag: false
+          })
+          setTimeout(function () {
+            that.setData({
+                logoFlag: true
+            })
+            wx.chooseImage({
+                count: 1, // 默认1
+                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function (res) {
+                    console.log(res)
+                    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                    let tempFilePaths = res.tempFilePaths;
+                    wx.uploadFile({
+                        method: "POST",
+                        url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                        filePath: tempFilePaths[0],
+                        name: 'file',
+                        success: function (res) {
+                            let data = JSON.parse(res.data)
+                            if (res.statusCode == 200) {
+                                that.setData({
+                                    logo: data.ResultMsg
+                                })
+                            }
                         }
-                    }
-                })
-            }
-        })
+                    })
+                }
+            })
+          }, 2000)
+        }
     },
     GetNurseSchedule() {
         request({
@@ -219,7 +231,8 @@ Page({
                 this.setData({
                     titleClumns: names,
                     ScheduleNoArr: Nos,
-                    ScheduleNo: Nos[0]
+                    ScheduleNo: Nos[0],
+                    title: names[0]
                 })
             }
 
@@ -241,7 +254,8 @@ Page({
                 this.setData({
                     columns: names,
                     DepartmentArr: Nos,
-                    DepartmentId: Nos[0]
+                    DepartmentId: Nos[0] ? Nos[0] : '',
+                    depart: names[0] ? names[0] : ''
                 })
             }
 

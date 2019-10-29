@@ -19,3 +19,6 @@
 .eventBox .todayService {
   background: #03c173;
 }
+.slide-image {
+  width: 100%;
+}

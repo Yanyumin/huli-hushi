@@ -5,6 +5,9 @@
   font-size: 28rpx;
   padding: 20rpx;
 }
+.uploadContainer image {
+  width: 100%;
+}
 .uploadTopic {
   font-size: 24rpx;
   line-height: 36rpx;

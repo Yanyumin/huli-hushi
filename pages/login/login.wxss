@@ -46,6 +46,8 @@
 
 .form_inp .input-area .rempasw {
   padding: 20rpx;
+  display: flex;
+  justify-content: space-between;
 }
 .form_inp .input-area {
     padding-top: 30rpx;

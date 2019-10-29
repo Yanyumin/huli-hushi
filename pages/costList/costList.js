@@ -1,4 +1,5 @@
 // pages/costList/costList.js
+import Dialog from 'vant-weapp/dialog/dialog';
 const {
   request
 } = require("../../utils/request")
@@ -109,49 +110,78 @@ Page({
         }
       }
     }
-    request({
-      url: 'NurseOrder/GetUnitMoney',
-      data: {visitNo: unitLists.join(',')}
-    }).then(res => {
-        if (res.data.ResultCode === '0') {
-          request({
-            url: 'NurseOrder/CreateBillOrder',
-            data: {
-              visitNo: unitLists.join(','),
-              orderId: this.data.orderId,
-              recipeSeq: '',
-              prescMoney: res.data.SumMoney,
-              Remark: ''
-            }
-          }).then(res => {
-              if (res.data.ResultCode === '0') {
-                wx.showToast({
-                  title: '提交成功',
-                  icon: 'success',
-                  duration: 2000,
-                  success: function () {
-                    wx.switchTab({
-                      url: '../myoder/myoder'
-                    })
-                  }
-                })
-                
-              } else {
-                wx.showToast({
-                  title: '提交失败',
-                  icon: 'none',
-                  duration: 2000
-                })
-              }
-          })
-        } else {
-          wx.showToast({
-            title: '提交失败',
-            icon: 'none',
-            duration: 2000
-          })
-        }
-    })
+    if (unitLists.length == 0) {
+      wx.showToast({
+        title: '请至少选择一项数量不为零的项目',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    Dialog.confirm({
+      title: '',
+      message: '是否确定增加缴费项目'
+    }).then(() => {
+      let params = wx.getStorageSync("hlpinggu")
+      request({
+          url: 'NurseOrder/NurseAssessment',
+          data: params
+      }).then(res => {
+          console.log(res);
+          wx.removeStorageSync("hlpinggu")
+          if (res.data.ResultCode === '0') {
+            request({
+              url: 'NurseOrder/GetUnitMoney',
+              data: {visitNo: unitLists.join(',')}
+            }).then(res => {
+                if (res.data.ResultCode === '0') {
+                  request({
+                    url: 'NurseOrder/CreateBillOrder',
+                    data: {
+                      visitNo: unitLists.join(','),
+                      orderId: this.data.orderId,
+                      recipeSeq: '',
+                      prescMoney: res.data.SumMoney,
+                      Remark: ''
+                    }
+                  }).then(res => {
+                      if (res.data.ResultCode === '0') {
+                        wx.showToast({
+                          title: '提交成功',
+                          icon: 'success',
+                          duration: 2000,
+                          success: function () {
+                            wx.switchTab({
+                              url: '../index/index'
+                            })
+                          }
+                        })
+                        
+                      } else {
+                        wx.showToast({
+                          title: '提交失败',
+                          icon: 'none',
+                          duration: 2000
+                        })
+                      }
+                  })
+                } else {
+                  wx.showToast({
+                    title: '提交失败',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
+            })
+          } else {
+              Toast.fail(res.data.ResultMsg);
+          }
+      })
+    }).catch(() => {
+      // on cancel
+    });
+    
+    
   },
   /**
    * 生命周期函数--监听页面加载
