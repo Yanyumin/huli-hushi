@@ -1,4 +1,4 @@
-// pages/forgetPwdO/forgetPwdO.js
+// pages/fogetPwdT/forgetPwdT.js
 const {
   request
 } = require("../../utils/request")
@@ -10,57 +10,63 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userName: '',
-    phone: ''
+    newPwd: '',
+    confirmPwd: '',
+    id: ''
   },
 
-  onChangeName(event) {
+
+  onChangePwd(event) {
     // event.detail 为当前输入的值
     this.setData({
-        userName: event.detail
+      newPwd: event.detail
     });
   },
-  onChangePhone(event) {
+  onChangeCPwd(event) {
     // event.detail 为当前输入的值
     this.setData({
-      phone: event.detail
+      confirmPwd: event.detail
     });
   },
   formSubmit() {
     let that = this
-    let phoneRes = /^1(3|4|5|6|7|8|9)\d{9}$/
-    if (that.data.userName == "" || that.data.userName == null || that.data.userName == undefined) {
-        Toast.fail('请输入用户名');
+    let passwordRes = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{6,16}$/
+    if (that.data.newPwd == "" || that.data.newPwd == null || that.data.newPwd == undefined) {
+        Toast.fail('请输入密码');
         return
-    } else if (that.data.phone == '') {
-        Toast.fail('请输入手机号');
+    } else if (!passwordRes.test(that.data.newPwd)) {
+        Toast.fail('密码格式不正确');
         return
-        //  } else if (that.data.sms == '') {
-        //      Toast.fail('请输入验证码');
-    } else if (!phoneRes.test(this.data.phone)) {
-        Toast.fail('手机号码格式不正确');
+    } else if (that.data.confirmPwd == '') {
+        Toast.fail('请确认密码');
+        return
+    } else if (that.data.confirmPwd != that.data.newPwd) {
+        Toast.fail('两次密码不一致,请重新确认');
         return
     } else {
         request({
             method: "POST",
-            url: 'NurseRegister/ValidAccount',
+            url: 'NurseRegister/ResetPassword',
             data: {
-                UserName: that.data.userName,
-                Phone: that.data.phone,
-                NurseId: '',
+                UserName: '',
+                NurseId: that.data.id,
+                Phone: '',
                 OldPassword: '',
-                NewPassword: '',
+                NewPassword: that.data.newPwd,
             }
         }).then(res => {
             console.log(res);
             if (res.data.ResultCode == 1) {
+                  // wx.setStorageSync('token', res.data.row.token)
+                // wx.setStorageSync('userInfo', res.data.row)
+                // wx.setStorageSync('haveInfo', res.data.Result)
                 wx.showToast({
-                    title: "认证成功",
+                    title: res.data.Message,
                     icon: 'success',
                     duration: 3000,
                     success: function () {
                         wx.navigateTo({
-                            url: '../fogetPwdT/forgetPwdT?id=' + res.data.row,
+                            url: '../login/login'
                         })
                     }
                 })
@@ -76,7 +82,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.data.id = options.id
   },
 
   /**

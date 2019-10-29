@@ -1,1 +1,10 @@
 /* pages/forgetPwdO/forgetPwdO.wxss */
+.forgetPwdContainer {
+  padding: 40rpx;
+}
+.forgetPwdContainer .btn {
+  margin-top: 40rpx;
+}
+.forgetPwdContainer .van-cell {
+  margin-bottom: 20rpx;
+}

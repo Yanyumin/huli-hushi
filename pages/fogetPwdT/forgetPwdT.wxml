@@ -1,0 +1,14 @@
+<!--pages/fogetPwdT/forgetPwdT.wxml-->
+<view class="forgetPwdTContainer">
+    <text>请设置新的密码</text>
+    <view class="cellBox">
+      <van-cell-group>
+          <van-field  type="password" input-class="comment_inp" value="{{ newPwd }}" placeholder="请输入新密码" bind:change="onChangePwd" />
+          <van-field  type="password" input-class="comment_inp" value="{{ confirmPwd }}" placeholder="请再次输入新密码" bind:change="onChangeCPwd" />
+      </van-cell-group>
+    </view>
+     <view class="btn">
+         <van-button type="primary" size="large" input-class="comment_inp" bind:click="formSubmit">确定</van-button>
+     </view>
+</view>
+<van-toast id="van-toast" />

@@ -1,0 +1,16 @@
+/* pages/fogetPwdT/forgetPwdT.wxss */
+.forgetPwdTContainer {
+  padding: 40rpx;
+}
+.forgetPwdTContainer text {
+  font-size: 40rpx;
+}
+.forgetPwdTContainer .cellBox {
+  margin-top: 60rpx;
+}
+.forgetPwdTContainer .van-cell {
+  margin-bottom: 20rpx;
+}
+.forgetPwdTContainer .btn {
+  margin-top: 40rpx;
+}
