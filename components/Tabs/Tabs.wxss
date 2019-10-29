@@ -5,7 +5,7 @@
 }
 
 .tabs .title_item {
-    padding: 10rpx;
+    padding: 5rpx;
     position: relative;
     /* display: flex;
     justify-content: center;
@@ -16,7 +16,7 @@
     
 }
 .tabs .title_item .round{
-      margin: 0 28rpx;
+      margin: 0 23rpx;
       width: 50rpx;
       height:50rpx;
       border: 2rpx solid #a5a3a3;
@@ -26,9 +26,9 @@
 .tabs .title_item .line {
     position: absolute;
     top: 30%;
-    left: 70%;
+    left: 75%;
      display: block;
-    width: 88rpx;
+    width: 56rpx;
     height: 2rpx;
     background-color: #6f6e6e;
 }

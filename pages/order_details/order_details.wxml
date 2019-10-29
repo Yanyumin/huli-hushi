@@ -412,8 +412,46 @@
             </view>
             <button wx:if="{{!isNurseEnd}}" type="primary" bindtap="onNurseEnd" class="btn">完成</button>
         </block>
-        <!-- 安全打卡 -->
+        <!-- 结束打卡 -->
         <block wx:elif="{{tabs[5].isShow}}">
+            <view class="goout_content">
+                <view class="card  prompt">
+                    <view class="card_left">
+                        <view class="card_time">
+                            <van-icon name="underway-o" class="card_icon" />
+                            结束 打卡
+                            <text>{{overTime}}</text>
+                        </view>
+                        <view class="card_address">
+                            <van-icon name="location-o" class="card_icon" />
+                            <text wx:if="{{!overImg}}">请拍照记录</text>
+                            {{overAddress}}
+                        </view>
+                        <view class="card_img">
+                            <van-icon name="location-o" class="card_icon" />
+                            <text wx:if="{{!overImg}}"></text>
+                            <image wx:else mode="widthFix" src="{{overImg}}"></image>
+                        </view>
+                    </view>
+                    <view class="card_right">
+                        <view class="qiandao">
+                            <view class="itme_bin">
+                                <text wx:if="{{overClock || overAddress}}">已打卡</text>
+                                <text wx:else="{{!overClock || !overAddress}}" style="background-color: red;">
+                                    未打卡
+                                </text>
+                            </view>
+                            <image bindtap="onOver" mode="widthFix" src="../../img/qiandao.png"></image>
+                        </view>
+                    </view>
+                </view>
+                <button wx:if="{{!isOver}}" type="primary" bindtap="onSubmit" class="btn">
+                    提交
+                </button>
+            </view>
+        </block>
+        <!-- 安全打卡 -->
+        <block wx:elif="{{tabs[6].isShow}}">
             <view class="goout_content">
                 <view class="card  prompt">
                     <view class="card_left">
@@ -456,6 +494,7 @@
                 <button wx:if="{{!isSafety}}" type="primary" bindtap="onSubmit" class="btn">提交</button>
             </view>
         </block>
+
     </Tabs>
 </view>
 <van-popup show="{{ showCancel }}">

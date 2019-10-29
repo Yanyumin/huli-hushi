@@ -18,6 +18,12 @@ Page({
         allDetails: '',
         opinion: '',
         Score: 0,
+        overImg:'',
+        overTime:'',
+        overAddress: '',
+        //结束打卡
+        overClock:false,
+        isOver:false,
         //安全到达打卡
         safetyClock: false,
         // 安全到达时间
@@ -125,11 +131,17 @@ Page({
                 isShow: false,
             }, {
                 id: 4,
-                title: "　 护理",
+                title: "　护理",
                 isActive: false,
                 isShow: false,
-            }, {
-                id: 5,
+            },
+             {
+                 id: 5,
+                 title: "结束打卡",
+                 isActive: false,
+                 isShow: false,
+             }, {
+                id: 6,
                 title: "安全打卡",
                 isActive: false,
                 isShow: false,
@@ -156,10 +168,65 @@ Page({
         showCancel: false,
         Cancelremark: ''
     },
+    //结束打卡
+        onOver() {
+            let that = this
+            if (that.data.isNurseEnd || that.data.allDetails.ThreeConfirmTime) {
+                wx.chooseImage({
+                    count: 1,
+                    sizeType: ['original', 'compressed'],
+                    sourceType: ['album', 'camera'],
+                    success(res) {
+                        var time = util.formatHour(new Date());
+                        const tempFilePaths = res.tempFilePaths
+                        wx.uploadFile({
+                            method: "POST",
+                            url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                            filePath: tempFilePaths[0],
+                            name: 'file',
+                            success: function (res) {
+                                let data = JSON.parse(res.data)
+                                if (res.statusCode == 200) {
+                                    that.setData({
+                                        safetyTime: time,
+                                        safetyImg: data.ResultMsg
+                                    })
+                                }
+                            }
+                        })
+                        //    用微信提供的api获取经纬度
+                        wx.getLocation({
+                            type: 'wgs84',
+                            success: function (res) {
+                                that.setData({
+                                    myLatitude: res.latitude,
+                                    myLongitude: res.longitude
+                                })
+                                //用腾讯地图的api，根据经纬度获取城市
+                                qqmapsdk.reverseGeocoder({
+                                    location: {
+                                        latitude: that.data.myLatitude,
+                                        longitude: that.data.myLongitude
+                                    },
+                                    success: function (res) {
+                                        that.setData({
+                                            safetyAddress: res.result.address
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            } else {
+                Toast.fail('上一步未操作');
+            }
+
+        },
     //到达安全地点打卡
     onSafety() {
         let that = this
-        if (that.data.isNurseEnd || that.data.allDetails.ThreeConfirmTime) {
+        if (that.data.isOver || that.data.allDetails.ThreeConfirmTime) {
               wx.chooseImage({
                   count: 1,
                   sizeType: ['original', 'compressed'],
@@ -533,7 +600,7 @@ Page({
                                         patientName: that.data.patientName,
                                         idenNo: that.data.idenNo,
                                         Score: '',
-                                    }
+                                    } 
                                 }).then(res => {
                                     console.log(res);
                                     if (res.data.ResultCode == '0') {
