@@ -420,11 +420,11 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             结束打卡
-                            <text>{{overTime || allDetails.FiveConfirmTime}}</text>
+                            <text>{{overTime || allDetails.FiveConfirmTime ||''}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            {{overAddress ||  allDetails.FiveLocation}}
+                            {{overAddress ||  allDetails.FiveLocation ||''}}
                         </view>
                                                     <view class="card_img">
                                 <van-icon name="location-o" class="card_icon" />
@@ -455,16 +455,16 @@
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
                             到达安全地点
-                            <text>{{safetyTime||allDetails.EndConfirmTime}}</text>
+                            <text>{{safetyTime||allDetails.EndTime ||''}}</text>
                         </view>
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
-                            {{safetyAddress || allDetails.EndLocation}}
+                            {{safetyAddress || allDetails.EndLocation ||''}}
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
                            <text wx:if="{{!safetyImg}}"></text>
-                              <image wx:if="{{allDetails.EndImg ||  overImg}}" mode="widthFix" src="{{allDetails.EndImg ||  overImg}}"></image>
+                              <image wx:if="{{allDetails.EndImg ||safetyImg}}" mode="widthFix" src="{{allDetails.EndImg ||safetyImg}}"></image>
                                 <text wx:else>请拍照记录</text>
                         </view>
                     </view>
@@ -478,6 +478,7 @@
                         </view>
                     </view>
                 </view>
+                
                 <!-- <view class="prompt evaluate_content">
                     <view class="evaluate">
                         评价

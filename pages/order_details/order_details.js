@@ -1236,6 +1236,26 @@ Page({
                         tabs,
                         isPinggu: true
                     })
+                } else if (infolist.status == 14) {
+                    tabs[0].isShow = false
+                    tabs[1].isShow = false
+                    tabs[3].isShow = false
+                    tabs[1].isActive = true
+                    tabs[2].isActive = true
+                    tabs[3].isActive = true
+                    tabs[4].isActive = true
+                    tabs[4].isShow = false
+                    tabs[5].isActive = true
+                    tabs[5].isShow = false
+                    tabs[6].isShow = true
+                    tabs[6].isActive = true
+
+                    this.setData({
+                        isNurseEnd: true,
+                        isArrive: true,
+                        tabs,
+                        isPinggu: true
+                    })
                 }
             } else {
                 console.log(res.data.ResultMsg);
