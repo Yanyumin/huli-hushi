@@ -224,6 +224,46 @@ Page({
             }
 
         },
+        onOverBtn() {
+            let that = this
+            let {
+                tabs
+            } = that.data;
+            if (!that.data.overClock) {
+                Toast.fail('请先打卡');
+                return
+            } else if (that.data.nurseEndClock || that.data.allDetails.FourImg) {
+                request({
+                    url: 'NurseOrder/FiveConfirm',
+                    data: {
+                        orderId: this.data.orderId,
+                         location: that.data.overAddress,
+                             baseImg: that.data.overImg,
+                             patientName: '',
+                             idenNo: '',
+                             Score: '',
+                    }
+                }).then(res => {
+                    if (res.data.ResultCode === '0') {
+
+                        tabs[4].isShow = false
+                        tabs[5].isActive = true
+                        tabs[5].isShow = true
+                        that.setData({
+                            tabs,
+                            isOver: true
+                        })
+                        this.getdetails()
+                    } else {
+                        Toast.fail(res.data.ResultMsg);
+                    }
+                })
+            } else {
+                Toast.fail('上一步未操作');
+
+            }
+
+        },
     //到达安全地点打卡
     onSafety() {
         let that = this
@@ -468,6 +508,8 @@ Page({
                                             longitude: that.data.myLongitude
                                         },
                                         success: function (res) {
+                                            console.log(res.result.address);
+                                            
                                             that.setData({
                                                 goOutAddress: res.result.address,
                                                 goOutClock: true,

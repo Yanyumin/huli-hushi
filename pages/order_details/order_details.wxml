@@ -419,7 +419,7 @@
                     <view class="card_left">
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
-                            结束 打卡
+                            结束打卡
                             <text>{{overTime}}</text>
                         </view>
                         <view class="card_address">
@@ -437,15 +437,13 @@
                         <view class="qiandao">
                             <view class="itme_bin">
                                 <text wx:if="{{overClock || overAddress}}">已打卡</text>
-                                <text wx:else="{{!overClock || !overAddress}}" style="background-color: red;">
-                                    未打卡
-                                </text>
+                                <text wx:else="{{!overClock || !overAddress}}" style="background-color: red;">未打卡</text>
                             </view>
                             <image bindtap="onOver" mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>
                 </view>
-                <button wx:if="{{!isOver}}" type="primary" bindtap="onSubmit" class="btn">
+                <button wx:if="{{!isOver}}" type="primary" bindtap="onOverBtn" class="btn">
                     提交
                 </button>
             </view>
