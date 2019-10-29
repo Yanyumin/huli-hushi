@@ -85,7 +85,17 @@
   <view class="cell">
     <text>备注</text>
     <view class="inputBox">
-     {{detailInfo.Remark}}
+     {{detailInfo.Remark || '无'}}
+    </view>
+  </view>
+  <view class="cell">
+    <text>病历</text>
+    <view class="inputBox">
+    </view>
+  </view>
+  <view class="cell">
+    <text></text>
+    <view class="inputBox">
     </view>
   </view>
   <view class="cell">

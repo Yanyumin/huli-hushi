@@ -69,6 +69,7 @@
             <view class="info_name">{{item.EvaluateContent?item.EvaluateContent:'无'}}</view>
         </view>
     </view>
+    
     <view class="service_btn">
         <block wx:if="{{item.IsStart}}">
             <button class="btn" bindtap="onStartService" wx:if="{{item.status == 5 ||item.status == 13 || item.status == 12 ||item.status == 9 ||item.status == 2 || item.status == 3 || item.status == 4 || item.status == 14 }}" data-index="{{item.id}}">
