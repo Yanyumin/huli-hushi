@@ -61,6 +61,7 @@
                                 <van-checkbox shape="square" value="{{    remPassword }}" checked-color="#07c160" bind:change="rememberPasd">
                                     记住密码
                                 </van-checkbox>
+                                <navigator class="reg_no" url="/pages/forgetPwdO/forgetPwdO">忘记密码</navigator>
                             </view>
                         </view>
                         <van-button type="primary" size="large" class="btn-area"   bind:click="onChangeLogin">登录</van-button>
