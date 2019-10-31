@@ -2,13 +2,13 @@
     width: 50%;
 } */
 .addressBtn {
-    width: 120rpx;
-    height: 60rpx;
+    width: 140rpx;
+    height: 80rpx;
     margin: 0;
-    padding: 0;
-    font-size: 30rpx;
-    line-height: 60rpx;
-    background: #03c173;
+    padding: 6rpx;
+    font-size: 34rpx;
+    background: #ffcd00;
+    box-sizing: content-box;
     color: #fff;
     display: inline-block;
 }
