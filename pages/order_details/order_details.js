@@ -208,31 +208,7 @@ Page({
                             }
                         })
                         //    用微信提供的api获取经纬度
-                        wx.getLocation({
-                            type: 'wgs84',
-                            success: function (res) {
-                                that.setData({
-                                    myLatitude: res.latitude,
-                                    myLongitude: res.longitude
-                                })
-                                //用腾讯地图的api，根据经纬度获取城市
-                                qqmapsdk.reverseGeocoder({
-                                    location: {
-                                        latitude: that.data.myLatitude,
-                                        longitude: that.data.myLongitude
-                                    },
-                                    success: function (res) {
-                                        that.setData({
-                                            overAddress: res.result.address,
-                                            overClock:true
-                                        })
-                                    }
-                                })
-														}, 
-														fail: function () {
-															wx.setStorageSync('hasLocation', false)
-														}
-                        })
+                        that.getWXLocation(1)
                     }
                 })
             } else {
@@ -306,35 +282,8 @@ Page({
                                       safetyTime: time,
                                       safetyImg: data.ResultMsg
                                   })
-                                  //    用微信提供的api获取经纬度
-                                  wx.getLocation({
-                                      type: 'wgs84',
-                                      success: function (res) {
-                                          that.setData({
-                                              myLatitude: res.latitude,
-                                              myLongitude: res.longitude
-                                          })
-                                          //用腾讯地图的api，根据经纬度获取城市
-                                          qqmapsdk.reverseGeocoder({
-                                              location: {
-                                                  latitude: that.data.myLatitude,
-                                                  longitude: that.data.myLongitude
-                                              },
-                                              success: function (res) {
-                                                  that.setData({
-                                                      safetyAddress: res.result.address,
-                                                      safetyClock: true
-                                                  })
-                                              }
-                                          })
-                                      }, 
-																			fail: function () {
-																				wx.setStorageSync('hasLocation', false)
-																				// wx.navigateTo({
-																				// 	url: '../infolist/infolist?id=' + that.data.orderId
-																				// })
-																			}
-                                  })
+																	//    用微信提供的api获取经纬度
+																	that.getWXLocation(2)
                               }
                           }
                       })
@@ -377,32 +326,9 @@ Page({
                                      nurseEndImg: data.ResultMsg,
                                      nurseEndTime: time
                                  })
-                             } //    用微信提供的api获取经纬度
-                             wx.getLocation({
-                                 type: 'wgs84',
-                                 success: function (res) {
-                                     that.setData({
-                                         myLatitude: res.latitude,
-                                         myLongitude: res.longitude
-                                     })
-                                     //用腾讯地图的api，根据经纬度获取城市
-                                     qqmapsdk.reverseGeocoder({
-                                         location: {
-                                             latitude: that.data.myLatitude,
-                                             longitude: that.data.myLongitude
-                                         },  
-                                         success: function (res) {
-                                             that.setData({
-                                                 nurseEndAddress: res.result.address,
-                                                 nurseEndClock: true
-                                             })
-                                         }
-                                     })
-                                 }, 
-																 fail: function () {
-																	 wx.setStorageSync('hasLocation', false)
-																 }
-                             })
+														 }
+														 //    用微信提供的api获取经纬度
+														 that.getWXLocation(3)
                          }
                      })
                  }
@@ -525,38 +451,7 @@ Page({
                                goOuttime: time,
                                goOutImg: data.ResultMsg
                            })
-                           wx.getLocation({
-                               type: 'wgs84',
-                               success: function (res) {
-                                   that.setData({
-                                       myLatitude: res.latitude,
-                                       myLongitude: res.longitude
-                                   })
-                                   //用腾讯地图的api，根据经纬度获取城市
-                                   qqmapsdk.reverseGeocoder({
-                                       location: {
-                                           latitude: that.data.myLatitude,
-                                           longitude: that.data.myLongitude
-                                       },
-                                       success: function (res) {
-                                           console.log(res.result.address);
-                                           that.setData({
-                                               goOutAddress: res.result.address,
-                                               goOutClock: true,
-																							 hasLocation: true
-
-                                           })
-                                       }
-
-                                   })
-                               },
-                               fail: function () {
-																wx.setStorageSync('hasLocation', false)
-																that.setData({
-																	hasLocation: false
-																})
-                               }
-                           })
+													 that.getWXLocation(5)
                        }
                    }
                })
@@ -637,28 +532,7 @@ Page({
                                 //         myOneClok.arriveTime = that.goOutAddress,
                                 //         myOneClok.arriveImg = that.goOutImg
                                 //    用微信提供的api获取经纬度
-                                wx.getLocation({
-                                    type: 'wgs84',
-                                    success: function (res) {
-                                        that.setData({
-                                            myLatitude: res.latitude,
-                                            myLongitude: res.longitude
-                                        })
-                                        //用腾讯地图的api，根据经纬度获取城市
-                                        qqmapsdk.reverseGeocoder({
-                                            location: {
-                                                latitude: that.data.myLatitude,
-                                                longitude: that.data.myLongitude
-                                            },
-                                            success: function (res) {
-                                                that.setData({
-                                                    arriveAddress: res.result.address
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-
+																that.getWXLocation(6)
                             }
                         }
                     })
@@ -1114,6 +988,80 @@ Page({
         this.setData({
             tabs
         });
+		},
+		getWXLocation (type) {
+			/* 
+				type= 1=>结束打卡
+				type= 2=>到达安全地点打卡
+				type= 3=>护理结束打卡
+				type= 4=>护理前打卡
+				type= 5=>出门打卡
+				type= 6=>到达打卡
+			*/
+			let that = this
+			wx.getLocation({
+				type: 'wgs84',
+				success: function (res) {
+						that.setData({
+								myLatitude: res.latitude,
+								myLongitude: res.longitude
+						})
+						//用腾讯地图的api，根据经纬度获取城市
+						qqmapsdk.reverseGeocoder({
+								location: {
+										latitude: that.data.myLatitude,
+										longitude: that.data.myLongitude
+								},
+								success: function (res) {
+										console.log(res.result.address);
+										switch (type) {
+											case 1:
+												that.setData({
+														overAddress: res.result.address,
+														overClock:true
+												})
+												break;
+											case 2:
+												that.setData({
+														safetyAddress: res.result.address,
+														safetyClock: true
+												})
+												break;
+											case 3:
+												that.setData({
+														nurseEndAddress: res.result.address,
+														nurseEndClock: true
+												})
+												break;
+											case 5:
+												that.setData({
+														goOutAddress: res.result.address,
+														goOutClock: true
+												})
+												break;
+											case 6:
+												that.setData({
+														arriveAddress: res.result.address
+												})
+												break;
+										
+											default:
+												break;
+										}
+										that.setData({
+												hasLocation: true
+										})
+								}
+
+						})
+				},
+				fail: function () {
+				 wx.setStorageSync('hasLocation', false)
+				 that.setData({
+					 hasLocation: false
+				 })
+				}
+		})
 		},
     getdetails() {
         wx.showLoading({

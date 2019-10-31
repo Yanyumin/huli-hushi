@@ -245,30 +245,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        
-        //    用微信提供的api获取经纬度
-        wx.getLocation({
-            type: 'wgs84',
-            success: function (res) {
-                //用腾讯地图的api，根据经纬度获取城市
-                qqmapsdk.reverseGeocoder({
-                    location: {
-                        latitude: res.latitude,
-                        longitude: res.longitude
-                    },
-                    success: function (res) {
-                        wx.setStorageSync('hasLocation', true)
-                    }
-                })
-            }, 
-            fail: function () {
-                wx.setStorageSync('hasLocation', false)
-            }
-        })
-        let hasLocation = wx.getStorageSync('hasLocation')
-        this.setData({
-            hasLocation
-        })
     },
 
     /**
