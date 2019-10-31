@@ -2,6 +2,11 @@
 const {
     request
 } = require("../../utils/request")
+const QQMapWX = require('../../lib/qqmap/qqmap-wx-jssdk.js');
+// 实例化API核心对象，对象调用方法实现功能
+let qqmapsdk = new QQMapWX({
+    key: '53IBZ-7X36X-CWE4D-TKKLE-T7K3V-STBS3'
+});
 Page({
 
     /**
@@ -13,7 +18,8 @@ Page({
         orderId: '',
         show: false,
         remark: '',
-        canOrderId: ''
+        canOrderId: '',
+        hasLocation: true
     },
 
     /**
@@ -239,7 +245,30 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        
+        //    用微信提供的api获取经纬度
+        wx.getLocation({
+            type: 'wgs84',
+            success: function (res) {
+                //用腾讯地图的api，根据经纬度获取城市
+                qqmapsdk.reverseGeocoder({
+                    location: {
+                        latitude: res.latitude,
+                        longitude: res.longitude
+                    },
+                    success: function (res) {
+                        wx.setStorageSync('hasLocation', true)
+                    }
+                })
+            }, 
+            fail: function () {
+                wx.setStorageSync('hasLocation', false)
+            }
+        })
+        let hasLocation = wx.getStorageSync('hasLocation')
+        this.setData({
+            hasLocation
+        })
     },
 
     /**

@@ -16,6 +16,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+				hasLocation: true,
         allDetails: '',
         opinion: '',
         Score: 0,
@@ -138,7 +139,7 @@ Page({
             },
              {
                  id: 5,
-                 title: "结束打卡",
+                 title: "离开打卡",
                  isActive: false,
                  isShow: false,
              }, {
@@ -169,6 +170,17 @@ Page({
         showCancel: false,
         Cancelremark: ''
     },
+		callback: function (res) {
+				console.log(res)
+				console.log(res.detail.authSetting['scope.userLocation'])
+				// detail:
+				//  authSetting:
+				//   scope.userInfo:false
+				//   scope.userLocation:false
+				if (res.detail.authSetting['scope.userLocation']){
+					wx.setStorageSync('hasLocation', true)
+				}
+			},
     //结束打卡
         onOver() {
             let that = this
@@ -216,7 +228,10 @@ Page({
                                         })
                                     }
                                 })
-                            }
+														}, 
+														fail: function () {
+															wx.setStorageSync('hasLocation', false)
+														}
                         })
                     }
                 })
@@ -312,7 +327,13 @@ Page({
                                                   })
                                               }
                                           })
-                                      }
+                                      }, 
+																			fail: function () {
+																				wx.setStorageSync('hasLocation', false)
+																				// wx.navigateTo({
+																				// 	url: '../infolist/infolist?id=' + that.data.orderId
+																				// })
+																			}
                                   })
                               }
                           }
@@ -377,7 +398,10 @@ Page({
                                              })
                                          }
                                      })
-                                 }
+                                 }, 
+																 fail: function () {
+																	 wx.setStorageSync('hasLocation', false)
+																 }
                              })
                          }
                      })
@@ -459,7 +483,10 @@ Page({
                                                 })
                                             }
                                         })
-                                    }
+                                    }, 
+																		fail: function () {
+																			wx.setStorageSync('hasLocation', false)
+																		}
                                 })
                             }
                         }
@@ -513,16 +540,21 @@ Page({
                                        },
                                        success: function (res) {
                                            console.log(res.result.address);
-
                                            that.setData({
                                                goOutAddress: res.result.address,
                                                goOutClock: true,
+																							 hasLocation: true
 
                                            })
-
                                        }
 
                                    })
+                               },
+                               fail: function () {
+																wx.setStorageSync('hasLocation', false)
+																that.setData({
+																	hasLocation: false
+																})
                                }
                            })
                        }
@@ -1082,7 +1114,7 @@ Page({
         this.setData({
             tabs
         });
-    },
+		},
     getdetails() {
         wx.showLoading({
             title: '加载中',

@@ -84,11 +84,14 @@ const IdCardBirthday = (UUserCard) => {
   let birth = UUserCard.substring(6, 10) + "-" + UUserCard.substring(10, 12) + "-" + UUserCard.substring(12, 14);
   return birth;
 }
+// 模板消息Id
+const tempId  = 'dHoMYqhQmzhZcwNghsXdJ-5TexAQ1cyvrH5d75CPwy0'
 
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
   checkIDCard: checkIDCard,
   formatHour: formatHour,
-  IdCardBirthday: IdCardBirthday
+  IdCardBirthday: IdCardBirthday,
+  tempId
 }

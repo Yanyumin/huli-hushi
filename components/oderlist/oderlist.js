@@ -5,7 +5,7 @@ Component({
    */
   properties: {
    item: {
-   type: Object
+      type: Object
    }
   },
 
@@ -58,6 +58,17 @@ Component({
          this.triggerEvent('toAppraise', {
              value: e.currentTarget.dataset['index']
          });
-     }
+     },
+     callback: function (res) {
+         console.log(res)
+         console.log(res.detail.authSetting['scope.userLocation'])
+         // detail:
+         //  authSetting:
+         //   scope.userInfo:false
+         //   scope.userLocation:false
+         if (res.detail.authSetting['scope.userLocation']){
+           wx.setStorageSync('hasLocation', true)
+         }
+       },
   }
 })

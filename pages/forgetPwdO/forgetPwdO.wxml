@@ -1,6 +1,6 @@
 <view class="forgetPwdContainer">
     <van-cell-group>
-        <van-field  input-class="comment_inp" value="{{ userName }}" placeholder="请输入账号" bind:change="onChangeName" />
+        <van-field  input-class="comment_inp" value="{{ userName }}" placeholder="请输入用户名" bind:change="onChangeName" />
         <van-field  input-class="comment_inp" value="{{ phone }}" placeholder="请输入手机号" bind:change="onChangePhone" />
     </van-cell-group>
      <view class="btn">

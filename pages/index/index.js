@@ -77,6 +77,7 @@ Page({
             arr.push(obj)
           }
         }
+        this.getTodayList()
         this.setData({
             oderList: arr
         })
@@ -166,6 +167,7 @@ Page({
    */
   onLoad: function (options) {
     const token = wx.getStorageSync('token');
+    wx.setStorageSync('hasLocation', true)
     if (!token) {
         console.log('没有 token 跳转到登录授权页');
         wx.navigateTo({

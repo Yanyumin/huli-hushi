@@ -37,6 +37,7 @@
                             <van-icon name="location-o" class="card_icon" />
                             <text wx:if="{{goOutAddress}}">{{goOutAddress}}</text>
                             <text wx:else>{{allDetails.OneLocation || ''}}</text>
+                            <button class="addressBtn" wx:if="{{!hasLocation}}" open-type="openSetting" bindopensetting="callback">地址授权</button>
                         </view>
                         <view class="card_img">
                             <van-icon name="location-o" class="card_icon" />
@@ -412,14 +413,14 @@
             </view>
             <button wx:if="{{!allDetails.FourImg}}" type="primary" bindtap="onNurseEnd" class="btn">完成</button>
         </block>
-        <!-- 结束打卡 -->
+        <!-- 离开打卡 -->
         <block wx:elif="{{tabs[5].isShow}}">
             <view class="goout_content">
                 <view class="card  prompt">
                     <view class="card_left">
                         <view class="card_time">
                             <van-icon name="underway-o" class="card_icon" />
-                            结束打卡
+                            离开打卡
                             <text>{{overTime || allDetails.FiveConfirmTime ||''}}</text>
                         </view>
                         <view class="card_address">

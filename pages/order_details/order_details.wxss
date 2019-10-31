@@ -1,6 +1,17 @@
 /* image{
     width: 50%;
 } */
+.addressBtn {
+    width: 120rpx;
+    height: 60rpx;
+    margin: 0;
+    padding: 0;
+    font-size: 30rpx;
+    line-height: 60rpx;
+    background: #03c173;
+    color: #fff;
+    display: inline-block;
+}
 .order_details{
     padding: 10rpx;
 }

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "recommendItem": "../../components/recommendItem/recommendItem"
-  }
+  },
+  "navigationBarTitleText": "患者信息"
 }
