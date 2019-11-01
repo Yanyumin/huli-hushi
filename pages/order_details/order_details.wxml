@@ -37,8 +37,8 @@
                             <van-icon name="location-o" class="card_icon" />
                             <text wx:if="{{goOutAddress}}">{{goOutAddress}}</text>
                             <text wx:else>{{allDetails.OneLocation || ''}}</text>
-                            <block wx:if="{{(!goOutAddress || !allDetails.OneLocation) && !hasLocation}}">
-                                <button class="addressBtn" open-type="openSetting" bindopensetting="callback">地址授权</button>
+                            <block wx:if="{{!goOutAddress && !allDetails.OneLocation}}">
+                                <button class="addressBtn" wx:if="{{!hasLocation}}" open-type="openSetting" bindopensetting="callback">地址授权</button>
                             </block>
                         </view>
                         <view class="card_img">
@@ -79,8 +79,8 @@
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
                            {{arriveAddress ||allDetails.TwoLocation || ''}}
-                            <block wx:if="{{(!arriveAddress || !allDetails.TwoLocation) && !hasLocation}}">
-                                <button class="addressBtn" open-type="openSetting" bindopensetting="callback6">地址授权</button>
+                            <block wx:if="{{!arriveAddress && !allDetails.TwoLocation}}">
+                                <button class="addressBtn" wx:if="{{!hasLocation}}" open-type="openSetting" bindopensetting="callback6">地址授权</button>
                             </block>
                         </view>
                         <view class="card_img">
@@ -357,7 +357,7 @@
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
                             {{nurseAddress ||  allDetails.ThreeLocation ||''}}
-                            <block wx:if="{{(!nurseAddress || !allDetails.ThreeLocation) && !hasLocation}}">
+                            <block wx:if="{{!nurseAddress && !allDetails.ThreeLocation && !hasLocation}}">
                                 <button class="addressBtn" open-type="openSetting" bindopensetting="callback4">地址授权</button>
                             </block>
                         </view>
@@ -400,7 +400,7 @@
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
                             {{nurseEndAddress ||  allDetails.FourLocation ||''}}
-                            <block wx:if="{{(!nurseEndAddress || !allDetails.FourLocation) && !hasLocation}}">
+                            <block wx:if="{{!nurseEndAddress && !allDetails.FourLocation && !hasLocation}}">
                                 <button class="addressBtn" open-type="openSetting" bindopensetting="callback3">地址授权</button>
                             </block>
                         </view>
@@ -437,7 +437,7 @@
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
                             {{overAddress ||  allDetails.FiveLocation ||''}}
-                            <block wx:if="{{(!overAddress || !allDetails.FiveLocation) && !hasLocation}}">
+                            <block wx:if="{{!overAddress && !allDetails.FiveLocation && !hasLocation}}">
                                 <button class="addressBtn" open-type="openSetting" bindopensetting="callback1">地址授权</button>
                             </block>
                         </view>
@@ -475,7 +475,7 @@
                         <view class="card_address">
                             <van-icon name="location-o" class="card_icon" />
                             {{safetyAddress || allDetails.EndLocation ||''}}
-                            <block wx:if="{{(!safetyAddress || !allDetails.EndLocation) && !hasLocation}}">
+                            <block wx:if="{{!safetyAddress && !allDetails.EndLocation && !hasLocation}}">
                                 <button class="addressBtn" open-type="openSetting" bindopensetting="callback2">地址授权</button>
                             </block>
                         </view>
