@@ -22,6 +22,15 @@ Component({
    */
   methods: {
     clickOrder (e) {
+      let status = e.currentTarget.dataset['status']
+      if (status) {
+        wx.showToast({
+            title: '已过期订单',
+            icon: 'none',
+            duration: 2000
+        })
+        return
+      }
       this.triggerEvent('change', { value: e.currentTarget.dataset['id'] });
     },
     startService (e) {

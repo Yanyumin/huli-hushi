@@ -158,13 +158,15 @@ Page({
                 let list4 = []
                 let list5 = []
                 let list6 = []
+                let list7 = []
                 this.setData({
                     oderList1: list1,
                     oderList2: list2,
                     oderList3: list3,
                     oderList4: list4,
                     oderList5: list5,
-                    oderList6: list6
+                    oderList6: list6,
+                    oderList: list7
                 })
                 for (let i in NurseList) {
                     let obj = NurseList[i]
@@ -200,11 +202,13 @@ Page({
                         this.setData({
                             oderList6: list6
                         })
+                    } else if (!NurseList[i].IsStatus) {
+                        list7.push(obj)
+                        this.setData({
+                            oderList: list7
+                        })
                     }
                 }
-                this.setData({
-                    oderList: NurseList
-                })
                 console.log(this.data.oderList);
             }
             wx.hideLoading()
