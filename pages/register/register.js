@@ -25,7 +25,14 @@ Page({
         password_c: '',
         phone: '',
         sms: '',
-        isAcceptTemp: false
+        isAcceptTemp: false,
+        showSetBtn: false
+    },
+    callback (res) {
+        this.setData({
+            showSetBtn: false
+        })
+        // this.toAccept()
     },
     formSubmit() {
         let that = this
@@ -190,7 +197,8 @@ Page({
                             title: '订阅消息成功',
                             success: function () {
                                 that.setData({
-                                    isAcceptTemp: true
+                                    isAcceptTemp: true,
+                                    showSetBtn: false
                                 })
                             }
                         })
@@ -201,7 +209,8 @@ Page({
                             title: '订阅消息失败',
                             success: function () {
                                 that.setData({
-                                    isAcceptTemp: false
+                                    isAcceptTemp: false,
+                                    showSetBtn: true
                                 })
                             }
                         })
@@ -210,13 +219,8 @@ Page({
                 fail(res) {
                     console.log(res)
                     that.setData({
-                        isAcceptTemp: false
-                    })
-                },
-                complete(res) {
-                    console.log(res)
-                    that.setData({
-                        isAcceptTemp: false
+                        isAcceptTemp: false,
+                        showSetBtn: true
                     })
                 }
             })

@@ -172,6 +172,12 @@ Page({
                     let obj = NurseList[i]
                     obj.status = obj.OrderStatus
                     obj.Price = obj.ItemMoney
+                    if (!NurseList[i].IsStatus) {
+                        list7.push(obj)
+                        this.setData({
+                            oderList: list7
+                        })
+                    }
                     if (NurseList[i].OrderStatus == 0) {
                         list1.push(obj)
                         this.setData({
@@ -201,11 +207,6 @@ Page({
                         list6.push(obj)
                         this.setData({
                             oderList6: list6
-                        })
-                    } else if (!NurseList[i].IsStatus) {
-                        list7.push(obj)
-                        this.setData({
-                            oderList: list7
                         })
                     }
                 }

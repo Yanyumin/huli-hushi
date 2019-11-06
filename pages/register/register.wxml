@@ -33,3 +33,9 @@
  </view>
   <van-toast id="van-toast" />
 <van-dialog id="van-dialog" />
+<van-popup show="{{ showSetBtn }}">
+    <view class="msgView">请点击接收消息按钮打开设置 → 消息订阅 → 接收订阅消息，将开关移到右边即可！</view>
+    <!-- <van-button class="sureCancel" type="primary" bindtap='sureCancel'>确定</van-button> -->
+    <button class="addressBtn" open-type="openSetting" bindopensetting="callback">接收消息</button>
+    <!-- <van-button class="falseCancel" color="gray" bindtap='falseCancel'>取消</van-button> -->
+</van-popup>
