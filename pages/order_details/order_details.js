@@ -810,6 +810,7 @@ Page({
             }
         }).then(res => {
             console.log(res);
+            
             if (res.data.ResultCode == 0) {
                 that.setData({
                     safetyClock: true,
@@ -817,7 +818,6 @@ Page({
                 })
                 wx.switchTab({
                     url: '../index/index',
-
                 })
             } else {
                 console.log(res.data.ResultMsg);
@@ -989,7 +989,7 @@ Page({
             tabs
         });
 		},
-		getWXLocation (type) {
+    getWXLocation (type) {
 			/* 
 				type= 1=>结束打卡
 				type= 2=>到达安全地点打卡

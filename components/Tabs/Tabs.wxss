@@ -5,6 +5,8 @@
 }
 
 .tabs .title_item {
+    width: 150rpx;
+     height:150rpx;
     padding: 5rpx;
     position: relative;
     /* display: flex;
@@ -16,17 +18,28 @@
     
 }
 .tabs .title_item .round{
-      margin: 0 23rpx;
-      width: 50rpx;
-      height:50rpx;
-      border: 2rpx solid #a5a3a3;
-      border-radius: 50%;
-      background:#fff;
+      margin: 0 10rpx;
+      /* /* width: 50rpx; */ 
+      /* height:50rpx; */
+      /* border: 2rpx solid #a5a3a3; */
+      /* border-radius: 50%; */
+      /* background:#fff; */
+
+}
+.tabs .title_item .line_content {
+     /* width: 50rpx; */
+     /* height:50rpx; */
+    /* position: relative; */
+
+}
+.tabs .title_item .round image {
+    width: 80%;
+    /* background-image: url(../../img/achieveNo.png) */
 }
 .tabs .title_item .line {
     position: absolute;
-    top: 30%;
-    left: 75%;
+    top: 24%;
+    left: 68%;
      display: block;
     width: 56rpx;
     height: 2rpx;
@@ -35,17 +48,24 @@
 .tabs .title_item:nth-last-child(1) text {
        display: none;
 }
-
-.tabs .title_item:nth-child(1) .round {
-    margin-left: 24rpx;
+.tabs .title_item:nth-child(1) .title_name {
+    margin-left: 7rpx;
 }
+
+/* .tabs .title_item:nth-child(1) .round {
+    margin-left: 24rpx;
+} */
 .tabs .title_item .title_name{
     font-size: 25rpx;
 }
 
 .tabs .title_item .active {
- background: seagreen;
+ /* background: seagreen; */
     /* border-bottom: 5rpx solid red; */
+    background-image: url(../../img/achieve.png)
 }
 
-.tabs .tabs_content {}
+.tabs .achieve_name {
+    /* background: seagreen; */
+    color: red;
+}

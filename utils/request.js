@@ -70,9 +70,7 @@ const request = (params) => {
       }
     })
   });
-
 }
-
 const pullDownrequest = (params) => {
   // 抽离项目基本路径
 const baseURL = "https://api.gdbkyz.com/AppUser/api/";
@@ -140,9 +138,7 @@ return new Promise((resolve, reject) => {
     }
   })
 });
-
 }
-
 // 把封装的方法导出
 module.exports = {
   request,
