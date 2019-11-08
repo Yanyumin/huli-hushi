@@ -82,14 +82,14 @@
     </view>
     <view class='ui_uploader_cell'>
       <!-- 根据已选择的图片临时路径数组展示图片-->
-      <view class='ui_uploader_item' wx:for="{{certificateList}}" wx:key="{{index}}">
+      <view class='ui_uploader_item' wx:for="{{practisingcardList}}" wx:key="{{index}}">
         <!-- 删除-->
-        <van-icon name="clear"  bindtap='certificateClearImg' data-index="{{index}}" type="clear"/>
+        <van-icon name="clear"  bindtap='practisingcardClearImg' data-index="{{index}}" type="clear"/>
         <!-- 图片-->
-        <image bindtap='certificateShowImg' data-index="{{index}}" src='{{item}}'></image>
+        <image bindtap='practisingcardShowImg' data-index="{{index}}" src='{{item}}'></image>
       </view>
       <!-- 上传按钮+框 -->
-      <view class='ui_uploader' bindtap='certificateUpload' wx:if="{{certificateShowUpload}}">
+      <view class='ui_uploader' bindtap='practisingcardUpload' wx:if="{{practisingcardShowUpload}}">
         <van-icon name="plus" />
         <view class='uploadTip'>上传证书正面</view>
       </view>
@@ -99,7 +99,7 @@
     <van-button round color="#ffa500" bindtap="certificateAdd">+增加一张</van-button>
   </view>
   <view class="handleBox nextTip">
-    <van-button round type="primary" bindtap="certificateAdd" bindtap="submitThis">提交审核</van-button>
+    <van-button round type="primary" bindtap="submitThis">提交审核</van-button>
   </view>
 </view>
   <van-toast id="van-toast" />

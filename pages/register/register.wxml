@@ -18,6 +18,11 @@
                </view>
            </view>
      </view>
+    <view class="acceptprotocol">
+        <van-checkbox shape="square" value="{{ checkedAccept }}" checked-color="#07c160" bind:change="onChangeAccept">
+            是否接收订阅消息,用于订单消息提醒
+        </van-checkbox>
+    </view>
      <view class="btn">
          <van-button type="primary" size="large" input-class="comment_inp" bind:click="formSubmit">注册</van-button>
      </view>
@@ -27,6 +32,11 @@
      <van-checkbox shape="square" value="{{ checked }}" checked-color="#07c160" bind:change="onChangebtn">
          我同意
      </van-checkbox>
+     <!-- <checkbox-group bindchange="onChangebtn">
+        <label class="checkbox">
+            <checkbox value="我同意" checked="{{checked}}"/>我同意
+        </label>
+    </checkbox-group> -->
      <view class="user_pro">
          <navigator>{{user_pro}}</navigator>
      </view>

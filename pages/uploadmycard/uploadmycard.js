@@ -20,15 +20,14 @@ Page({
         workuploaderList1: [],
         uploaderNum1: 0,
         showUpload1: true,
-        certificateList: [],
         workCertificateList: [],
-        certificateNum: 0,
-         workCertificateNum: 0,
-
-        certificateShowUpload: true,
+        workCertificateNum: 0,
         workCertificateShowUpload: true,
-        certificateImages: [],
         workCertificateImages:[],
+        practisingcardList: [],
+        practisingcardNum: 0,
+        practisingcardShowUpload: true,
+        practisingcardImages: [],
         img1: '',
         img2: '',
         img3: '',
@@ -186,31 +185,31 @@ Page({
         
     },
     // 删除证书图片
-    certificateClearImg: function (e) {
+    practisingcardClearImg: function (e) {
         var nowList = []; //新数据
-        var uploaderList = this.data.certificateList; //原数据
-        var certificateImages = this.data.certificateImages; //原数据
+        var uploaderList = this.data.practisingcardList; //原数据
+        var practisingcardImages = this.data.practisingcardImages; //原数据
         for (let i = 0; i < uploaderList.length; i++) {
             if (i == e.currentTarget.dataset.index) {
                 index = i
-                certificateImages.splice(index, 1)
+                practisingcardImages.splice(index, 1)
                 continue;
             } else {
                 nowList.push(uploaderList[i])
             }
         }
         this.setData({
-            certificateNum: this.data.certificateNum - 1,
-            certificateList: nowList,
-            certificateShowUpload: true,
-            certificateImages: certificateImages
+            practisingcardNum: this.data.practisingcardNum - 1,
+            practisingcardList: nowList,
+            practisingcardShowUpload: true,
+            practisingcardImages: practisingcardImages
         })
         let isShow = true
-        if (this.data.certificateNum >= 1) {
+        if (this.data.practisingcardNum >= 1) {
             isShow = false
         }
         this.setData({
-            certificateShowUpload: isShow
+            practisingcardShowUpload: isShow
         })
     },
        // 删除工作证图片
@@ -243,32 +242,32 @@ Page({
            })
        },
     //展示证书图片
-    certificateShowImg: function (e) {
+    practisingcardShowImg: function (e) {
         var that = this;
         wx.previewImage({
-            urls: that.data.uploaderList1,
-            current: that.data.uploaderList1[e.currentTarget.dataset.index]
+            urls: that.data.practisingcardList,
+            current: that.data.practisingcardList[e.currentTarget.dataset.index]
         })
     },
      //展示工作证书图片
      workCertificateShowImg: function (e) {
          var that = this;
          wx.previewImage({
-             urls: that.data.uploaderList1,
-             current: that.data.uploaderList1[e.currentTarget.dataset.index]
+             urls: that.data.workCertificateList,
+             current: that.data.workCertificateList[e.currentTarget.dataset.index]
          })
      },
     //上传证书图片
-    certificateUpload: function (e) {
+    practisingcardUpload: function (e) {
         var that = this;
         wx.chooseImage({
-            count: 1 - that.data.certificateNum, // 默认1
+            count: 1 - that.data.practisingcardNum, // 默认1
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
                 // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                 let tempFilePaths = res.tempFilePaths;
-                let uploaderList = that.data.certificateList.concat(tempFilePaths);
+                let uploaderList = that.data.practisingcardList.concat(tempFilePaths);
                 wx.uploadFile({
                     method: "POST",
                     url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
@@ -279,15 +278,15 @@ Page({
                         if (res.statusCode == 200) {
                             certy.push(data.ResultMsg)
                             that.setData({
-                                certificateImages: certy
+                                practisingcardImages: certy
                             })
                         }
                     }
                 })
                 that.setData({
-                    certificateList: uploaderList,
-                    certificateNum: uploaderList.length,
-                    certificateShowUpload: false
+                    practisingcardList: uploaderList,
+                    practisingcardNum: uploaderList.length,
+                    practisingcardShowUpload: false
                 })
             }
         })
@@ -329,7 +328,7 @@ Page({
     //点击按钮增加上传证书
     certificateAdd: function (e) {
         this.setData({
-            certificateShowUpload: true
+            practisingcardShowUpload: true
         })
     },
       //点击按钮增加上传工作证
@@ -349,14 +348,14 @@ Page({
         } else if (this.data.workCertificateImages.length == 0) {
             Toast.fail('请上传工作证照片');
             return
-        } else if (this.data.certificateImages.length == 0) {
+        } else if (this.data.practisingcardImages.length == 0) {
             Toast.fail('请上传护士执业证书照片');
             return
         }
         let params = {
             IDCardImage: this.data.img1,
             IDCardImage2: this.data.img2,
-            OtherImages: this.data.certificateImages.join(';'),
+            OtherImages: this.data.practisingcardImages.join(';'),
             CardImages: this.data.workCertificateImages.join(';')
         }
         let userId = wx.getStorageSync('userInfo').Id
@@ -365,7 +364,7 @@ Page({
         
         user_info.IDCardImage = this.data.img1
         user_info.IDCardImage2 = this.data.img2
-        user_info.OtherImages = this.data.certificateImages.join(';')
+        user_info.OtherImages = this.data.practisingcardImages.join(';')
         user_info.CardImages = this.data.workCertificateImages.join(';')
 
         user_info.HospitalId = wx.getStorageSync('userInfo').HospitalId
