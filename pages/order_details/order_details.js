@@ -169,18 +169,45 @@ Page({
         },
         showCancel: false,
         Cancelremark: ''
-    },
-		callback: function (res) {
-				console.log(res)
-				console.log(res.detail.authSetting['scope.userLocation'])
-				// detail:
-				//  authSetting:
-				//   scope.userInfo:false
-				//   scope.userLocation:false
-				if (res.detail.authSetting['scope.userLocation']){
-					wx.setStorageSync('hasLocation', true)
-				}
-			},
+		},
+		/* 
+			type= 1=>结束打卡
+			type= 2=>到达安全地点打卡
+			type= 3=>护理结束打卡
+			type= 4=>护理前打卡
+			type= 5=>出门打卡
+			type= 6=>到达打卡
+		*/
+		callback (res) {
+			if (res.detail.authSetting['scope.userLocation']){
+				this.getWXLocation(5)
+			}
+		},
+		callback6 (res) {
+			if (res.detail.authSetting['scope.userLocation']){
+				this.getWXLocation(6)
+			}
+		},
+		callback4 (res) {
+			if (res.detail.authSetting['scope.userLocation']){
+				this.getWXLocation(4)
+			}
+		},
+		callback3 (res) {
+			if (res.detail.authSetting['scope.userLocation']){
+				this.getWXLocation(3)
+			}
+		},
+		callback1 (res) {
+			if (res.detail.authSetting['scope.userLocation']){
+				this.getWXLocation(1)
+			}
+		},
+		callback2 (res) {
+			if (res.detail.authSetting['scope.userLocation']){
+				this.getWXLocation(2)
+			}
+		},
     //结束打卡
         onOver() {
             let that = this
@@ -365,55 +392,7 @@ Page({
                                     nurseBeforeImg: data.ResultMsg
                                 })
                                 //    用微信提供的api获取经纬度
-                                wx.getLocation({
-                                    type: 'wgs84',
-                                    success: function (res) {
-                                        that.setData({
-                                            myLatitude: res.latitude,
-                                            myLongitude: res.longitude
-                                        })
-                                        //用腾讯地图的api，根据经纬度获取城市
-                                        qqmapsdk.reverseGeocoder({
-                                            location: {
-                                                latitude: that.data.myLatitude,
-                                                longitude: that.data.myLongitude
-                                            },
-                                            success: function (res) {
-                                                that.setData({
-                                                    nurseAddress: res.result.address
-                                                })
-                                                let addressArr = []
-                                                addressArr.push(that.data.nurseAddress)
-                                                let imgArr = []
-                                                imgArr.push(that.data.nurseBeforeImg)
-                                                request({
-                                                    method: 'POST',
-                                                    url: 'NurseOrder/ThreeConfirm',
-                                                    data: {
-                                                        orderId: that.data.orderId,
-                                                        location: addressArr.join(','),
-                                                        baseImg: imgArr.join(','),
-                                                        patientName: '',
-                                                        idenNo: '',
-                                                        Score: ''
-                                                    }
-                                                }).then(res => {
-                                                    console.log(res);
-                                                    if (res.data.ResultCode == 0) {
-                                                        that.setData({
-                                                            nurseBeforeClock: true
-                                                        })
-                                                    } else {
-                                                        console.log(res.data.ResultMsg);
-                                                    }
-                                                })
-                                            }
-                                        })
-                                    }, 
-																		fail: function () {
-																			wx.setStorageSync('hasLocation', false)
-																		}
-                                })
+                                that.getWXLocation(4)
                             }
                         }
                     })
@@ -522,7 +501,6 @@ Page({
                             if (res.statusCode == 200) {
 
                                 that.setData({
-                                    arriveClock: true,
                                     arriveTime: time2,
                                     arriveImg: data.ResultMsg
                                 })
@@ -1002,64 +980,99 @@ Page({
 			wx.getLocation({
 				type: 'wgs84',
 				success: function (res) {
-						that.setData({
-								myLatitude: res.latitude,
-								myLongitude: res.longitude
-						})
-						//用腾讯地图的api，根据经纬度获取城市
-						qqmapsdk.reverseGeocoder({
-								location: {
-										latitude: that.data.myLatitude,
-										longitude: that.data.myLongitude
-								},
-								success: function (res) {
-										console.log(res.result.address);
-										switch (type) {
-											case 1:
-												that.setData({
-														overAddress: res.result.address,
-														overClock:true
-												})
-												break;
-											case 2:
-												that.setData({
-														safetyAddress: res.result.address,
-														safetyClock: true
-												})
-												break;
-											case 3:
-												that.setData({
-														nurseEndAddress: res.result.address,
-														nurseEndClock: true
-												})
-												break;
-											case 5:
-												that.setData({
-														goOutAddress: res.result.address,
-														goOutClock: true
-												})
-												break;
-											case 6:
-												that.setData({
-														arriveAddress: res.result.address
-												})
-												break;
-										
-											default:
-												break;
-										}
-										that.setData({
-												hasLocation: true
-										})
-								}
+                    that.setData({
+                        myLatitude: res.latitude,
+                        myLongitude: res.longitude
+                    })
+                    //用腾讯地图的api，根据经纬度获取城市
+                    qqmapsdk.reverseGeocoder({
+                        location: {
+                            latitude: that.data.myLatitude,
+                            longitude: that.data.myLongitude
+                        },
+                        success: function (res) {
+                            console.log(res.result.address);
+                            switch (type) {
+                                case 1:
+                                    that.setData({
+                                        overAddress: res.result.address,
+                                        overClock:true
+                                    })
+                                    break;
+                                case 2:
+                                    that.setData({
+                                        safetyAddress: res.result.address,
+                                        safetyClock: true
+                                    })
+                                    break;
+                                case 3:
+                                    that.setData({
+                                        nurseEndAddress: res.result.address,
+                                        nurseEndClock: true
+                                    })
+                                    break;
+                                case 4:
+                                    that.setData({
+                                        nurseAddress: res.result.address
+                                    })
+                                    let addressArr = []
+                                    addressArr.push(that.data.nurseAddress)
+                                    let imgArr = []
+                                    imgArr.push(that.data.nurseBeforeImg)
+                                    request({
+                                        method: 'POST',
+                                        url: 'NurseOrder/ThreeConfirm',
+                                        data: {
+                                            orderId: that.data.orderId,
+                                            location: addressArr.join(','),
+                                            baseImg: imgArr.join(','),
+                                            patientName: '',
+                                            idenNo: '',
+                                            Score: ''
+                                        }
+                                    }).then(res => {
+                                        console.log(res);
+                                        if (res.data.ResultCode == 0) {
+                                            that.setData({
+                                                nurseBeforeClock: true
+                                            })
+                                        } else {
+                                            console.log(res.data.ResultMsg);
+                                        }
+                                    })
+                                    break;
+                                case 5:
+                                    that.setData({
+                                        goOutAddress: res.result.address,
+                                        goOutClock: true
+                                    })
+                                    break;
+                                case 6:
+                                    that.setData({
+                                        arriveAddress: res.result.address,
+                                        arriveClock: true,
+                                    })
+                                    break;
+                            
+                                default:
+                                    break;
+                            }
+                            that.setData({
+                                hasLocation: true
+                            })
+                        }
 
-						})
+                    })
 				},
 				fail: function () {
-				 wx.setStorageSync('hasLocation', false)
 				 that.setData({
 					 hasLocation: false
 				 })
+				 Dialog.alert({
+                    message: '地址获取失败，请点击地址授权开启位置信息展示'
+				 }).then(() => {
+				 // on close
+				 });
 				}
 		})
 		},

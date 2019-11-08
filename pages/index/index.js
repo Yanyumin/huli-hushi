@@ -17,8 +17,29 @@ Page({
     oderList: [],
     todayOderList: [],
     showEvent: true,
-    todayServiceShow: false
+    todayServiceShow: false,
+    show: false,
+    remark: '',
+    cancelOrderId: ''
   },
+  remarkChange: function (e) {
+      this.setData({
+          remark: e.detail.value
+      })
+  },
+  cancelService (e) {
+      this.setData({
+          show: true,
+          cancelOrderId: e.detail.value
+      })
+
+  },
+    falseCancel() {
+        this.setData({
+            show: false, 
+            remark: ''
+        })
+    },
   clickEvent () {
     this.getList()
     this.setData({
@@ -70,7 +91,7 @@ Page({
         let arr = []
         for (let i in NurseList) {
           let obj = {}
-          if (NurseList[i].OrderStatus == 0) {
+          if (NurseList[i].OrderStatus == 0 && !NurseList[i].IsStatus) {
             NurseList[i].status = NurseList[i].OrderStatus
             NurseList[i].Price = NurseList[i].ItemMoney
             obj = NurseList[i]
@@ -135,13 +156,20 @@ Page({
   },
   sureCancel (e) {
     let that = this
-    
+    if (!that.data.remark) {
+        wx.showToast({
+            title: '请填写原因',
+            icon: 'none',
+            duration: 2000
+        })
+        return
+    }
     wx.showLoading({
       title: '加载中',
     })
     request({
         url: 'NurseOrder/ReceiveFailed',
-        data: {orderId: e.detail.value, remark: ''}
+        data: {orderId: that.data.cancelOrderId, remark: that.data.remark}
     }).then(res => {
         if (res.data.ResultCode === '0') {
             wx.showToast({
@@ -149,6 +177,10 @@ Page({
                 icon: 'success',
                 duration: 2000,
                 success: function () {
+                  that.setData({
+                      show: false,
+                      remark: ''
+                  })
                   that.getList()
                 }
             })

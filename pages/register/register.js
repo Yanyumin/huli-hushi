@@ -25,7 +25,15 @@ Page({
         password_c: '',
         phone: '',
         sms: '',
-        isAcceptTemp: false
+        isAcceptTemp: false,
+        showSetBtn: false,
+        checkedAccept: false
+    },
+    callback (res) {
+        this.setData({
+            showSetBtn: false
+        })
+        // this.toAccept()
     },
     formSubmit() {
         let that = this
@@ -57,53 +65,7 @@ Page({
         } else if (!that.data.checked) {
             Toast.fail('请勾选同意下方使用协议');
             return
-        } else if (!that.data.isAcceptTemp) {
-            Dialog.confirm({
-                title: '',
-                message: '为方便接收接单信息，请同意接收订阅消息'
-            }).then(() => {
-                wx.requestSubscribeMessage({
-                    tmplIds: [tempId],//刚申请的订阅模板id
-                    success(res) {
-                        if (res[tempId] == 'accept') {
-                            //用户同意了订阅
-                            wx.showToast({
-                                title: '订阅消息成功',
-                                success: function () {
-                                    that.setData({
-                                        isAcceptTemp: true
-                                    })
-                                }
-                            })
-        
-                        } else {
-                            //用户拒绝了订阅或当前游戏被禁用订阅消息
-                            wx.showToast({
-                                title: '订阅消息失败',
-                                success: function () {
-                                    that.setData({
-                                        isAcceptTemp: false
-                                    })
-                                }
-                            })
-                        }
-                    },
-                    fail(res) {
-                        console.log(res)
-                        that.setData({
-                            isAcceptTemp: false
-                        })
-                    },
-                    complete(res) {
-                        console.log(res)
-                        that.setData({
-                            isAcceptTemp: false
-                        })
-                    }
-                })
-            })
-            return
-        } else {
+        }  else {
             request({
                 method: "POST",
                 url: 'NurseRegister/Register',
@@ -177,10 +139,13 @@ Page({
         //      userName: e.detail
         //  });
     },
-    //  同意
-    onChangebtn(e) {
+    //  同意接收订阅消息
+    onChangeAccept(e) {
         let that = this
-        if (!that.data.isAcceptTemp) {
+        that.setData({
+            checkedAccept: e.detail
+        });
+        if (that.data.checkedAccept) {
             wx.requestSubscribeMessage({
                 tmplIds: [tempId],//刚申请的订阅模板id
                 success(res) {
@@ -190,7 +155,7 @@ Page({
                             title: '订阅消息成功',
                             success: function () {
                                 that.setData({
-                                    isAcceptTemp: true
+                                    showSetBtn: false
                                 })
                             }
                         })
@@ -201,7 +166,7 @@ Page({
                             title: '订阅消息失败',
                             success: function () {
                                 that.setData({
-                                    isAcceptTemp: false
+                                    showSetBtn: true
                                 })
                             }
                         })
@@ -210,17 +175,15 @@ Page({
                 fail(res) {
                     console.log(res)
                     that.setData({
-                        isAcceptTemp: false
-                    })
-                },
-                complete(res) {
-                    console.log(res)
-                    that.setData({
-                        isAcceptTemp: false
+                        showSetBtn: true
                     })
                 }
             })
         }
+    },
+    //  同意
+    onChangebtn(e) {
+        let that = this
         that.setData({
             checked: e.detail
         });

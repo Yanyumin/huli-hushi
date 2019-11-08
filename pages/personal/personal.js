@@ -1,4 +1,5 @@
 // pages/personal/personal.js
+import Dialog from 'vant-weapp/dialog/dialog';
 import {
     tempId
 } from '../../utils/util'
@@ -41,7 +42,8 @@ Page({
                 class: 'accept'
             }
         ],
-        isAcceptTemp: false
+        isAcceptTemp: false,
+        showSetBtn: false
     },
     toPersonalInfo() {
         let user = wx.getStorageSync('userInfo')
@@ -75,49 +77,56 @@ Page({
             url: '../updatemyinfo/updatemyinfo',
         })
     },
+    callback (res) {
+        this.setData({
+            showSetBtn: false
+        })
+        // this.toAccept()
+    },
     toAccept () {
         let that = this
-        if (!that.data.isAcceptTemp) {
-            wx.requestSubscribeMessage({
-                tmplIds: [tempId],//刚申请的订阅模板id
-                success(res) {
-                    if (res[tempId] == 'accept') {
-                        //用户同意了订阅
-                        wx.showToast({
-                            title: '订阅消息成功',
-                            success: function () {
-                                that.setData({
-                                    isAcceptTemp: true
-                                })
-                            }
-                        })
-    
-                    } else {
-                        //用户拒绝了订阅或当前游戏被禁用订阅消息
-                        wx.showToast({
-                            title: '订阅消息失败',
-                            success: function () {
-                                that.setData({
-                                    isAcceptTemp: false
-                                })
-                            }
-                        })
-                    }
-                },
-                fail(res) {
-                    console.log(res)
-                    that.setData({
-                        isAcceptTemp: false
+        wx.requestSubscribeMessage({
+            tmplIds: [tempId],//刚申请的订阅模板id
+            success(res) {
+                if (res[tempId] == 'accept') {
+                    //用户同意了订阅
+                    wx.showToast({
+                        title: '订阅消息成功',
+                        success: function () {
+                            that.setData({
+                                isAcceptTemp: true,
+                                showSetBtn: false
+                            })
+                        }
                     })
-                },
-                complete(res) {
-                    console.log(res)
-                    that.setData({
-                        isAcceptTemp: false
+
+                } else {
+                    //用户拒绝了订阅或当前游戏被禁用订阅消息
+                    wx.showToast({
+                        title: '订阅消息失败',
+                        success: function () {
+                            that.setData({
+                                isAcceptTemp: false,
+                                showSetBtn: true
+                            })
+                        }
                     })
                 }
-            })
-        }
+            },
+            fail(res) {
+                //用户拒绝了订阅或当前游戏被禁用订阅消息
+                // Dialog.alert({
+                //     // message: '请点击右上角“...” → 设置 → 消息订阅 → 接收订阅消息提醒！'
+                //     message: '请点击接收消息按钮打开消息订阅！'
+                // }).then(() => {
+                // // on close
+                // });
+                that.setData({
+                    isAcceptTemp: false,
+                    showSetBtn: true
+                })
+            }
+        })
     },
     /**
      * 生命周期函数--监听页面加载
