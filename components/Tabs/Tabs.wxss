@@ -43,7 +43,6 @@
      display: block;
     width: 56rpx;
     height: 2rpx;
-    background-color: #6f6e6e;
 }
 .tabs .title_item:nth-last-child(1) text {
        display: none;
@@ -65,7 +64,9 @@
     background-image: url(../../img/achieve.png)
 }
 
-.tabs .achieve_name {
-    /* background: seagreen; */
-    color: red;
+.tabs .achieve {
+    background-color: rgb(32, 184, 89);
+}
+.tabs .achieveNo{
+    background-color: #6f6e6e;
 }

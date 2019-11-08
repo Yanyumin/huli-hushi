@@ -132,11 +132,10 @@ align-items: center;
   width: 40%;
 }
 .goout_content .card .card_right .qiandao{
-
 margin:  20rpx auto;
 }
 .goout_content .card .card_right .qiandao image {
-    width: 50%;
+    width: 60%;
 }
 .first_tab .photos{
     display: flex;
@@ -154,8 +153,9 @@ width: 400prx;
 }
 
 .first_tab .photos .photos_btn image {
-     width: 120rpx;
-     height: 120rpx;
+     /* width: 120rpx;
+     height: 120rpx; */
+     width: 60%;
 }
 .first_tab .prompt .realNames{
     display: flex;

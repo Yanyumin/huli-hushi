@@ -6,7 +6,7 @@
                 <image wx:if="{{!item.isActive}}" mode="widthFix" src="../../img/achieveNo.png" />
             </view>
             <view class="line_content">
-                <text class="line achieve_name"></text>
+                <text class="line  {{item.isActive?'achieve':'achieveNo'}}"></text>
             </view>
             <!-- <view class="title_name achieve_name"  wx:if="{{item.isActive}}">已完成</view>
             <view class="title_name"  wx:if="{{!item.isActive}}">未完成</view> -->
