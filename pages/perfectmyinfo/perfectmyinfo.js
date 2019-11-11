@@ -28,6 +28,7 @@ Page({
         title: '',
         myId: '',
         logo: '../../img/userNo.png',
+        upLogo: '',
         ScheduleNo: '',
         ScheduleNoArr: [],
         DepartmentId: '',
@@ -154,9 +155,16 @@ Page({
                 duration: 2000
             })
             return
+        } else if (this.data.address == '') {
+            wx.showToast({
+                title: '请填写联系地址',
+                icon: 'none',
+                duration: 2000
+            })
+            return
         }
         let params = {
-            Logo: this.data.logo,
+            Logo: this.data.upLogo || '',
             UserName: this.data.userName,
             Name: this.data.userName,
             Sex: this.data.sex,
@@ -202,7 +210,7 @@ Page({
                             let data = JSON.parse(res.data)
                             if (res.statusCode == 200) {
                                 that.setData({
-                                    logo: data.ResultMsg
+                                    upLogo: data.ResultMsg
                                 })
                             }
                         }

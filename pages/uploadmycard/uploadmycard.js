@@ -352,27 +352,30 @@ Page({
             Toast.fail('请上传护士执业证书照片');
             return
         }
+        let userId = wx.getStorageSync('userInfo').Id
         let params = {
             IDCardImage: this.data.img1,
             IDCardImage2: this.data.img2,
             OtherImages: this.data.practisingcardImages.join(';'),
-            CardImages: this.data.workCertificateImages.join(';')
+            CardImages: this.data.workCertificateImages.join(';'),
+            HospitalId: wx.getStorageSync('userInfo').HospitalId,
+            Id: userId
         }
-        let userId = wx.getStorageSync('userInfo').Id
 
         var user_info = wx.getStorageSync("user_info")
         
-        user_info.IDCardImage = this.data.img1
-        user_info.IDCardImage2 = this.data.img2
-        user_info.OtherImages = this.data.practisingcardImages.join(';')
-        user_info.CardImages = this.data.workCertificateImages.join(';')
+        // user_info.IDCardImage = this.data.img1
+        // user_info.IDCardImage2 = this.data.img2
+        // user_info.OtherImages = this.data.practisingcardImages.join(';')
+        // user_info.CardImages = this.data.workCertificateImages.join(';')
 
-        user_info.HospitalId = wx.getStorageSync('userInfo').HospitalId
-        user_info.Id = userId
+        // user_info.HospitalId = wx.getStorageSync('userInfo').HospitalId
+        // user_info.Id = userId
+        var newObj = { ...user_info, ...params };
         request({
             url: 'NurseRegister/Update',
             method: 'POST',
-            data: user_info
+            data: newObj
         }).then(res => {
             console.log(res);
             if (res.data.ResultCode == 1) {

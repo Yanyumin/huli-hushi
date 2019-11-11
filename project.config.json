@@ -109,6 +109,13 @@
 					"id": -1,
 					"name": "pages/submitresult/submitresult",
 					"pathName": "pages/submitresult/submitresult",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "上传",
+					"pathName": "pages/uploadmycard/uploadmycard",
 					"scene": null
 				}
 			]

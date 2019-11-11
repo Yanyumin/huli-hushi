@@ -3,7 +3,8 @@
   <view class="headerBox cell">
     <text>头像</text>
     <view class="logoBox inputBox" bindtap="certificateUpload">
-      <image src="{{logo}}" />
+      <image wx:if="{{!upLogo}}" src="{{logo}}" />
+      <image wx:else src="{{upLogo}}" />
       <van-icon name="arrow" />
     </view>
   </view>
