@@ -33,7 +33,9 @@ Page({
         img3: '',
         pId: '',
         uploadFlag: true,
-        upload1Flag: true
+        upload1Flag: true,
+        workCardFlag: true,
+        practisingcardFlag: true
     },
     // 删除身份证正面图片
     clearImg: function (e) {
@@ -68,13 +70,13 @@ Page({
           that.setData({
             uploadFlag: false
           })
-          setTimeout(function () {
-            that.setData({
-              uploadFlag: true
-            })
+        //   setTimeout(function () {
+            // that.setData({
+            //   uploadFlag: true
+            // })
             wx.chooseImage({
-                count: 1 - that.data.uploaderNum, // 默认1
-                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                count: 1, // 默认1
+                sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
                 sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                 success: function (res) {
                     // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
@@ -89,10 +91,22 @@ Page({
                             let data = JSON.parse(res.data)
                             if (res.statusCode == 200) {
                                 that.setData({
-                                    img1: data.ResultMsg
+                                    img1: data.ResultMsg,
+                                    uploadFlag: true
                                 })
                             }
-                        }
+                        },
+                        fail: function() {
+                            wx.showToast({
+                                title: '图片上传失败,请重新上传',
+                                icon: 'none',
+                                success: function () {
+                                    that.setData({
+                                        uploadFlag: true
+                                    })
+                                }
+                            })
+                        },
                     })
                     if (uploaderList.length == 1) {
                         that.setData({
@@ -103,9 +117,20 @@ Page({
                         uploaderList: uploaderList,
                         uploaderNum: uploaderList.length,
                     })
-                }
+                },
+                fail: function() {
+                    wx.showToast({
+                        title: '选择图片失败,请检查网络并重新上传',
+                        icon: 'none',
+                        success: function () {
+                            that.setData({
+                                uploadFlag: true
+                            })
+                        }
+                    })
+                },
             })
-          }, 2000)
+        //   }, 2000)
         }
     },
     // 删除身份证反面图片
@@ -141,33 +166,45 @@ Page({
           that.setData({
             upload1Flag: false
           })
-          setTimeout(function () {
-            that.setData({
-              upload1Flag: true
-            })
+        //   setTimeout(function () {
+        //     that.setData({
+        //       upload1Flag: true
+        //     })
             wx.chooseImage({
-              count: 1 - that.data.uploaderNum1, // 默认1
-              sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              count: 1, // 默认1
+              sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
                   // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                   let tempFilePaths = res.tempFilePaths;
                   let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
-                  wx.showLoading({title: '加载中…'})
+                //   wx.showLoading({title: '加载中…'})
                   wx.uploadFile({
                       method: "POST",
                       url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
                       filePath: tempFilePaths[0],
                       name: 'file',
                       success: function (res) {
-                          wx.hideLoading()
+                        //   wx.hideLoading()
                           let data = JSON.parse(res.data)
                           if (res.statusCode == 200) {
                               that.setData({
-                                  img2: data.ResultMsg
+                                  img2: data.ResultMsg,
+                                  upload1Flag: true
                               })
                           }
-                      }
+                      },
+                      fail: function() {
+                          wx.showToast({
+                              title: '图片上传失败,请重新上传',
+                              icon: 'none',
+                              success: function () {
+                                that.setData({
+                                    upload1Flag: true
+                                })
+                              }
+                          })
+                      },
                   })
                   if (uploaderList.length == 1) {
                       that.setData({
@@ -178,9 +215,20 @@ Page({
                       uploaderList1: uploaderList,
                       uploaderNum1: uploaderList.length,
                   })
-                }
+                },
+                fail: function() {
+                    wx.showToast({
+                        title: '选择图片失败,请检查网络并重新上传',
+                        icon: 'none',
+                        success: function () {
+                            that.setData({
+                                upload1Flag: true
+                            })
+                        }
+                    })
+                },
             })
-          }, 2000)
+        //   }, 2000)
         }
         
     },
@@ -260,70 +308,122 @@ Page({
     //上传证书图片
     practisingcardUpload: function (e) {
         var that = this;
-        wx.chooseImage({
-            count: 1 - that.data.practisingcardNum, // 默认1
-            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-            success: function (res) {
-                // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                let tempFilePaths = res.tempFilePaths;
-                let uploaderList = that.data.practisingcardList.concat(tempFilePaths);
-                wx.uploadFile({
-                    method: "POST",
-                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                    filePath: tempFilePaths[0],
-                    name: 'file',
-                    success: function (res) {
-                        let data = JSON.parse(res.data)
-                        if (res.statusCode == 200) {
-                            certy.push(data.ResultMsg)
-                            that.setData({
-                                practisingcardImages: certy
-                            })
-                        }
-                    }
-                })
-                that.setData({
-                    practisingcardList: uploaderList,
-                    practisingcardNum: uploaderList.length,
-                    practisingcardShowUpload: false
-                })
-            }
-        })
+        if (that.data.practisingcardFlag) {
+          that.setData({
+            practisingcardFlag: false
+          })
+          wx.chooseImage({
+              count: 1, // 默认1
+              sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+              success: function (res) {
+                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                  let tempFilePaths = res.tempFilePaths;
+                  let uploaderList = that.data.practisingcardList.concat(tempFilePaths);
+                  wx.uploadFile({
+                      method: "POST",
+                      url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                      filePath: tempFilePaths[0],
+                      name: 'file',
+                      success: function (res) {
+                          let data = JSON.parse(res.data)
+                          if (res.statusCode == 200) {
+                              certy.push(data.ResultMsg)
+                              that.setData({
+                                  practisingcardImages: certy,
+                                  practisingcardFlag: true,
+                                  practisingcardList: uploaderList,
+                                  practisingcardNum: uploaderList.length,
+                                  practisingcardShowUpload: false
+                              })
+                          }
+                      },
+                      fail: function() {
+                          wx.showToast({
+                              title: '图片上传失败,请重新上传',
+                              icon: 'none',
+                              success: function () {
+                                that.setData({
+                                    practisingcardFlag: true
+                                })
+                              }
+                          })
+                      },
+                  })
+              },
+              fail: function() {
+                  wx.showToast({
+                      title: '选择图片失败,请检查网络并重新上传',
+                      icon: 'none',
+                      success: function () {
+                        that.setData({
+                            practisingcardFlag: true
+                        })
+                      }
+                  })
+              },
+          })
+        }
     },
         //上传工作证图片
         workCertificateUpload: function (e) {
             var that = this;
-            wx.chooseImage({
-                count: 1 - that.data.workCertificateNum, // 默认1
-                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                success: function (res) {
-                    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                    let tempFilePaths = res.tempFilePaths;
-                    let uploaderList = that.data.workCertificateList.concat(tempFilePaths);
-                    wx.uploadFile({
-                        method: "POST",
-                        url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
-                        filePath: tempFilePaths[0],
-                        name: 'file',
-                        success: function (res) {
-                            let data = JSON.parse(res.data)
-                            if (res.statusCode == 200) {
-                                workCerty.push(data.ResultMsg)
-                                that.setData({
-                                  workCertificateImages: workCerty
-                                })
-                            }
-                        }
-                    })
-                    that.setData({
-                        workCertificateList: uploaderList,
-                        workCertificateNum: uploaderList.length,
-                        workCertificateShowUpload: false
-                    })
-                }
-            })
+            if (that.data.workCardFlag) {
+              that.setData({
+                workCardFlag: false
+              })
+              wx.chooseImage({
+                  count: 1, // 默认1
+                  sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                  sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                  success: function (res) {
+                      // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                      let tempFilePaths = res.tempFilePaths;
+                      let uploaderList = that.data.workCertificateList.concat(tempFilePaths);
+                      wx.uploadFile({
+                          method: "POST",
+                          url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                          filePath: tempFilePaths[0],
+                          name: 'file',
+                          success: function (res) {
+                              let data = JSON.parse(res.data)
+                              if (res.statusCode == 200) {
+                                  workCerty.push(data.ResultMsg)
+                                  that.setData({
+                                    workCertificateImages: workCerty,
+                                    workCardFlag: true,
+                                    workCertificateList: uploaderList,
+                                    workCertificateNum: uploaderList.length,
+                                    workCertificateShowUpload: false
+                                  })
+                              }
+                          },
+                          fail: function() {
+                              wx.showToast({
+                                  title: '图片上传失败,请重新上传',
+                                  icon: 'none',
+                                  success: function () {
+                                    that.setData({
+                                        workCardFlag: true
+                                    })
+                                  }
+                              })
+                          },
+                      })
+                  },
+                  fail: function() {
+                      wx.showToast({
+                          title: '选择图片失败,请检查网络并重新上传',
+                          icon: 'none',
+                          success: function () {
+                            that.setData({
+                                workCardFlag: true
+                            })
+                          }
+                      })
+                  },
+              })
+            }
         },
     //点击按钮增加上传证书
     certificateAdd: function (e) {

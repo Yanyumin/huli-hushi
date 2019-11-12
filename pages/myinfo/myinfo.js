@@ -14,6 +14,38 @@ Page({
     birthday: ''
   },
 
+  //展示身份证正面图片
+  showImg: function (e) {
+    var that = this;
+    wx.previewImage({
+        urls: that.data.CardImages,
+        current: that.data.CardImages[e.currentTarget.dataset.index]
+    })
+  },
+  //展示身份证正面图片
+  showImg1: function (e) {
+    var that = this;
+    wx.previewImage({
+        urls: that.data.otherImgs,
+        current: that.data.otherImgs[e.currentTarget.dataset.index]
+    })
+  },
+  //展示身份证正面图片
+  showIDCard: function (e) {
+    var that = this;
+    wx.previewImage({
+        urls: [that.data.userInfo.IDCardImage],
+        current: that.data.userInfo.IDCardImage
+    })
+  },
+  //展示身份证正面图片
+  showIDCard2: function (e) {
+    var that = this;
+    wx.previewImage({
+        urls: [that.data.userInfo.IDCardImage2],
+        current: that.data.userInfo.IDCardImage2
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

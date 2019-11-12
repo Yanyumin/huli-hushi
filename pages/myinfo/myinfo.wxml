@@ -66,8 +66,8 @@
   </view>
   <view class="cell">
     <view class="inputBox">
-      <image src="{{userInfo.IDCardImage}}" />
-      <image src="{{userInfo.IDCardImage2}}" />
+      <image bindtap='showIDCard' src="{{userInfo.IDCardImage}}" />
+      <image bindtap='showIDCard2' src="{{userInfo.IDCardImage2}}" />
     </view>
   </view>
      <view class="cell">
@@ -75,7 +75,7 @@
    </view>
    <view class="cell">
        <view class="inputBox">
-           <image wx:for="{{otherImgs}}" wx:key="{{item}}" src="{{item}}" />
+           <image bindtap='showImg' wx:for="{{CardImages}}" data-index="{{index}}" wx:key="{{item}}" src="{{item}}" />
        </view>
    </view>
   <view class="cell">
@@ -83,7 +83,7 @@
   </view>
   <view class="cell">
     <view class="inputBox">
-      <image wx:for="{{CardImages}}" wx:key="{{item}}" src="{{item}}" />
+      <image bindtap='showImg1' wx:for="{{otherImgs}}" data-index="{{index}}" wx:key="{{item}}" src="{{item}}" />
     </view>
   </view>
 </view>

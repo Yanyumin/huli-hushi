@@ -189,13 +189,13 @@ Page({
           that.setData({
             logoFlag: false
           })
-          setTimeout(function () {
-            that.setData({
-                logoFlag: true
-            })
+        //   setTimeout(function () {
+        //     that.setData({
+        //         logoFlag: true
+        //     })
             wx.chooseImage({
                 count: 1, // 默认1
-                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
                 sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                 success: function (res) {
                     console.log(res)
@@ -210,17 +210,43 @@ Page({
                             let data = JSON.parse(res.data)
                             if (res.statusCode == 200) {
                                 that.setData({
-                                    upLogo: data.ResultMsg
+                                    upLogo: data.ResultMsg,
+                                    logoFlag: true
                                 })
                             }
+                        },
+                        fail: function() {
+                            wx.showToast({
+                                title: '图片上传失败,请重新上传',
+                                icon: 'none',
+                                success: function () {
+                                    that.setData({
+                                        logoFlag: true
+                                    })
+                                }
+                            })
+                        },
+                    })
+                },
+                fail: function() {
+                    wx.showToast({
+                        title: '选择图片失败,请检查网络并重新上传',
+                        icon: 'none',
+                        success: function () {
+                            that.setData({
+                                logoFlag: true
+                            })
                         }
                     })
-                }
+                },
             })
-          }, 2000)
+        //   }, 2000)
         }
     },
     GetNurseSchedule() {
+        wx.showLoading({
+            title: '加载中',
+          })
         request({
             url: 'NurseRegister/GetNurseSchedule',
             method: 'GET',
@@ -239,14 +265,18 @@ Page({
                 this.setData({
                     titleClumns: names,
                     ScheduleNoArr: Nos,
-                    ScheduleNo: Nos[0],
-                    title: names[0]
+                    ScheduleNo: Nos ? Nos[0] : '',
+                    title: names? names[0] : ''
                 })
             }
+            wx.hideLoading()
 
         })
     },
     GetNurseDepart() {
+        wx.showLoading({
+            title: '加载中',
+          })
         request({
             url: 'NurseOrder/DeptList',
             method: 'GET',
@@ -266,6 +296,7 @@ Page({
                     depart: names[0] ? names[0] : ''
                 })
             }
+            wx.hideLoading()
 
         })
     },

@@ -214,7 +214,7 @@ Page({
             if (that.data.isNurseEnd || that.data.allDetails.ThreeConfirmTime) {
                 wx.chooseImage({
                     count: 1,
-                    sizeType: ['original', 'compressed'],
+                    sizeType: ['compressed'],
                     sourceType: ['album', 'camera'],
                     success(res) {
                         var time = util.formatHour(new Date());
@@ -232,11 +232,27 @@ Page({
                                         overImg: data.ResultMsg
                                     })
                                 }
-                            }
+                            },
+                            fail: function() {
+                                wx.showToast({
+                                    title: '图片上传失败,请重新上传',
+                                    icon: 'none',
+                                    success: function () {
+                                    }
+                                })
+                            },
                         })
                         //    用微信提供的api获取经纬度
                         that.getWXLocation(1)
-                    }
+                    },
+                    fail: function() {
+                        wx.showToast({
+                            title: '选择图片失败,请检查网络并重新上传',
+                            icon: 'none',
+                            success: function () {
+                            }
+                        })
+                    },
                 })
             } else {
                 Toast.fail('上一步未操作');
@@ -292,7 +308,7 @@ Page({
         if (that.data.isOver || that.data.allDetails.ThreeConfirmTime) {
               wx.chooseImage({
                   count: 1,
-                  sizeType: ['original', 'compressed'],
+                  sizeType: ['compressed'],
                   sourceType: ['album', 'camera'],
                   success(res) {
                       var time = util.formatHour(new Date());
@@ -309,12 +325,28 @@ Page({
                                       safetyTime: time,
                                       safetyImg: data.ResultMsg
                                   })
-																	//    用微信提供的api获取经纬度
-																	that.getWXLocation(2)
+                                //    用微信提供的api获取经纬度
+                                that.getWXLocation(2)
                               }
+                          },
+                          fail: function() {
+                              wx.showToast({
+                                  title: '图片上传失败,请重新上传',
+                                  icon: 'none',
+                                  success: function () {
+                                  }
+                              })
+                          },
+                      })
+                  },
+                  fail: function() {
+                      wx.showToast({
+                          title: '选择图片失败,请检查网络并重新上传',
+                          icon: 'none',
+                          success: function () {
                           }
                       })
-                  }
+                  },
               })
         }else{
              Toast.fail('上一步未操作');
@@ -334,7 +366,7 @@ Page({
             }
              wx.chooseImage({
                  count: 1,
-                 sizeType: ['original', 'compressed'],
+                 sizeType: ['compressed'],
                  sourceType: ['album', 'camera'],
                  success(res) {
                      const tempFilePaths = res.tempFilePaths
@@ -353,12 +385,28 @@ Page({
                                      nurseEndImg: data.ResultMsg,
                                      nurseEndTime: time
                                  })
-														 }
-														 //    用微信提供的api获取经纬度
-														 that.getWXLocation(3)
+                            }
+                            //    用微信提供的api获取经纬度
+                            that.getWXLocation(3)
+                         },
+                         fail: function() {
+                             wx.showToast({
+                                 title: '图片上传失败,请重新上传',
+                                 icon: 'none',
+                                 success: function () {
+                                 }
+                             })
+                         },
+                     })
+                 },
+                 fail: function() {
+                     wx.showToast({
+                         title: '选择图片失败,请检查网络并重新上传',
+                         icon: 'none',
+                         success: function () {
                          }
                      })
-                 }
+                 },
              })
 
         } else {
@@ -374,7 +422,7 @@ Page({
         if (that.data.isPinggu || that.data.allDetails.hldj >= 1) {
             wx.chooseImage({
                 count: 1,
-                sizeType: ['original', 'compressed'],
+                sizeType: ['compressed'],
                 sourceType: ['album', 'camera'],
                 success(res) {
                     var time = util.formatHour(new Date());
@@ -394,11 +442,27 @@ Page({
                                 //    用微信提供的api获取经纬度
                                 that.getWXLocation(4)
                             }
-                        }
+                        },
+                        fail: function() {
+                            wx.showToast({
+                                title: '图片上传失败,请重新上传',
+                                icon: 'none',
+                                success: function () {
+                                }
+                            })
+                        },
                     })
                     
 
-                }
+                },
+                fail: function() {
+                    wx.showToast({
+                        title: '选择图片失败,请检查网络并重新上传',
+                        icon: 'none',
+                        success: function () {
+                        }
+                    })
+                },
             })
         } else {
             Toast.fail('上一步未操作');
@@ -411,7 +475,7 @@ Page({
        let that = this
        wx.chooseImage({
            count: 1,
-           sizeType: ['original', 'compressed'],
+           sizeType: ['compressed'],
            sourceType: ['album', 'camera'],
            success(res) {
                var time = util.formatHour(new Date());
@@ -430,12 +494,28 @@ Page({
                                goOuttime: time,
                                goOutImg: data.ResultMsg
                            })
-													 that.getWXLocation(5)
+                        that.getWXLocation(5)
                        }
-                   }
+                   },
+                   fail: function() {
+                       wx.showToast({
+                           title: '图片上传失败,请重新上传',
+                           icon: 'none',
+                           success: function () {
+                           }
+                       })
+                   },
                })
 
-           }
+           },
+           fail: function() {
+               wx.showToast({
+                   title: '选择图片失败,请检查网络并重新上传',
+                   icon: 'none',
+                   success: function () {
+                   }
+               })
+           },
        })
 
 
@@ -486,7 +566,7 @@ Page({
         if (that.data.goOutClock || that.data.allDetails.OneConfirmTime) {
             wx.chooseImage({
                 count: 1,
-                sizeType: ['original', 'compressed'],
+                sizeType: ['compressed'],
                 sourceType: ['album', 'camera'],
                 success(res) {
                     var time2 = util.formatHour(new Date());
@@ -510,12 +590,28 @@ Page({
                                 //         myOneClok.arriveTime = that.goOutAddress,
                                 //         myOneClok.arriveImg = that.goOutImg
                                 //    用微信提供的api获取经纬度
-																that.getWXLocation(6)
+                                that.getWXLocation(6)
                             }
-                        }
+                        },
+                        fail: function() {
+                            wx.showToast({
+                                title: '图片上传失败,请重新上传',
+                                icon: 'none',
+                                success: function () {
+                                }
+                            })
+                        },
                     })
                     
-                }
+                },
+                fail: function() {
+                    wx.showToast({
+                        title: '选择图片失败,请检查网络并重新上传',
+                        icon: 'none',
+                        success: function () {
+                        }
+                    })
+                },
             })
 
         } else {
@@ -535,7 +631,7 @@ Page({
         } else {
             wx.chooseImage({
                 count: 1,
-                sizeType: ['original', 'compressed'],
+                sizeType: ['compressed'],
                 sourceType: ['album', 'camera'],
                 success(res) {
                     const tempFilePaths = res.tempFilePaths
@@ -586,9 +682,25 @@ Page({
                                     }
                                 })
                             }
+                        },
+                        fail: function() {
+                            wx.showToast({
+                                title: '图片上传失败,请重新上传',
+                                icon: 'none',
+                                success: function () {
+                                }
+                            })
+                        },
+                    })
+                },
+                fail: function() {
+                    wx.showToast({
+                        title: '选择图片失败,请检查网络并重新上传',
+                        icon: 'none',
+                        success: function () {
                         }
                     })
-                }
+                },
             })
         }
         return true;

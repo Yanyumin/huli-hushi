@@ -8,7 +8,7 @@
 }
 .acceptprotocol {
     display: flex;
-    padding: 20rpx 0 40rpx 20rpx;
+    padding: 20rpx 0 40rpx 40rpx;
     font-size: 28rpx;
 }
  .protocol {

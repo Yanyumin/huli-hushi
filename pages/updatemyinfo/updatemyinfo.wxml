@@ -23,7 +23,7 @@
     <text>科室</text>
     <view class="inputBox havePadding">
       <picker bindchange="departBindChange" value="{{index}}" range="{{columns}}">
-        <view class="picker">{{userInfo.DepartmentName}}</view>
+        <view placeholder='请选择科室' class="picker">{{userInfo.DepartmentName}}</view>
       </picker>
     </view>
   </view>
@@ -95,7 +95,7 @@
     <text>职称</text>
     <view class="inputBox havePadding">
       <picker bindchange="titleBindChange" value="{{userInfo.RankName}}" range="{{titleClumns}}">
-        <view class="picker">{{userInfo.RankName}}</view>
+        <view placeholder='请选择职称' class="picker">{{userInfo.RankName}}</view>
       </picker>
     </view>
   </view>
@@ -156,14 +156,14 @@
                 <image bindtap='workCertificateShowImg' data-index="{{index}}" src='{{item}}'></image>
             </view>
             <!-- 上传按钮+框 -->
-            <view class='ui_uploader' bindtap='workCertificateUpload' wx:if="{{!userInfo.CardImages ||  workCertificateShowUpload}}">
+            <view class='ui_uploader' bindtap='workCertificateUpload' wx:if="{{workCertificateShowUpload}}">
                 <van-icon name="plus" />
                 <view class='uploadTip'>上传证书正面</view>
             </view>
         </view>
     </view>
     <view class="handleBox">
-        <van-button round color="#ffa500" bindtap="certificateAdd">+增加一张</van-button>
+        <van-button round color="#ffa500" bindtap="workCertificateAdd">+增加一张</van-button>
     </view>
   <view class="topic">
     护士执业证书
@@ -181,19 +181,19 @@
       <!-- 根据已选择的图片临时路径数组展示图片-->
       <view class='ui_uploader_item' wx:for="{{userInfo.otherImages}}" wx:key="{{index}}">
         <!-- 删除-->
-        <van-icon name="clear"  bindtap='certificateClearImg' data-index="{{index}}" type="clear"/>
+        <van-icon name="clear"  bindtap='practisingcardClearImg' data-index="{{index}}" type="clear"/>
         <!-- 图片-->
-        <image bindtap='certificateShowImg' data-index="{{index}}" src='{{item}}'></image>
+        <image bindtap='practisingcardShowImg' data-index="{{index}}" src='{{item}}'></image>
       </view>
       <!-- 上传按钮+框 -->
-      <view class='ui_uploader' bindtap='certificateUpload' wx:if="{{!userInfo.OtherImages || certificateShowUpload}}">
+      <view class='ui_uploader' bindtap='practisingcardUpload' wx:if="{{practisingcardShowUpload}}">
         <van-icon name="plus" />
         <view class='uploadTip'>上传护士执业证书正面</view>
       </view>
     </view>
   </view>
   <view class="handleBox">
-    <van-button round color="#ffa500" bindtap="certificateAdd">+增加一张</van-button>
+    <van-button round color="#ffa500" bindtap="practisingcardAdd">+增加一张</van-button>
   </view>
   <!-- <view class="handleBox nextTip">
     <van-button round type="primary" bindtap="certificateAdd" bindtap="submitThis">提交审核</van-button>
