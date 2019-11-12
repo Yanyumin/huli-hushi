@@ -40,6 +40,8 @@
 }
 .phoneText {
   padding-left: 26rpx;
+  display: inline-block;
+  width: 100% !important;
 }
 /* pages/uploadmycard/uploadmycard.wxss */
 .topic {

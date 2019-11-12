@@ -70,6 +70,14 @@ Page({
             userName: e.detail
         })
     },
+    noEditToast () {
+        wx.showToast({
+            title: '不可更改项',
+            icon: 'none',
+            success: function () {
+            }
+        })
+    },
     departBindChange(e) {
         const {
             picker,
@@ -175,7 +183,7 @@ Page({
                 duration: 2000
             })
             return
-        } else if (this.data.userInfo.ContactAddress == '') {
+        } else if (!this.data.userInfo.ContactAddress) {
             wx.showToast({
                 title: '请输入联系地址',
                 icon: 'none',
@@ -280,9 +288,37 @@ Page({
                                   userInfo
                               })
                           }
+<<<<<<< HEAD
                       }
                   })
               }
+=======
+                      },
+                      fail: function() {
+                          wx.showToast({
+                              title: '图片上传失败,请重新上传',
+                              icon: 'none',
+                              success: function () {
+                                that.setData({
+                                  logoFlag: true
+                                })
+                              }
+                          })
+                      },
+                  })
+              },
+            //   fail: function() {
+            //       wx.showToast({
+            //           title: '选择图片失败,请检查网络并重新上传',
+            //           icon: 'none',
+            //           success: function () {
+            //             that.setData({
+            //               logoFlag: true
+            //             })
+            //           }
+            //       })
+            //   },
+>>>>>>> 98c397393d1d7797cf4fbebcc10ec400b3b72ba1
           })
         }
     },
@@ -357,15 +393,15 @@ Page({
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
                   console.log(res)
-                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                   let tempFilePaths = res.tempFilePaths;
-                  let uploaderList = that.data.uploaderList.concat(tempFilePaths);
                   wx.uploadFile({
                       method: "POST",
                       url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
                       filePath: tempFilePaths[0],
                       name: 'file',
                       success: function (res) {
+                        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                        let uploaderList = that.data.uploaderList.concat(tempFilePaths);
                           let data = JSON.parse(res.data)
                           if (res.statusCode == 200) {
                             let userInfo = that.data.userInfo
@@ -374,6 +410,7 @@ Page({
                                 userInfo
                               })
                           }
+<<<<<<< HEAD
                       }
                   })
                   if (uploaderList.length == 1) {
@@ -386,6 +423,42 @@ Page({
                       uploaderNum: uploaderList.length,
                   })
               }
+=======
+                          if (uploaderList.length == 1) {
+                              that.setData({
+                                  showUpload: false
+                              })
+                          }
+                          that.setData({
+                              uploaderList: uploaderList,
+                              uploaderNum: uploaderList.length,
+                          })
+                      },
+                    fail: function() {
+                        wx.showToast({
+                            title: '图片上传失败,请重新上传',
+                            icon: 'none',
+                            success: function () {
+                                that.setData({
+                                    img1Flag: true
+                                })
+                            }
+                        })
+                    },
+                  })
+              },
+            //   fail: function() {
+            //       wx.showToast({
+            //           title: '选择图片失败,请检查网络并重新上传',
+            //           icon: 'none',
+            //           success: function () {
+            //             that.setData({
+            //                 img1Flag: true
+            //             })
+            //           }
+            //       })
+            //   },
+>>>>>>> 98c397393d1d7797cf4fbebcc10ec400b3b72ba1
           })
         }, 2000)
       }
@@ -434,18 +507,18 @@ Page({
               sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
-                  console.log(res)
-                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                  let tempFilePaths = res.tempFilePaths;
-                  let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
-                  wx.showLoading({title: '加载中…'})
+                //   wx.showLoading({title: '加载中…'})
+                let tempFilePaths = res.tempFilePaths;
                   wx.uploadFile({
                       method: "POST",
                       url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
                       filePath: tempFilePaths[0],
                       name: 'file',
                       success: function (res) {
-                          wx.hideLoading()
+                        //   wx.hideLoading()
+                          console.log(res)
+                          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                          let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
                           let data = JSON.parse(res.data)
                           if (res.statusCode == 200) {
                             let userInfo = that.data.userInfo
@@ -454,6 +527,7 @@ Page({
                                 userInfo
                               })
                           }
+<<<<<<< HEAD
                       }
                   })
                   if (uploaderList.length == 1) {
@@ -466,6 +540,42 @@ Page({
                       uploaderNum1: uploaderList.length,
                   })
               }
+=======
+                          if (uploaderList.length == 1) {
+                              that.setData({
+                                  showUpload1: false
+                              })
+                          }
+                          that.setData({
+                              uploaderList1: uploaderList,
+                              uploaderNum1: uploaderList.length,
+                          })
+                      },
+                      fail: function() {
+                          wx.showToast({
+                              title: '图片上传失败,请重新上传',
+                              icon: 'none',
+                              success: function () {
+                                that.setData({
+                                    img2Flag: true
+                                })
+                              }
+                          })
+                      },
+                  })
+              },
+            //   fail: function() {
+            //       wx.showToast({
+            //           title: '选择图片失败,请检查网络并重新上传',
+            //           icon: 'none',
+            //           success: function () {
+            //             that.setData({
+            //                 img2Flag: true
+            //             })
+            //           }
+            //       })
+            //   },
+>>>>>>> 98c397393d1d7797cf4fbebcc10ec400b3b72ba1
           })
         }, 2000)
       }
@@ -544,6 +654,7 @@ Page({
   //上传证书图片
   certificateUpload: function (e) {
       var that = this;
+<<<<<<< HEAD
       wx.chooseImage({
           count: 1 - that.data.certificateNum, // 默认1
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -634,6 +745,151 @@ Page({
                })
            }
        })
+=======
+        if (that.data.practisingcardFlag) {
+            that.setData({
+                practisingcardFlag: false
+            })
+            wx.chooseImage({
+                count: 1, // 默认1
+                sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function (res) {
+                    let tempFilePaths = res.tempFilePaths;
+                    console.log(res)
+                    let userInfo = that.data.userInfo
+                    let otherImgs = ''
+                    if (userInfo.otherImages) {
+                        
+      
+                      otherImgs = userInfo.otherImages
+                    } else {
+                        
+                      otherImgs = []
+                    }
+                    wx.uploadFile({
+                        method: "POST",
+                        url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                        filePath: tempFilePaths[0],
+                        name: 'file',
+                        success: function (res) {
+                            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                            let uploaderList = that.data.practisingcardList.concat(tempFilePaths);
+                            let data = JSON.parse(res.data)
+                            if (res.statusCode == 200) {
+                                otherImgs.push(data.ResultMsg)
+                                userInfo.otherImages = otherImgs
+                                that.setData({
+                                    practisingcardImages: otherImgs,
+                                    userInfo,
+                                    practisingcardFlag: true,
+                                    practisingcardList: uploaderList,
+                                    practisingcardNum: uploaderList.length,
+                                    practisingcardShowUpload: false
+                                })
+                                console.log(that.data.practisingcardImages)
+                            }
+                        },
+                        fail: function() {
+                            wx.showToast({
+                                title: '图片上传失败,请重新上传',
+                                icon: 'none',
+                                success: function () {
+                                    that.setData({
+                                        practisingcardFlag: true
+                                    })
+                                }
+                            })
+                        },
+                    })
+                },
+                // fail: function() {
+                //     wx.showToast({
+                //         title: '选择图片失败,请检查网络并重新上传',
+                //         icon: 'none',
+                //         success: function () {
+                //             that.setData({
+                //                 practisingcardFlag: true
+                //             })
+                //         }
+                //     })
+                // },
+            })
+        }
+  },
+   workCertificateUpload: function (e) {
+       var that = this;
+       if (that.data.workFlag) {
+           that.setData({
+                workFlag: false
+           })
+           wx.chooseImage({
+               count: 1, // 默认1
+               sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+               success: function (res) {
+                    let tempFilePaths = res.tempFilePaths;
+                   console.log(res)
+                   let userInfo = that.data.userInfo
+                   let cardImgs = ''
+                   if (userInfo.cardImages) {
+    
+    
+                       cardImgs = userInfo.cardImages
+                   } else {
+    
+                       cardImgs = []
+                   }
+                   wx.uploadFile({
+                       method: "POST",
+                       url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                       filePath: tempFilePaths[0],
+                       name: 'file',
+                       success: function (res) {
+                        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                        let uploaderList = that.data.workCertificateList.concat(tempFilePaths);
+                           let data = JSON.parse(res.data)
+                           if (res.statusCode == 200) {
+                               cardImgs.push(data.ResultMsg)
+                               userInfo.cardImages = cardImgs
+                               that.setData({
+                                   workCertificateImages: cardImgs,
+                                   userInfo,
+                                   workFlag: true,
+                                    workCertificateList: uploaderList,
+                                    workCertificateNum: uploaderList.length,
+                                    workCertificateShowUpload: false
+                               })
+                               console.log(that.data.workCertificateImages)
+                           }
+                       },
+                       fail: function() {
+                           wx.showToast({
+                               title: '图片上传失败,请重新上传',
+                               icon: 'none',
+                               success: function () {
+                                that.setData({
+                                    workFlag: true
+                                })
+                               }
+                           })
+                       },
+                   })
+               },
+            //    fail: function() {
+            //        wx.showToast({
+            //            title: '选择图片失败,请检查网络并重新上传',
+            //            icon: 'none',
+            //            success: function () {
+            //             that.setData({
+            //                 workFlag: true
+            //             })
+            //            }
+            //        })
+            //    },
+           })
+       }
+>>>>>>> 98c397393d1d7797cf4fbebcc10ec400b3b72ba1
    },
   //点击按钮增加上传证书
   certificateAdd: function (e) {

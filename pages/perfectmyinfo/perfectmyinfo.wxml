@@ -17,7 +17,7 @@
         border="{{ false }}"
         bind:change="workUnitOnChange"
       /> -->
-      <text class="phoneText">{{workUnit}}</text>
+      <text class="phoneText" bindtap="noEditToast">{{workUnit}}</text>
     </view>
   </view>
   <view class="cell">
@@ -37,7 +37,7 @@
         border="{{ false }}"
         bind:change="userNameChange"
       /> -->
-      <text class="phoneText">{{userName}}</text>
+      <text class="phoneText" bindtap="noEditToast">{{userName}}</text>
     </view>
   </view>
   <view class="cell">
@@ -78,7 +78,7 @@
         border="{{ false }}"
         bind:change="phoneChange"
       /> -->
-      <text class="phoneText">{{phone}}</text>
+      <text class="phoneText" bindtap="noEditToast">{{phone}}</text>
     </view>
   </view>
   <view class="cell">
