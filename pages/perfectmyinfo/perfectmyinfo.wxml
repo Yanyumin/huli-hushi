@@ -22,7 +22,7 @@
   </view>
   <view class="cell">
     <text>科室</text>
-    <view class="inputBox havePadding">
+    <view class="inputBox havePadding" bindtap="GetNurseDepart">
       <picker bindchange="departBindChange" value="{{index}}" range="{{columns}}">
         <view class="picker">{{depart}}</view>
       </picker>
@@ -94,7 +94,7 @@
   </view>
   <view class="cell">
     <text>职称</text>
-    <view class="inputBox havePadding">
+    <view class="inputBox havePadding" bindtap="GetNurseSchedule">
       <picker bindchange="titleBindChange" value="{{title}}" range="{{titleClumns}}">
         <view class="picker">{{title}}</view>
       </picker>

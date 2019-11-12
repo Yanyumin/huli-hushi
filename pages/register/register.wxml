@@ -11,7 +11,7 @@
          </van-cell-group>
                     <view class="cell">
                <text>请选择医院</text>
-               <view class="inputBox havePadding">
+               <view class="inputBox havePadding" bindtap="GetHospitallName">
                    <picker bindchange="hospitaBindChange" value="{{hospitalName}}" range="{{hospitalArray}}">
                        <view class="picker">{{hospitalName}}</view>
                    </picker>

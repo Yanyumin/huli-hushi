@@ -7,6 +7,7 @@ import {
 
 import Toast from 'vant-weapp/toast/toast';
 import Dialog from 'vant-weapp/dialog/dialog';
+// import { threadId } from 'worker_threads';
 
 Page({
 
@@ -61,6 +62,9 @@ Page({
             //      Toast.fail('请输入验证码');
         } else if (!phoneRes.test(this.data.phone)) {
             Toast.fail('手机号码格式不正确');
+            return
+        } else if (!this.data.hospitaNo && !this.data.hospitalName) {
+            Toast.fail('请选择医院');
             return
         } else if (!that.data.checked) {
             Toast.fail('请勾选同意下方使用协议');
@@ -203,8 +207,8 @@ Page({
                 this.setData({
                     hospitalArray: names,
                     hospitaNoArr: Nos,
-                    hospitaNo: Nos[0] ? Nos[0] : '',
-                    hospitalName: names[0] ? names[0] : ''
+                    hospitaNo: this.data.hospitaNo ? this.data.hospitaNo : Nos[0] || '',
+                    hospitalName: this.data.hospitalName ? this.data.hospitalName : names[0] || ''
                 })
             }
         })

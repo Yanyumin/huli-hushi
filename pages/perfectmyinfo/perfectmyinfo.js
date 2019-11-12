@@ -273,8 +273,8 @@ Page({
                 this.setData({
                     titleClumns: names,
                     ScheduleNoArr: Nos,
-                    ScheduleNo: Nos ? Nos[0] : '',
-                    title: names? names[0] : ''
+                    ScheduleNo: this.data.ScheduleNo ? this.data.ScheduleNo : Nos[0] || '',
+                    title: this.data.title ? this.data.title : names[0] || ''
                 })
             }
             wx.hideLoading()
@@ -300,8 +300,8 @@ Page({
                 this.setData({
                     columns: names,
                     DepartmentArr: Nos,
-                    DepartmentId: Nos[0] ? Nos[0] : '',
-                    depart: names[0] ? names[0] : ''
+                    DepartmentId: this.data.DepartmentId ? this.data.DepartmentId : Nos[0] || '',
+                    depart: this.data.depart ? this.data.depart : names[0] || ''
                 })
             }
             wx.hideLoading()
