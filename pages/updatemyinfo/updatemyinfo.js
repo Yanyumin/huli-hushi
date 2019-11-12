@@ -72,6 +72,14 @@ Page({
             userName: e.detail
         })
     },
+    noEditToast () {
+        wx.showToast({
+            title: '不可更改项',
+            icon: 'none',
+            success: function () {
+            }
+        })
+    },
     departBindChange(e) {
         const {
             picker,
@@ -172,7 +180,7 @@ Page({
                 duration: 2000
             })
             return
-        } else if (this.data.userInfo.ContactAddress == '') {
+        } else if (!this.data.userInfo.ContactAddress) {
             wx.showToast({
                 title: '请输入联系地址',
                 icon: 'none',
@@ -292,17 +300,17 @@ Page({
                       },
                   })
               },
-              fail: function() {
-                  wx.showToast({
-                      title: '选择图片失败,请检查网络并重新上传',
-                      icon: 'none',
-                      success: function () {
-                        that.setData({
-                          logoFlag: true
-                        })
-                      }
-                  })
-              },
+            //   fail: function() {
+            //       wx.showToast({
+            //           title: '选择图片失败,请检查网络并重新上传',
+            //           icon: 'none',
+            //           success: function () {
+            //             that.setData({
+            //               logoFlag: true
+            //             })
+            //           }
+            //       })
+            //   },
           })
         }
     },
@@ -386,15 +394,15 @@ Page({
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
                   console.log(res)
-                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                   let tempFilePaths = res.tempFilePaths;
-                  let uploaderList = that.data.uploaderList.concat(tempFilePaths);
                   wx.uploadFile({
                       method: "POST",
                       url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
                       filePath: tempFilePaths[0],
                       name: 'file',
                       success: function (res) {
+                        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                        let uploaderList = that.data.uploaderList.concat(tempFilePaths);
                           let data = JSON.parse(res.data)
                           if (res.statusCode == 200) {
                             let userInfo = that.data.userInfo
@@ -404,6 +412,15 @@ Page({
                                 img1Flag: true
                               })
                           }
+                          if (uploaderList.length == 1) {
+                              that.setData({
+                                  showUpload: false
+                              })
+                          }
+                          that.setData({
+                              uploaderList: uploaderList,
+                              uploaderNum: uploaderList.length,
+                          })
                       },
                     fail: function() {
                         wx.showToast({
@@ -417,27 +434,18 @@ Page({
                         })
                     },
                   })
-                  if (uploaderList.length == 1) {
-                      that.setData({
-                          showUpload: false
-                      })
-                  }
-                  that.setData({
-                      uploaderList: uploaderList,
-                      uploaderNum: uploaderList.length,
-                  })
               },
-              fail: function() {
-                  wx.showToast({
-                      title: '选择图片失败,请检查网络并重新上传',
-                      icon: 'none',
-                      success: function () {
-                        that.setData({
-                            img1Flag: true
-                        })
-                      }
-                  })
-              },
+            //   fail: function() {
+            //       wx.showToast({
+            //           title: '选择图片失败,请检查网络并重新上传',
+            //           icon: 'none',
+            //           success: function () {
+            //             that.setData({
+            //                 img1Flag: true
+            //             })
+            //           }
+            //       })
+            //   },
           })
     //     }, 3000)
       }
@@ -486,18 +494,18 @@ Page({
               sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
               sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
               success: function (res) {
-                  console.log(res)
-                  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                  let tempFilePaths = res.tempFilePaths;
-                  let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
-                  wx.showLoading({title: '加载中…'})
+                //   wx.showLoading({title: '加载中…'})
+                let tempFilePaths = res.tempFilePaths;
                   wx.uploadFile({
                       method: "POST",
                       url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
                       filePath: tempFilePaths[0],
                       name: 'file',
                       success: function (res) {
-                          wx.hideLoading()
+                        //   wx.hideLoading()
+                          console.log(res)
+                          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                          let uploaderList = that.data.uploaderList1.concat(tempFilePaths);
                           let data = JSON.parse(res.data)
                           if (res.statusCode == 200) {
                             let userInfo = that.data.userInfo
@@ -507,6 +515,15 @@ Page({
                                 img2Flag: true
                               })
                           }
+                          if (uploaderList.length == 1) {
+                              that.setData({
+                                  showUpload1: false
+                              })
+                          }
+                          that.setData({
+                              uploaderList1: uploaderList,
+                              uploaderNum1: uploaderList.length,
+                          })
                       },
                       fail: function() {
                           wx.showToast({
@@ -520,27 +537,18 @@ Page({
                           })
                       },
                   })
-                  if (uploaderList.length == 1) {
-                      that.setData({
-                          showUpload1: false
-                      })
-                  }
-                  that.setData({
-                      uploaderList1: uploaderList,
-                      uploaderNum1: uploaderList.length,
-                  })
               },
-              fail: function() {
-                  wx.showToast({
-                      title: '选择图片失败,请检查网络并重新上传',
-                      icon: 'none',
-                      success: function () {
-                        that.setData({
-                            img2Flag: true
-                        })
-                      }
-                  })
-              },
+            //   fail: function() {
+            //       wx.showToast({
+            //           title: '选择图片失败,请检查网络并重新上传',
+            //           icon: 'none',
+            //           success: function () {
+            //             that.setData({
+            //                 img2Flag: true
+            //             })
+            //           }
+            //       })
+            //   },
           })
     //     }, 2000)
       }
@@ -626,10 +634,8 @@ Page({
                 sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
                 sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                 success: function (res) {
-                    console.log(res)
-                    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
                     let tempFilePaths = res.tempFilePaths;
-                    let uploaderList = that.data.practisingcardList.concat(tempFilePaths);
+                    console.log(res)
                     let userInfo = that.data.userInfo
                     let otherImgs = ''
                     if (userInfo.otherImages) {
@@ -646,6 +652,8 @@ Page({
                         filePath: tempFilePaths[0],
                         name: 'file',
                         success: function (res) {
+                            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                            let uploaderList = that.data.practisingcardList.concat(tempFilePaths);
                             let data = JSON.parse(res.data)
                             if (res.statusCode == 200) {
                                 otherImgs.push(data.ResultMsg)
@@ -674,17 +682,17 @@ Page({
                         },
                     })
                 },
-                fail: function() {
-                    wx.showToast({
-                        title: '选择图片失败,请检查网络并重新上传',
-                        icon: 'none',
-                        success: function () {
-                            that.setData({
-                                practisingcardFlag: true
-                            })
-                        }
-                    })
-                },
+                // fail: function() {
+                //     wx.showToast({
+                //         title: '选择图片失败,请检查网络并重新上传',
+                //         icon: 'none',
+                //         success: function () {
+                //             that.setData({
+                //                 practisingcardFlag: true
+                //             })
+                //         }
+                //     })
+                // },
             })
         }
   },
@@ -699,10 +707,8 @@ Page({
                sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                success: function (res) {
+                    let tempFilePaths = res.tempFilePaths;
                    console.log(res)
-                   // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                   let tempFilePaths = res.tempFilePaths;
-                   let uploaderList = that.data.workCertificateList.concat(tempFilePaths);
                    let userInfo = that.data.userInfo
                    let cardImgs = ''
                    if (userInfo.cardImages) {
@@ -719,6 +725,8 @@ Page({
                        filePath: tempFilePaths[0],
                        name: 'file',
                        success: function (res) {
+                        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                        let uploaderList = that.data.workCertificateList.concat(tempFilePaths);
                            let data = JSON.parse(res.data)
                            if (res.statusCode == 200) {
                                cardImgs.push(data.ResultMsg)
@@ -747,17 +755,17 @@ Page({
                        },
                    })
                },
-               fail: function() {
-                   wx.showToast({
-                       title: '选择图片失败,请检查网络并重新上传',
-                       icon: 'none',
-                       success: function () {
-                        that.setData({
-                            workFlag: true
-                        })
-                       }
-                   })
-               },
+            //    fail: function() {
+            //        wx.showToast({
+            //            title: '选择图片失败,请检查网络并重新上传',
+            //            icon: 'none',
+            //            success: function () {
+            //             that.setData({
+            //                 workFlag: true
+            //             })
+            //            }
+            //        })
+            //    },
            })
        }
    },

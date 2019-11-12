@@ -16,7 +16,7 @@
         border="{{ false }}"
         bind:change="workUnitOnChange"
       /> -->
-      <text class="phoneText">{{userInfo.HospitalName}}</text>
+      <text class="phoneText" bindtap="noEditToast">{{userInfo.HospitalName}}</text>
     </view>
   </view>
   <view class="cell">
@@ -36,7 +36,7 @@
         border="{{ false }}"
         bind:change="userNameChange"
       /> -->
-      <text class="phoneText">{{userInfo.UserName ? userInfo.UserName : userInfo.Name}}</text>
+      <text class="phoneText" bindtap="noEditToast">{{userInfo.UserName ? userInfo.UserName : userInfo.Name}}</text>
     </view>
   </view>
   <view class="cell">

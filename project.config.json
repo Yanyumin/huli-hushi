@@ -116,6 +116,13 @@
 					"id": -1,
 					"name": "上传",
 					"pathName": "pages/uploadmycard/uploadmycard",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/perfectmyinfo/perfectmyinfo",
+					"pathName": "pages/perfectmyinfo/perfectmyinfo",
 					"scene": null
 				}
 			]

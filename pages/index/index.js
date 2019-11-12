@@ -60,6 +60,9 @@ Page({
     })
   },
   getTodayList () {
+    wx.showLoading({
+      title: '加载中',
+    })
     request({
       url: 'NurseOrder/GetNurseList',
       data: {
@@ -76,9 +79,13 @@ Page({
           todayOderList: NurseList
         })
       }
+      wx.hideLoading()
     })
   },
   getList () {
+    wx.showLoading({
+      title: '加载中',
+    })
     request({
       url: 'NurseOrder/GetNurseList',
       data: {
@@ -102,7 +109,8 @@ Page({
         this.setData({
             oderList: arr
         })
-      }  
+      }
+      wx.hideLoading()
       wx.hideNavigationBarLoading(); //完成停止加载图标
       wx.stopPullDownRefresh();
     })
@@ -115,6 +123,10 @@ Page({
   },
   acceptService (e) {
     let that = this
+    wx.showLoading({
+      title: '正在提交',
+      mask: 'true'
+    })
     request({
         url: 'NurseOrder/ReceiveSuccess',
         data: {orderId: e.detail.value}
@@ -134,6 +146,10 @@ Page({
   },
   toquxiao(e) {
       let that = this
+      wx.showLoading({
+        title: '正在提交',
+        mask: 'true'
+      })
       request({
           url: 'NurseOrder/BillOrderFailed',
           data:{

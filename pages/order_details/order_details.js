@@ -245,14 +245,14 @@ Page({
                         //    用微信提供的api获取经纬度
                         that.getWXLocation(1)
                     },
-                    fail: function() {
-                        wx.showToast({
-                            title: '选择图片失败,请检查网络并重新上传',
-                            icon: 'none',
-                            success: function () {
-                            }
-                        })
-                    },
+                    // fail: function() {
+                    //     wx.showToast({
+                    //         title: '选择图片失败,请检查网络并重新上传',
+                    //         icon: 'none',
+                    //         success: function () {
+                    //         }
+                    //     })
+                    // },
                 })
             } else {
                 Toast.fail('上一步未操作');
@@ -339,14 +339,14 @@ Page({
                           },
                       })
                   },
-                  fail: function() {
-                      wx.showToast({
-                          title: '选择图片失败,请检查网络并重新上传',
-                          icon: 'none',
-                          success: function () {
-                          }
-                      })
-                  },
+                //   fail: function() {
+                //       wx.showToast({
+                //           title: '选择图片失败,请检查网络并重新上传',
+                //           icon: 'none',
+                //           success: function () {
+                //           }
+                //       })
+                //   },
               })
         }else{
              Toast.fail('上一步未操作');
@@ -399,14 +399,14 @@ Page({
                          },
                      })
                  },
-                 fail: function() {
-                     wx.showToast({
-                         title: '选择图片失败,请检查网络并重新上传',
-                         icon: 'none',
-                         success: function () {
-                         }
-                     })
-                 },
+                //  fail: function() {
+                //      wx.showToast({
+                //          title: '选择图片失败,请检查网络并重新上传',
+                //          icon: 'none',
+                //          success: function () {
+                //          }
+                //      })
+                //  },
              })
 
         } else {
@@ -455,14 +455,14 @@ Page({
                     
 
                 },
-                fail: function() {
-                    wx.showToast({
-                        title: '选择图片失败,请检查网络并重新上传',
-                        icon: 'none',
-                        success: function () {
-                        }
-                    })
-                },
+                // fail: function() {
+                //     wx.showToast({
+                //         title: '选择图片失败,请检查网络并重新上传',
+                //         icon: 'none',
+                //         success: function () {
+                //         }
+                //     })
+                // },
             })
         } else {
             Toast.fail('上一步未操作');
@@ -508,14 +508,14 @@ Page({
                })
 
            },
-           fail: function() {
-               wx.showToast({
-                   title: '选择图片失败,请检查网络并重新上传',
-                   icon: 'none',
-                   success: function () {
-                   }
-               })
-           },
+        //    fail: function() {
+        //        wx.showToast({
+        //            title: '选择图片失败,请检查网络并重新上传',
+        //            icon: 'none',
+        //            success: function () {
+        //            }
+        //        })
+        //    },
        })
 
 
@@ -604,14 +604,14 @@ Page({
                     })
                     
                 },
-                fail: function() {
-                    wx.showToast({
-                        title: '选择图片失败,请检查网络并重新上传',
-                        icon: 'none',
-                        success: function () {
-                        }
-                    })
-                },
+                // fail: function() {
+                //     wx.showToast({
+                //         title: '选择图片失败,请检查网络并重新上传',
+                //         icon: 'none',
+                //         success: function () {
+                //         }
+                //     })
+                // },
             })
 
         } else {
@@ -693,14 +693,14 @@ Page({
                         },
                     })
                 },
-                fail: function() {
-                    wx.showToast({
-                        title: '选择图片失败,请检查网络并重新上传',
-                        icon: 'none',
-                        success: function () {
-                        }
-                    })
-                },
+                // fail: function() {
+                //     wx.showToast({
+                //         title: '选择图片失败,请检查网络并重新上传',
+                //         icon: 'none',
+                //         success: function () {
+                //         }
+                //     })
+                // },
             })
         }
         return true;

@@ -39,6 +39,14 @@ Page({
         // event.detail 为当前输入的值
         console.log(event.detail);
     },
+    noEditToast () {
+        wx.showToast({
+            title: '不可更改项',
+            icon: 'none',
+            success: function () {
+            }
+        })
+    },
     workUnitOnChange(e) {
         this.setData({
             workUnit: e.detail
@@ -228,17 +236,17 @@ Page({
                         },
                     })
                 },
-                fail: function() {
-                    wx.showToast({
-                        title: '选择图片失败,请检查网络并重新上传',
-                        icon: 'none',
-                        success: function () {
-                            that.setData({
-                                logoFlag: true
-                            })
-                        }
-                    })
-                },
+                // fail: function() {
+                //     wx.showToast({
+                //         title: '选择图片失败,请检查网络并重新上传',
+                //         icon: 'none',
+                //         success: function () {
+                //             that.setData({
+                //                 logoFlag: true
+                //             })
+                //         }
+                //     })
+                // },
             })
         //   }, 2000)
         }
