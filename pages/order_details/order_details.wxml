@@ -120,7 +120,7 @@
                             <image  wx:if="{{patientImg||allDetails.TwoImg}}" mode="widthFix" src="{{patientImg ||  allDetails.TwoImg[1]}}"></image>
                              <text wx:else style="font-size: 30rpx;;">　请拍照记录</text>
                         </view>
-                        <view wx:if="{{!isArrive && !allDetails.TwoConfirmTime}}" class="photos_btn" bindtap="attestationClock">
+                        <view wx:if="{{!isArrive && !allDetails.TwoConfirmTime}}" class="photos_btn1" bindtap="attestationClock">
                             <image mode="widthFix" src="../../img/qiandao.png"></image>
                         </view>
                     </view>

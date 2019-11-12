@@ -157,6 +157,11 @@ width: 400prx;
      height: 120rpx; */
      width: 60%;
 }
+.first_tab .photos .photos_btn1 image {
+    width: 160rpx;
+     height: 160rpx;
+    /* width: 60%; */
+}
 .first_tab .prompt .realNames{
     display: flex;
     justify-content: space-between;
