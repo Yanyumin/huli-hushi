@@ -118,17 +118,11 @@ Page({
                         },
                     })
                 },
-                // fail: function() {
-                //     wx.showToast({
-                //         title: '选择图片失败,请检查网络并重新上传',
-                //         icon: 'none',
-                //         success: function () {
-                //             that.setData({
-                //                 uploadFlag: true
-                //             })
-                //         }
-                //     })
-                // },
+                fail: function() {
+                    that.setData({
+                        uploadFlag: true
+                    })
+                },
             })
         //   }, 2000)
         }
@@ -216,17 +210,11 @@ Page({
                       },
                   })
                 },
-                // fail: function() {
-                //     wx.showToast({
-                //         title: '选择图片失败,请检查网络并重新上传',
-                //         icon: 'none',
-                //         success: function () {
-                //             that.setData({
-                //                 upload1Flag: true
-                //             })
-                //         }
-                //     })
-                // },
+                fail: function() {
+                    that.setData({
+                        upload1Flag: true
+                    })
+                },
             })
         //   }, 2000)
         }
@@ -351,17 +339,11 @@ Page({
                       },
                   })
               },
-            //   fail: function() {
-            //       wx.showToast({
-            //           title: '选择图片失败,请检查网络并重新上传',
-            //           icon: 'none',
-            //           success: function () {
-            //             that.setData({
-            //                 practisingcardFlag: true
-            //             })
-            //           }
-            //       })
-            //   },
+              fail: function() {
+                  that.setData({
+                      practisingcardFlag: true
+                  })
+              },
           })
         }
     },
@@ -411,17 +393,11 @@ Page({
                           },
                       })
                   },
-                //   fail: function() {
-                //       wx.showToast({
-                //           title: '选择图片失败,请检查网络并重新上传',
-                //           icon: 'none',
-                //           success: function () {
-                //             that.setData({
-                //                 workCardFlag: true
-                //             })
-                //           }
-                //       })
-                //   },
+                  fail: function() {
+                      that.setData({
+                          workCardFlag: true
+                      })
+                  },
               })
             }
         },

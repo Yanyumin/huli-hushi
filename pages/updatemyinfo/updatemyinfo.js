@@ -300,21 +300,18 @@ Page({
                       },
                   })
               },
-            //   fail: function() {
-            //       wx.showToast({
-            //           title: '选择图片失败,请检查网络并重新上传',
-            //           icon: 'none',
-            //           success: function () {
-            //             that.setData({
-            //               logoFlag: true
-            //             })
-            //           }
-            //       })
-            //   },
+              fail: function() {
+                that.setData({
+                    logoFlag: true
+                })
+              },
           })
         }
     },
     GetNurseSchedule() {
+        if (this.data.ScheduleNoArr.length > 0) {
+            return
+        }
         wx.showLoading({
             title: '加载中',
         })
@@ -423,14 +420,8 @@ Page({
                           })
                       },
                     fail: function() {
-                        wx.showToast({
-                            title: '图片上传失败,请重新上传',
-                            icon: 'none',
-                            success: function () {
-                                that.setData({
-                                    img1Flag: true
-                                })
-                            }
+                        that.setData({
+                            img1Flag: true
                         })
                     },
                   })
@@ -481,6 +472,7 @@ Page({
   //上传身份证反面图片
   upload1: function (e) {
       var that = this;
+      debugger
       if (that.data.img2Flag) {
         that.setData({
           img2Flag: false
@@ -538,17 +530,11 @@ Page({
                       },
                   })
               },
-            //   fail: function() {
-            //       wx.showToast({
-            //           title: '选择图片失败,请检查网络并重新上传',
-            //           icon: 'none',
-            //           success: function () {
-            //             that.setData({
-            //                 img2Flag: true
-            //             })
-            //           }
-            //       })
-            //   },
+              fail: function() {
+                that.setData({
+                    img2Flag: true
+                })
+              },
           })
     //     }, 2000)
       }
@@ -682,17 +668,11 @@ Page({
                         },
                     })
                 },
-                // fail: function() {
-                //     wx.showToast({
-                //         title: '选择图片失败,请检查网络并重新上传',
-                //         icon: 'none',
-                //         success: function () {
-                //             that.setData({
-                //                 practisingcardFlag: true
-                //             })
-                //         }
-                //     })
-                // },
+                fail: function() {
+                    that.setData({
+                        practisingcardFlag: true
+                    })
+                },
             })
         }
   },
@@ -755,17 +735,11 @@ Page({
                        },
                    })
                },
-            //    fail: function() {
-            //        wx.showToast({
-            //            title: '选择图片失败,请检查网络并重新上传',
-            //            icon: 'none',
-            //            success: function () {
-            //             that.setData({
-            //                 workFlag: true
-            //             })
-            //            }
-            //        })
-            //    },
+               fail: function() {
+                    that.setData({
+                        workFlag: true
+                    })
+               },
            })
        }
    },
@@ -783,6 +757,9 @@ workCertificateAdd: function (e) {
 },
 GetNurseDepart() {
     let that = this
+    if (that.data.DepartmentArr.length > 0) {
+        return
+    }
     wx.showLoading({
         title: '加载中',
       })

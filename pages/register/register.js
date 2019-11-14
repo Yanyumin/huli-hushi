@@ -193,6 +193,9 @@ Page({
         });
     },
     GetHospitallName() {
+        if (this.data.hospitalArray.length > 0) {
+            return
+        }
         request({
             url: 'NurseRegister/GetHospital',
             method: 'GET'

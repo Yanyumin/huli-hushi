@@ -236,22 +236,19 @@ Page({
                         },
                     })
                 },
-                // fail: function() {
-                //     wx.showToast({
-                //         title: '选择图片失败,请检查网络并重新上传',
-                //         icon: 'none',
-                //         success: function () {
-                //             that.setData({
-                //                 logoFlag: true
-                //             })
-                //         }
-                //     })
-                // },
+                fail: function() {
+                    that.setData({
+                        logoFlag: true
+                    })
+                },
             })
         //   }, 2000)
         }
     },
     GetNurseSchedule() {
+        if (this.data.ScheduleNoArr.length > 0) {
+            return
+        }
         wx.showLoading({
             title: '加载中',
           })
@@ -282,6 +279,9 @@ Page({
         })
     },
     GetNurseDepart() {
+        if (this.data.DepartmentArr.length > 0) {
+            return
+        }
         wx.showLoading({
             title: '加载中',
           })
