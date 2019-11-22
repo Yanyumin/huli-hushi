@@ -40,7 +40,7 @@
                             <van-button type="primary" size="large" class="btn-area"  bind:click="handleLogin">登录</van-button>
                         </view>
                     </view>
-                    <view class='tips'>未注册手机验证后自动注册</view>
+                    <!-- <view class='tips'>未注册手机验证后自动注册</view> -->
                     <view class="protocol">
                         <van-checkbox shape="square" value="{{ checked }}" checked-color="#07c160" bind:change="handlebtn">
                             我同意
