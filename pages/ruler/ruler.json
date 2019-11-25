@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "规章",
+  "usingComponents": {
+    "none": "../../components/none/none"
+  }
+}

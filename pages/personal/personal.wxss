@@ -47,6 +47,9 @@
 .accept {
   background: #f39d8b;
 }
+.ruler {
+  background: #e0ac5f;
+}
 .iconBox image {
   width: 50rpx;
   height: 50rpx;

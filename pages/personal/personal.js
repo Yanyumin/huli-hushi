@@ -40,6 +40,12 @@ Page({
                 text: '允许收取订阅消息',
                 event: 'toAccept',
                 class: 'accept'
+            },
+            {
+                img: '../../img/ruler.png',
+                text: '互联网+护理相关规章',
+                event: 'toRuler',
+                class: 'ruler'
             }
         ],
         isAcceptTemp: false,
@@ -75,6 +81,11 @@ Page({
     toUpdateInfo () {
         wx.navigateTo({
             url: '../updatemyinfo/updatemyinfo',
+        })
+    },
+    toRuler () {
+        wx.navigateTo({
+            url: '../ruler/ruler',
         })
     },
     callback (res) {

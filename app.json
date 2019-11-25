@@ -25,7 +25,8 @@
     "pages/schedule/schedule",
     "pages/pingjia/pingjia",
     "pages/forgetPwdO/forgetPwdO",
-    "pages/fogetPwdT/forgetPwdT"
+    "pages/fogetPwdT/forgetPwdT",
+    "pages/ruler/ruler"
   ],
   "tabBar": {
     "color": "#a9b7b7",

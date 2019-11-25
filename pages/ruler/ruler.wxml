@@ -1,0 +1,17 @@
+<!--pages/ruler/ruler.wxml-->
+<view class="rulerContainer">
+  <!-- <van-cell wx:for="{{datas}}" data-index="{{index}}" wx:key="{{index}}" bind:click="clickItems" is-link>
+    <view slot="title">
+      <view class="van-cell-text">
+        <block>{{item.OrgName}}</block>
+      </view>
+    </view>
+  </van-cell> -->
+  <view class="itemCell" wx:for="{{datas}}" data-index="{{index}}" wx:key="{{index}}" bind:tap="clickItems">
+    <view class="title">{{item.OrgName}}</view>
+    <view class="link">
+      <van-icon name="arrow" />
+    </view>
+  </view>
+  <none wx:if="{{datas.length == 0}}"></none>
+</view>

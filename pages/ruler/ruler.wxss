@@ -1,0 +1,20 @@
+/* pages/ruler/ruler.wxss */
+.rulerContainer .van-cell-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rulerContainer .itemCell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 34rpx;
+  font-size: 34rpx;
+  border-bottom: 1px solid #e5e5e5;
+  color: #666;
+}
+.rulerContainer .itemCell .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
