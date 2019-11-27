@@ -48,3 +48,12 @@
     padding: 10rpx;
     box-sizing: border-box;
 }
+.explainText{
+  text-align: justify;
+}
+.nowTime {
+  position: absolute;
+  top: 2rpx;
+  right: 24rpx;
+  font-size: 24rpx;
+}

@@ -47,3 +47,7 @@
     <van-button class="sureCancel" type="primary" bindtap='sureCancel'>确定</van-button>
     <van-button class="falseCancel" color="gray" bindtap='falseCancel'>取消</van-button>
 </van-popup>
+<van-popup show="{{ explainShow }}">
+    <text class="nowTime">{{explainTime}} 秒后关闭</text>
+    <view class="explainText">加强社会与舆论监督。试点医疗应在互联网信息平台公布电话、信箱等投诉建议方式，在与服务对象签订的服务协议中明确投诉建议途经，主动接受社会和舆论的监督。市卫生健康行政部门监督投诉电话为：020-81074359</view>
+</van-popup>

@@ -275,6 +275,138 @@
                     </view>
                 </view>
                 <view class="assess_list">
+                    <view class="assess_title">饮食</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' wx:if="{{allDetails.ys == 0}}" name='answer' bindchange='radioChangeYs' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                自行进食
+                            </label>
+                            <label class='radio'>
+                                <radio value="2" color='#03c173' />
+                                协助进食
+                            </label>
+                            <label class='radio'>
+                                <radio value="3" color='#03c173' />
+                                经鼻胃管
+                            </label>
+                            <label class='radio'>
+                                <radio value="4" color='#03c173' />
+                                经鼻肠管
+                            </label>
+                            <label class='radio'>
+                                <radio value="5" color='#03c173' />
+                                胃肠造痿管
+                            </label>
+                        </radio-group>
+                        <text wx:else>{{renderData.ys[allDetails.ys-1]}}</text>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">睡眠</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' wx:if="{{allDetails.sm == 0}}" name='answer' bindchange='radioChangeSm' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                正常
+                            </label>
+                            <label class='radio'>
+                                <radio value="2" color='#03c173' />
+                                难入睡
+                            </label>
+                            <label class='radio'>
+                                <radio value="3" color='#03c173' />
+                                易醒
+                            </label>
+                            <label class='radio'>
+                                <radio value="4" color='#03c173' />
+                                早醒
+                            </label>
+                            <label class='radio'>
+                                <radio value="5" color='#03c173' />
+                                多梦
+                            </label>
+                            <label class='radio'>
+                                <radio value="6" color='#03c173' />
+                                使用辅助药物
+                            </label>
+                        </radio-group>
+                        <text wx:else>{{renderData.sm[allDetails.sm-1]}}</text>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">皮肤状况</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' wx:if="{{allDetails.pfzk == 0}}" name='answer' bindchange='radioChangePfzk' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                完整
+                            </label>
+                            <label class='radio'>
+                                <radio value="2" color='#03c173' />
+                                苍白
+                            </label>
+                            <label class='radio'>
+                                <radio value="3" color='#03c173' />
+                                黄染
+                            </label>
+                            <label class='radio'>
+                                <radio value="4" color='#03c173' />
+                                潮红
+                            </label>
+                            <label class='radio'>
+                                <radio value="5" color='#03c173' />
+                                紫绀
+                            </label>
+                            <label class='radio'>
+                                <radio value="6" color='#03c173' />
+                                干燥
+                            </label>
+                            <label class='radio'>
+                                <radio value="7" color='#03c173' />
+                                出血点
+                            </label>
+                            <label class='radio'>
+                                <radio value="8" color='#03c173' />
+                                压疮
+                            </label>
+                            <label class='radio'>
+                                <radio value="9" color='#03c173' />
+                                破损
+                            </label>
+                            <label class='radio'>
+                                <radio value="10" color='#03c173' />
+                                水肿
+                            </label>
+                            <label class='radio'>
+                                <radio value="11" color='#03c173' />
+                                皮疹
+                            </label>
+                        </radio-group>
+                        <text wx:else>{{renderData.pfzk[allDetails.pfzk-1]}}</text>
+                    </view>
+                </view>
+                <view class="assess_list">
+                    <view class="assess_title">语言表达</view>
+                    <view class="assess_checked">
+                        <radio-group class='radio-group' wx:if="{{allDetails.yybd == 0}}" name='answer' bindchange='radioChangeYybd' data-name='{{item.name}}'>
+                            <label class='radio'>
+                                <radio value="1" color='#03c173' />
+                                清楚
+                            </label>
+                            <label class='radio'>
+                                <radio value="2" color='#03c173' />
+                                含糊
+                            </label>
+                            <label class='radio'>
+                                <radio value="3" color='#03c173' />
+                                失语
+                            </label>
+                        </radio-group>
+                        <text wx:else>{{renderData.yybd[allDetails.yybd-1]}}</text>
+                    </view>
+                </view>
+                <view class="assess_list">
                     <view class="assess_title">评估等级</view>
                     <view class="assess_checked">
                         <radio-group class='radio-group' wx:if="{{allDetails.pgdj == -1}}" name='answer' bindchange='radioChangePgdj' data-name='{{item.name}}'>

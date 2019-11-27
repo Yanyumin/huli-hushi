@@ -56,6 +56,10 @@ Page({
         xlzt: '',
         gmywsw: '',
         isPinggu: false,
+        ys: '',
+        sm: '',
+        pfzk: '',
+        yybd: '',
         hldj: '',
         add:'',
         //到达打卡
@@ -166,6 +170,10 @@ Page({
             Zznl: ['正常', '全瘫', '截瘫', '偏瘫'],
             Pgdj: ['一般', '病重', '病危'],
             Hldj: ['一级', '二级', '三级', '特级'],
+            ys: ['自行进食', '协助进食', '经鼻胃管', '经鼻肠管', '胃肠造痿管'],
+            sm: ['正常', '难入睡', '易醒', '早醒', '多梦', '使用辅助药物'],
+            pfzk: ['完整', '苍白', '黄染', '潮红', '紫绀', '干燥', '出血点', '压疮', '破损', '水肿', '皮疹'],
+            yybd: ['清楚', '含糊', ]
         },
         showCancel: false,
         Cancelremark: ''
@@ -824,6 +832,26 @@ Page({
             zznl: e.detail.value
         })
     },
+    radioChangeYs: function (e) {
+        this.setData({
+            ys: e.detail.value
+        })
+    },
+    radioChangeSm: function (e) {
+        this.setData({
+            sm: e.detail.value
+        })
+    },
+    radioChangePfzk: function (e) {
+        this.setData({
+            pfzk: e.detail.value
+        })
+    },
+    radioChangeYybd: function (e) {
+        this.setData({
+            yybd: e.detail.value
+        })
+    },
     radioChangePgdj: function (e) {
         this.setData({
             pgdj: e.detail.value
@@ -1006,7 +1034,19 @@ Page({
         } else if (!this.data.zznl) {
             Toast.fail('请选择自主能力');
             return
-        } else if (!this.data.pgdj) {
+        }  else if (!this.data.ys) {
+            Toast.fail('请选择饮食');
+            return
+        } else if (!this.data.sm) {
+            Toast.fail('请选择睡眠');
+            return
+        } else if (!this.data.pfzk) {
+            Toast.fail('请选择皮肤状况');
+            return
+        } else if (!this.data.yybd) {
+            Toast.fail('请选择语言表达');
+            return
+        }else if (!this.data.pgdj) {
             Toast.fail('请选择评估等级');
             return
         } else if (!this.data.hldj) {
@@ -1024,6 +1064,10 @@ Page({
                     dxb: that.data.dxb,
                     yszt: that.data.yszt,
                     zznl: that.data.zznl,
+                    ys: that.data.ys,
+                    sm: that.data.sm,
+                    pfzk: that.data.pfzk,
+                    yybd: that.data.yybd,
                     pgdj: that.data.pgdj,
                     hldj: that.data.hldj
                 }

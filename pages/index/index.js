@@ -20,7 +20,10 @@ Page({
     todayServiceShow: false,
     show: false,
     remark: '',
-    cancelOrderId: ''
+    cancelOrderId: '',
+    explainShow: true,
+    explainTimer: '',
+    explainTime: 3
   },
   remarkChange: function (e) {
       this.setData({
@@ -86,6 +89,9 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
+    if (!wx.getStorageSync('userInfo').Id) {
+      wx.setStorageSync('explainShow', false)
+    }
     request({
       url: 'NurseOrder/GetNurseList',
       data: {
@@ -139,6 +145,10 @@ Page({
                 success: function () {
                   that.getList()
                   that.getTodayList()
+                  that.setData({
+                    showEvent: false,
+                    todayServiceShow: true
+                  })
                 }
             })
         }
@@ -209,6 +219,33 @@ Page({
         url: '../pingjia/pingjia?id=' + e.detail.value
       })
   },
+  explainTimer () {
+    let self = this
+    let explainShow = wx.getStorageSync("explainShow")
+    self.setData({
+      explainShow
+    })
+    if (self.data.explainShow !== '' && self.data.explainShow !== null && !self.data.explainShow) {
+      return
+    }
+    self.setData({
+      explainShow: true
+    })
+    self.data.explainTimer = setInterval(() => {
+      if (self.data.explainTime) {
+        let explainTime = self.data.explainTime - 1
+        self.setData({
+          explainTime
+        })
+      } else {
+        self.setData({
+          explainShow: false
+        })
+        wx.setStorageSync('explainShow', false)
+        clearInterval(self.data.explainTimer)
+      }
+    }, 1000)
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -277,7 +314,7 @@ Page({
   onShow: function () {
     this.getList()
     this.getTodayList()
-    
+    this.explainTimer()
    
   },
 

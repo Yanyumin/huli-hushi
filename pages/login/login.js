@@ -65,6 +65,7 @@ Page({
                           }
                           wx.setStorageSync('userInfo', res.data.row)
                           wx.setStorageSync('haveInfo', res.data.Result)
+                          wx.setStorageSync('explainShow', true)
                           wx.switchTab({
                               url: '../index/index'
                           })

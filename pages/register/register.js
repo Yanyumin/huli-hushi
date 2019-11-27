@@ -90,6 +90,7 @@ Page({
                         icon: 'success',
                         duration: 3000,
                         success: function () {
+                            wx.setStorageSync('explainShow', true)
                             wx.navigateTo({
                                 url: '../perfectmyinfo/perfectmyinfo'
                             })
