@@ -277,7 +277,7 @@
                 <view class="assess_list">
                     <view class="assess_title">饮食</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' wx:if="{{allDetails.ys == 0}}" name='answer' bindchange='radioChangeYs' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.ys == -1}}" name='answer' bindchange='radioChangeYs' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 自行进食
@@ -305,7 +305,7 @@
                 <view class="assess_list">
                     <view class="assess_title">睡眠</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' wx:if="{{allDetails.sm == 0}}" name='answer' bindchange='radioChangeSm' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.sm == -1}}" name='answer' bindchange='radioChangeSm' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 正常
@@ -337,7 +337,7 @@
                 <view class="assess_list">
                     <view class="assess_title">皮肤状况</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' wx:if="{{allDetails.pfzk == 0}}" name='answer' bindchange='radioChangePfzk' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.pfzk == -1}}" name='answer' bindchange='radioChangePfzk' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 完整
@@ -389,7 +389,7 @@
                 <view class="assess_list">
                     <view class="assess_title">语言表达</view>
                     <view class="assess_checked">
-                        <radio-group class='radio-group' wx:if="{{allDetails.yybd == 0}}" name='answer' bindchange='radioChangeYybd' data-name='{{item.name}}'>
+                        <radio-group class='radio-group' wx:if="{{allDetails.yybd == -1}}" name='answer' bindchange='radioChangeYybd' data-name='{{item.name}}'>
                             <label class='radio'>
                                 <radio value="1" color='#03c173' />
                                 清楚

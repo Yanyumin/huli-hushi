@@ -239,6 +239,8 @@ Page({
                                        overTime: time,
                                         overImg: data.ResultMsg
                                     })
+                                    //    用微信提供的api获取经纬度
+                                    that.getWXLocation(1)
                                 }
                             },
                             fail: function() {
@@ -250,8 +252,6 @@ Page({
                                 })
                             },
                         })
-                        //    用微信提供的api获取经纬度
-                        that.getWXLocation(1)
                     },
                     // fail: function() {
                     //     wx.showToast({
@@ -1125,7 +1125,7 @@ Page({
 		},
     getWXLocation (type) {
 			/* 
-				type= 1=>结束打卡
+				type= 1=>离开打卡
 				type= 2=>到达安全地点打卡
 				type= 3=>护理结束打卡
 				type= 4=>护理前打卡
