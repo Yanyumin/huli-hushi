@@ -23,7 +23,7 @@ Page({
     cancelOrderId: '',
     explainShow: true,
     explainTimer: '',
-    explainTime: 3
+    explainTime: 5
   },
   remarkChange: function (e) {
       this.setData({

@@ -17,7 +17,6 @@ Page({
      */
     onLoad: function (options) {
         let totalPrice = this.data.narcosis + this.data.blood + this.data.cloth
-        
         let costList = wx.getStorageSync('UnitList')
         let price = 0
         for (let i in costList) {
@@ -25,7 +24,7 @@ Page({
         }
         this.setData({
             costList: costList,
-            totalPrice: price
+            totalPrice: price.toFixed(2)
         })
     },
 

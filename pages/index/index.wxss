@@ -38,6 +38,7 @@
     width: 74%;
     text-align: center;
     padding: 40rpx;
+    z-index: 10001 !important;
 }
 .cancelMsg {
     width: 100%;
