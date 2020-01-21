@@ -5,7 +5,7 @@
             bindstartService="startService"
             bindacceptService="acceptService"
             bindchange="clickOrder"
-            bind:cancelService='sureCancel'
+            bind:cancelService='cancelService'
             bind:toAppraise='toAppraise'
             bind:toquxiao='toquxiao'
             datas="{{oderList}}"
@@ -18,7 +18,7 @@
             bindacceptService="acceptService"
             bindcancelService="cancelService"
             bindchange="clickOrder"
-            bind:cancelService='sureCancel'
+            bind:cancelService='cancelService'
             bind:toAppraise='toAppraise'
             data-status="{{oderList1[0].status}}"
             datas="{{oderList1}}">
@@ -30,7 +30,7 @@
          <orderItem
              bindstartService="startService"
              bindchange="clickOrder"
-            bind:cancelService='sureCancel'
+            bind:cancelService='cancelService'
             bind:toAppraise='toAppraise'
              data-status="{{oderList2[0].status}}"
              datas="{{oderList2}}">
@@ -46,7 +46,7 @@
             datas="{{oderList3}}"
              bindstartService="startService"
             bindchange="clickOrder"
-            bind:cancelService='sureCancel'
+            bind:cancelService='cancelService'
             bind:toAppraise='toAppraise'
             bind:toquxiao='toquxiao'
             data-status="{{oderList3[0].status}}">
@@ -57,7 +57,7 @@
         <orderItem
             datas="{{oderList6}}"
             bindchange="clickOrder"
-            bind:cancelService='sureCancel'
+            bind:cancelService='cancelService'
             bind:toAppraise='toAppraise'
             bind:toquxiao='toquxiao'
             data-status="{{oderList6[0].status}}">
@@ -69,7 +69,7 @@
             bindtoAppraise="toAppraise"
              datas="{{oderList4}}"
              bindchange="clickOrder" 
-            bind:cancelService='sureCancel'
+            bind:cancelService='cancelService'
             bind:toAppraise='toAppraise'
              data-status="{{oderList4[0].status}}">
         </orderItem>
@@ -79,7 +79,7 @@
         <orderItem 
             datas="{{oderList5}}"
             bindchange="clickOrder" 
-            bind:cancelService='sureCancel'
+            bind:cancelService='cancelService'
             bind:toAppraise='toAppraise'
             data-status="{{oderList5[0].status}}">
         </orderItem>

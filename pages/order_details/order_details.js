@@ -347,14 +347,6 @@ Page({
                           },
                       })
                   },
-                //   fail: function() {
-                //       wx.showToast({
-                //           title: '选择图片失败,请检查网络并重新上传',
-                //           icon: 'none',
-                //           success: function () {
-                //           }
-                //       })
-                //   },
               })
         }else{
              Toast.fail('上一步未操作');
@@ -407,14 +399,6 @@ Page({
                          },
                      })
                  },
-                //  fail: function() {
-                //      wx.showToast({
-                //          title: '选择图片失败,请检查网络并重新上传',
-                //          icon: 'none',
-                //          success: function () {
-                //          }
-                //      })
-                //  },
              })
 
         } else {
@@ -463,14 +447,6 @@ Page({
                     
 
                 },
-                // fail: function() {
-                //     wx.showToast({
-                //         title: '选择图片失败,请检查网络并重新上传',
-                //         icon: 'none',
-                //         success: function () {
-                //         }
-                //     })
-                // },
             })
         } else {
             Toast.fail('上一步未操作');
@@ -516,14 +492,6 @@ Page({
                })
 
            },
-        //    fail: function() {
-        //        wx.showToast({
-        //            title: '选择图片失败,请检查网络并重新上传',
-        //            icon: 'none',
-        //            success: function () {
-        //            }
-        //        })
-        //    },
        })
 
 
@@ -592,11 +560,6 @@ Page({
                                     arriveTime: time2,
                                     arriveImg: data.ResultMsg
                                 })
-                                // let myOneClok = wx.getStorageSync('myOneClok')
-                                //         myOneClok.arriveClock = that.arriveClock,
-                                //         myOneClok.goOuttime =that.goOuttime,
-                                //         myOneClok.arriveTime = that.goOutAddress,
-                                //         myOneClok.arriveImg = that.goOutImg
                                 //    用微信提供的api获取经纬度
                                 that.getWXLocation(6)
                             }
@@ -1461,34 +1424,47 @@ Page({
             wx.navigateTo({
                 url: '../costList/costList?id=' + this.data.orderId
             })
-            // request({
-            //     url: 'NurseOrder/NurseAssessment',
-            //     data: {
-            //         orderId: that.data.orderId,
-            //         gmywsw: that.data.gmywsw,
-            //         xlzt: that.data.xlzt,
-            //         xy: that.data.xy,
-            //         yj: that.data.yj,
-            //         dxb: that.data.dxb,
-            //         yszt: that.data.yszt,
-            //         zznl: that.data.zznl,
-            //         pgdj: that.data.pgdj,
-            //         hldj: that.data.hldj
-            //     }
-            // }).then(res => {
-            //     console.log(res);
-
-            //     if (res.data.ResultCode === '0') {
-            //         wx.navigateTo({
-            //             url: '../costList/costList?id=' + this.data.orderId
-            //         })
-            //     } else {
-            //         Toast.fail(res.data.ResultMsg);
-            //     }
-            // })
         } else {
             Toast.fail('上一步未操作');
         }
+    },
+    getOCRInfo () {
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['compressed'],
+            sourceType: ['album', 'camera'],
+            success(res) {
+                const tempFilePaths = res.tempFilePaths
+                wx.uploadFile({
+                    method: "POST",
+                    url: 'https://api.gdbkyz.com/AppUser/api/ImgFile/SaveImages',
+                    filePath: tempFilePaths[0],
+                    name: 'file',
+                    success: function (res) {
+                        let data = JSON.parse(res.data)
+                        if (res.statusCode == 200) {
+                            that.setData({
+                                patientImg: data.ResultMsg,
+                                attestation: true
+                            })
+
+                            let patientImg = that.data.patientImg
+                            let imgsArr = []
+                            imgsArr.push(arriveImg)
+                            imgsArr.push(patientImg)
+                        }
+                    },
+                    fail: function() {
+                        wx.showToast({
+                            title: '图片上传失败,请重新上传',
+                            icon: 'none',
+                            success: function () {
+                            }
+                        })
+                    },
+                })
+            },
+        })
     },
     /**
      * 生命周期函数--监听页面加载

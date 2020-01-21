@@ -108,11 +108,16 @@
                         <view class="weiren"> <text wx:if="{{allDetails.TwoImg ||  isArrive}}"  style="background-color:  #03c173;">已认证</text>
                       <text wx:else="{{!allDetails.TwoImg}}" style="background-color: red;">未认证</text></view>
                     </view> 
-                    <view   wx:if="{{!allDetails.TwoConfirmTime}}" class="info_input">
-                        <van-cell-group>
-                            <van-field value="{{ patientName }}" disabled="{{isArrive ? true : false}}" label="患者姓名:" placeholder="请输入患者姓名" border="{{ false }}" bind:change="onChangeName" />
-                            <van-field value="{{ idenNo }}" disabled="{{isArrive ? true : false}}" label="身份证号码:" placeholder="请输入患者姓身份证号码" border="{{ false }}" bind:change="onChangeCode" />
-                        </van-cell-group>
+                    <view   wx:if="{{!allDetails.TwoConfirmTime}}" class="info_input patientInfo">
+                        <!-- <view class='inputBox'> -->
+                            <van-cell-group>
+                                <van-field value="{{ patientName }}" disabled="{{isArrive ? true : false}}" label="患者姓名:" placeholder="请输入患者姓名" border="{{ false }}" bind:change="onChangeName" />
+                                <van-field value="{{ idenNo }}" disabled="{{isArrive ? true : false}}" label="身份证号码:" placeholder="请输入患者姓身份证号码" border="{{ false }}" bind:change="onChangeCode" />
+                            </van-cell-group>
+                        <!-- </view> -->
+                        <!-- <view class="buttonBox" bindtap='getOCRInfo'>
+                            身份证正面
+                        </view> -->
                     </view>
                     <view class="photos">
                         <view class="photos_position">

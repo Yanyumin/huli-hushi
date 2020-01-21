@@ -246,6 +246,33 @@ Page({
       }
     }, 1000)
   },
+  getHospAgreement () {
+    let that = this
+    request({
+        url: 'GetCustomOrderTemplate',
+        data:{
+          Id: 589,
+          Key: 'Order'
+        }
+    }).then(res => {
+        if (res.data.ResultCode === '0') {
+        }
+
+    })
+  },
+  getHospAuthLetter () {
+    let that = this
+    request({
+        url: 'GetSingleTemplate',
+        data:{
+          Key: 'Consent'
+        }
+    }).then(res => {
+        if (res.data.ResultCode === '0') {
+        }
+
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -299,6 +326,8 @@ Page({
 
          }
      })
+     this.getHospAgreement()
+     this.getHospAuthLetter()
   },
 
   /**
